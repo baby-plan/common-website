@@ -1,0 +1,177 @@
+<div class="row">
+  <div class="col-xs-12">
+    <div class="alert alert-block alert-info">
+      <p>服务器运行时间</p>
+      <p id="uptime"></p>
+      <p style="display:none" class="visible-xs">xs-visible</p>
+      <p style="display:none" class="visible-sm">sm-visible</p>
+      <p style="display:none" class="visible-md">md-visible</p>
+      <p style="display:none" class="visible-lg">lg-visible</p>
+    </div>
+  </div>
+</div>
+
+<div class="row text-center">
+  <div class="col-xs-6 col-sm-4 col-lg-2">
+    <div class="panel padder-v blue-bg">
+      <div class="h1 font-thin h1">Online</div>
+      <span class="text-muted text-xs">状态</span>
+    </div>
+  </div>
+  <div class="col-xs-6 col-sm-4 col-lg-2">
+    <div class="panel padder-v lazur-bg">
+      <div class="h1 font-thin h1">521</div>
+      <span class="text-muted text-xs">今日访问</span>
+    </div>
+  </div>
+  <div class="col-xs-6 col-sm-4 col-lg-2">
+    <div class="panel padder-v red-bg">
+      <div class="h1 font-thin h1" id="freemem"></div>
+      <span class="text-muted text-xs">可用内存</span>
+    </div>
+  </div>
+  <div class="col-xs-6 col-sm-4 col-lg-2">
+    <div class="panel padder-v yellow-bg">
+      <div class="font-thin h1" id="totalmem"></div>
+      <span class="text-muted text-xs">总内存</span>
+    </div>
+  </div>
+  <div class="col-xs-6 col-sm-4 col-lg-2">
+    <div class="panel padder-v yellow-bg">
+      <div class="font-thin h1">$129</div>
+      <span class="text-muted text-xs">运行时间</span>
+    </div>
+  </div>
+  <div class="col-xs-6 col-sm-4 col-lg-2">
+    <div class="panel padder-v yellow-bg">
+      <div class="font-thin h1">$129</div>
+      <span class="text-muted text-xs">运行时间</span>
+    </div>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-xs-12 col-lg-6 ">
+    <div class="panel">
+      <div class="panel-heading">
+        <h4 class="panel-title">服务器信息 | Server Information</h4>
+      </div>
+      <div class="panel-body">
+        <div class="form-group">
+          <label class="col-sm-3 control-label">临时目录</label>
+          <label id="temp" class="col-sm-9 control-label"></label>
+        </div>
+        <div class="form-group">
+          <label class="col-sm-3 control-label">主机名称</label>
+          <label id="hostname" class="col-sm-9 control-label"></label>
+        </div>
+        <div class="form-group">
+          <label class="col-sm-3 control-label">操作系统</label>
+          <label id="type" class="col-sm-9 control-label"></label>
+        </div>
+        <div class="form-group">
+          <label class="col-sm-3 control-label">平台架构</label>
+          <label id="platform" class="col-sm-9 control-label"></label>
+        </div>
+        <div class="form-group">
+          <label class="col-sm-3 control-label">系统版本</label>
+          <label id="release" class="col-sm-9 control-label"></label>
+        </div>
+        <div class="form-group">
+          <label class="col-sm-3 control-label">CPU 架构</label>
+          <label id="arch" class="col-sm-9 control-label"></label>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-sm-12">
+    <div class="panel">
+      <div class="panel-heading">
+        <h4 class="panel-title">CPU 信息 | CPU Information</h4>
+      </div>
+      <div class="panel-body">
+        <p>所安装的每个 CPU/内核的信息：型号、速度（单位 MHz）、时间（一个包含 user、nice、sys、idle 和 irq 所使用 CPU/内核毫秒数的对象）。</p>
+        <div class="row" id="cpus"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-sm-12">
+    <div class="panel">
+      <div class="panel-heading">
+        <h4 class="panel-title">网卡 信息 | Network Information</h4>
+      </div>
+      <div class="panel-body">
+        <p>所安装的每个网卡的信息</p>
+        <div class="row" id="networks"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script id="cpu_data" type="text/x-jquery-tmpl">
+  <div class="col-xs-12 col-sm-6 col-lg-3">
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h4 class="panel-title">${$data.model}</h4>
+      </div>
+      <div class="panel-body">
+        <div class="form-group">
+          <label class="col-sm-3 control-label">Speed</label>
+          <label class="col-sm-9 control-label">${$data.speed}</label>
+        </div>
+        <div class="form-group">
+          <label class="col-sm-3 control-label">user</label>
+          <label class="col-sm-9 control-label">${$data.times.user}</label>
+        </div>
+        <div class="form-group">
+          <label class="col-sm-3 control-label">nice</label>
+          <label class="col-sm-9 control-label">${$data.times.nice}</label>
+        </div>
+        <div class="form-group">
+          <label class="col-sm-3 control-label">sys</label>
+          <label class="col-sm-9 control-label">${$data.times.sys}</label>
+        </div>
+        <div class="form-group">
+          <label class="col-sm-3 control-label">idle</label>
+          <label class="col-sm-9 control-label">${$data.times.idle}</label>
+        </div>
+        <div class="form-group">
+          <label class="col-sm-3 control-label">irq</label>
+          <label class="col-sm-9 control-label">${$data.times.irq}</label>
+        </div>
+      </div>
+    </div>
+  </div>
+</script>
+
+<script id="network_data" type="text/x-jquery-tmpl">
+  <div class="col-xs-12 col-md-12 col-lg-6">
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h4 class="panel-title">${$data.name}</h4>
+      </div>
+      <div class="panel-body">
+        {{each(index,network) $data}}
+        <div class="form-group">
+          <label class="col-sm-4 control-label">${network.family} MAC地址</label>
+          <label class="col-sm-8 control-label">${network.mac}</label>
+        </div>
+        <div class="form-group">
+          <label class="col-sm-4 control-label">${network.family} IP地址</label>
+          <label class="col-sm-8 control-label">${network.address}</label>
+        </div>
+        <div class="form-group">
+          <label class="col-sm-4 control-label">${network.family} 子网掩码</label>
+          <label class="col-sm-8 control-label">${network.netmask}</label>
+        </div>
+        {{/each}}
+      </div>
+    </div>
+  </div>
+</script>

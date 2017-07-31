@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
+  <style type="text/css">
+    body,
+    html,
+    #allmap {
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      margin: 0;
+      font-family: "微软雅黑";
+    }
+  </style>
+  <script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=LM6lFLGQcSWBFop0DC2uCeGL"></script>
+  <script type="text/javascript" src="http://api.map.baidu.com/library/TextIconOverlay/1.2/src/TextIconOverlay_min.js"></script>
+  <script type="text/javascript" src="http://api.map.baidu.com/library/MarkerClusterer/1.2/src/MarkerClusterer_min.js"></script>
+  <title>百度地图展示</title>
+</head>
+
+<body>
+  <div id="allmap"></div>
+</body>
+
+</html>
+<script type="text/javascript">
+  // 百度地图API功能
+  var map = new BMap.Map("allmap"); // 创建Map实例
+  map.centerAndZoom("北京", 15);
+  map.addControl(new BMap.MapTypeControl()); //添加地图类型控件
+  map.enableScrollWheelZoom(true); //开启鼠标滚轮缩放
+
+  map.addControl(new BMap.NavigationControl());
+  map.addControl(new BMap.ScaleControl());
+  map.addControl(new BMap.OverviewMapControl());
+
+  map.addEventListener("dblclick", function () {
+    // alert(map.getMapType().cf + "," + map.getZoom());
+    //map.setCurrentCity("铁岭市");
+  });
+
+  map.addEventListener("tilesloaded", function () {
+
+    // var center = map.getCenter();
+    // alert("地图中心点变更为：" + center.lng + ", " + center.lat);
+  });
+
+
+  var MAX = 10;
+  var markers = [];
+  var pt = null;
+  var i = 0;
+  var points = [];
+  var myIcon = new BMap.Icon("metro.png", new BMap.Size(32, 32));
+
+
+  for (; i < MAX; i++) {
+    pt = new BMap.Point(Math.random() * 0.02 + 116.4, Math.random() * 0.02 + 39.9);
+    points.push(pt);
+    markers.push(new BMap.Marker(pt, {
+      icon: myIcon
+    }));
+  }
+116.398226,39.909697|116.397975,39.90924|116.398029,39.908632|116.398064,39.908161|116.3981,39.907539|116.398118,39.906861|116.399071,39.906833|116.39961,39.906791|116.401442,39.906681|116.402251,39.906625|116.402574,39.906501|116.402394,39.908355|116.402322,39.90931|116.401712,39.909282|116.400652,39.909227|116.399753,39.909185|116.399286,39.909254
+  var polyline = new BMap.Polyline(points, {
+    strokeColor: "blue",
+    strokeWeight: 2,
+    strokeOpacity: 0.5
+  }); //创建折线
+  map.addOverlay(polyline); //增加折线
+  // map.addOverlay(new BMap.Marker(new BMap.Point(116.399, 39.910), {
+  //   icon: myIcon
+  // })); // 将标注添加到地图中
+  // map.addOverlay(new BMap.Marker(new BMap.Point(116.405, 39.920), {
+  //   icon: myIcon
+  // })); // 将标注添加到地图中
+  // map.addOverlay(new BMap.Marker(new BMap.Point(116.423493, 39.907445), {
+  //   icon: myIcon
+  // })); // 将标注添加到地图中
+
+  //最简单的用法，生成一个marker数组，然后调用markerClusterer类即可。
+  var markerClusterer = new BMapLib.MarkerClusterer(map, {
+    markers: markers
+  });
+</script>

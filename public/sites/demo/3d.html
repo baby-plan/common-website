@@ -1,0 +1,264 @@
+<html>
+
+<head>
+  <title>登录</title>
+  <style>
+    * {
+      -moz-user-select: none;
+      -webkit-user-select: none;
+      user-select: none;
+    }
+
+    body,
+    .cube-face {
+
+      background: url(login-background.jpg) no-repeat center fixed;
+      -webkit-background-size: cover;
+      -moz-background-size: cover;
+      -o-background-size: cover;
+      background-size: cover;
+    }
+
+    footer {
+      bottom: 0px;
+      right: 0px;
+      left: 0px;
+      z-index: 1030;
+      position: fixed;
+      padding-bottom: 5px;
+      padding-top: 5px;
+      border-top: 1px solid #cdd2d2;
+      text-align: center;
+    }
+
+    section {
+      margin: 10% auto 0 auto;
+      overflow: none;
+    }
+
+    .cube-wrap {
+      position: relative;
+      height: 400px;
+      transition: .6s;
+      -webkit-perspective: 2000;
+      -webkit-perspective-origin: 50% 50%;
+    }
+
+    #zoom-cube:checked~.cube-wrap {
+      transform: scale(1.6);
+    }
+
+    input[type=checkbox],
+    input[type=radio] {
+      display: none;
+    }
+
+    .button-wrap {
+      position: absolute;
+      right: 0;
+      top: 0;
+      left: 0;
+      width: 840px;
+      height: 50px;
+      margin: 0 auto;
+      font-size: 0;
+      text-align: center;
+    }
+
+    .button-wrap label {
+      display: inline-block;
+      width: 120px;
+      height: 50px;
+      margin: 0;
+      color: #fff;
+      font-size: 12px;
+      font-weight: bold;
+      line-height: 52px;
+      text-align: center;
+      text-decoration: none;
+      text-transform: uppercase;
+      transition: .3s;
+      background-color: rgba(255, 255, 255, .2);
+      transform: translateY(50px);
+    }
+
+    .button-wrap label:hover {
+      background-color: rgba(255, 255, 255, .3);
+    }
+
+    #show-front:checked~.button-wrap .for-front,
+    #show-back:checked~.button-wrap .for-back,
+    #show-left:checked~.button-wrap .for-left,
+    #show-right:checked~.button-wrap .for-right,
+    #show-top:checked~.button-wrap .for-top,
+    #show-bottom:checked~.button-wrap .for-bottom,
+    #zoom-cube:checked~.button-wrap .for-zoom-cube {
+      background-color: #fff;
+      color: #eb4c89;
+    }
+
+    .cube {
+      position: absolute;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      left: 0;
+      width: 400px;
+      height: 400px;
+      margin: auto;
+      transition: .8s;
+      -webkit-transform-style: preserve-3d;
+      -webkit-transform-origin: 50% 50%;
+      -webkit-backface-visibility: visible;
+    }
+
+    .cube-face {
+      position: relative;
+      outline: 1px solid transparent;
+      outline-offset: -1px;
+
+      /*margin: 10% auto 0 auto;*/
+      /*background: rgba(255, 255, 255, 0.2);*/
+      border: 1px solid rgba(255, 255, 255, .3);
+      -moz-box-shadow: 0 3px 0 rgba(12, 12, 12, 0.03);
+      -webkit-box-shadow: 0 3px 0 rgba(12, 12, 12, 0.03);
+      box-shadow: 0 3px 0 rgba(12, 12, 12, 0.03);
+      -moz-border-radius: 3px;
+      -webkit-border-radius: 3px;
+      border-radius: 3px;
+      /*padding: 30px;*/
+      width: 400px;
+      height: 400px;
+    }
+
+    .cube-face>article {
+      padding: 30px;
+    }
+  </style>
+
+  <style>
+    .cube-face-front {
+      position: absolute;
+      top: 0;
+      left: 0;
+      background-color: #fae48c;
+      transform: translateZ(200px);
+    }
+
+    #show-front:checked~.cube-wrap .cube {
+      -webkit-transform: rotateX(0) rotateY(0) rotateZ(0) translateX(0) translateY(0) translateZ(-400px);
+    }
+
+    .cube-face-back {
+      position: absolute;
+      top: 0;
+      left: 0;
+      background-color: yellowgreen;
+      transform: rotateY(180deg) translateZ(200px);
+    }
+
+    #show-back:checked~.cube-wrap .cube {
+      -webkit-transform: rotateX(0) rotateY(-180deg) rotateZ(0) translateX(0) translateY(0) translateZ(400px);
+    }
+
+    .cube-face-left {
+      background-color: green;
+      position: absolute;
+      top: 0;
+      left: 0;
+      transform: rotateY(90deg) translateZ(200px);
+    }
+
+    #show-left:checked~.cube-wrap .cube {
+      -webkit-transform: rotateX(0) rotateY(-90deg) rotateZ(0) translateX(-400px) translateY(0) translateZ(0);
+    }
+
+    .cube-face-right {
+      position: absolute;
+      top: 0;
+      left: 0;
+      background-color: #9900CC;
+      transform: rotateY(-90deg) translateZ(200px);
+    }
+
+    #show-right:checked~.cube-wrap .cube {
+      -webkit-transform: rotateX(0) rotateY(90deg) rotateZ(0) translateX(400px) translateY(0) translateZ(0);
+    }
+
+    .cube-face-top {
+      position: absolute;
+      top: 0;
+      left: 0;
+      background-color: blue;
+      transform: rotateX(90deg) rotateY(0) rotateZ(0) translateX(0) translateY(0) translateZ(200px);
+    }
+
+    #show-top:checked~.cube-wrap .cube {
+      -webkit-transform: rotateX(-90deg) rotateY(0) rotateZ(0) translateX(0) translateY(400px) translateZ(0);
+    }
+
+    .cube-face-bottom {
+      position: absolute;
+      top: 0;
+      left: 0;
+      background-color: black;
+      transform: rotateX(-90deg) translateZ(200px) rotate(0);
+    }
+
+    #show-bottom:checked~.cube-wrap .cube {
+      -webkit-transform: rotateX(90deg) rotateY(0) rotateZ(0) translateX(0) translateY(-400px) translateZ(0);
+    }
+  </style>
+
+</head>
+
+<body>
+  <header>
+  </header>
+
+  <section>
+    <input type="checkbox" id="zoom-cube">
+    <input type="radio" name="cube-controller" id="show-front" checked>
+    <input type="radio" name="cube-controller" id="show-back">
+    <input type="radio" name="cube-controller" id="show-top">
+    <input type="radio" name="cube-controller" id="show-bottom">
+    <input type="radio" name="cube-controller" id="show-left">
+    <input type="radio" name="cube-controller" id="show-right">
+    <div class="cube-wrap">
+      <div class="cube">
+        <div class="cube-face cube-face-front">
+          <article>cube-face-front</article>
+        </div>
+        <div class="cube-face cube-face-back">
+          <article>cube-face-back</article>
+        </div>
+        <div class="cube-face cube-face-top">
+          <article>cube-face-top</article>
+        </div>
+        <div class="cube-face cube-face-left">
+          <article>cube-face-left</article>
+        </div>
+        <div class="cube-face cube-face-right">
+          <article>cube-face-right</article>
+        </div>
+        <div class="cube-face cube-face-bottom">
+          <article>cube-face-bottom</article>
+        </div>
+      </div>
+    </div>
+    <div class="button-wrap">
+      <label class="for-front" for="show-front">Front</label>
+      <label class="for-back" for="show-back">Back</label>
+      <label class="for-top" for="show-top">Top</label>
+      <label class="for-bottom" for="show-bottom">Bottom</label>
+      <label class="for-left" for="show-left">Left</label>
+      <label class="for-right" for="show-right">Right</label>
+      <label class="for-zoom-cube" for="zoom-cube">Zoom</label>
+    </div>
+  </section>
+  <footer>
+    Copyright Wangxin (c) 2016-2026.
+  </footer>
+</body>
+
+</html>

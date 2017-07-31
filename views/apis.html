@@ -1,0 +1,56 @@
+<html>
+
+<head>
+  <title>
+    <%- title %>
+  </title>
+  <link href="assets/css/api.css" rel="stylesheet" />
+</head>
+
+<body>
+  <header>
+    <span><%- title %></span>
+  </header>
+  <section>
+    <div class="navigation-container">
+      <nav>
+        <% groups.forEach(function(group){ %>
+          <div class="tags-item">
+            <a href="#<%= group %>">
+            <span><%= group %></span>
+          </a>
+          </div>
+          <% }) %>
+      </nav>
+    </div>
+    <div class="content-container">
+      <ul>
+        <% apis.forEach(function(api){ %>
+          <li class="article-item">
+            <div>
+              <p>
+                <%= api.url %>
+                  <% if ( api.auth) { %>
+                    <span>需要权限验证</span>
+                    <% } %>
+              </p>
+              <p>
+                <%= api.description %>
+              </p>
+              <p>
+                <span>
+                  参数|类型|描述|必填项|加密及方式<br/>
+                  :----|:-----:|-----:|-----:|-----:<br/>
+                <% api.rule.forEach(function(rule){ %>
+                <%= rule %><br/>
+                <% }) %>
+                </span>
+            </div>
+          </li>
+          <% }) %>
+      </ul>
+    </div>
+  </section>
+</body>
+
+</html>

@@ -1,0 +1,66 @@
+<div class="page-header">
+	<!-- BEGIN HEADER TOP -->
+	<div class="page-header-top">
+		<div class="container">
+			<!-- BEGIN LOGO -->
+			<div class="page-logo">
+				<a href="/"><img src="assets/img/logo-default.png" alt="logo" class="logo-default"></a>
+			</div>
+			<!-- END LOGO -->
+			<!-- BEGIN RESPONSIVE MENU TOGGLER -->
+			<a href="javascript:;" class="menu-toggler"></a>
+			<!-- END RESPONSIVE MENU TOGGLER -->
+		</div>
+	</div>
+	<!-- END HEADER TOP -->
+	<!-- BEGIN HEADER MENU -->
+	<div class="page-header-menu">
+		<div class="container">
+			<!-- BEGIN HEADER SEARCH BOX -->
+			<form class="search-form" action="extra_search.html" method="GET">
+				<div class="input-group">
+					<input type="text" class="form-control" placeholder="Search" name="query">
+					<span class="input-group-btn">
+					<a href="javascript:;" class="btn submit"><i class="icon-magnifier"></i></a>
+					</span>
+				</div>
+			</form>
+			<!-- END HEADER SEARCH BOX -->
+			<!-- BEGIN MEGA MENU -->
+			<div class="hor-menu">
+				<!-- BEGIN TOP NAVIGATION MENU -->
+				<% include header-navigation.html %>
+				<!-- END TOP NAVIGATION MENU -->
+				<ul class="nav navbar-nav pull-right">
+					<!-- BEGIN NOTIFICATION DROPDOWN -->
+					<li class="dropdown-notification">
+						<a href="javascript:;">
+							<i class="icon-bell"></i>
+							<span class="badge badge-default">7</span>
+						</a>
+					</li>
+					<!-- END NOTIFICATION DROPDOWN -->
+					<!-- BEGIN TODO DROPDOWN -->
+					<li class="dropdown-tasks">
+						<a href="javascript:;">
+							<i class="icon-calendar"></i>
+							<span class="badge badge-default">3</span>
+						</a>
+					</li>
+					<!-- END TODO DROPDOWN -->
+					<li class="droddown dropdown-separator">
+						<span class="separator"></span>
+					</li>
+					<!-- BEGIN USER LOGIN DROPDOWN -->
+					<li class="dropdown dropdown-user dropdown-dark">
+						<% include header-user.html %>
+					</li>
+					<!-- END USER LOGIN DROPDOWN -->
+				</ul>
+
+			</div>
+			<!-- END MEGA MENU -->
+		</div>
+	</div>
+	<!-- END HEADER MENU -->
+</div>

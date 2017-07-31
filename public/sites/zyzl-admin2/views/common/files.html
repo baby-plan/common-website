@@ -1,0 +1,220 @@
+<style>
+    /* FILE MANAGER */
+    
+    .file-box {
+        float: left;
+        width: 220px;
+    }
+    
+    .file-manager h5 {
+        text-transform: uppercase;
+    }
+    
+    .file-manager {
+        list-style: none outside none;
+        margin: 0;
+        padding: 0;
+    }
+    
+    .folder-list li a {
+        color: #666666;
+        display: block;
+        padding: 5px 0;
+    }
+    
+    .folder-list li {
+        border-bottom: 1px solid #e7eaec;
+        display: block;
+    }
+    
+    .folder-list li i {
+        margin-right: 8px;
+        color: #3d4d5d;
+    }
+    
+    .category-list li a {
+        color: #666666;
+        display: block;
+        padding: 5px 0;
+    }
+    
+    .category-list li {
+        display: block;
+    }
+    
+    .category-list li i {
+        margin-right: 8px;
+        color: #3d4d5d;
+    }
+    
+    .category-list li a .text-navy {
+        color: #23b7e5;
+    }
+    
+    .category-list li a .text-primary {
+        color: #1c84c6;
+    }
+    
+    .category-list li a .text-info {
+        color: #23c6c8;
+    }
+    
+    .category-list li a .text-danger {
+        color: #EF5352;
+    }
+    
+    .category-list li a .text-warning {
+        color: #F8AC59;
+    }
+    
+    .file-manager h5.tag-title {
+        margin-top: 20px;
+    }
+    
+    .tag-list li {
+        float: left;
+    }
+    
+    .tag-list li a {
+        font-size: 10px;
+        background-color: #f0f3f4;
+        padding: 5px 12px;
+        color: inherit;
+        border-radius: 2px;
+        border: 1px solid #e7eaec;
+        margin-right: 5px;
+        margin-top: 5px;
+        display: block;
+    }
+    
+    .file {
+        border: 1px solid #e7eaec;
+        padding: 0;
+        background-color: #ffffff;
+        position: relative;
+        margin-bottom: 20px;
+        margin-right: 20px;
+    }
+    
+    .file-manager .hr-line-dashed {
+        margin: 15px 0;
+    }
+    
+    .file .icon,
+    .file .image {
+        height: 100px;
+        overflow: hidden;
+    }
+    
+    .file .icon {
+        padding: 15px 10px;
+        text-align: center;
+    }
+    
+    .file-control {
+        color: inherit;
+        font-size: 11px;
+        margin-right: 10px;
+    }
+    
+    .file-control.active {
+        text-decoration: underline;
+    }
+    
+    .file .icon i {
+        font-size: 70px;
+        color: #dadada;
+    }
+    
+    .file .file-name {
+        padding: 10px;
+        background-color: #f8f8f8;
+        border-top: 1px solid #e7eaec;
+    }
+    
+    .file-name small {
+        color: #676a6c;
+    }
+    
+    .corner {
+        position: absolute;
+        display: inline-block;
+        width: 0;
+        height: 0;
+        line-height: 0;
+        border: 0.6em solid transparent;
+        border-right: 0.6em solid #f1f1f1;
+        border-bottom: 0.6em solid #f1f1f1;
+        right: 0em;
+        bottom: 0em;
+    }
+    
+    a.compose-mail {
+        padding: 8px 10px;
+    }
+    
+    .mail-search {
+        max-width: 300px;
+    }
+</style>
+<form enctype="multipart/form-data"><input id="file" type="file" name="file" style="display:none;"></form>
+<div class="row">
+    <div class="col-sm-3">
+        <div class="panel float-e-margins">
+            <div class="panel-body">
+                <div class="file-manager">
+                    <h5>显示：<small>功能尚未完善,暂不支持</small></h5>
+                    <a href="#" class="file-control active">所有</a>
+                    <a href="#" class="file-control">文档</a>
+                    <a href="#" class="file-control">视频</a>
+                    <a href="#" class="file-control">图片</a>
+                    <div class="hr-line-dashed"></div>
+                    <button id="btn_upload" class="btn btn-primary btn-block">上传文件</button>
+                    <div class="hr-line-dashed"></div>
+                    <h5>文件夹 <small>功能尚未完善,暂不支持</small></h5>
+                    <ul class="folder-list" style="padding: 0">
+                        <li><a href="#"><i class="fa fa-folder"></i> 文件</a>
+                        </li>
+                        <li><a href="#"><i class="fa fa-folder"></i> 图片</a>
+                        </li>
+                        <li><a href="#"><i class="fa fa-folder"></i> 媒体</a>
+                        </li>
+                    </ul>
+                    <div class="clearfix"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-9">
+        <div class="row">
+            <div class="col-sm-12" id="file-container"></div>
+        </div>
+    </div>
+</div>
+
+<script id="file_data" type="text/x-jquery-tmpl">
+<div class="file-box">
+    <div class="file">
+        <a href="${$item.api()}${$data.id}" target="_blank">
+            <span class="corner"></span>
+            {{if $data.TYPE_UNDEFINE}}
+            <div class="icon">
+                <i class="fa fa-file"></i>
+            </div>
+            {{else $data.TYPE_IMAGE}}
+            <div class="image">
+                <img alt="image" class="img-responsive" src="${$item.api()}${$data.id}">
+            </div>
+            {{else}}
+            <div class="icon">
+                <i class="fa fa-file"></i>
+            </div>
+            {{/if}}
+            <div class="file-name">
+                <p>${App.base64.decode($data.name)}</p>
+                <small>添加时间：${App.util.utcToCN($data.date)}</small>
+            </div>
+        </a>
+    </div>
+</div>
+</script>

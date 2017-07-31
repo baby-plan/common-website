@@ -1,0 +1,465 @@
+<html>
+
+<head>
+  <title>登录</title>
+  <style>
+    body {
+      background: #18c8f6;
+      background: url(login-background.jpg) no-repeat center fixed;
+      -webkit-background-size: cover;
+      -moz-background-size: cover;
+      -o-background-size: cover;
+      background-size: cover;
+      color: rgba(255, 255, 255, .95);
+      -webkit-user-select: none;
+    }
+
+    footer {
+      bottom: 0px;
+      right: 0px;
+      left: 0px;
+      z-index: 1030;
+      position: fixed;
+      padding-bottom: 5px;
+      padding-top: 5px;
+      border-top: 1px solid #cdd2d2;
+      text-align: center;
+    }
+
+    section {
+      margin: 10% auto 0 auto;
+    }
+    /*定义滚动条高宽及背景 高宽分别对应横竖滚动条的尺寸*/
+
+     ::-webkit-scrollbar {
+      width: 4px;
+      height: 4px;
+      background-color: #333;
+    }
+    /*定义滚动条轨道 内阴影+圆角*/
+
+     ::-webkit-scrollbar-track {
+      -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+      border-radius: 4px;
+      background-color: #ccc;
+    }
+    /*定义滑块 内阴影+圆角*/
+
+     ::-webkit-scrollbar-thumb {
+      border-radius: 4px;
+      -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, .3);
+      background-color: #555;
+    }
+
+    .form-control {
+      display: block;
+      margin-top: 15px;
+      border-radius: 0px;
+      font-size: 14px;
+      font-weight: normal;
+      height: 34px;
+      line-height: 1.42857;
+      padding: 6px 12px;
+      transition: border-color 0.15s ease-in-out 0s, box-shadow 0.15s ease-in-out 0s;
+      width: 100%;
+      border: 1px solid #ccc;
+    }
+
+    .btn-block {
+      display: block;
+      width: 100%;
+    }
+
+    .btn-success {
+      color: #fff;
+      background-color: #5cb85c;
+      border-color: #4cae4c;
+    }
+
+    .btn {
+      margin-top: 15px;
+      padding: 6px 12px;
+      display: inline-block;
+      margin-bottom: 0;
+      font-size: 14px;
+      font-weight: 400;
+      line-height: 1.42857143;
+      text-align: center;
+      white-space: nowrap;
+      vertical-align: middle;
+      -ms-touch-action: manipulation;
+      touch-action: manipulation;
+      cursor: pointer;
+      -webkit-user-select: none;
+      -moz-user-select: none;
+      -ms-user-select: none;
+      user-select: none;
+      background-image: none;
+      border: 1px solid transparent;
+      border-radius: 4px;
+    }
+    /*
+    .login-panel {
+      width: 320px;
+    }
+
+    .select-panel {
+      width: 400px;
+    }*/
+
+    .select-panel {
+      display: -webkit-flex;
+      display: -webkit-box;
+      display: flex;
+      -webkit-flex-wrap: wrap;
+      flex-wrap: wrap;
+      height: 300px;
+      overflow-y: auto;
+      /*overflow: hidden;*/
+    }
+    /*
+    .select-panel:hover {
+      overflow: auto;
+    }*/
+
+    .select-panel>.user {
+      -webkit-flex: 0 0 20%;
+      -webkit-box-flex: 0;
+      flex: 0 0 20%;
+      border: 1px solid rgba(255, 255, 255, .0);
+      text-align: center;
+      margin-top: 10px;
+      padding: 5px;
+      box-sizing: border-box;
+      margin-bottom: -1px;
+      font-style: normal;
+      -webkit-box-sizing: border-box;
+      box-sizing: border-box;
+      -webkit-tap-highlight-color: transparent;
+      outline: none;
+      cursor: pointer;
+    }
+
+    .select-panel>.user:active {
+      background: rgba(255, 255, 255, 0.4);
+      border: 1px solid rgba(255, 255, 255, .5);
+      -moz-box-shadow: 0 3px 0 rgba(12, 12, 12, 0.05);
+      -webkit-box-shadow: 0 3px 0 rgba(12, 12, 12, 0.05);
+      box-shadow: 0 3px 0 rgba(12, 12, 12, 0.05);
+      -moz-border-radius: 3px;
+      -webkit-border-radius: 3px;
+      border-radius: 3px;
+    }
+
+    .select-panel>.user>img {
+      width: 80px;
+      height: 80px;
+      vertical-align: middle;
+      max-width: 100%;
+      margin: 0;
+      border: 0;
+      padding: 0;
+      font-style: normal;
+      -webkit-box-sizing: border-box;
+      box-sizing: border-box;
+      -webkit-tap-highlight-color: transparent;
+      outline: none;
+      display: inline-block;
+      overflow: hidden;
+    }
+
+    .select-panel>.user>span {
+      display: block;
+      font-size: 30px;
+      padding-top: 10px;
+      white-space: nowrap;
+      color: #545454;
+      margin: 0;
+      border: 0;
+      padding: 0;
+      font-style: normal;
+      -webkit-box-sizing: border-box;
+      box-sizing: border-box;
+      -webkit-tap-highlight-color: transparent;
+      outline: none;
+    }
+
+    .cube-wrap {
+      position: relative;
+      height: 400px;
+      transition: .6s;
+      -webkit-perspective: 2000;
+      -webkit-perspective-origin: 50% 50%;
+    }
+
+    #zoom-cube:checked~.cube-wrap {
+      transform: scale(1.6);
+    }
+
+    input[type=checkbox],
+    input[type=radio] {
+      display: none;
+    }
+
+    .button-wrap {
+      position: absolute;
+      right: 0;
+      top: 0;
+      left: 0;
+      width: 840px;
+      height: 50px;
+      margin: 0 auto;
+      font-size: 0;
+      text-align: center;
+    }
+
+    .button-wrap label {
+      display: inline-block;
+      width: 120px;
+      height: 50px;
+      margin: 0;
+      color: #fff;
+      font-size: 12px;
+      font-weight: bold;
+      line-height: 52px;
+      text-align: center;
+      text-decoration: none;
+      text-transform: uppercase;
+      transition: .3s;
+      background-color: rgba(255, 255, 255, .2);
+      transform: translateY(50px);
+    }
+
+    .button-wrap label:hover {
+      background-color: rgba(255, 255, 255, .3);
+    }
+
+    #show-front:checked~.button-wrap .for-front,
+    #show-back:checked~.button-wrap .for-back,
+    #show-left:checked~.button-wrap .for-left,
+    #show-right:checked~.button-wrap .for-right,
+    #show-top:checked~.button-wrap .for-top,
+    #show-bottom:checked~.button-wrap .for-bottom,
+    #zoom-cube:checked~.button-wrap .for-zoom-cube {
+      background-color: #fff;
+      color: #eb4c89;
+    }
+
+    .cube {
+      position: absolute;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      left: 0;
+      width: 400px;
+      height: 400px;
+      margin: auto;
+      transition: .8s;
+      -webkit-transform-style: preserve-3d;
+      -webkit-transform-origin: 50% 50%;
+      -webkit-backface-visibility: visible;
+    }
+
+    .cube-face {
+      position: relative;
+      outline: 1px solid transparent;
+      outline-offset: -1px;
+
+      /*margin: 10% auto 0 auto;*/
+      /*background: rgba(255, 255, 255, 0.2);*/
+      border: 1px solid rgba(255, 255, 255, .3);
+      -moz-box-shadow: 0 3px 0 rgba(12, 12, 12, 0.03);
+      -webkit-box-shadow: 0 3px 0 rgba(12, 12, 12, 0.03);
+      box-shadow: 0 3px 0 rgba(12, 12, 12, 0.03);
+      -moz-border-radius: 3px;
+      -webkit-border-radius: 3px;
+      border-radius: 3px;
+      /*padding: 30px;*/
+      width: 400px;
+      height: 400px;
+    }
+
+    .cube-face>article {
+      padding: 30px;
+    }
+  </style>
+
+  <style>
+    .cube-face-front {
+      position: absolute;
+      top: 0;
+      left: 0;
+      background-color: #fae48c;
+      transform: translateZ(200px);
+    }
+
+    #show-front:checked~.cube-wrap .cube {
+      -webkit-transform: rotateX(0) rotateY(0) rotateZ(0) translateX(0) translateY(0) translateZ(-400px);
+    }
+
+    .cube-face-back {
+      position: absolute;
+      top: 0;
+      left: 0;
+      background-color: yellowgreen;
+      transform: rotateY(180deg) translateZ(200px);
+    }
+
+    #show-back:checked~.cube-wrap .cube {
+      -webkit-transform: rotateX(0) rotateY(-180deg) rotateZ(0) translateX(0) translateY(0) translateZ(400px);
+    }
+
+    .cube-face-left {
+      background-color: green;
+      position: absolute;
+      top: 0;
+      left: 0;
+      transform: rotateY(90deg) translateZ(200px);
+    }
+
+    #show-left:checked~.cube-wrap .cube {
+      -webkit-transform: rotateX(0) rotateY(-90deg) rotateZ(0) translateX(-400px) translateY(0) translateZ(0);
+    }
+
+    .cube-face-right {
+      position: absolute;
+      top: 0;
+      left: 0;
+      background-color: #9900CC;
+      transform: rotateY(-90deg) translateZ(200px);
+    }
+
+    #show-right:checked~.cube-wrap .cube {
+      -webkit-transform: rotateX(0) rotateY(90deg) rotateZ(0) translateX(400px) translateY(0) translateZ(0);
+    }
+
+    .cube-face-top {
+      position: absolute;
+      top: 0;
+      left: 0;
+      background-color: blue;
+      transform: rotateX(90deg) rotateY(0) rotateZ(0) translateX(0) translateY(0) translateZ(200px);
+    }
+
+    #show-top:checked~.cube-wrap .cube {
+      -webkit-transform: rotateX(-90deg) rotateY(0) rotateZ(0) translateX(0) translateY(400px) translateZ(0);
+    }
+
+    .cube-face-bottom {
+      position: absolute;
+      top: 0;
+      left: 0;
+      background-color: black;
+      transform: rotateX(-90deg) translateZ(200px) rotate(0);
+    }
+
+    #show-bottom:checked~.cube-wrap .cube {
+      -webkit-transform: rotateX(90deg) rotateY(0) rotateZ(0) translateX(0) translateY(-400px) translateZ(0);
+    }
+  </style>
+
+</head>
+
+<body>
+  <header>
+  </header>
+
+  <section>
+    <input type="checkbox" id="zoom-cube">
+    <input type="radio" name="cube-controller" id="show-front" checked>
+    <input type="radio" name="cube-controller" id="show-back">
+    <input type="radio" name="cube-controller" id="show-top">
+    <input type="radio" name="cube-controller" id="show-bottom">
+    <input type="radio" name="cube-controller" id="show-left">
+    <input type="radio" name="cube-controller" id="show-right">
+    <div class="cube-wrap">
+      <div class="cube">
+        <div class="cube-face cube-face-front">
+          <article class="login-panel">
+            <input value="wangxin" type="text" class="form-control" placeholder="输入登录账号...">
+            <input value="123456" type="password" class="form-control" placeholder="输入账号密码...">
+            <button class="btn btn-success btn-block btn-login">登录</button>
+          </article>
+        </div>
+        <div class="cube-face cube-face-back">
+          <article class="select-panel">
+            <div class="user">
+              <img src="https://cdn0.iconfinder.com/data/icons/iconshock_guys/128/matthew.png" />
+              <span>张三</span>
+            </div>
+            <div class="user">
+              <img src="https://cdn0.iconfinder.com/data/icons/iconshock_guys/128/andrew.png" />
+              <span>李四</span>
+            </div>
+            <div class="user">
+              <img src="https://cdn0.iconfinder.com/data/icons/iconshock_guys/128/matthew.png" />
+              <span>张三</span>
+            </div>
+            <div class="user">
+              <img src="https://cdn0.iconfinder.com/data/icons/iconshock_guys/128/andrew.png" />
+              <span>李四</span>
+            </div>
+            <div class="user">
+              <img src="https://cdn0.iconfinder.com/data/icons/iconshock_guys/128/matthew.png" />
+              <span>张三</span>
+            </div>
+            <div class="user">
+              <img src="https://cdn0.iconfinder.com/data/icons/iconshock_guys/128/andrew.png" />
+              <span>李四</span>
+            </div>
+            <div class="user">
+              <img src="https://cdn0.iconfinder.com/data/icons/iconshock_guys/128/matthew.png" />
+              <span>张三</span>
+            </div>
+            <div class="user">
+              <img src="https://cdn0.iconfinder.com/data/icons/iconshock_guys/128/andrew.png" />
+              <span>李四</span>
+            </div>
+            <div class="user">
+              <img src="https://cdn0.iconfinder.com/data/icons/iconshock_guys/128/matthew.png" />
+              <span>张三</span>
+            </div>
+            <div class="user">
+              <img src="https://cdn0.iconfinder.com/data/icons/iconshock_guys/128/andrew.png" />
+              <span>李四</span>
+            </div>
+            <div class="user">
+              <img src="https://cdn0.iconfinder.com/data/icons/iconshock_guys/128/matthew.png" />
+              <span>张三</span>
+            </div>
+            <div class="user">
+              <img src="https://cdn0.iconfinder.com/data/icons/iconshock_guys/128/andrew.png" />
+              <span>李四</span>
+            </div>
+          </article>
+        </div>
+        <div class="cube-face cube-face-top">
+          <article>cube-face-top</article>
+        </div>
+        <div class="cube-face cube-face-left">
+          <article>cube-face-left</article>
+        </div>
+        <div class="cube-face cube-face-right">
+          <article>cube-face-right</article>
+        </div>
+        <div class="cube-face cube-face-bottom">
+          <article>cube-face-bottom</article>
+        </div>
+      </div>
+    </div>
+    <div class="button-wrap">
+      <label class="for-front" for="show-front">Front</label>
+      <label class="for-back" for="show-back">Back</label>
+      <label class="for-top" for="show-top">Top</label>
+      <label class="for-bottom" for="show-bottom">Bottom</label>
+      <label class="for-left" for="show-left">Left</label>
+      <label class="for-right" for="show-right">Right</label>
+      <label class="for-zoom-cube" for="zoom-cube">Zoom</label>
+    </div>
+  </section>
+  <footer>
+    Copyright Wangxin (c) 2016-2026.
+  </footer>
+</body>
+
+</html>

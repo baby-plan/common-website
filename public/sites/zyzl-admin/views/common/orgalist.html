@@ -1,0 +1,42 @@
+<div class="row">
+  <div class="col-sm-12">
+    <div class="panel panel-default  border">
+      <div class="panel-heading">
+        <h4 class="panel-title"><i class="fa fa-table"></i>筛选条件</h4>
+      </div>
+      <div class="panel-body">
+        <p></p>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="row" id="networks">
+</div>
+
+<script id="orga_data" type="text/x-jquery-tmpl">
+<div class="col-xs-12 col-md-6 col-lg-4">
+  <div class="panel panel-default float-e-margins">
+    <div class="panel-body no-padding">
+        <img alt="image" class="img-responsive" src="${$item.api()}${$data.imgs}">
+    </div>
+    <div class="panel-body profile-content">
+        <div class="col-xs-12">
+          <h4><strong id="name">${App.base64.decode($data.name)}</strong></h4>
+          <p>${App.plugins.dict.getText('orgatype', $data.type)}</p>
+          <p><i class="fa fa-map-marker"></i> ${App.base64.decode($data.addr)}</p>
+          <div class="row">
+            <div class="col-sm-4">
+              <h5><strong>169</strong><i class="fa fa-thumbs-o-up"></i> <i class="fa fa-thumbs-up"></i> 点赞</h5>
+            </div>
+            <div class="col-sm-4">
+              <h5><strong>28</strong><i class="fa fa-heart-o"></i> <i class="fa fa-heart"></i> 关注</h5>
+            </div>
+            <div class="col-sm-4">
+              <h5><strong>240</strong><i class="fa fa-star-o"></i> <i class="fa fa-star"></i> 收藏</h5>
+            </div>
+          </div>
+      </div>
+    </div>
+  </div>
+</div>
+</script>

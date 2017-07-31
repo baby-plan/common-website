@@ -1,0 +1,126 @@
+* {
+      color: #fff;
+    }
+
+    a {
+      text-decoration: none;
+    }
+
+    body,
+    header {
+      margin: 0px;
+      padding: 0px;
+    }
+
+    body {
+      background-image: url('assets/img/body_bg.jpg');
+      /*background-attachment: fixed;
+      background-repeat: no-repeat;
+      background-size: cover;*/
+      background-color: #d4d5e0;
+      /*background-image: url(images/body_repeat.png?id=1410943047113);*/
+      background-repeat: repeat-x;
+      background-position: center 0;
+    }
+
+    header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      z-index: 9999;
+      width: 100%;
+      height: 48px;
+      border-top: 2px solid #fa7d3c;
+      background-color: rgba(255, 255, 255, 0.94);
+      box-shadow: 0 0 1px 0px rgba(0, 0, 0, 0.3), 0 0 6px 2px rgba(0, 0, 0, 0.15);
+      background: rgba(255, 255, 255, 0.94);
+    }
+
+    header>span {
+      color: #ccc !important;
+      padding-left:20px;
+      font-size:29px;
+    }
+
+    section {
+      /*height: 9999px;*/
+      width: 1000px;
+      min-height: 680px;
+      margin: 0 auto;
+      padding: 16px 0 0 0;
+      margin-top: 52px;
+      background-color: rgba(36, 61, 89, 0.25);
+    }
+
+    .navigation-container {
+      display: inline-block;
+      letter-spacing: normal;
+      word-spacing: normal;
+      vertical-align: top;
+      width: 150px;
+    }
+
+    nav {
+      width: 150px;
+      position: fixed;
+      top: 66px;
+      z-index: 5;
+    }
+
+    .tags-item {
+      margin-bottom: 10px;
+      display: block;
+      height: 32px;
+      letter-spacing: normal;
+      word-spacing: normal;
+      text-align: center;
+    }
+
+    .tags-item:hover {
+      background-color: rgba(255, 255, 255, 0.2);
+    }
+
+    .content-container {
+      display: inline-block;
+      letter-spacing: normal;
+      word-spacing: normal;
+      vertical-align: top;
+      font-size: 12px;
+      width: 600px;
+      margin-right: 10px;
+    }
+
+    ul {
+      list-style: none;
+      -webkit-margin-before: 1em;
+      -webkit-margin-after: 1em;
+      -webkit-margin-start: 0px;
+      -webkit-margin-end: 0px;
+      -webkit-padding-start: 40px;
+      margin: 0;
+      padding: 0;
+    }
+
+    li {
+      display: list-item;
+      text-align: -webkit-match-parent;
+    }
+
+    .article-item {
+      width: 100%;
+      /*min-height: 150px;*/
+      background-color: #fff;
+      padding: 20px 20px;
+      margin-bottom: 10px;
+      cursor: pointer;
+      border-radius: 2px;
+      box-shadow: 0 0 2px rgba(0, 0, 0, 0.15);
+    }
+
+    .article-item p {
+      color: #333;
+    }
+
+    .article-item span {
+      color: #808080;
+    }

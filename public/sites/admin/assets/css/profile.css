@@ -1,0 +1,64 @@
+/* PROFILE */
+
+.profile-content {
+  border-top: none !important;
+}
+
+.feed-activity-list .feed-element {
+  border-bottom: 1px solid #e7eaec;
+}
+
+.feed-element:first-child {
+  margin-top: 0;
+}
+
+.feed-element {
+  padding-bottom: 15px;
+}
+
+.feed-element, .feed-element .media {
+  margin-top: 15px;
+}
+
+.feed-element, .media-body {
+  overflow: hidden;
+}
+
+.feed-element > .pull-left {
+  margin-right: 10px;
+}
+
+.feed-element img.img-circle, .dropdown-messages-box img.img-circle {
+  width: 48px;
+  height: 48px;
+}
+
+.feed-element .well {
+  border: 1px solid #e7eaec;
+  box-shadow: none;
+  margin-top: 10px;
+  margin-bottom: 5px;
+  padding: 10px 20px;
+  font-size: 11px;
+  line-height: 16px;
+}
+
+.feed-element .actions {
+  margin-top: 10px;
+}
+
+.feed-element .photos {
+  margin: 10px 0;
+}
+
+.feed-photo {
+  max-height: 180px;
+  border-radius: 4px;
+  overflow: hidden;
+  margin-right: 10px;
+  margin-bottom: 10px;
+}
+.well .btn {
+  margin: 0px;
+  padding: 0px;
+}

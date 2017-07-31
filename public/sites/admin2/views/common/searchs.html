@@ -1,0 +1,84 @@
+﻿<style>
+  form label,
+  form div {
+    padding-bottom: 10px;
+  }
+</style>
+<div id="filter-container"></div>
+<div id="record-container"></div>
+<!--查询条件模板-->
+<script id="filter-panel" type="text/x-jquery-tmpl">
+<div class="panel panel-default" id="filter">
+  <div class="panel-heading">
+    <h4 class="panel-title">
+      <i class="${$data.headers.filter.icon}"></i> ${$data.headers.filter.text}
+    </h4>
+    <div class="panel-tools">
+      <a href="javascript:;" class="collapse"><i class="fa fa-chevron-up"></i></a>
+    </div>
+  </div>
+  <div class="panel-body">
+    <form id="role-form" method="post" class="form-horizontal">
+      {{tmpl($data) '#filter-data'}}
+    </form>
+  </div>
+  <div class="panel-footer bottom text-center">
+    <a class="btn_search"/>
+    <a class="btn_reset"/>
+  </div>
+</div>
+</script>
+<!--查询条件内容模板-->
+<script id="filter-data" type="text/x-jquery-tmpl">
+{{each(index,column) $data.columns}}
+{{if column.filter == "daterange"}}
+<label class="col-xs-4 col-md-2 col-lg-1 control-label">${ column.text }</label>
+<div class="col-xs-8 col-md-4 col-lg-3">
+  <input id="${ column.name }_1" placeholder="请选择${ column.text }范围最小值..." class="form-control" type="text"/>
+</div>
+<label class="col-xs-4 col-md-2 col-lg-1 control-label">---</label>
+<div class="col-xs-8 col-md-4 col-lg-3">
+  <div class="input-group">
+    <input id="${ column.name }_2" placeholder="请选择${ column.text }范围最大值..." class="form-control" type="text"/>
+    <span class="input-group-addon">
+      <a id="${ column.name }_range"><i class="fa fa-calendar"></i></a>
+    </span>
+  </div>
+</div>
+{{else column.filter != undefined && column.filter != false}}
+<label class="col-xs-4 col-md-2 col-lg-1 control-label">${ column.text }</label>
+<div class="col-xs-8 col-md-4 col-lg-3">
+ {{if column.dict != undefined && column.dict != ""}}
+ {{if column.multiple}}
+ <select id="${ column.name }" name="${ column.name }" class="form-control" multiple="true"/>
+ {{else}} 
+ <select id="${ column.name }" name="${ column.name }" class="form-control"/>
+ {{/if}}
+ {{else}}
+ <input class="form-control" type="text" id="${ column.name }" name="${ column.name }" placeholder="请输入${ column.text }...">
+ {{/if}}
+</div>
+{{/if}}
+{{/each}}
+</script>
+
+<!--查询结果模板-->
+<script id="record-panel" type="text/x-jquery-tmpl">
+<div class="panel panel-default" id="record">
+  <div class="panel-heading">
+    <h4 class="panel-title">
+      <i class="${$data.headers.table.icon}"></i> ${$data.headers.table.text}
+    </h4>
+    <div class="panel-tools">
+      {{if $data.actions.insert}}
+      <a class="btn_add" data-title="${$data.texts.insert}"/>
+      {{/if}}
+      <a class="btn_refresh"></a>
+      <a href="javascript:;" class="collapse"><i class="fa fa-chevron-up"></i></a>
+    </div>
+  </div>
+  <div class="panel-body">
+    <table id="table" />
+  </div>
+</div>
+</script>

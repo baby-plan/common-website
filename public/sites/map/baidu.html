@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
+  <style type="text/css">
+    body,
+    html,
+    #allmap {
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      margin: 0;
+      font-family: "微软雅黑";
+    }
+  </style>
+  <script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=LM6lFLGQcSWBFop0DC2uCeGL"></script>
+  <title>百度地图展示</title>
+</head>
+
+<body>
+  <div id="allmap"></div>
+</body>
+
+</html>
+<script type="text/javascript">
+  // 百度地图API功能
+  var map = new BMap.Map("allmap");    // 创建Map实例
+  map.centerAndZoom(new BMap.Point(123.7076373, 42.2083589), 18);  // 初始化地图,设置中心点坐标和地图级别
+  map.addControl(new BMap.MapTypeControl());   //添加地图类型控件
+  // map.setCurrentCity("铁岭市");          // 设置地图显示的城市 此项是必须设置的
+  map.enableScrollWheelZoom(true);     //开启鼠标滚轮缩放
+
+  map.addControl(new BMap.NavigationControl());
+  map.addControl(new BMap.ScaleControl());
+  map.addControl(new BMap.OverviewMapControl());
+
+  map.addEventListener("dblclick", function () {
+    // alert(map.getMapType().cf + "," + map.getZoom());
+    //map.setCurrentCity("铁岭市");
+  });
+
+  map.addEventListener("tilesloaded", function () {
+
+    // var center = map.getCenter();
+    // alert("地图中心点变更为：" + center.lng + ", " + center.lat);
+  });
+
+  var baiduX = [0, 0, 0, 1, 3, 6, 12, 24, 49, 98, 197, 395, 790, 1581, 3163, 6327, 12654, 25308, 50617];
+  var baiduY = [0, 0, 0, 0, 1, 2, 4, 9, 18, 36, 73, 147, 294, 589, 1178, 2356, 4712, 9425, 18851];
+  var googleX = [0, 1, 3, 6, 13, 26, 52, 105, 210, 421, 843, 1685, 3372, 6744, 13489, 26978, 53957, 107913, 215829];
+  var googleY = [0, 0, 1, 2, 5, 12, 24, 48, 97, 194, 387, 776, 1551, 3103, 6207, 12415, 24832, 49665, 99328];
+// http://shangetu4.map.bdimg.com/it/u=x=101248;y=37736;z=19;v=009;type=sate&fm=46&udt=20150504
+  // http://shangetu3.map.bdimg.com/it/u=x=1;y=0;z=3;v=009;type=sate&fm=46&udt=20150504
+
+  var googleToBaiduX = (x, z) => {
+    var b = baiduX[z - 1];// 395
+    var g = googleX[z - 1];// 11:843,12:1685
+    var gx = g + (x - b);// --- 1587+
+    // var gx = x - g + b;// --- 1587+
+    // 谷歌瓦片行编号=[谷歌参照瓦片行编号+(百度行编号 – 百度参照瓦片行编号)]
+    return gx;
+  }
+
+  var googleToBaiduY = (y, z) => {
+    var b = baiduY[z - 1];// 147
+    var g = googleY[z - 1];// 10:
+    var gy = g - (y - b);//
+    // var gy = g + b - y;//
+    // 谷歌瓦片列编号=[谷歌参照瓦片列编号- (百度列编号 – 百度参照瓦片列编号)] //向上，列为递减
+    return gy;
+  }
+
+  // 17/6749/5084/107994_81358
+  // http://mt2.google.cn/vt/lyrs=m@177000000&hl=zh-CN&gl=cn&x=107994&y=81358&z=17
+  //http://shangetu2.map.bdimg.com/it/u=x=101235;y=37702;z=19;v=009;type=sate&fm=46&udt=20150504
+  var a = 'http://mt2.google.cn/vt/lyrs=m@177000000&hl=zh-CN&gl=cn&x={x}&y={y}&z={z}';
+  var x = 101235;
+  var y = 37702;
+  var z = 19;
+  a = a.replace('{y}', googleToBaiduX(x, z));
+  a = a.replace('{x}', googleToBaiduY(y, z));
+  a = a.replace('{z}', z);
+  location = a;
+
+</script>

@@ -1,0 +1,34 @@
+{
+    "name": "website",
+    "version": "0.0.1",
+    "private": true,
+    "scripts": {
+        "start": "node ./bin/www"
+    },
+    "dependencies": {
+        "body-parser": "~1.15.2",
+        "cookie-parser": "~1.4.3",
+        "debug": "~2.2.0",
+        "ejs": "~2.5.2",
+        "express": "~4.14.0",
+        "morgan": "~1.7.0",
+        "serve-favicon": "~2.3.0",
+        "mysql": "latest",
+        "async": "latest",
+        "node-uuid": "latest",
+        "express-session": "latest",
+        "crypto": "latest",
+        "lodash": "latest",
+        "formidable": "latest",
+        "markdown-js": "latest",
+        "validator": "~6.2.0",
+        "socket.io": "latest",
+        "connect": "latest",
+        "colors": "latest",
+        "request": "latest",
+        "cheerio": "latest",
+        "mkdirp": "latest",
+        "sqlite": "latest",
+        "eslint": "latest"
+    }
+}
