@@ -24,14 +24,9 @@ define(['jquery', 'cfgs', 'API', 'generator', 'ajax', 'base64', 'dialog'],
           $("<div/>").addClass("col-sm-10").attr("data-id", index).appendTo(groupContainer);
           $("<input/>").attr("type", "checkbox").attr("id", index).attr("name", "power").appendTo(div);
           $("<label/>").attr("for", index).text(" " + item.name).appendTo(div);
-          // if (!regValidator) {
-          //     regValidator = true;
-          //     $("#" + index).attr("data-bv-message", "请为该角色设置权限!")
-          //         .attr("data-bv-notempty", "true");
-          // }
         } else {
           var childContainer = $("div[data-id='" + item.parent + "']");
-          var div = $("<div />").addClass("col-sm-2 ").appendTo(childContainer);
+          var div = $("<div />").addClass("col-sm-4").appendTo(childContainer);
           $("<input/>").attr("type", "checkbox").attr("id", index).attr("name", "power").appendTo(div);
           $("<label/>").attr("for", index).text(" " + item.name).appendTo(div);
         }
@@ -112,15 +107,45 @@ define(['jquery', 'cfgs', 'API', 'generator', 'ajax', 'base64', 'dialog'],
             "update": api.update,
             "delete": api.remove
           },
-          "texts": { "insert": "新增角色信息", "update": "角色信息编辑" },
-          "headers": { "edit": { "text": "角色信息" }, "table": { "text": "角色信息列表" } },
-          "actions": { "insert": true, "update": true, "delete": true },
-          "editor": { "page": api.editpage, "callback": initEditor },
-          "columns": [
-            { "name": "_index", "text": "序号" },
-            { "name": "id", "primary": true },
-            { "name": "name", "text": "角色名称", "base64": true, "filter": true },
-            { "name": "_action", "text": "操作" }
+          "texts": {
+            "insert": "新增角色信息",
+            "update": "角色信息编辑"
+          },
+          "headers": {
+            "edit": {
+              "text": "角色信息"
+            },
+            "table": {
+              "text": "角色信息列表"
+            }
+          },
+          "actions": {
+            "insert": true,
+            "update": true,
+            "delete": true
+          },
+          "editor": {
+            "page": api.editpage,
+            "callback": initEditor
+          },
+          "columns": [{
+              "name": "_index",
+              "text": "序号"
+            },
+            {
+              "name": "id",
+              "primary": true
+            },
+            {
+              "name": "name",
+              "text": "角色名称",
+              "base64": true,
+              "filter": true
+            },
+            {
+              "name": "_action",
+              "text": "操作"
+            }
           ]
         };
         generator.init(options);

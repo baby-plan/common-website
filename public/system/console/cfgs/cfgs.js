@@ -37,12 +37,12 @@ define('cfgs', ['jquery'], function ($) {
       "icon": "fa fa-cog",
       "module": "setting"
     },
-    // "F00000": {
-    //   "parent": "000",
-    //   "name": "文件中心",
-    //   "icon": "fa fa-cog",
-    //   "module": "fs"
-    // }
+    "F00000": {
+      "parent": "000",
+      "name": "文件中心",
+      "icon": "fa fa-cog",
+      "module": "filesystem"
+    }
   };
   /** 文本相关参数设置 */
   cfgs.options.texts = {

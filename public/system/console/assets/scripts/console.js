@@ -8,13 +8,6 @@ require.config({
   },
 
   paths: {
-    'jquery': '/assets/plugins/jquery.min',
-    'jquery.blockUI': '/assets/plugins/jquery.blockUI.min',
-    'jquery.tmpl': '/assets/plugins/jquery-tmpl/jquery.tmpl.min',
-    'jquery.tmplPlus': '/assets/plugins/jquery-tmpl/jquery.tmplPlus.min',
-    'bootstrap': '/assets/plugins/bootstrap/js/bootstrap.min',
-    'moment': '/assets/plugins/bootstrap-daterangepicker/moment.min',
-    'echarts': '/assets/plugins/echarts/echarts-all',
 
     'cfgs': 'cfgs/cfgs',
     'app': 'assets/scripts/app',
@@ -28,6 +21,18 @@ require.config({
     'monitor': 'assets/scripts/modules/center.monitor',
     'operation': 'assets/scripts/modules/center.operation',
     'setting': 'assets/scripts/modules/center.setting',
+    'filesystem': 'assets/scripts/modules/center.filesystem',
+
+    'jquery': '/assets/plugins/jquery.min',
+    'jquery.blockUI': '/assets/plugins/jquery.blockUI.min',
+    'jquery.tmpl': '/assets/plugins/jquery-tmpl/jquery.tmpl.min',
+    'jquery.tmplPlus': '/assets/plugins/jquery-tmpl/jquery.tmplPlus.min',
+    'bootstrap': '/assets/plugins/bootstrap/js/bootstrap.min',
+    'moment': '/assets/plugins/bootstrap-daterangepicker/moment.min',
+    'echarts': '/assets/plugins/echarts/echarts-all',
+    // 'codemirror': '/assets/plugins/codemirror/codemirror',
+    // 'codemirror-javascript': '/assets/plugins/codemirror/mode/javascript/javascript',
+
   },
 
   shim: {
@@ -36,11 +41,24 @@ require.config({
       'css!/assets/css/animate.css',
     ],
     'block': ['jquery.blockUI'],
+    'filesystem': [
+      "/assets/plugins/codemirror/codemirror", "/assets/plugins/codemirror/mode/javascript/javascript"
+    ],
+
     'bootstrap': [
       'jquery',
       'css!/assets/plugins/bootstrap/css/bootstrap.min.css',
     ],
-  }
+    // 'codemirror': [
+    //   'css!/assets/plugins/codemirror/codemirror.css'
+    // ],
+    // 'codemirror-javascript': ['codemirror']
+  },
+  packages: [{
+    name: "codemirror",
+    location: "/assets/plugins/",
+    main: "codemirror"
+  }]
 });
 
 require(['app', 'bootstrap'], function (App) {

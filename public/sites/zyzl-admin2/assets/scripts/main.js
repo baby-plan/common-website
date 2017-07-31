@@ -26,6 +26,7 @@ require.config({
     'module-role': 'modules/modules.role',
     'module-order': 'modules/modules.order',
     'module-admin': 'modules/modules.admin',
+    'module-log': 'modules/modules.log',
 
     //系统公共引用
     'jquery': '/assets/plugins/jquery.min',

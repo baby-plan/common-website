@@ -36,12 +36,32 @@
     "fromCache": false
   };
 
-  cfgs.dict.checkstate = { '0': '未审核', '1': '已审核' };
-  cfgs.dict.codestate = { '0': '待使用', '1': '已使用', '2': '已过期' };
-  cfgs.dict.codetype = { '1': '免费券', '2': '折扣券' };
-  cfgs.dict.codetype2 = { '1': '基本套餐券', '2': '活动套餐券', '3': '一次性券' };
-  cfgs.dict.channeltype = { '1': '和地图', '2': 'H5' };
-  cfgs.dict.cartype = { '1': '小轿车', '2': 'SUV/商务车' };
+  cfgs.dict.checkstate = {
+    '0': '未审核',
+    '1': '已审核'
+  };
+  cfgs.dict.codestate = {
+    '0': '待使用',
+    '1': '已使用',
+    '2': '已过期'
+  };
+  cfgs.dict.codetype = {
+    '1': '免费券',
+    '2': '折扣券'
+  };
+  cfgs.dict.codetype2 = {
+    '1': '基本套餐券',
+    '2': '活动套餐券',
+    '3': '一次性券'
+  };
+  cfgs.dict.channeltype = {
+    '1': '和地图',
+    '2': 'H5'
+  };
+  cfgs.dict.cartype = {
+    '1': '小轿车',
+    '2': 'SUV/商务车'
+  };
 
   /** 各项内容模板设置 */
   cfgs.templates = {
@@ -221,45 +241,207 @@
 
    */
   cfgs.modules = {
-    "0100": { "parent": "000", "name": "监控中心", "icon": "fa fa-tachometer", "iconcolor": "red" },
-    "0101": { "parent": "0100", "name": "服务器状态", 'module': 'module-server', 'method': 'status', "url": "views/common/serverstatus.html", "icon": "fa fa-file-text-o" },
-    "0103": { "parent": "0100", "name": "服务端版本", "url": "views/common/version.server.html", "icon": "fa fa-server" },
-    "0104": { "parent": "0100", "name": "客户端版本", "url": "views/common/version.client.html", "icon": "fa fa-server" },
+    "0100": {
+      "parent": "000",
+      "name": "监控中心",
+      "icon": "fa fa-tachometer",
+      "iconcolor": "red"
+    },
+    "0101": {
+      "parent": "0100",
+      "name": "服务器状态",
+      'module': 'module-server',
+      'method': 'status',
+      "url": "views/common/serverstatus.html",
+      "icon": "fa fa-file-text-o"
+    },
+    "0103": {
+      "parent": "0100",
+      "name": "服务端版本",
+      "url": "views/common/version.server.html",
+      "icon": "fa fa-server"
+    },
+    "0104": {
+      "parent": "0100",
+      "name": "客户端版本",
+      "url": "views/common/version.client.html",
+      "icon": "fa fa-server"
+    },
 
-    "0200": { "parent": "000", "name": "查询统计", "icon": "fa fa-bar-chart-o" },
-    "0201": { "parent": "0200", "name": "用户全历史查询", "module": "module-order", "method": "initUserSearch", "icon": "fa fa-search" },
-    "0202": { "parent": "0200", "name": "领券情况查询", "callback": "$P.activity", "icon": "fa fa-bar-chart" },
-    "0203": { "parent": "0200", "name": "活跃用户统计月表", "callback": "$P.activity", "icon": "fa fa-line-chart" },
-    "0204": { "parent": "0200", "name": "活跃商户统计月表", "callback": "$P.activity", "icon": "fa fa-pie-chart" },
-    "0205": { "parent": "0200", "name": "商户上线成功率统计", "callback": "$P.activity", "icon": "fa fa-pie-chart" },
-    "0206": { "parent": "0200", "name": "商户签约数量统计", "callback": "$P.activity", "icon": "fa fa-pie-chart" },
+    "0200": {
+      "parent": "000",
+      "name": "查询统计",
+      "icon": "fa fa-bar-chart-o"
+    },
+    "0201": {
+      "parent": "0200",
+      "name": "用户全历史查询",
+      "module": "module-order",
+      "method": "initUserSearch",
+      "icon": "fa fa-search"
+    },
+    "0202": {
+      "parent": "0200",
+      "name": "领券情况查询",
+      "callback": "$P.activity",
+      "icon": "fa fa-bar-chart"
+    },
+    "0203": {
+      "parent": "0200",
+      "name": "活跃用户统计月表",
+      "callback": "$P.activity",
+      "icon": "fa fa-line-chart"
+    },
+    "0204": {
+      "parent": "0200",
+      "name": "活跃商户统计月表",
+      "callback": "$P.activity",
+      "icon": "fa fa-pie-chart"
+    },
+    "0205": {
+      "parent": "0200",
+      "name": "商户上线成功率统计",
+      "callback": "$P.activity",
+      "icon": "fa fa-pie-chart"
+    },
+    "0206": {
+      "parent": "0200",
+      "name": "商户签约数量统计",
+      "callback": "$P.activity",
+      "icon": "fa fa-pie-chart"
+    },
 
-    "0300": { "parent": "000", "name": "订单管理", "icon": "fa fa-file-text-o" },
-    "0301": { "parent": "0300", "name": "订单信息查询", "module": "module-order", 'method': 'init', "icon": "fa fa-search" },
-    "0302": { "parent": "0300", "name": "结算订单查询", "module": "module-order", "method": "initSettlementSearch", "icon": "fa fa-search" },
+    "0300": {
+      "parent": "000",
+      "name": "订单管理",
+      "icon": "fa fa-file-text-o"
+    },
+    "0301": {
+      "parent": "0300",
+      "name": "订单信息查询",
+      "module": "module-order",
+      'method': 'init',
+      "icon": "fa fa-search"
+    },
+    "0302": {
+      "parent": "0300",
+      "name": "结算订单查询",
+      "module": "module-order",
+      "method": "initSettlementSearch",
+      "icon": "fa fa-search"
+    },
 
-    "0400": { "parent": "000", "name": "商户管理", "icon": "fa fa-cubes" },
-    "0401": { "parent": "0400", "name": "商户基本信息管理", "module": "module-tenant", "method": "initInfo", "icon": "fa fa-file-text-o" },
-    "0402": { "parent": "0400", "name": "商户服务项目管理", "module": "module-tenant", "method": "initProject", "icon": "fa fa-file-text-o" },
-    "0403": { "parent": "0400", "name": "商户全历史查询", "module": "module-tenant", "method": "initSearch", "icon": "fa fa-search" },
+    "0400": {
+      "parent": "000",
+      "name": "商户管理",
+      "icon": "fa fa-cubes"
+    },
+    "0401": {
+      "parent": "0400",
+      "name": "商户基本信息管理",
+      "module": "module-tenant",
+      "method": "initInfo",
+      "icon": "fa fa-file-text-o"
+    },
+    "0402": {
+      "parent": "0400",
+      "name": "商户服务项目管理",
+      "module": "module-tenant",
+      "method": "initProject",
+      "icon": "fa fa-file-text-o"
+    },
+    "0403": {
+      "parent": "0400",
+      "name": "商户全历史查询",
+      "module": "module-tenant",
+      "method": "initSearch",
+      "icon": "fa fa-search"
+    },
 
-    "0500": { "parent": "000", "name": "合作方管理", "icon": "fa fa-handshake-o" },
-    "0501": { "parent": "0500", "name": "合作方信息管理", "callback": "$P.options.system" },
+    "0500": {
+      "parent": "000",
+      "name": "合作方管理",
+      "icon": "fa fa-handshake-o"
+    },
+    "0501": {
+      "parent": "0500",
+      "name": "合作方信息管理",
+      "callback": "$P.options.system"
+    },
 
-    "100": { "parent": "000", "name": "系统维护", "icon": "fa fa-cogs" },
-    "102": { "parent": "100", "name": "账户管理", "module": "module-admin", "method": "init", "icon": "fa fa-users" },
-    "101": { "parent": "100", "name": "角色管理", "module": "module-role", "method": "init", "icon": "fa fa-users" },
-    "103": { "parent": "100", "name": "日志查询", "module": "module-syslog", "method": "init", "icon": "fa fa-search" },
-    "104": { "parent": "100", "name": "参数设置", "url": "views/common/option.html", "callback": "$P.options.system", "icon": "fa fa-cog" },
-    "105": { "parent": "100", "name": "菜单管理", "callback": "$P.options.system", "icon": "fa fa-cog" },
+    "100": {
+      "parent": "000",
+      "name": "系统维护",
+      "icon": "fa fa-cogs"
+    },
+    "102": {
+      "parent": "100",
+      "name": "账户管理",
+      "module": "module-admin",
+      "method": "init",
+      "icon": "fa fa-users"
+    },
+    "101": {
+      "parent": "100",
+      "name": "角色管理",
+      "module": "module-role",
+      "method": "init",
+      "icon": "fa fa-users"
+    },
+    "103": {
+      "parent": "100",
+      "name": "日志查询",
+      "module": "module-log",
+      "method": "init",
+      "icon": "fa fa-search"
+    },
+    "104": {
+      "parent": "100",
+      "name": "参数设置",
+      "url": "views/common/option.html",
+      "callback": "$P.options.system",
+      "icon": "fa fa-cog"
+    },
+    "105": {
+      "parent": "100",
+      "name": "菜单管理",
+      "callback": "$P.options.system",
+      "icon": "fa fa-cog"
+    },
 
-    "300": { "parent": "000", "name": "数据字典管理", "icon": "fa fa-book" },
-    "301": { "parent": "300", "name": "行政区划管理", "module": "module-dict", "method": "xzqh" },
-    "302": { "parent": "300", "name": "号段表管理", "module": "module-dict", "method": "code" },
+    "300": {
+      "parent": "000",
+      "name": "数据字典管理",
+      "icon": "fa fa-book"
+    },
+    "301": {
+      "parent": "300",
+      "name": "行政区划管理",
+      "module": "module-dict",
+      "method": "xzqh"
+    },
+    "302": {
+      "parent": "300",
+      "name": "号段表管理",
+      "module": "module-dict",
+      "method": "code"
+    },
 
-    "d00": { "parent": "000", "name": "公共示例", "icon": "fa fa-object-ungroup" },
-    "d01": { "parent": "d00", "name": "图标字体 | WebFont", "url": "views/sample/icons.html" },
-    "d06": { "parent": "d00", "name": "统计图表 | ECHARTS", "url": "views/sample/charts.html" },
+    "d00": {
+      "parent": "000",
+      "name": "公共示例",
+      "icon": "fa fa-object-ungroup"
+    },
+    "d01": {
+      "parent": "d00",
+      "name": "图标字体 | WebFont",
+      "url": "views/sample/icons.html"
+    },
+    "d06": {
+      "parent": "d00",
+      "name": "统计图表 | ECHARTS",
+      "url": "views/sample/charts.html"
+    },
   };
 
   return cfgs;
