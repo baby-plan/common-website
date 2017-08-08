@@ -10,13 +10,14 @@
 a {
   text-decoration: none;
 }
-body{
+
+body {
   transition: 0.4s;
 }
+
 .showmenu {
   transform: rotate(0) translateZ(100px) scale(.8);
   /*translate(75%, 0%);*/
-
 }
 
 
@@ -282,6 +283,10 @@ section {
   vertical-align: middle;
 }
 
+.CodeMirror {
+  border: solid 1px #ccc;
+  height: 100%;
+}
 
 /*
  *  Usage:

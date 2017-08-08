@@ -1,18 +1,23 @@
 /* ========================================================================
- * App.modules.server v1.0
+ * modules.server v1.0
  * 0101.服务器状态监控
  * ========================================================================
  * Copyright 2016-2026 WangXin nvlbs,Inc.
  * ======================================================================== */
-(function (app) {
+define(['jquery', 'QDP', 'jquery.tmpl', 'jquery.tmplPlus'], function ($, QDP) {
   "use strict";
 
-  app.modules.server = {
+  return {
+    'define': {
+      "name": "服务器监控模块",
+      "version": "1.0.0.0",
+      'copyright': ' Copyright 2017-2027 WangXin nvlbs,Inc.',
+    },
     "status": function () {
       var callback = function (json) {
         var max = (json.data.totalmem / 1024 / 1024 / 1024).toFixed(1);
         var free = (json.data.freemem / 1024 / 1024 / 1024).toFixed(1);
-        var cur = (max - free).toFixed(1);
+        // var cur = (max - free).toFixed(1);
         $("#totalmem").text(max + " G");
         $("#freemem").text(free + " G");
 
@@ -34,12 +39,14 @@
         $.each(json.data, function (field, value) {
           if (typeof value === 'string') {
             $("#" + field).text(value);
-          } else if (typeof value === 'number') {
-          } else {
-          }
+          } else if (typeof value === 'number') { } else { }
         });
       };
-      App.ajax(API.moritor.serverstatusapi, {}, callback);
+      QDP.ajax.get(QDP.api.moritor.serverstatusapi, {}, callback);
+    },
+    "destroy": function () {
+      console.log("卸载模块");
     }
   }
-})(App);
+
+});

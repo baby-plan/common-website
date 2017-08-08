@@ -34,7 +34,11 @@
         </span>
       </div>
       {{else}}
-      <input id="${ column.name }" name="${ column.name }" placeholder="请输入${ column.text }..." type="text" class="form-control" data-bv-notempty="true" data-bv-notempty-message="${ column.text }不能为空">
+        {{if column.notempty}}
+          <input id="${ column.name }" name="${ column.name }" placeholder="请输入${ column.text }..." type="text" class="form-control">
+        {{else}}
+          <input id="${ column.name }" name="${ column.name }" placeholder="请输入${ column.text }..." type="text" class="form-control" data-bv-notempty="true" data-bv-notempty-message="${ column.text }不能为空">
+        {{/if}}
       {{/if}}
     </div>
   </div>

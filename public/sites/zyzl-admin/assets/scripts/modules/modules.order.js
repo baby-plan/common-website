@@ -1,18 +1,16 @@
-/* ========================================================================
- * App.modules.order v1.0
- * 201.order 订单相关
- * ========================================================================
- * Copyright 2017-2027 WangXin nvlbs,Inc.
- * ======================================================================== */
-(function (app) {
+define(['QDP'], function (QDP) {
+  "use strict";
 
-  app.modules.order = {
+  return {
+    'define': {
+      "name": "订单处理模块",
+      "version": "1.0.0.0",
+      'copyright': ' Copyright 2017-2027 WangXin nvlbs,Inc.',
+    },
+
     "init": function () {
       var options = {
-        "apis": { "list": API.logs.datas },
-        //省份、城市、订单编号、手机号码、商家名称、审核状态、开始时间、结束时间
-        //省份、城市、订单编号、订单时间、商户名称、商户地址、商户评分、洗车券码、券码类型、
-        //订单金额、实付金额、折扣券会员价、折扣券签约价、店铺门市价、免费券结算价、应结算金额
+        "apis": { "list": QDP.api.logs.datas },
         "columns": [
           { "name": "_index", "text": "序号" },
           { "name": "id", "primary": true },
@@ -36,11 +34,12 @@
           { "name": "realamount", "text": "应结算金额", "base64": true }
         ]
       };
-      App.plugins.common.init(options);
+      QDP.generator.init(options);
     },
+
     "initUserSearch": function () {
       var options = {
-        "apis": { "list": API.logs.datas },
+        "apis": { "list": QDP.api.logs.datas },
         //用户信息(手机号、车型)，调用订单信息查询。
         // 输入用户手机号（单个/批量），
         // 省份、城市、用户手机号、洗车券码、洗车券状态（已使用、待使用、已过期）
@@ -80,11 +79,12 @@
           { "name": "realamount", "text": "应结算金额", "base64": true }
         ]
       };
-      App.plugins.common.init(options);
+      QDP.generator.init(options);
     },
+
     "initSettlementSearch": function () {
       var options = {
-        "apis": { "list": API.logs.datas },
+        "apis": { "list": QDP.api.logs.datas },
         "columns": [
           { "name": "_index", "text": "序号" },
           { "name": "id", "primary": true },
@@ -117,62 +117,8 @@
           { "name": "realamount", "text": "应结算金额", "base64": true }
         ]
       };
-      App.plugins.common.init(options);
+      QDP.generator.init(options);
     }
-  }
 
-  app.modules.tenant = {
-    "initInfo": function () {
-      var options = {
-        "apis": {
-          "list": API.organization.datas,
-          "insert": API.organization.add,
-          "update": API.organization.update,
-          "delete": API.organization.remove
-        },
-        "texts": { "insert": "新增机构信息", "update": "机构信息编辑" },
-        "headers": { "edit": { "text": "机构信息" }, "table": { "text": "机构信息列表" } },
-        "actions": { "insert": true, "update": true, "delete": true },
-        "columns": [
-          { "name": "_index", "text": "序号" },
-          { "name": "id", "primary": true },
-          { "name": "name", "text": "机构名称", "base64": true, "edit": true, "filter": true },
-          { "name": "type", "text": "机构类型", "multiple": true, "dict": "orgatype", "edit": true, "filter": true },
-          { "name": "addr", "text": "机构地址", "base64": true, "edit": true },
-          { "name": "telphone", "text": "联系电话", "edit": true, "filter": true },
-          { "name": "jointime", "text": "加入时间", "type": "date", "edit": true },
-          { "name": "describe", "text": "机构简介", "base64": true, "edit": true, "overflow": 20 },
-          // { "name": "imgs", "text": "图片", "type": "mulitfile", "edit": true },
-          { "name": "_action", "text": "操作" }
-        ]
-      };
-      App.plugins.common.init(options);
-    },
-    "initProject": function () {
-      var options = {
-        "apis": {
-          "list": API.organization.datas,
-          "insert": API.organization.add,
-          "update": API.organization.update,
-          "delete": API.organization.remove
-        },
-        "texts": { "insert": "新增机构信息", "update": "机构信息编辑" },
-        "headers": { "edit": { "text": "机构信息" }, "table": { "text": "机构信息列表" } },
-        "actions": { "insert": true, "update": true, "delete": true },
-        "columns": [
-          { "name": "_index", "text": "序号" },
-          { "name": "id", "primary": true },
-          { "name": "name", "text": "机构名称", "base64": true, "edit": true, "filter": true },
-          { "name": "type", "text": "机构类型", "multiple": true, "dict": "orgatype", "edit": true, "filter": true },
-          { "name": "addr", "text": "机构地址", "base64": true, "edit": true },
-          { "name": "telphone", "text": "联系电话", "edit": true, "filter": true },
-          { "name": "jointime", "text": "加入时间", "type": "date", "edit": true },
-          { "name": "describe", "text": "机构简介", "base64": true, "edit": true, "overflow": 20 },
-          // { "name": "imgs", "text": "图片", "type": "mulitfile", "edit": true },
-          { "name": "_action", "text": "操作" }
-        ]
-      };
-      App.plugins.common.init(options);
-    },
   }
-})(App);
+});

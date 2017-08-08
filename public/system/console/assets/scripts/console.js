@@ -10,7 +10,6 @@ require.config({
   paths: {
 
     'cfgs': 'cfgs/cfgs',
-    'app': 'assets/scripts/app',
 
     'util': 'assets/scripts/core/framework.util',
     'logger': 'assets/scripts/core/framework.logger',
@@ -36,14 +35,12 @@ require.config({
   },
 
   shim: {
-    'app': ['jquery',
-      'cfgs',
-      'css!/assets/css/animate.css',
-    ],
+
     'block': ['jquery.blockUI'],
-    'filesystem': [
-      "/assets/plugins/codemirror/codemirror", "/assets/plugins/codemirror/mode/javascript/javascript"
-    ],
+    // 'filesystem': [
+    //   // 'codemirror', 'codemirror-javascript'
+    //   // "/assets/plugins/codemirror/codemirror.js", "/assets/plugins/codemirror/mode/javascript/javascript.js"
+    // ],
 
     'bootstrap': [
       'jquery',
@@ -61,6 +58,30 @@ require.config({
   }]
 });
 
-require(['app', 'bootstrap'], function (App) {
-  App.onReady();
+define(['jquery', 'layout', 'logger', 'cfgs', 'bootstrap', 'css!/assets/css/animate.css'], function ($, layout) {
+  console.info("应用程序启动");
+
+  let isScreen = false;
+  $('#fullscreen').on('click', function () {
+    isScreen = !isScreen;
+    if (isScreen) {
+      layout.fullScreen();
+    } else {
+      layout.exitFullScreen();
+    }
+  });
+
+  setTimeout(function () {
+
+    $('section').dblclick(function () {
+      if ($('body').hasClass("showmenu")) {
+        $('body').removeClass("showmenu");
+      } else {
+        $('body').addClass("showmenu");
+      }
+    });
+  }, 500);
+
+  layout.init();
+
 });
