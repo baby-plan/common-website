@@ -167,7 +167,8 @@
     "update": server + "module/update",
     /** API:删除数据*/
     "remove": server + "module/delete",
-    "parents": server + "module/parentall"
+    "parents": server + "module/parentall",
+    "all": server + "module/modules"
   }
 
   /** 活动相关参数设置 */

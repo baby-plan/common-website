@@ -44,9 +44,9 @@ define(['QDP'], function (QDP) {
           { "name": "tenantName", "text": "商户名称", "base64": true, "edit": true, "filter": true, 'filterindex': 5 },
           { "name": "storeName", "text": "店铺名称", "base64": true, "edit": true, "filter": true, 'filterindex': 7 },
           { "name": "checkName", "text": "签约人", "base64": true, "edit": true, "filter": true, 'filterindex': 3 },
-          { "name": "loginName", "text": "商户登录名", "base64": true, "edit": true, "filter": true, 'filterindex': 6 },
-          { "name": "checkState", "text": "审核状态", "edit": true, "dict": "checkstate", "filter": true, 'filterindex': 8 },
-          { "name": "publishState", "text": "发布状态", "edit": true, "dict": "publishstate", "filter": true, 'filterindex': 9 },
+          { "name": "loginName", "text": "登录名", "base64": true, "edit": true, "filter": true, 'filterindex': 6 },
+          { "name": "checkState", "text": "审核状态", "dict": "checkstate", "filter": true, 'filterindex': 8 },
+          { "name": "publishState", "text": "发布状态", "dict": "publishstate", "filter": true, 'filterindex': 9 },
           { "name": "date", "text": "创建时间", "type": "datetime", "filter": "daterange", 'filterindex': 999 },
           { "name": "_action", "text": "操作", 'customAction': info_customAction }
         ]

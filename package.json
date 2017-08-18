@@ -29,6 +29,7 @@
         "cheerio": "latest",
         "mkdirp": "latest",
         "sqlite": "latest",
-        "eslint": "latest"
+        "eslint": "latest",
+        "chokidar": "latest"
     }
 }

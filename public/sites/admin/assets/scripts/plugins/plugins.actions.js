@@ -10,6 +10,7 @@
   let actions_get = {};
   // 系统运行后自动注册评论\点赞\收藏\关注 等点击事件
   App.logger.info("注册->系统运行后自动注册评论\点赞\收藏\关注 等点击事件");
+  
   $("body").on("click", "a[data-action^='do-']", function (e) {
     let action = $(this).attr("data-action");
     let type = $(this).attr("data-type");
@@ -29,6 +30,7 @@
   $("body").on("ready", "[data-container]", function (e) {
     App.logger.debug("resize:");
   });
+
   app.plugins.actions = {
     "add": (action, fn) => {
       actions_add[action] = fn;

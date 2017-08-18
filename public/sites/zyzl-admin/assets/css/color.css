@@ -1,5 +1,5 @@
-body, .sidebar, .sidebar-menu {
-    background: none repeat scroll 0 0 #f4f4f4;
+body {
+    background: #f0f0f0;
     color: #555;
 }
 
@@ -7,7 +7,7 @@ body, .sidebar, .sidebar-menu {
 /* header */
 
 header {
-    background: none repeat scroll 0 0 #1d9d74;
+    background: none repeat scroll 0 0 #195fff;
     border: none;
 }
 
@@ -16,7 +16,7 @@ header .dropdown-toggle {
 }
 
 header .dropdown-toggle:focus, header .dropdown-toggle:hover {
-    color: #1d9d74;
+    color: #195fff;
     background-color: #fff;
 }
 
@@ -95,60 +95,37 @@ header .dropdown-toggle:focus, header .dropdown-toggle:hover {
 
 /* Start Sidebar */
 
-.sidebar-menu-container {
-    border-bottom: 1px solid #fff !important;
+.sidebar, .sidebar header {
+    background-color: #2e3e4e;
 }
 
-.sidebar-menu-container>li.has-sub .sub {
-    background: #e7e7e7;
-    border-top: 1px solid #e7e7e7;
+.sidebar header {
+    height: 200px;
+}
+
+.sidebar-menu-container>li>a:hover, .sidebar-menu-container>li:hover>a, .sidebar-menu-container>li.has-sub.open>a, .sidebar-menu-container>li.has-sub .sub {
+    background-color: #364150;
 }
 
 .sidebar-menu-container>li>ul.sub:before {
-    border-color: #3b3b3b;
+    border-color: #fff;
 }
 
 .sidebar-menu-container>li>ul.sub>li:before {
-    border-top: 1px dotted #3b3b3b;
+    border-top: 1px dotted #fff;
 }
 
-.sidebar-menu-container>li>ul.sub>li {
-    background: none;
-}
-
-.sidebar-menu-container>li a i, .sidebar-menu-container>li>ul.sub>li>a, .sidebar-menu .sidebar-menu-container>li>a .arrow:before, .sidebar-menu-container>li>a .arrow.open:before {
-    color: #555 !important;
-}
-
-.sidebar-menu-container>li>a {
-    border-bottom: 1px solid #e7e7e7 !important;
-    border-top: 1px solid #fff !important;
-    color: #555 !important;
+.sidebar-menu-container>li>a, .sidebar-menu-container>li a i, .sidebar-menu-container>li>ul.sub>li>a, .sidebar-menu-container>li>a .arrow:before, .sidebar-menu-container>li>a .arrow.open:before {
+    color: rgba(255, 255, 255, 0.87) !important;
 }
 
 .sidebar-menu-container>li.active>a {
-    background: #dbdbdb !important;
-    border-top-color: transparent !important;
+    color: #202239;
 }
 
-.sidebar-menu-container>li:first-child>a {
-    border-top-width: 0px !important;
-}
-
-.sidebar-menu-container>li:last-child>a {
-    border-bottom: 1px solid #e7e7e7 !important;
-}
-
-.sidebar-menu-container>li.has-sub.open>a, .sidebar-menu-container>li>a:hover, .sidebar-menu-container>li:hover>a {
-    background: #fff;
-}
-
-.sidebar-menu-container>li>a.open {
-    background: #313131;
-}
-
-.sidebar-menu-container>li>ul.sub>li.active>a, .sidebar-menu-container>li>ul.sub>li>a:hover, .sidebar-menu-container>li>ul.sub>li.current {
-    background: #f4f4f4 !important;
+.sidebar-menu-container>li>a.open, .sidebar-menu-container>li>ul.sub>li.active>a, .sidebar-menu-container>li>ul.sub>li>a:hover, .sidebar-menu-container>li>ul.sub>li.current {
+    background-color: #195fff !important;
+    /* color: #202239; */
 }
 
 
@@ -168,7 +145,7 @@ header .dropdown-toggle:focus, header .dropdown-toggle:hover {
 }
 
 .sidebar-collapse:hover>i {
-    color: #1d9d74;
+    color: #195fff;
 }
 
 
@@ -396,34 +373,34 @@ select+.form-control-feedback {
 }
 
 a {
-    color: #1d9d74;
+    color: #195fff;
 }
 
 a:hover, a:focus {
-    color: #1d9d74;
+    color: #195fff;
     text-decoration: underline;
 }
 
 .pagination>.active>a, .pagination>.active>span, .pagination>.active>a:hover, .pagination>.active>span:hover, .pagination>.active>a:focus, .pagination>.active>span:focus {
     color: #fff;
-    background-color: #1d9d74;
-    border-color: #1d9d74;
+    background-color: #195fff;
+    border-color: #195fff;
 }
 
 .pagination>li>a, .pagination>li>span {
-    color: #1d9d74;
+    color: #195fff;
     background-color: #fff;
     border: 1px solid #ddd;
 }
 
 .pagination>li>a:hover, .pagination>li>span:hover, .pagination>li>a:focus, .pagination>li>span:focus {
-    color: #1d9d74;
+    color: #195fff;
     background-color: #eee;
     border-color: #ddd;
 }
 
 .select2-container--default .select2-results__option--highlighted[aria-selected] {
-    background-color: #1d9d74;
+    background-color: #195fff;
     color: white;
 }
 

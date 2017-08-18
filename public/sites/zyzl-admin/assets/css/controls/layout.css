@@ -1,0 +1,184 @@
+* {
+  outline: medium none !important;
+  font-family: "Lucida Grande", "Lucida Sans Unicode", Hiragino Sans GB, WenQuanYi Micro Hei, Verdana, Aril, sans-serif;
+  -webkit-appearance: none;
+  box-shadow: none !important;
+}
+
+body {
+  margin: 0;
+  font-size: 14px;
+  border: 0 none;
+  font-weight: 400;
+  padding: 0;
+  height: 100%;
+  overflow: hidden;
+}
+
+.container {
+  width: 100% !important;
+}
+
+.collapse {
+  visibility: visible !important;
+}
+
+.visible {
+  display: block !important;
+}
+
+a:focus {
+  outline: thin dotted;
+  outline: 5px auto -webkit-focus-ring-color;
+  outline-offset: -2px;
+}
+
+a:active, a:focus {
+  outline-style: none;
+  -moz-outline-style: none;
+}
+
+input[type="radio"], input[type="checkbox"] {
+  margin: 4px 0 0;
+  margin-top: 1px \9;
+  line-height: normal;
+  box-sizing: border-box;
+  padding: 0;
+}
+
+h1 {
+  font-size: 36px;
+}
+
+h2 {
+  font-size: 30px;
+}
+
+h3 {
+  font-size: 24px;
+}
+
+h4 {
+  font-size: 18px;
+}
+
+h5 {
+  font-size: 14px;
+}
+
+h6 {
+  font-size: 12px;
+}
+
+p {
+  margin: 0 0 10px;
+}
+
+.list-inline {
+  margin-left: 0;
+}
+
+.list-inline>li:first-child {
+  padding-left: 0;
+}
+
+.panel>.panel-heading>.panel-tools {
+  float: right;
+  display: inline-block;
+  padding: 0;
+  margin-bottom: 7px;
+  clear: both;
+  min-height: 30px;
+  margin-top: -20px;
+}
+
+.panel>.panel-heading>.panel-tools>a {
+  display: inline-block;
+  font-size: 16px;
+  /* line-height: 24px; */
+  text-decoration: none;
+  margin-right: 5px;
+}
+
+.no-padding {
+  padding: 0 !important;
+}
+
+.widget {
+  border-radius: 5px;
+  padding: 15px 20px;
+  margin-bottom: 10px;
+  margin-top: 10px;
+}
+
+.font-bold {
+  font-weight: 600;
+}
+
+footer {
+  bottom: 0px;
+  right: 0px;
+  left: 0px;
+  z-index: 1030;
+  position: fixed;
+  padding-bottom: 5px;
+  padding-top: 5px;
+}
+
+
+/* Content */
+
+#main-content {
+  margin-left: 300px;
+}
+
+.mini-menu #main-content {
+  margin-left: 50px;
+}
+
+#content {
+  margin-top: 0;
+  min-height: 100%;
+}
+
+#ajax-content {
+  padding-top: 20px;
+}
+
+.slimScrollDiv {
+  overflow: visible !important;
+}
+
+#content>.slimScrollDiv>.slimScrollBar {
+  margin-right: -15px !important;
+}
+
+#content>.slimScrollDiv>.slimScrollRail {
+  margin-right: -15px !important;
+}
+
+#content .content-title {
+  display: block;
+  font-family: 'Open Sans';
+  font-size: 30px;
+  font-weight: 300;
+  letter-spacing: -1px;
+  margin: 5px 0;
+  padding: 0;
+}
+
+
+/* 页面内容区-头部样式 */
+
+.content-header {
+  margin: 0 -15px 0px;
+  position: relative;
+}
+
+
+/* 页面内容区-头部-右侧工具栏*/
+
+.content-toolbar {
+  text-align: right;
+  padding: 8px 0px 3px 0px;
+}

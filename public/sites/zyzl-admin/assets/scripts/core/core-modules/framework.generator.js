@@ -206,6 +206,7 @@ define(['jquery', 'cfgs', 'API',
         $("#info>.panel-heading>.panel-title").append($("<i/>").addClass(plugin_option.headers.edit.icon));
         $("#info>.panel-heading>.panel-title").append(plugin_option.headers.edit.text);
       }
+
       plugin_option.columns = plugin_option.columns.sort(compare_index);
       // 调用Jquery.tmpl模板,初始化页面控件
       $("#editor-data").tmpl(plugin_option).appendTo('.panel-body>.form-horizontal');
@@ -246,6 +247,8 @@ define(['jquery', 'cfgs', 'API',
         } else if (typeof column.dict === "string") { // 初始化下拉列表控件,并且设置初始值
           form.initDict(column.dict, $("#" + column.name), value, column.multiple);
         } else if (column.name == "_index") { // 索引字段不需要处理
+        } else if (column.type == 'icon') {
+          $("#" + column.name).attr("data-value", value);
         } else {
           $("#" + column.name).val(value);
           if (column.primary && value) {
@@ -253,7 +256,6 @@ define(['jquery', 'cfgs', 'API',
           }
         }
       });
-      //口才训练乐器培训少儿舞蹈跆拳道培训游泳培训轮滑培训少儿表演棋牌培训少儿美术培训潜能开发书法培训竞技健身武术培训声乐/唱歌培训冬夏令营机器人培训
       form.init();
       $("#role-form").bootstrapValidator();// 注册表单验证组件
       $(".btn_save").on("click", save_click);// 处理保存按钮事件
@@ -371,6 +373,10 @@ define(['jquery', 'cfgs', 'API',
           }
           var td = undefined;
           var value = item[column.name];
+
+          if (column.base64) {
+            value = base64.decode(value);
+          }
           if (column.name == "_index") { // 序号
             row.addText(tr, totalindex);
           } else if (column.name == "_action") { // 按钮类型
@@ -394,14 +400,16 @@ define(['jquery', 'cfgs', 'API',
             td = row.addUTCText(tr, value, cfgs.options.defaults.datetimeformat);
           } else if (column.dict && column.dict != "") { // 数据字典类型 
             td = row.addDictText(tr, column.dict, value, column.multiple);
+          } else if (column.type == 'icon') { // 图标类型 
+            td = row.createCell(tr);
+            td.append($("<i></i>").addClass(value));
+            td.append(' ' + value);
           } else if (column.primary) { // 主键，不显示
             if (column.display) {
               td = row.addText(tr, value);
             }
           } else {
-            if (column.base64) {
-              value = base64.decode(value);
-            }
+
             if (column.overflow != undefined && column.overflow > 0 && value.length > column.overflow) {
               td = row.addText(tr, value.substring(0, column.overflow) + "..."); // 文本类型
               td.attr("title", value);

@@ -1,4 +1,3 @@
-
 define(['jquery', 'cfgs', 'API',
   'core/core-modules/framework.block',
   'core/core-modules/framework.dict',
@@ -18,10 +17,8 @@ define(['jquery', 'cfgs', 'API',
   'css!/assets/plugins/bootstrap/css/bootstrap.min.css',
   'css!/assets/css/animate.css',
   'css!/assets/fonts/font.css',
-  'css!../../../css/loading.css',
   'css!../../../css/color.css',
-  'css!../../../css/login.css',
-  'css!../../../css/responsive.css'],
+  'css!../../../css/main.css'],
   function ($, cfgs, api, block, dict, base64, ajax, util, dialog, cookie, event) {
     let selected = undefined;
     let isFullScreen = false;
@@ -32,26 +29,14 @@ define(['jquery', 'cfgs', 'API',
       'initialied': 'layout.initialied'
     };
 
-    var _getViewPort = function () {
-      var e = window,
-        a = "inner";
-      if (!("innerWidth" in window)) {
-        a = "client";
-        e = document.documentElement || document.body;
-      }
-      return {
-        width: e[a + "Width"],
-        height: e[a + "Height"]
-      }
-    };
-
     /** 重新设置滚动条 */
     var _refresh_scroller = function () {
       var breadcrumbHeight = $(".content-header").outerHeight();
-      var headerHeight = $("header").outerHeight();
+      var headerHeight = $("body>header").outerHeight();
+      var userHeight = $(".sidebar header").outerHeight();
       var windowHeight = $(window).outerHeight();
       var footerHeader = $("footer").outerHeight();
-      var sidebarHeight = windowHeight - headerHeight - footerHeader;
+      var sidebarHeight = windowHeight - headerHeight - footerHeader - userHeight;
       var contentHeight = windowHeight - headerHeight - breadcrumbHeight - footerHeader;
       var newOptions, options;
 
@@ -122,14 +107,7 @@ define(['jquery', 'cfgs', 'API',
           cfgs.pageOptions.items.push(item);
         }
       }
-      /** 加载模块所依赖的脚本文件 */
-      var loadModuleScripts = function () {
-        if (cfgs.pageOptions.items[0] && cfgs.pageOptions.items[0].scripts) {
-          $.each(cfgs.pageOptions.items[0].scripts, function (index, item) {
-            $.getScript(item);
-          });
-        }
-      };
+
       /** 处理mini-menu高亮状态 */
       var highlightSelected = function () {
         if ($("body").hasClass("mini-menu")) {
@@ -196,7 +174,6 @@ define(['jquery', 'cfgs', 'API',
 
         initMenuLevel();
         resetBreadcrumb();
-        loadModuleScripts();
         highlightSelected();
 
         if ($("#ajax-content").hasClass("fadeOutRight")) {
@@ -328,20 +305,21 @@ define(['jquery', 'cfgs', 'API',
       }
     }
 
-    var createTag = function (text) {
-      switch (text) {
-        case "new":
-          return $("<span />").text("NEW").addClass("badge btn-danger");
-        case "hot":
-          return $("<span />").text("HOT").addClass("badge btn-warning");
-        case "ok":
-          return $("<span />").text("OK").addClass("badge btn-success");
-        default:
-          return $("<span />").text(text).addClass("badge btn-info");
-      }
-    }
-
     var _initMenu = function () {
+
+      var createTag = function (text) {
+        switch (text) {
+          case "new":
+            return $("<span />").text("NEW").addClass("badge btn-danger");
+          case "hot":
+            return $("<span />").text("HOT").addClass("badge btn-warning");
+          case "ok":
+            return $("<span />").text("OK").addClass("badge btn-success");
+          default:
+            return $("<span />").text(text).addClass("badge btn-info");
+        }
+      }
+
       var functions = [];// App.userinfo.list.sort();
 
       if (cfgs.rootable) {
@@ -455,8 +433,22 @@ define(['jquery', 'cfgs', 'API',
       var rolename = cfgs.INFO.rolename;
       $(".username").text(username + "【" + rolename + "】");
       $("#page").load(api.login.mainpage, function () {
-        event.raise(events.initialied);
-        _initMenu();
+
+        ajax.get(api.module.all, {}, function (json) {
+          cfgs.modules = {};
+          $.each(json.data.list, function (index, item) {
+            item.name = base64.decode(item.name);
+            item.module = base64.decode(item.module);
+            item.method = base64.decode(item.method);
+            item.url = base64.decode(item.url);
+            item.args = base64.decode(item.args);
+            item.leave = base64.decode(item.leave);
+            cfgs.modules[item.id] = item;
+          });
+          _initMenu();
+          event.raise(events.initialied);
+        });
+
       });
     }
 

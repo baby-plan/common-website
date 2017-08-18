@@ -220,11 +220,11 @@
   var stateformat = function (state) {
     if (!state.id) {
       return state.text;
+    } else if (state.id.startWith("fa") || state.id.startWith("icon")) {
+      return $('<span><i class="' + state.id + '" /></i> ' + state.text + '</span>');
+    } else {
+      return $('<span><i class="fa fa-book" /></i> ' + state.text + '</span>');
     }
-    var $state = $(
-      '<span><i class="fa fa-book" /></i> ' + state.text + '</span>'
-    );
-    return $state;
   }
   /** 下拉列表选项 */
   cfgs.options.select2 = {
@@ -238,7 +238,7 @@
   cfgs.options.scroller = {
     "width": "auto", //可滚动区域宽度
     "size": '5px', //组件宽度
-    "color": '#1d9d74', //滚动条颜色
+    "color": '#195fff', //滚动条颜色
     "position": 'right', //组件位置:left/right
     "distance": '1px', //组件与侧边之间的距离
     "opacity": 1, //滚动条透明度
@@ -278,16 +278,7 @@
       1. parent   表示模块父级，若为000则视为根目录。
       2. name     表示模块名称，即菜单名称
       3. icon     表示模块图标，即菜单图标
-      4. callback 表示回调函数，即菜单点击后执行的脚本内容。
-          备注:
-          1. $P 表示插件对象，调用init方法
-              例如：$P.file = App.plugins.file.init();
-          2. $D 表示构造数据字典对象
-              例如：$D/activitytype = App.plugins.dict.Package('activitytype','活动类型')，其中活动类型为模块名称。
-          3. $M 表示模块对象
-              例如：$M.profile = App.modules.profile();
       5. url      表示模块路径，即菜单点击后打开的地址。
-
    */
   cfgs.modules = {
     "0100": { "parent": "000", "name": "监控中心", "icon": "fa fa-tachometer", "iconcolor": "red" },
@@ -346,6 +337,113 @@
     "d01": { "parent": "d00", "name": "图标字体 | WebFont", "url": "views/sample/icons.html" },
     "d06": { "parent": "d00", "name": "统计图表 | ECHARTS", "url": "views/sample/charts.html" },
   };
+
+  cfgs.icons = [
+    'fa fa-address-book'
+    , 'fa fa-address-book-o'
+    , 'fa fa-tachometer'
+    , 'fa fa-drivers-license'
+    , 'fa.fa-bars'
+    , 'fa.fa-television'
+    , 'fa.fa-angle-down'
+    , 'fa.fa-key'
+    , 'fa.fa-key'
+    , 'fa.fa-power-off'
+    , 'fa.fa-address-book'
+    , 'fa.fa-address-book-o'
+    , 'fa.fa-address-card'
+    , 'fa.fa-address-card-o'
+    , 'fa.fa-bandcamp'
+    , 'fa.fa-bath'
+    , 'fa.fa-bathtub'
+    , 'fa.fa-drivers-license'
+    , 'fa.fa-drivers-license-o'
+    , 'fa.fa-eercast'
+    , 'fa.fa-envelope-open'
+    , 'fa.fa-envelope-open-o'
+    , 'fa.fa-etsy'
+    , 'fa.fa-free-code-camp'
+    , 'fa.fa-grav'
+    , 'fa.fa-handshake-o'
+    , 'fa.fa-id-badge'
+    , 'fa.fa-id-card'
+    , 'fa.fa-id-card-o'
+    , 'fa.fa-imdb'
+    , 'fa.fa-linode'
+    , 'fa.fa-meetup'
+    , 'fa.fa-microchip'
+    , 'fa.fa-podcast'
+    , 'fa.fa-quora'
+    , 'fa.fa-ravelry'
+    , 'fa.fa-s15'
+    , 'fa.fa-shower'
+    , 'fa.fa-snowflake-o'
+    , 'fa.fa-superpowers'
+    , 'fa.fa-telegram'
+    , 'fa.fa-thermometer'
+    , 'fa.fa-thermometer-0'
+    , 'fa.fa-thermometer-1'
+    , 'fa.fa-thermometer-2'
+    , 'fa.fa-thermometer-3'
+    , 'fa.fa-thermometer-4'
+    , 'fa.fa-thermometer-empty'
+    , 'fa.fa-thermometer-full'
+    , 'fa.fa-thermometer-half'
+    , 'fa.fa-thermometer-quarter'
+    , 'fa.fa-thermometer-three-quarters'
+    , 'fa.fa-times-rectangle'
+    , 'fa.fa-times-rectangle-o'
+    , 'fa.fa-user-circle'
+    , 'fa.fa-user-circle-o'
+    , 'fa.fa-user-o'
+    , 'fa.fa-vcard'
+    , 'fa.fa-vcard-o'
+    , 'fa.fa-window-close'
+    , 'fa.fa-window-close-o'
+    , 'fa.fa-window-maximize'
+    , 'fa.fa-window-minimize'
+    , 'fa.fa-window-restore'
+    , 'fa.fa-wpexplorer'
+    , 'fa.fa-address-book'
+    , 'fa.fa-address-book-o'
+    , 'fa.fa-address-card'
+    , 'fa.fa-address-card-o'
+    , 'fa.fa-adjust'
+    , 'fa.fa-american-sign-language-interpreting'
+    , 'fa.fa-anchor'
+    , 'fa.fa-archive'
+    , 'fa.fa-area-chart'
+    , 'fa.fa-arrows'
+    , 'fa.fa-arrows-h'
+    , 'fa.fa-arrows-v'
+    , 'fa.fa-asl-interpreting'
+    , 'fa.fa-assistive-listening-systems'
+    , 'fa.fa-asterisk'
+    , 'fa.fa-at'
+    , 'fa.fa-audio-description'
+    , 'fa.fa-automobile'
+    , 'fa.fa-balance-scale'
+    , 'fa.fa-ban'
+    , 'fa.fa-bank'
+    , 'fa.fa-bar-chart'
+    , 'fa.fa-bar-chart-o'
+    , 'fa.fa-barcode'
+    , 'fa.fa-bars'
+    , 'fa.fa-bath'
+    , 'fa.fa-bathtub'
+    , 'fa.fa-battery'
+    , 'fa.fa-battery-0'
+    , 'fa.fa-battery-1'
+    , 'fa.fa-battery-2'
+    , 'fa.fa-battery-3'
+    , 'fa.fa-battery-4'
+    , 'fa.fa-battery-empty'
+    , 'fa.fa-battery-full'
+    , 'fa.fa-battery-half'
+    , 'fa.fa-battery-quarter'
+    , 'fa.fa-battery-three-quarters'
+    , 'fa.fa-bed'
+  ];
 
   return cfgs;
 });

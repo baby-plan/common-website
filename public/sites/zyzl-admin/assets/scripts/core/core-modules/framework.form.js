@@ -198,6 +198,20 @@ define(['jquery', 'cfgs',
             el.slideDown(200);
           }
         });
+
+        $(".picker-icon").empty();
+
+        $(".picker-icon").append($("<option/>").val("000").text("000 - 根目录"));
+        $.each(cfgs.icons, function (index, icon) {
+          $(".picker-icon").append(
+            $("<option/>")
+              .val(icon)
+              .append(icon));
+        });
+
+        // $(".picker-icon .picker-set").click(function () {
+        //   console.log("1");
+        // });
       },
       /** ajax方式加载页面内容.
        * @param {JSON} options 打开页面的参数

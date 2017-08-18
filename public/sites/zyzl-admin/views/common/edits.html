@@ -14,34 +14,40 @@
 </tools>
 <script id="editor-data" type="text/x-jquery-tmpl">
 {{each(index,column) $data.columns}}
-{{if column.edit}}
-  <div class="form-group">
-    <label class="col-sm-3 control-label">${ column.text }</label>
-    <div class="col-sm-5">
-      {{if column.multiple}}
-      <select id="${ column.name }" name="${ column.name }" multiple="true" class="form-control" data-bv-notempty="true" data-bv-notempty-message="${ column.text }不能为空"/>
-      {{else column.dict != undefined && column.dict != ""}}
-      <select id="${ column.name }" name="${ column.name }" class="form-control" data-bv-notempty="true" data-bv-notempty-message="${ column.text }不能为空"/>
-      {{else column.type == "mulittext"}}
-      <textarea id="${ column.name }" name="${ column.name }" placeholder="请输入${ column.text }..." rows="5" class="form-control"/>
-      {{else column.type == "date"|| column.type == "datetime"}}
-      <div class="input-group date form_date">
-        <input id="${ column.name }" name="${ column.name }" placeholder="请输入${ column.text }..." type="text" class="form-control" data-bv-notempty="true" data-bv-notempty-message="${ column.text }不能为空" data-bv-date="true" data-bv-date-message="${ column.text }不是有效的日期类型,请重新选择">
-        <span class="input-group-addon">
-          <span class="date-set">
-            <i class="fa fa-calendar"></i>
-          </span>
-        </span>
-      </div>
-      {{else}}
-        {{if column.notempty}}
-          <input id="${ column.name }" name="${ column.name }" placeholder="请输入${ column.text }..." type="text" class="form-control">
+  {{if column.edit}}
+    <div class="form-group">
+      <label class="col-sm-3 control-label">${ column.text }</label>
+      <div class="col-sm-5">
+        {{if column.multiple}}
+          <select id="${ column.name }" name="${ column.name }" multiple="true" class="form-control" data-bv-notempty="true" data-bv-notempty-message="${ column.text }不能为空"/>
+        {{else column.dict != undefined && column.dict != ""}}
+          <select id="${ column.name }" name="${ column.name }" class="form-control" data-bv-notempty="true" data-bv-notempty-message="${ column.text }不能为空"/>
+        {{else column.type == "mulittext"}}
+          <textarea id="${ column.name }" name="${ column.name }" placeholder="请输入${ column.text }..." rows="5" class="form-control"/>
+        {{else column.type == "date"|| column.type == "datetime"}}
+          <div class="input-group date form_date">
+            <input id="${ column.name }" name="${ column.name }" placeholder="请输入${ column.text }..." type="text" class="form-control" data-bv-notempty="true" data-bv-notempty-message="${ column.text }不能为空" data-bv-date="true" data-bv-date-message="${ column.text }不是有效的日期类型,请重新选择">
+            <span class="input-group-addon">
+              <span class="date-set">
+                <i class="fa fa-calendar"></i>
+              </span>
+            </span>
+          </div>
+        {{else column.type == "icon" }}
+          {{if column.notempty}}
+            <select id="${ column.name }" name="${ column.name }" class="form-control picker-icon"/>
+          {{else}}
+            <select id="${ column.name }" name="${ column.name }" class="form-control picker-icon" data-bv-notempty="true" data-bv-notempty-message="${ column.text }不能为空"/>
+          {{/if}}
         {{else}}
-          <input id="${ column.name }" name="${ column.name }" placeholder="请输入${ column.text }..." type="text" class="form-control" data-bv-notempty="true" data-bv-notempty-message="${ column.text }不能为空">
+          {{if column.notempty}}
+            <input id="${ column.name }" name="${ column.name }" placeholder="请输入${ column.text }..." type="text" class="form-control">
+          {{else}}
+            <input id="${ column.name }" name="${ column.name }" placeholder="请输入${ column.text }..." type="text" class="form-control" data-bv-notempty="true" data-bv-notempty-message="${ column.text }不能为空">
+          {{/if}}
         {{/if}}
-      {{/if}}
+      </div>
     </div>
-  </div>
-{{/if}}
+  {{/if}}
 {{/each}}
 </script>

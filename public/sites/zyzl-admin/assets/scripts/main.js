@@ -106,6 +106,8 @@ require.config({
 
 });
 
-define(['jquery', 'QDP'], function ($, QDP) {
+define(['jquery', 'QDP',
+  'plugins/plugins.actions',
+], function ($, QDP) {
   QDP.Start();
 });

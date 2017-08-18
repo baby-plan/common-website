@@ -2,7 +2,7 @@
 
 .login {
   background: #18c8f6;
-  background: url("../img/login-background.jpg") no-repeat center fixed;
+  background: url("../../img/login-background.jpg") no-repeat center fixed;
   -webkit-background-size: cover;
   -moz-background-size: cover;
   -o-background-size: cover;
