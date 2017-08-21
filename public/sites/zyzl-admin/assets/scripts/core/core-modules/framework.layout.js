@@ -20,8 +20,6 @@ define(['jquery', 'cfgs', 'API',
   'css!../../../css/color.css',
   'css!../../../css/main.css'],
   function ($, cfgs, api, block, dict, base64, ajax, util, dialog, cookie, event) {
-    let selected = undefined;
-    let isFullScreen = false;
     let loaded = undefined;
     let leaveAction = undefined;
     let events = {
@@ -32,15 +30,15 @@ define(['jquery', 'cfgs', 'API',
     /** 重新设置滚动条 */
     var _refresh_scroller = function () {
       var breadcrumbHeight = $(".content-header").outerHeight();
-      var headerHeight = $("body>header").outerHeight();
       var userHeight = $(".sidebar header").outerHeight();
+      var menuHeight = $(".sidebar ul.nav").outerHeight();
       var windowHeight = $(window).outerHeight();
-      var footerHeader = $("footer").outerHeight();
-      var sidebarHeight = windowHeight - headerHeight - footerHeader - userHeight;
-      var contentHeight = windowHeight - headerHeight - breadcrumbHeight - footerHeader;
+      var footerHeader = $("body>footer").outerHeight();
+      var sidebarHeight = windowHeight - menuHeight - footerHeader - userHeight;
+      var contentHeight = windowHeight - breadcrumbHeight - footerHeader;
       var newOptions, options;
 
-      var height = windowHeight - headerHeight - footerHeader;
+      var height = windowHeight - footerHeader;
       $("#content").css('height', height + 'px');
       // 处理导航栏滚动条显示状态
       if (sidebarHeight <= $(".sidebar-menu").height()) {
@@ -57,8 +55,6 @@ define(['jquery', 'cfgs', 'API',
       }
       // 处理内容区滚动条显示状态
       $("#content-container").height(contentHeight);
-      // App.logger.debug("contentHeight=" + contentHeight);
-      // App.logger.debug("ajax-content=" + $("#ajax-content").parent().height());
       if (contentHeight < 800 || $("#ajax-content").parent().height() > contentHeight) {
         newOptions = {
           height: contentHeight
@@ -203,8 +199,7 @@ define(['jquery', 'cfgs', 'API',
       };
 
       /* 初始化页面元素 */
-      $("body>#fbmodal_overlay,body>.datetimepicker,body>.daterangepicker").remove();
-      $("body>.fbmodal>*").remove();
+      $("body>.datetimepicker,body>.daterangepicker").remove();
       $("#ajax-content").addClass("fadeOutRight");
       /* 加载页面内容 */
       $("#ajax-content").load(url, loadcallback);
@@ -244,6 +239,8 @@ define(['jquery', 'cfgs', 'API',
 
       if (dataModule && dataMethod) {
         callback = function () {
+
+          $('.mini-menu').removeClass('mini-menu');
           require([dataModule], function (moduleObject) {
             loaded = moduleObject;
             console.debug("module[%s] %s", dataModule, dataMethod);
@@ -426,14 +423,13 @@ define(['jquery', 'cfgs', 'API',
 
     /** 导航至系统主界面 */
     var gotoMain = function () {
-      $("header").show();
       $("body").removeClass("login");
-      $("section").attr("id", "page");
-      var username = cfgs.INFO.name
-      var rolename = cfgs.INFO.rolename;
-      $(".username").text(username + "【" + rolename + "】");
-      $("#page").load(api.login.mainpage, function () {
 
+      // 加载导航页面
+      block.show('请求导航内容...', $('aside'));
+      // setTimeout(function () {
+      $("aside").load(api.page.navigation, function () {
+        block.close($('aside'));
         ajax.get(api.module.all, {}, function (json) {
           cfgs.modules = {};
           $.each(json.data.list, function (index, item) {
@@ -448,15 +444,22 @@ define(['jquery', 'cfgs', 'API',
           _initMenu();
           event.raise(events.initialied);
         });
+      });
+      // }, 5000);
 
+      // 加载主页面
+      block.show('请求主页面内容...', $('section'));
+      $("section").load(api.login.mainpage, function () {
+        block.close($('section'));
+        $(".username").text(cfgs.INFO.name);
+        $(".userrole").text(cfgs.INFO.rolename);
       });
     }
 
     /** 导航至登录界面 */
     var gotoLogin = function () {
       cookie.save("");
-      $("header").hide();
-      $("section").attr("id", "");
+      $("aside").empty();
       $("body").addClass("login");
       var loginPageLoadCallback = function () {
         $(".btn-login").on("click", function () {
@@ -491,13 +494,12 @@ define(['jquery', 'cfgs', 'API',
         setTimeout(_refresh_scroller, 500);
       });
       // 注册导航栏一级菜单点击事件
-      $(document).on('click', '.sidebar-menu .has-sub > a', function (e) {
+      $(document).on('click', '.sidebar-menu .has-sub > a', function () {
         var isOpen = $(this).parent().hasClass("open");
         var last = $(".has-sub.open", $(".sidebar-menu"));
         last.removeClass("open");
         $(".arrow", last).removeClass("open");
 
-        var sub = $(this).next();
         if (isOpen) {
           $(".arrow", $(this)).removeClass("open");
           $(this).parent().removeClass("open");
@@ -509,7 +511,7 @@ define(['jquery', 'cfgs', 'API',
       });
 
       // 注册导航栏收起/展开开关点击事件
-      $(document).on('click', '.sidebar-collapse', function (e) {
+      $(document).on('click', '.sidebar-collapse', function () {
         if ($("body").hasClass("mini-menu")) {
           $("body").removeClass("mini-menu");
         } else {

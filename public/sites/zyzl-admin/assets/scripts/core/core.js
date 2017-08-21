@@ -53,10 +53,21 @@ define(['jquery', 'cfgs', 'API',
       $(document).on('click', '.btn_refresh', function (e) {
         table.reload();
       });
+
       /** 导出功能 */
       $(document).on('click', '.btn_export', function (e) {
         table.export();
       });
+
+      /** 筛选功能 */
+      $(document).on('click', '.btn_filter', function (e) {
+        if ($('body').hasClass('filter')) {
+          $('body').removeClass('filter');
+        } else {
+          $('body').addClass('filter');
+        }
+      });
+
     })();
 
     String.prototype.startWith = function (str) {

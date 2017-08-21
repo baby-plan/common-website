@@ -45,8 +45,8 @@ define(['jquery', 'jquery.blockUI'], function ($) {
       var blockTarget;
       if (target) {
         blockTarget = target;
-      } else if ($("#main-content").length == 1) {
-        blockTarget = $("#main-content");
+      } else if ($("section").length == 1) {
+        blockTarget = $("section");
       } else {
         blockTarget = $("body");
       }
@@ -70,8 +70,8 @@ define(['jquery', 'jquery.blockUI'], function ($) {
       var blockTarget;
       if (target) {
         blockTarget = target;
-      } else if ($("#main-content").length == 1) {
-        blockTarget = $("#main-content");
+      } else if ($("section").length == 1) {
+        blockTarget = $("section");
       } else {
         blockTarget = $("body");
       }

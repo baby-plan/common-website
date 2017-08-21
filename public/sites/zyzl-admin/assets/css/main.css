@@ -1,8 +1,8 @@
 @charset "UTF-8";
-@import url(responsive/max767.css);
 @import url(controls/layout.css);
 @import url(controls/control.css);
 @import url(controls/table.css);
 @import url(controls/menu.css);
 @import url(plugins/login.css);
 @import url(plugins/logining.css);
+@import url(responsive/max767.css);

@@ -115,7 +115,7 @@ p {
   font-weight: 600;
 }
 
-footer {
+body>footer {
   bottom: 0px;
   right: 0px;
   left: 0px;
@@ -125,15 +125,41 @@ footer {
   padding-top: 5px;
 }
 
+.sidebar-collapse {
+  display: none;
+}
+
 
 /* Content */
 
-#main-content {
+section {
   margin-left: 300px;
+  transition: all 0.25s;
 }
 
-.mini-menu #main-content {
-  margin-left: 50px;
+.has-sub {
+  transition: all 0.25s;
+}
+
+#filter-container {
+  width: 380px;
+  padding-right: 15px;
+  position: fixed;
+  height: 100%;
+  background: #f5f6f6;
+  right: -400px;
+  padding: 15px;
+  z-index: 3;
+  border-left: 1px solid #2e3e4e;
+  transition: all 0.25s;
+}
+
+.filter #filter-container {
+  right: 0;
+}
+
+#content-container {
+  width: 100% !important;
 }
 
 #content {
@@ -175,10 +201,6 @@ footer {
   position: relative;
 }
 
-
-/* 页面内容区-头部-右侧工具栏*/
-
-.content-toolbar {
-  text-align: right;
-  padding: 8px 0px 3px 0px;
+section {
+  display: flex;
 }

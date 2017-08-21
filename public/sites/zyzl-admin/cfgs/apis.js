@@ -2,7 +2,11 @@
   const img_server = "http://" + window.location.host + "/";
   const server = img_server + "api/";
 
-  var API = {};
+  var API = {
+    page: {
+      navigation:"views/master/navigation.html",
+    }
+  };
   /** API: */
   API.upload = {
     /** API: */
