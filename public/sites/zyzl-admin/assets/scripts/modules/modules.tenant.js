@@ -125,5 +125,31 @@ define(['QDP'], function (QDP) {
       QDP.generator.init(options);
     },
 
+    "initlqqk": function () {
+      var options = {
+        "apis": { "list": QDP.api.logs.datas },
+        "columns": [
+          { "name": "_index", "text": "序号" },
+          { "name": "id", "primary": true },
+          { "name": "priv", "text": "省份", "dict": "schooltype", "filter": true },
+          { "name": "city", "text": "城市", "dict": "schooltype", "filter": true },
+          { "name": "channeltype", "text": "渠道号", "dict": "channeltype" },
+          { "name": "publishdate", "text": "已发免费券总量" },
+          { "name": "outdate", "text": "已发折扣券总量" },
+          { "name": "usedate", "text": "未使用免费券总量" },
+          { "name": "carbrand", "text": "未使用折扣券总量" },
+          { "name": "cartype", "text": "已使用免费券总量" },
+          { "name": "carplate", "text": "已使用免费券总量" },
+          { "name": "ordercode", "text": "已使用折扣券总量" },
+          { "name": "orderdate", "text": "已过期总量" },
+          { "name": "orderamount", "text": "免费券验证率" },
+          { "name": "payamount", "text": "折扣券验证率" },
+          { "name": "vipamount", "text": "验证率（免费券+折扣券）" },
+          { "name": "vipamount", "text": "验证率（免费券+折扣券）" },
+          { "name": "publishdate", "text": "时间段", "type": "datetime", 'grid': false, 'filter': 'daterange' },
+        ]
+      };
+      QDP.generator.init(options);
+    },
   }
 });
