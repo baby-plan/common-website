@@ -4499,7 +4499,7 @@
             return message;
           },
           noResults: function () {
-            return 'No results found';
+            return '没有记录返回';
           },
           searching: function () {
             return 'Searching…';

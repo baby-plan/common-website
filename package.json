@@ -30,6 +30,7 @@
         "mkdirp": "latest",
         "sqlite": "latest",
         "eslint": "latest",
-        "chokidar": "latest"
+        "chokidar": "latest",
+        "babel-core": "latest"
     }
 }

@@ -365,12 +365,12 @@ INSERT INTO moduleinfo VALUES ('0101', '服务器状态', '0100', 'views/common/
 INSERT INTO moduleinfo VALUES ('0102', '服务端版本', '0100', 'views/common/version.server.html', '', '', '', '', '', 'fa fa-server', '', 'wangxin', '1502122497', 'wangxin', '1502124385', '1');
 INSERT INTO moduleinfo VALUES ('0103', '客户端版本', '0100', 'views/common/version.client.html', '', '', null, null, null, 'fa fa-server', null, 'wangxin', '1502123660', 'wangxin', '1502123717', '1');
 INSERT INTO moduleinfo VALUES ('0200', '查询统计', '000', null, '', '', null, null, null, 'fa fa-bar-chart-o', null, 'wangxin', '1502106899', 'wangxin', '1502123592', '1');
-INSERT INTO moduleinfo VALUES ('0201', '用户全历史查询', '0200', '', 'module-order', 'initUserSearch', '', '', '', 'fa fa-search', '', 'wangxin', '1502122497', 'wangxin', '1502122497', '1');
-INSERT INTO moduleinfo VALUES ('0202', '领券情况查询', '0200', null, 'module-order', '', null, null, null, null, null, 'wangxin', '1502122497', 'wangxin', '1502122497', '1');
-INSERT INTO moduleinfo VALUES ('0203', '活跃用户统计月表', '0200', null, 'module-order', '', null, null, null, null, null, 'wangxin', '1502122497', 'wangxin', '1502122497', '1');
-INSERT INTO moduleinfo VALUES ('0204', '活跃商户统计月表', '0200', null, 'module-order', '', null, null, null, null, null, 'wangxin', '1502122497', 'wangxin', '1502122497', '1');
-INSERT INTO moduleinfo VALUES ('0205', '商户上线成功率统计', '0200', null, 'module-order', '', null, null, null, null, null, 'wangxin', '1502122497', 'wangxin', '1502122497', '1');
-INSERT INTO moduleinfo VALUES ('0206', '商户签约数量统计', '0200', null, 'module-order', '', null, null, null, null, null, 'wangxin', '1502122497', 'wangxin', '1502122497', '1');
+INSERT INTO moduleinfo VALUES ('0201', '用户全历史查询', '0200', '', 'module-statistics', 'initUserSearch', '', '', '', 'fa fa-search', '', 'wangxin', '1502122497', 'wangxin', '1502122497', '1');
+INSERT INTO moduleinfo VALUES ('0202', '领券情况查询', '0200', null, 'module-statistics', 'initCouponStatus', null, null, null, null, null, 'wangxin', '1502122497', 'wangxin', '1502122497', '1');
+INSERT INTO moduleinfo VALUES ('0203', '活跃用户统计月表', '0200', null, 'module-statistics', 'initActiveUser', null, null, null, null, null, 'wangxin', '1502122497', 'wangxin', '1502122497', '1');
+INSERT INTO moduleinfo VALUES ('0204', '活跃商户统计月表', '0200', null, 'module-statistics', 'initActiveTenant', null, null, null, null, null, 'wangxin', '1502122497', 'wangxin', '1502122497', '1');
+INSERT INTO moduleinfo VALUES ('0205', '商户上线成功率统计', '0200', null, 'module-statistics', 'initTenantUseRate', null, null, null, null, null, 'wangxin', '1502122497', 'wangxin', '1502122497', '1');
+INSERT INTO moduleinfo VALUES ('0206', '商户签约数量统计', '0200', null, 'module-statistics', '', null, null, null, null, null, 'wangxin', '1502122497', 'wangxin', '1502122497', '1');
 INSERT INTO moduleinfo VALUES ('0300', '订单管理', '000', null, '', '', null, null, null, 'fa fa-file-text-o', null, 'wangxin', '1502122497', 'wangxin', '1502122497', '1');
 INSERT INTO moduleinfo VALUES ('0301', '订单信息查询', '0300', null, 'module-order', 'init', null, null, null, 'fa fa-search', null, 'wangxin', '1502122497', 'wangxin', '1502122497', '1');
 INSERT INTO moduleinfo VALUES ('0302', '结算订单查询', '0300', null, 'module-order', 'initSettlementSearch', null, null, null, 'fa fa-search', null, 'wangxin', '1502122497', 'wangxin', '1502122497', '1');

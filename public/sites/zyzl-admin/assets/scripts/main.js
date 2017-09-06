@@ -19,7 +19,8 @@ require.config({
     'module-tenant': 'modules/modules.tenant',
     'module-dict': 'modules/modules.dict',
     'module-options': 'modules/modules.options',
-
+    'modules-statistics': 'modules/modules.statistics',
+    
     //系统公共引用
     'jquery': '/assets/plugins/jquery.min',
     'jquery.slimscroll': '/assets/plugins/jquery.slimscroll.min',

@@ -15,7 +15,8 @@ define(['jquery', 'cfgs',
 
     var rander = function (target, columns) {
       target.addClass("datatable table table-striped table-bordered table-hover");
-      var row = $("<div />").addClass("panel-footer bottom text-right").appendTo(target.parent().parent());
+      //panel-footer
+      var row = $("<div />").addClass("bottom text-right").appendTo(target.parent().parent());
       $("<ul/>").addClass("pagination").appendTo(row);
       target.wrapAll("<div class=\"table-scrollable\"></div>");
       $("<span/>").addClass("pageinfo").appendTo(row);

@@ -1,6 +1,7 @@
 * {
   outline: medium none !important;
-  font-family: "Lucida Grande", "Lucida Sans Unicode", Hiragino Sans GB, WenQuanYi Micro Hei, Verdana, Aril, sans-serif;
+  font-family: "Lucida Grande", "Lucida Sans Unicode", Hiragino Sans GB,
+    WenQuanYi Micro Hei, Verdana, Aril, sans-serif;
   -webkit-appearance: none;
   box-shadow: none !important;
 }
@@ -33,12 +34,14 @@ a:focus {
   outline-offset: -2px;
 }
 
-a:active, a:focus {
+a:active,
+a:focus {
   outline-style: none;
   -moz-outline-style: none;
 }
 
-input[type="radio"], input[type="checkbox"] {
+input[type="radio"],
+input[type="checkbox"] {
   margin: 4px 0 0;
   margin-top: 1px \9;
   line-height: normal;
@@ -78,11 +81,11 @@ p {
   margin-left: 0;
 }
 
-.list-inline>li:first-child {
+.list-inline > li:first-child {
   padding-left: 0;
 }
 
-.panel>.panel-heading>.panel-tools {
+.panel > .panel-heading > .panel-tools {
   float: right;
   display: inline-block;
   padding: 0;
@@ -92,7 +95,7 @@ p {
   margin-top: -20px;
 }
 
-.panel>.panel-heading>.panel-tools>a {
+.panel > .panel-heading > .panel-tools > a {
   display: inline-block;
   font-size: 16px;
   /* line-height: 24px; */
@@ -115,7 +118,7 @@ p {
   font-weight: 600;
 }
 
-body>footer {
+body > footer {
   bottom: 0px;
   right: 0px;
   left: 0px;
@@ -128,7 +131,6 @@ body>footer {
 .sidebar-collapse {
   display: none;
 }
-
 
 /* Content */
 
@@ -166,7 +168,9 @@ section {
   margin-top: 0;
   min-height: 100%;
 }
-
+/* .form-horizontal {
+  padding-top: 20px;
+} */
 #ajax-content {
   padding-top: 20px;
 }
@@ -175,24 +179,23 @@ section {
   overflow: visible !important;
 }
 
-#content>.slimScrollDiv>.slimScrollBar {
+#content > .slimScrollDiv > .slimScrollBar {
   margin-right: -15px !important;
 }
 
-#content>.slimScrollDiv>.slimScrollRail {
+#content > .slimScrollDiv > .slimScrollRail {
   margin-right: -15px !important;
 }
 
 #content .content-title {
   display: block;
-  font-family: 'Open Sans';
+  font-family: "Open Sans";
   font-size: 30px;
   font-weight: 300;
   letter-spacing: -1px;
   margin: 5px 0;
   padding: 0;
 }
-
 
 /* 页面内容区-头部样式 */
 

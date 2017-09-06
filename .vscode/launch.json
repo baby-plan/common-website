@@ -9,16 +9,8 @@
       "request": "launch",
       "name": "启动程序",
       "program": "${workspaceRoot}/bin/www",
-      "args": [
-        "--color"
-      ],
+      "args": ["--color"],
       "cwd": "${workspaceRoot}"
-    },
-    {
-      "type": "node",
-      "request": "attach",
-      "name": "附加到进程",
-      "port": 5858
     }
   ]
 }

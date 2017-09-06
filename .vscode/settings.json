@@ -14,5 +14,5 @@
     },
     // 一个制表符等于的空格数。该设置在 `editor.detectIndentation` 启用时根据文件内容进行重写。
     "editor.tabSize": 2,
-    "vsicons.presets.angular": true
+    // "vsicons.presets.angular": true
 }

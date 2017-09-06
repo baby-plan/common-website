@@ -85,8 +85,7 @@ define(['jquery', 'cfgs', 'API',
       });
     }
 
-    /**
-     * ajax方式加载页面内容.
+    /** ajax方式加载页面内容.
      * @param {string} url 待加载内容的URL地址.
      * @param {string} callback 内容加载完成后的回调函数.
      */
@@ -240,6 +239,7 @@ define(['jquery', 'cfgs', 'API',
       if (dataModule && dataMethod) {
         callback = function () {
 
+          $('body').removeClass('filter');
           $('.mini-menu').removeClass('mini-menu');
           require([dataModule], function (moduleObject) {
             loaded = moduleObject;

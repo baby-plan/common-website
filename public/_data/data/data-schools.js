@@ -1,10 +1,7 @@
 import tags from './attr-tags';
 import addrs from './attr-addrs';
-import videos from './attr-videos';
-import signups from './attr-signups';
 import evaluates from './attr-evaluates';
 import describes from './attr-describes';
-import publishers from './attr-publishers';
 import {
   TYPE
 } from './_dictionary';
@@ -33,7 +30,7 @@ let datas = [{
 
 let _TYPE = TYPE.SCHOOL;
 
-datas.forEach((item, index) => {
+datas.forEach((item) => {
   item.type = _TYPE;
   item.addr = addrs.get(item.id, _TYPE);
   item.evaluate = evaluates.get(item.id, _TYPE);
@@ -44,7 +41,7 @@ datas.forEach((item, index) => {
 });
 
 let getDetail = (id) => {
-  var school = datas.find((item, index) => {
+  var school = datas.find((item) => {
     return item.id == id;
   });
   if (school) {
@@ -62,7 +59,7 @@ let getDetail = (id) => {
 
 let filter = (word) => {
   var results = [];
-  datas.forEach((item, index) => {
+  datas.forEach((item) => {
     if (!word || item.title.indexOf(word) > -1) {
       results.push({
         id: item.id, title: item.title, time: item.time, addr: item.addr, type: item.type, img: item.img

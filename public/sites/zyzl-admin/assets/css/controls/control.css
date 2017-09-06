@@ -1,5 +1,5 @@
 .btn {
-  padding: 6px 12px;
+  padding: 2px 12px;
 }
 
 .btn:focus {
@@ -20,10 +20,10 @@
   white-space: nowrap;
 }
 
-.input-group-addon, .input-group .form-control {
+.input-group-addon,
+.input-group .form-control {
   display: table-cell;
 }
-
 
 /* Forms */
 
@@ -51,7 +51,6 @@
   -moz-transition: height 0.2s;
   transition: height 0.2s;
 }
-
 
 /* Scroller */
 
@@ -94,7 +93,6 @@
   font-size: 16px;
 }
 
-
 /*Date Range Picker*/
 
 .daterangepicker .ranges {
@@ -105,12 +103,15 @@
   font-size: 15px !important;
 }
 
-.daterangepicker .ranges .input-mini, .daterangepicker .daterangepicker_start_input label, .daterangepicker .daterangepicker_end_input label {
+.daterangepicker .ranges .input-mini,
+.daterangepicker .daterangepicker_start_input label,
+.daterangepicker .daterangepicker_end_input label {
   width: 90px !important;
   font-size: 13px !important;
 }
 
-.applyBtn, .cancelBtn {
+.applyBtn,
+.cancelBtn {
   width: 90px !important;
 }
 
