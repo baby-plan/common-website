@@ -15,8 +15,7 @@ define(['jquery', 'cfgs',
 
     var rander = function (target, columns) {
       target.addClass("datatable table table-striped table-bordered table-hover");
-      //panel-footer
-      var row = $("<div />").addClass("bottom text-right").appendTo(target.parent().parent());
+      var row = $("<div />").addClass("col-sm-12 bottom text-right").appendTo(target.parent().parent());
       $("<ul/>").addClass("pagination").appendTo(row);
       target.wrapAll("<div class=\"table-scrollable\"></div>");
       $("<span/>").addClass("pageinfo").appendTo(row);
@@ -29,8 +28,7 @@ define(['jquery', 'cfgs',
       });
     }
 
-    /**
-     * 初始化表格注册按钮事件.
+    /** 初始化表格注册按钮事件.
      * @param {object} options 请求参数选项
      *  pagecount : 页面总数.
      *  pageindex : 当前页面索引.
@@ -128,8 +126,7 @@ define(['jquery', 'cfgs',
       return $("#table");
     }
 
-    /**
-     * 公共数据处理:回调parsefn填充数据并且生成分页按钮
+    /** 公共数据处理:回调parsefn填充数据并且生成分页按钮
      * @param {object} options 请求参数选项.
      *  api       : 请求数据的地址
      *  args      : 请求API附带的参数
@@ -183,8 +180,7 @@ define(['jquery', 'cfgs',
       ajax.get(options.api, reqOptions, callback);
     }
 
-    /**
-     * 使用common_load_data前一次参数重新加载并处理数据
+    /** 使用common_load_data前一次参数重新加载并处理数据
      * @param {number} pageindex 请求新页面的索引
      */
     var re_common_load_data = function (pageindex) {

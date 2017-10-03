@@ -1,0 +1,146 @@
+<div class="modal-header">
+  <div class="pull-right">
+    <a id="btn_close" data-dismiss="modal" aria-hidden="true"></a>
+  </div>
+  <h4 class="modal-title">用车详情</h4>
+</div>
+<div class="modal-body">
+  <div class="row">
+    <div class="col-sm-12">
+      <form class="form-horizontal" role="form" id="role-form">
+        <div class="portlet gren">
+          <div class="portlet-title">
+            <div class="caption"> 用车信息 </div>
+            <div class="tools">
+            </div>
+          </div>
+          <div class="portlet-body">
+            <div class="form-group">
+              <label class="col-sm-2 control-label">用车人</label>
+              <div class="col-sm-4">
+                <input id="username" readonly class="form-control" type="text">
+              </div>
+              <label class="col-sm-2 control-label">用车部门</label>
+              <div class="col-sm-4">
+                <input id="userdept" readonly class="form-control" type="text">
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="col-sm-2 control-label">用车电话</label>
+              <div class="col-sm-4">
+                <input id="usertelphone" readonly class="form-control" type="text">
+              </div>
+              <label class="col-sm-2 control-label">用车人数</label>
+              <div class="col-sm-4">
+                <input id="usercount" readonly class="form-control" type="text">
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="col-sm-2 control-label">备注</label>
+              <div class="col-sm-10">
+                <input id="mark" readonly class="form-control" type="text">
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="portlet gren">
+          <div class="portlet-title">
+            <div class="caption"> 计划信息 </div>
+            <div class="tools"></div>
+          </div>
+          <div class="portlet-body">
+            <div class="form-group">
+              <label class="col-sm-2 control-label">用车范围</label>
+              <div class="col-sm-4">
+                <input id="usecarrange" readonly class="form-control" type="text">
+              </div>
+              <label class="col-sm-2 control-label">车辆类型</label>
+              <div class="col-sm-4">
+                <input id="cartype" readonly class="form-control" type="text">
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="col-sm-2 control-label">上车地点</label>
+              <div class="col-sm-4">
+                <input id="startaddr" readonly class="form-control" type="text">
+              </div>
+
+              <label class="col-sm-2 control-label">目的地</label>
+              <div class="col-sm-4">
+                <input id="stopaddr" readonly class="form-control" type="text">
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="col-sm-2 control-label">开始时间</label>
+              <div class="col-sm-4">
+                <input id="starttime" type="text" readonly class="form-control">
+              </div>
+              <label class="col-sm-2 control-label">结束时间</label>
+              <div class="col-sm-4">
+                <input id="stoptime" type="text" readonly class="form-control">
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="col-sm-2 control-label">调度状态</label>
+              <div class="col-sm-4">
+                <input id="dispatchstate" type="text" readonly class="form-control">
+              </div>
+              <label class="col-sm-2 control-label">申请状态</label>
+              <div class="col-sm-4">
+                <input id="registstate" type="text" readonly class="form-control">
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="col-sm-2 control-label">用车事由</label>
+              <div class="col-sm-10">
+                <input id="usecarreason" readonly class="form-control" type="text">
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="portlet gren">
+          <div class="portlet-title">
+            <div class="caption"> 申请人信息 </div>
+            <div class="tools"></div>
+          </div>
+          <div class="portlet-body">
+            <div class="form-group">
+              <label class="col-sm-2 control-label">申请人</label>
+              <div class="col-sm-4">
+                <input id="register" readonly class="form-control" type="text">
+              </div>
+              <label class="col-sm-2 control-label">申请单位</label>
+              <div class="col-sm-4">
+                <input id="registerdept" readonly class="form-control" type="text">
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="col-sm-2 control-label">申请电话</label>
+              <div class="col-sm-4">
+                <input id="registertelphone" readonly class="form-control" type="text">
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="portlet gren">
+          <div class="portlet-title">
+            <div class="caption"> 审批流程 </div>
+            <div class="tools"></div>
+          </div>
+          <div class="portlet-body">
+            <table id="table_approval"></table>
+          </div>
+        </div>
+        <div class="portlet gren">
+          <div class="portlet-title">
+            <div class="caption"> 派车单信息 </div>
+            <div class="tools"></div>
+          </div>
+          <div class="portlet-body">
+            <table id="table_order"></table>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

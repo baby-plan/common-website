@@ -1,0 +1,718 @@
+
+/**********
+Blue Colors
+***********/
+/* Button */
+.blue.btn {
+color: #FFFFFF;
+background-color: #3598dc;
+}
+
+.blue.btn:hover, .blue.btn:focus, .blue.btn:active, .blue.btn.active {
+color: #FFFFFF;
+background-color: #2386ca;
+}
+
+.open .blue.btn.dropdown-toggle {
+color: #FFFFFF;
+background-color: #2386ca;
+}
+
+.blue.btn:active, .blue.btn.active {
+background-image: none;
+background-color: #1f78b5;
+}
+
+.blue.btn:active:hover, .blue.btn.active:hover {
+background-color: #217ebd;
+}
+
+.open .blue.btn.dropdown-toggle {
+background-image: none;
+}
+
+.blue.btn.disabled, .blue.btn.disabled:hover, .blue.btn.disabled:focus, .blue.btn.disabled:active, .blue.btn.disabled.active, .blue.btn[disabled], .blue.btn[disabled]:hover, .blue.btn[disabled]:focus, .blue.btn[disabled]:active, .blue.btn[disabled].active, fieldset[disabled] .blue.btn, fieldset[disabled] .blue.btn:hover, fieldset[disabled] .blue.btn:focus, fieldset[disabled] .blue.btn:active, fieldset[disabled] .blue.btn.active {
+background-color: #3598dc;
+}
+
+.blue.btn .badge {
+color: #3598dc;
+background-color: #FFFFFF;
+}
+
+/* Button Strip */
+.btn.blue-stripe {
+border-left: 3px solid #3598dc;
+}
+
+/* Portlet */
+.portlet > .portlet-body.blue,
+.portlet.blue {
+background-color: #3598dc;
+}
+
+.portlet.solid.blue > .portlet-title,
+.portlet.solid.blue > .portlet-body {
+border: 0;
+color: #FFFFFF;
+}
+
+.portlet.solid.blue > .portlet-title > .caption {
+font-weight: 400;
+}
+
+.portlet.solid.blue > .portlet-title > .caption > i {
+color: #FFFFFF;
+}
+
+.portlet.box.blue {
+border: 1px solid #60aee4;
+border-top: 0;
+}
+
+.portlet.box.blue > .portlet-title {
+background-color: #3598dc;
+}
+
+.portlet.box.blue > .portlet-title > .caption {
+color: #FFFFFF;
+}
+
+.portlet.box.blue > .portlet-title > .caption > i {
+color: #FFFFFF;
+}
+
+.portlet.box.blue > .portlet-title > .actions .btn-default {
+background: transparent !important;
+background-color: transparent !important;
+border: 1px solid #95c9ed;
+color: #aad4f0;
+}
+
+.portlet.box.blue > .portlet-title > .actions .btn-default > i {
+color: #b7daf3;
+}
+
+.portlet.box.blue > .portlet-title > .actions .btn-default:hover, .portlet.box.blue > .portlet-title > .actions .btn-default:focus, .portlet.box.blue > .portlet-title > .actions .btn-default:active, .portlet.box.blue > .portlet-title > .actions .btn-default.active {
+border: 1px solid #c0dff4;
+color: #d6eaf8;
+}
+
+/* General Element */
+.bg-blue {
+border-color: #3598dc !important;
+background-image: none !important;
+background-color: #3598dc !important;
+color: #FFFFFF !important;
+}
+
+/* General Text & Icon Font Colors */
+.font-blue {
+color: #3598dc !important;
+}
+
+.progress-bar.blue {
+background: #3598dc !important;
+color: #FFFFFF !important;
+}
+
+/***********
+Green Colors
+************/
+/* Button */
+.green.btn {
+color: #FFFFFF;
+background-color: #26a69a;
+}
+
+.green.btn:hover, .green.btn:focus, .green.btn:active, .green.btn.active {
+color: #FFFFFF;
+background-color: #1f897f;
+}
+
+.open .green.btn.dropdown-toggle {
+color: #FFFFFF;
+background-color: #1f897f;
+}
+
+.green.btn:active, .green.btn.active {
+background-image: none;
+background-color: #1b746c;
+}
+
+.green.btn:active:hover, .green.btn.active:hover {
+background-color: #1c7d74;
+}
+
+.open .green.btn.dropdown-toggle {
+background-image: none;
+}
+
+.green.btn.disabled, .green.btn.disabled:hover, .green.btn.disabled:focus, .green.btn.disabled:active, .green.btn.disabled.active, .green.btn[disabled], .green.btn[disabled]:hover, .green.btn[disabled]:focus, .green.btn[disabled]:active, .green.btn[disabled].active, fieldset[disabled] .green.btn, fieldset[disabled] .green.btn:hover, fieldset[disabled] .green.btn:focus, fieldset[disabled] .green.btn:active, fieldset[disabled] .green.btn.active {
+background-color: #26a69a;
+}
+
+.green.btn .badge {
+color: #26a69a;
+background-color: #FFFFFF;
+}
+
+/* Button Strip */
+.btn.green-stripe {
+border-left: 3px solid #26a69a;
+}
+
+/* Portlet */
+.portlet > .portlet-body.green,
+.portlet.green {
+background-color: #26a69a;
+}
+
+.portlet.solid.green > .portlet-title,
+.portlet.solid.green > .portlet-body {
+border: 0;
+color: #FFFFFF;
+}
+
+.portlet.solid.green > .portlet-title > .caption {
+font-weight: 400;
+}
+
+.portlet.solid.green > .portlet-title > .caption > i {
+color: #FFFFFF;
+}
+
+.portlet.solid.green > .portlet-title > .tools > a.fullscreen {
+color: #fdfdfd;
+}
+
+.portlet.box.green {
+border: 1px solid #30d0c1;
+border-top: 0;
+}
+
+.portlet.box.green > .portlet-title {
+background-color: #26a69a;
+}
+
+.portlet.box.green > .portlet-title > .caption {
+color: #FFFFFF;
+}
+
+.portlet.box.green > .portlet-title > .caption > i {
+color: #FFFFFF;
+}
+
+.portlet.box.green > .portlet-title > .actions .btn-default {
+background: transparent !important;
+background-color: transparent !important;
+border: 1px solid #61dbd0;
+color: #76e0d6;
+}
+
+.portlet.box.green > .portlet-title > .actions .btn-default > i {
+color: #83e3da;
+}
+
+.portlet.box.green > .portlet-title > .actions .btn-default:hover, .portlet.box.green > .portlet-title > .actions .btn-default:focus, .portlet.box.green > .portlet-title > .actions .btn-default:active, .portlet.box.green > .portlet-title > .actions .btn-default.active {
+border: 1px solid #8be4dc;
+color: #a0e9e2;
+}
+
+/* General Element */
+.bg-green {
+border-color: #26a69a !important;
+background-image: none !important;
+background-color: #26a69a !important;
+color: #FFFFFF !important;
+}
+
+/* General Text & Icon Font Colors */
+.font-green {
+color: #26a69a !important;
+}
+
+.progress-bar.green {
+background: #26a69a !important;
+color: #FFFFFF !important;
+}
+/***********
+Grey Colors
+************/
+/* Button */
+.grey.btn {
+color: #333333;
+background-color: #E5E5E5;
+}
+
+.grey.btn:hover, .grey.btn:focus, .grey.btn:active, .grey.btn.active {
+color: #333333;
+background-color: lightgray;
+}
+
+.open .grey.btn.dropdown-toggle {
+color: #333333;
+background-color: lightgray;
+}
+
+.grey.btn:active, .grey.btn.active {
+background-image: none;
+background-color: #c6c6c6;
+}
+
+.grey.btn:active:hover, .grey.btn.active:hover {
+background-color: #cccccc;
+}
+
+.open .grey.btn.dropdown-toggle {
+background-image: none;
+}
+
+.grey.btn.disabled, .grey.btn.disabled:hover, .grey.btn.disabled:focus, .grey.btn.disabled:active, .grey.btn.disabled.active, .grey.btn[disabled], .grey.btn[disabled]:hover, .grey.btn[disabled]:focus, .grey.btn[disabled]:active, .grey.btn[disabled].active, fieldset[disabled] .grey.btn, fieldset[disabled] .grey.btn:hover, fieldset[disabled] .grey.btn:focus, fieldset[disabled] .grey.btn:active, fieldset[disabled] .grey.btn.active {
+background-color: #E5E5E5;
+}
+
+.grey.btn .badge {
+color: #E5E5E5;
+background-color: #333333;
+}
+
+/* Button Strip */
+.btn.grey-stripe {
+border-left: 3px solid #E5E5E5;
+}
+
+/* Portlet */
+.portlet > .portlet-body.grey,
+.portlet.grey {
+background-color: #E5E5E5;
+}
+
+.portlet.solid.grey > .portlet-title,
+.portlet.solid.grey > .portlet-body {
+border: 0;
+color: #333333;
+}
+
+.portlet.solid.grey > .portlet-title > .caption {
+font-weight: 400;
+}
+
+.portlet.solid.grey > .portlet-title > .caption > i {
+color: #333333;
+}
+
+.portlet.solid.grey > .portlet-title > .tools > a.fullscreen {
+color: #fdfdfd;
+}
+
+.portlet.box.grey {
+border: 1px solid white;
+border-top: 0;
+}
+
+.portlet.box.grey > .portlet-title {
+background-color: #E5E5E5;
+}
+
+.portlet.box.grey > .portlet-title > .caption {
+color: #333333;
+}
+
+.portlet.box.grey > .portlet-title > .caption > i {
+color: #333333;
+}
+
+.portlet.box.grey > .portlet-title > .actions .btn-default {
+background: transparent !important;
+background-color: transparent !important;
+border: 1px solid white;
+color: white;
+}
+
+.portlet.box.grey > .portlet-title > .actions .btn-default > i {
+color: white;
+}
+
+.portlet.box.grey > .portlet-title > .actions .btn-default:hover, .portlet.box.grey > .portlet-title > .actions .btn-default:focus, .portlet.box.grey > .portlet-title > .actions .btn-default:active, .portlet.box.grey > .portlet-title > .actions .btn-default.active {
+border: 1px solid white;
+color: white;
+}
+
+/* General Element */
+.bg-grey {
+border-color: #E5E5E5 !important;
+background-image: none !important;
+background-color: #E5E5E5 !important;
+color: #333333 !important;
+}
+
+/* General Text & Icon Font Colors */
+.font-grey {
+color: #E5E5E5 !important;
+}
+
+.progress-bar.grey {
+background: #E5E5E5 !important;
+color: #333333 !important;
+}
+/***********
+Red Colors
+************/
+/* Button */
+.red.btn {
+  color: #FFFFFF;
+  background-color: #cb5a5e;
+}
+
+.red.btn:hover, .red.btn:focus, .red.btn:active, .red.btn.active {
+color: #FFFFFF;
+background-color: #c23f44;
+}
+
+.open .red.btn.dropdown-toggle {
+color: #FFFFFF;
+background-color: #c23f44;
+}
+
+.red.btn:active, .red.btn.active {
+background-image: none;
+background-color: #b0383c;
+}
+
+.red.btn:active:hover, .red.btn.active:hover {
+background-color: #b83a3e;
+}
+
+.open .red.btn.dropdown-toggle {
+background-image: none;
+}
+
+.red.btn.disabled, .red.btn.disabled:hover, .red.btn.disabled:focus, .red.btn.disabled:active, .red.btn.disabled.active, .red.btn[disabled], .red.btn[disabled]:hover, .red.btn[disabled]:focus, .red.btn[disabled]:active, .red.btn[disabled].active, fieldset[disabled] .red.btn, fieldset[disabled] .red.btn:hover, fieldset[disabled] .red.btn:focus, fieldset[disabled] .red.btn:active, fieldset[disabled] .red.btn.active {
+background-color: #cb5a5e;
+}
+
+.red.btn .badge {
+color: #cb5a5e;
+background-color: #FFFFFF;
+}
+
+/* Button Strip */
+.btn.red-stripe {
+border-left: 3px solid #cb5a5e;
+}
+
+/* Portlet */
+.portlet > .portlet-body.red,
+.portlet.red {
+background-color: #cb5a5e;
+}
+
+.portlet.solid.red > .portlet-title,
+.portlet.solid.red > .portlet-body {
+border: 0;
+color: #FFFFFF;
+}
+
+.portlet.solid.red > .portlet-title > .caption {
+font-weight: 400;
+}
+
+.portlet.solid.red > .portlet-title > .caption > i {
+color: #FFFFFF;
+}
+
+.portlet.solid.red > .portlet-title > .tools > a.fullscreen {
+color: #fdfdfd;
+}
+
+.portlet.box.red {
+border: 1px solid #d78184;
+border-top: 0;
+}
+
+.portlet.box.red > .portlet-title {
+background-color: #cb5a5e;
+}
+
+.portlet.box.red > .portlet-title > .caption {
+color: #FFFFFF;
+}
+
+.portlet.box.red > .portlet-title > .caption > i {
+color: #FFFFFF;
+}
+
+.portlet.box.red > .portlet-title > .actions .btn-default {
+background: transparent !important;
+background-color: transparent !important;
+border: 1px solid #e6afb1;
+color: #ecc3c4;
+}
+
+.portlet.box.red > .portlet-title > .actions .btn-default > i {
+color: #f0ced0;
+}
+
+.portlet.box.red > .portlet-title > .actions .btn-default:hover, .portlet.box.red > .portlet-title > .actions .btn-default:focus, .portlet.box.red > .portlet-title > .actions .btn-default:active, .portlet.box.red > .portlet-title > .actions .btn-default.active {
+border: 1px solid #f2d6d7;
+color: #f8e9ea;
+}
+
+/* General Element */
+.bg-red {
+border-color: #cb5a5e !important;
+background-image: none !important;
+background-color: #cb5a5e !important;
+color: #FFFFFF !important;
+}
+
+/* General Text & Icon Font Colors */
+.font-red {
+color: #cb5a5e !important;
+}
+
+.progress-bar.red {
+background: #cb5a5e !important;
+color: #FFFFFF !important;
+}
+/***********
+Yellow Colors
+************/
+/* Button */
+.yellow.btn {
+color: #FFFFFF;
+background-color: #c49f47;
+}
+
+.yellow.btn:hover, .yellow.btn:focus, .yellow.btn:active, .yellow.btn.active {
+color: #FFFFFF;
+background-color: #af8c38;
+}
+
+.open .yellow.btn.dropdown-toggle {
+color: #FFFFFF;
+background-color: #af8c38;
+}
+
+.yellow.btn:active, .yellow.btn.active {
+background-image: none;
+background-color: #9c7c32;
+}
+
+.yellow.btn:active:hover, .yellow.btn.active:hover {
+background-color: #a48334;
+}
+
+.open .yellow.btn.dropdown-toggle {
+background-image: none;
+}
+
+.yellow.btn.disabled, .yellow.btn.disabled:hover, .yellow.btn.disabled:focus, .yellow.btn.disabled:active, .yellow.btn.disabled.active, .yellow.btn[disabled], .yellow.btn[disabled]:hover, .yellow.btn[disabled]:focus, .yellow.btn[disabled]:active, .yellow.btn[disabled].active, fieldset[disabled] .yellow.btn, fieldset[disabled] .yellow.btn:hover, fieldset[disabled] .yellow.btn:focus, fieldset[disabled] .yellow.btn:active, fieldset[disabled] .yellow.btn.active {
+background-color: #c49f47;
+}
+
+.yellow.btn .badge {
+color: #c49f47;
+background-color: #FFFFFF;
+}
+
+/* Button Strip */
+.btn.yellow-stripe {
+border-left: 3px solid #c49f47;
+}
+
+/* Portlet */
+.portlet > .portlet-body.yellow,
+.portlet.yellow {
+background-color: #c49f47;
+}
+
+.portlet.solid.yellow > .portlet-title,
+.portlet.solid.yellow > .portlet-body {
+border: 0;
+color: #FFFFFF;
+}
+
+.portlet.solid.yellow > .portlet-title > .caption {
+font-weight: 400;
+}
+
+.portlet.solid.yellow > .portlet-title > .caption > i {
+color: #FFFFFF;
+}
+
+.portlet.solid.yellow > .portlet-title > .tools > a.fullscreen {
+color: #fdfdfd;
+}
+
+.portlet.box.yellow {
+border: 1px solid #d0b36e;
+border-top: 0;
+}
+
+.portlet.box.yellow > .portlet-title {
+background-color: #c49f47;
+}
+
+.portlet.box.yellow > .portlet-title > .caption {
+color: #FFFFFF;
+}
+
+.portlet.box.yellow > .portlet-title > .caption > i {
+color: #FFFFFF;
+}
+
+.portlet.box.yellow > .portlet-title > .actions .btn-default {
+background: transparent !important;
+background-color: transparent !important;
+border: 1px solid #dfcb9c;
+color: #e5d5af;
+}
+
+.portlet.box.yellow > .portlet-title > .actions .btn-default > i {
+color: #e9dbbb;
+}
+
+.portlet.box.yellow > .portlet-title > .actions .btn-default:hover, .portlet.box.yellow > .portlet-title > .actions .btn-default:focus, .portlet.box.yellow > .portlet-title > .actions .btn-default:active, .portlet.box.yellow > .portlet-title > .actions .btn-default.active {
+border: 1px solid #ecdfc3;
+color: #f2ead6;
+}
+
+/* General Element */
+.bg-yellow {
+border-color: #c49f47 !important;
+background-image: none !important;
+background-color: #c49f47 !important;
+color: #FFFFFF !important;
+}
+
+/* General Text & Icon Font Colors */
+.font-yellow {
+color: #c49f47 !important;
+}
+
+.progress-bar.yellow {
+background: #c49f47 !important;
+color: #FFFFFF !important;
+}
+/***********
+Purple Colors
+************/
+/* Button */
+.purple.btn {
+color: #FFFFFF;
+background-color: #8e5fa2;
+}
+
+.purple.btn:hover, .purple.btn:focus, .purple.btn:active, .purple.btn.active {
+color: #FFFFFF;
+background-color: #7a518c;
+}
+
+.open .purple.btn.dropdown-toggle {
+color: #FFFFFF;
+background-color: #7a518c;
+}
+
+.purple.btn:active, .purple.btn.active {
+background-image: none;
+background-color: #6c487c;
+}
+
+.purple.btn:active:hover, .purple.btn.active:hover {
+background-color: #724c82;
+}
+
+.open .purple.btn.dropdown-toggle {
+background-image: none;
+}
+
+.purple.btn.disabled, .purple.btn.disabled:hover, .purple.btn.disabled:focus, .purple.btn.disabled:active, .purple.btn.disabled.active, .purple.btn[disabled], .purple.btn[disabled]:hover, .purple.btn[disabled]:focus, .purple.btn[disabled]:active, .purple.btn[disabled].active, fieldset[disabled] .purple.btn, fieldset[disabled] .purple.btn:hover, fieldset[disabled] .purple.btn:focus, fieldset[disabled] .purple.btn:active, fieldset[disabled] .purple.btn.active {
+background-color: #8e5fa2;
+}
+
+.purple.btn .badge {
+color: #8e5fa2;
+background-color: #FFFFFF;
+}
+
+/* Button Strip */
+.btn.purple-stripe {
+border-left: 3px solid #8e5fa2;
+}
+
+/* Portlet */
+.portlet > .portlet-body.purple,
+.portlet.purple {
+background-color: #8e5fa2;
+}
+
+.portlet.solid.purple > .portlet-title,
+.portlet.solid.purple > .portlet-body {
+border: 0;
+color: #FFFFFF;
+}
+
+.portlet.solid.purple > .portlet-title > .caption {
+font-weight: 400;
+}
+
+.portlet.solid.purple > .portlet-title > .caption > i {
+color: #FFFFFF;
+}
+
+.portlet.solid.purple > .portlet-title > .tools > a.fullscreen {
+color: #fdfdfd;
+}
+
+.portlet.box.purple {
+border: 1px solid #a57fb5;
+border-top: 0;
+}
+
+.portlet.box.purple > .portlet-title {
+background-color: #8e5fa2;
+}
+
+.portlet.box.purple > .portlet-title > .caption {
+color: #FFFFFF;
+}
+
+.portlet.box.purple > .portlet-title > .caption > i {
+color: #FFFFFF;
+}
+
+.portlet.box.purple > .portlet-title > .actions .btn-default {
+background: transparent !important;
+background-color: transparent !important;
+border: 1px solid #c0a6cb;
+color: #ccb6d5;
+}
+
+.portlet.box.purple > .portlet-title > .actions .btn-default > i {
+color: #d2c0da;
+}
+
+.portlet.box.purple > .portlet-title > .actions .btn-default:hover, .portlet.box.purple > .portlet-title > .actions .btn-default:focus, .portlet.box.purple > .portlet-title > .actions .btn-default:active, .portlet.box.purple > .portlet-title > .actions .btn-default.active {
+border: 1px solid #d7c6de;
+color: #e2d6e7;
+}
+
+/* General Element */
+.bg-purple {
+border-color: #8e5fa2 !important;
+background-image: none !important;
+background-color: #8e5fa2 !important;
+color: #FFFFFF !important;
+}
+
+/* General Text & Icon Font Colors */
+.font-purple {
+color: #8e5fa2 !important;
+}
+
+.progress-bar.purple {
+background: #8e5fa2 !important;
+color: #FFFFFF !important;
+}

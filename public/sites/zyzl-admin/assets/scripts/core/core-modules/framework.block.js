@@ -27,8 +27,10 @@ define(['jquery', 'jquery.blockUI'], function ($) {
     });
   }
   var isShowed = false;
+  
   /** 遮罩组件. */
   var module = {
+    
     /**
      * 显示遮罩.
      * @param {string} text      遮罩显示的提示信息
@@ -36,17 +38,17 @@ define(['jquery', 'jquery.blockUI'], function ($) {
      */
 
     "show": function (text, target) {
-      if (isShowed) {
-        console.debug("BLOCK.SHOW:已经显示,%s", text);
-        return;
-      }
+      // if (isShowed) {
+      //   console.debug("BLOCK.SHOW:已经显示,%s", text);
+      //   return;
+      // }
       console.debug("BLOCK.SHOW:" + text);
-      isShowed = true;
+      // isShowed = true;
       var blockTarget;
       if (target) {
         blockTarget = target;
-      } else if ($("section").length == 1) {
-        blockTarget = $("section");
+      } else if ($("body>section").length == 1) {
+        blockTarget = $("body>section");
       } else {
         blockTarget = $("body");
       }
@@ -63,15 +65,15 @@ define(['jquery', 'jquery.blockUI'], function ($) {
      */
 
     "close": function (target) {
-      if (!isShowed) {
-        return;
-      }
-      isShowed = false;
+      // if (!isShowed) {
+      //   return;
+      // }
+      // isShowed = false;
       var blockTarget;
       if (target) {
         blockTarget = target;
-      } else if ($("section").length == 1) {
-        blockTarget = $("section");
+      } else if ($("body>section").length == 1) {
+        blockTarget = $("body>section");
       } else {
         blockTarget = $("body");
       }

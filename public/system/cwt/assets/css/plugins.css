@@ -1,0 +1,833 @@
+/******************************
+ 3RD PARTY PLUGIN CUSTOMIZATION 
+******************************/
+/***
+Bootstrap Datepicker
+***/
+.datepicker.dropdown-menu {
+  padding: 5px;
+}
+
+.datepicker .selected {
+  background-color: #909090 !important;
+  background-image: none !important;
+  filter: none !important;
+}
+
+.datepicker .active {
+  background-color: #4b8df8 !important;
+  background-image: none !important;
+  filter: none !important;
+}
+
+.datepicker .active:hover {
+  background-color: #2678FC !important;
+  background-image: none !important;
+  filter: none !important;
+}
+
+.datepicker .input-daterange input {
+  text-align: left;
+}
+
+/* change z-index when opened in modal */
+.modal-open .datepicker {
+  z-index: 10055 !important;
+}
+
+.datepicker table td {
+  color: #000;
+  font-weight: 300  !important;
+  font-family: 'Open Sans' !important;
+}
+
+.datepicker table th {
+  color: #333;
+  font-family: 'Open Sans' !important;
+  font-weight: 400  !important;
+}
+
+.datepicker.dropdown-menu {
+  box-shadow: 5px 5px rgba(102, 102, 102, 0.1);
+  border: 1px solid #efefef;
+}
+
+/***
+Bootstrap Daterangepicker
+***/
+.modal-open .daterangepicker {
+  z-index: 10055 !important;
+}
+
+.daterangepicker {
+  margin-top: 4px;
+}
+
+.daterangepicker td {
+  text-shadow: none;
+}
+
+.daterangepicker td.active {
+  background-color: #4b8df8;
+  background-image: none;
+  filter: none;
+}
+
+.daterangepicker th {
+  font-weight: 400;
+  font-size: 14px;
+}
+
+.daterangepicker .ranges input[type="text"] {
+  width: 70px !important;
+  font-size: 11px;
+  vertical-align: middle;
+}
+
+.daterangepicker .ranges label {
+  font-weight: 300;
+  display: block;
+}
+
+.daterangepicker .ranges {
+  width: 170px;
+}
+.daterangepicker .ranges ul > li.active {
+  -webkit-border-radius: 4px;
+  -moz-border-radius: 4px;
+  -ms-border-radius: 4px;
+  -o-border-radius: 4px;
+  border-radius: 4px;
+}
+
+.daterangepicker .ranges .btn {
+  margin-top: 10px;
+}
+
+.daterangepicker.dropdown-menu {
+  padding: 5px;
+}
+
+.daterangepicker .ranges li {
+  color: #333;
+}
+
+.daterangepicker .ranges li.active,
+.daterangepicker .ranges li:hover {
+  background: #4b8df8 !important;
+  border: 1px solid #4b8df8 !important;
+  color: #fff;
+}
+
+.daterangepicker .range_inputs input {
+  margin-bottom: 0 !important;
+}
+
+.daterangepicker .fa-angle-right:before {
+  content: "\f105";
+}
+
+.daterangepicker .fa-angle-left:before {
+  content: "\f104";
+}
+
+/***
+Bootstrap  Datetimepicker
+***/
+.datetimepicker table td {
+  color: #000;
+  font-weight: 300  !important;
+  font-family: 'Open Sans' !important;
+}
+
+.datetimepicker table th {
+  font-family: 'Open Sans' !important;
+  font-weight: 400  !important;
+}
+
+.datetimepicker.dropdown-menu {
+  padding: 5px;
+}
+
+.datetimepicker .active {
+  background-color: #4b8df8 !important;
+  background-image: none !important;
+  filter: none !important;
+}
+
+.datetimepicker .active:hover {
+  background-color: #2678FC !important;
+  background-image: none !important;
+  filter: none !important;
+}
+
+.datetimepicker .fa-angle-left:before {
+  content: "\f104";
+}
+
+.datetimepicker .fa-angle-right:before {
+  content: "\f105";
+}
+
+/* change z-index when opened in modal */
+.modal-open .datetimepicker {
+  z-index: 10055 !important;
+}
+
+/***
+Bootstrap Modal
+***/
+/* fix: content shifting to the right on modal open */
+.modal-open.page-overflow .page-container,
+.modal-open.page-overflow .modal-scrollable {
+  overflow-y: auto !important;
+}
+
+.modal-scrollable {
+  overflow: hidden !important;
+}
+
+/* BS 3.3.1 fix */
+.modal-backdrop {
+  position: fixed;
+  bottom: 0;
+}
+
+/***
+Bootbox
+***/
+.bootbox .bootbox-close-button {
+  margin-top: 0px !important;
+}
+
+/***
+Datatables Plugin(in v1.3)
+***/
+.dataTable {
+  width: 100%;
+  clear: both;
+  margin-top: 5px;
+}
+
+/***
+Dropzone css changes(new in v1.1.1)
+***/
+.dropzone {
+  -webkit-border-radius: 0px;
+  -moz-border-radius: 0px;
+  border-radius: 0px;
+}
+
+/***
+FuelUX Spinners
+***/
+.spinner-buttons.btn-group-vertical .btn {
+  text-align: center;
+  margin: 0;
+  height: 17px;
+  width: 22px;
+  padding-left: 6px;
+  padding-right: 6px;
+  padding-top: 0px;
+}
+.page-style-rounded .spinner-buttons.btn-group-vertical .btn.spinner-up {
+  border-radius: 0;
+  border-top-right-radius: 4px !important;
+}
+.page-style-rounded .spinner-buttons.btn-group-vertical .btn.spinner-down {
+  border-radius: 0;
+  border-bottom-right-radius: 4px;
+}
+
+/***
+jQuery Slimscroll
+***/
+.scroller {
+  padding: 0px;
+  margin: 0px;
+  padding-right: 12px;
+  overflow: hidden;
+}
+
+.scroller-footer {
+  margin-top: 10px;
+}
+.scroller-footer:before, .scroller-footer:after {
+  content: " ";
+  display: table;
+}
+.scroller-footer:after {
+  clear: both;
+}
+
+.portlet-body .slimScrollBar {
+  margin-right: 0px;
+}
+
+/***
+jQuery Sparkline
+***/
+.jqstooltip {
+  width: auto !important;
+  height: auto !important;
+}
+
+.easy-pie-chart,
+.sparkline-chart {
+  text-align: center;
+}
+
+.sparkline-chart {
+  margin-top: 15px;
+  position: relative;
+}
+
+.easy-pie-chart .number {
+  font-size: 16px;
+  font-weight: 300;
+  width: 85px;
+  margin: 0 auto;
+}
+
+.sparkline-chart .number {
+  width: 100px;
+  margin: 0 auto;
+  margin-bottom: 10px;
+}
+
+.sparkline-chart .title,
+.easy-pie-chart .title {
+  display: block;
+  text-align: center;
+  color: #333;
+  font-weight: 300;
+  font-size: 16px;
+  margin-top: 5px;
+  margin-bottom: 10px;
+}
+
+.sparkline-chart .title:hover,
+.easy-pie-chart .title:hover {
+  color: #666;
+  text-decoration: none;
+}
+
+.sparkline-chart .title > i,
+.easy-pie-chart .title > i {
+  margin-top: 5px;
+}
+
+/***
+jQuery UI Sliders(new in v1.1.1)
+***/
+.slider {
+  border: 0;
+  padding: 0;
+  display: block;
+  margin: 12px 5px;
+  min-height: 11px;
+}
+
+.ui-slider-vertical {
+  width: 11px;
+}
+
+.ui-slider-horizontal .ui-slider-handle {
+  top: -3px;
+}
+
+.ui-slider-vertical .ui-slider-handle {
+  left: -3px;
+}
+
+.ui-slider-vertical,
+.ui-slider-handle {
+  filter: none !important;
+  background-image: none !important;
+}
+
+/***
+Jstree
+***/
+.jstree-default .jstree-clicked {
+  border: 0;
+  background-color: #e1e1e1;
+  box-shadow: none;
+}
+
+.jstree-default .jstree-hovered {
+  border: 0;
+  background-color: #eee;
+  box-shadow: none;
+}
+
+.jstree-default .jstree-wholerow-clicked,
+.jstree-wholerow .jstree-wholerow-clicked {
+  background: none;
+  border: 0;
+  background-color: #e1e1e1;
+  box-shadow: none;
+}
+
+.jstree-default .jstree-wholerow-hovered,
+.jstree-wholerow .jstree-wholerow-hovered {
+  border: 0;
+  background-color: #eee;
+  box-shadow: none;
+}
+
+.jstree-icon.icon-lg {
+  margin-top: 1px;
+}
+
+.jstree-open > .jstree-anchor > .fa-folder:before {
+  margin-left: 2px;
+  content: "\f07c";
+}
+
+.jstree-default.jstree-rtl .jstree-last {
+  background: transparent;
+  background-repeat: no-repeat;
+}
+
+.vakata-context,
+.vakata-context ul {
+  padding: 0;
+  min-width: 125px;
+  background-color: #ffffff;
+  font-size: 14px;
+  font-family: "Segoe UI",Helvetica, Arial, sans-serif;
+  box-shadow: 5px 5px rgba(102, 102, 102, 0.1);
+  border: 1px solid #efefef;
+}
+
+.vakata-context li {
+  border: 0;
+}
+.vakata-context li a {
+  padding: 0 10px;
+  border: 0;
+}
+.vakata-context li a i {
+  display: none;
+}
+.vakata-context li a .vakata-contextmenu-sep {
+  display: none;
+}
+
+.vakata-context .vakata-context-hover > a,
+.vakata-context li a:hover {
+  background-color: #eee;
+  color: #333;
+  box-shadow: none;
+  margin: 0;
+}
+.vakata-context .vakata-context-hover > a .span,
+.vakata-context .vakata-context-hover > a .ins,
+.vakata-context li a:hover .span,
+.vakata-context li a:hover .ins {
+  border: 0 !important;
+}
+
+.vakata-context li a span,
+.vakata-context li a ins {
+  display: none;
+  border: 0 !important;
+}
+
+.vakata-context .vakata-context-separator a,
+.vakata-context-rtl .vakata-context-separator a {
+  margin: 0;
+  border: 0;
+}
+
+.jstree-rename-input {
+  background-color: #ffffff !important;
+  border: 1px solid #e5e5e5 !important;
+  outline: none !important;
+  padding: 2px 6px !important;
+  margin-right: -4px !important;
+}
+
+/***
+Select2 Plugin
+***/
+.form-control .select2-choice {
+  border: 1px solid #e5e5e5;
+  background-color: #fff;
+  background-image: none;
+  filter: none;
+  height: 34px;
+  padding: 3px 0 0px 12px;
+}
+
+.select2-container.select2-drop-above .select2-choice {
+  border-bottom-color: #e5e5e5;
+  background-color: #fff;
+  background-image: none;
+  filter: none;
+}
+
+.select2-drop {
+  border: 1px solid #e5e5e5;
+  background-color: #fff;
+  background-image: none;
+  -webkit-box-shadow: none;
+  box-shadow: none;
+  filter: none;
+  border-top: 0;
+}
+
+.select2-drop-auto-width {
+  border-top: 1px solid #e5e5e5;
+}
+
+.select2-drop.select2-drop-above {
+  border-top: 1px solid #e5e5e5;
+  -webkit-box-shadow: none;
+  box-shadow: none;
+}
+
+.select2-drop-active {
+  border: 1px solid #999;
+  border-top: 0;
+}
+
+.select2-container .select2-choice .select2-arrow {
+  background-image: none;
+  background-color: #fff;
+  filter: none;
+  border-left: 1px solid #e5e5e5;
+}
+
+.select2-container.select2-container-active .select2-arrow,
+.select2-container.select2-dropdown-open .select2-arrow {
+  border-left: 0 !important;
+}
+
+.select2-container .select2-choice .select2-arrow b {
+  background-position: 0 1px;
+}
+
+.select2-search input {
+  border: 1px solid #e5e5e5;
+  background-color: #fff !important;
+  filter: none;
+  margin: 0;
+  outline: 0;
+  border: 1px solid #e5e5e5;
+  -webkit-appearance: none !important;
+  color: #333333;
+  outline: 0;
+  box-shadow: none;
+  height: auto !important;
+  min-height: 26px;
+  padding: 6px 6px !important;
+  line-height: 20px;
+  font-size: 14px;
+  font-weight: normal;
+  vertical-align: top;
+  background-color: #ffffff;
+  -webkit-box-shadow: none;
+  box-shadow: none;
+  margin-top: 5px;
+}
+
+.form-control.select2-container {
+  border: 0;
+  height: auto !important;
+  padding: 0px;
+}
+
+.select2-container-active .select2-choice,
+.select2-container-active .select2-choices {
+  border: 1px solid #999 !important;
+  -webkit-box-shadow: none !important;
+  box-shadow: none !important;
+}
+
+.select2-dropdown-open .select2-choice {
+  border-bottom: 0 !important;
+  background-image: none;
+  background-color: #fff;
+  filter: none;
+  -webkit-box-shadow: none !important;
+  box-shadow: none !important;
+}
+
+.select2-dropdown-open.select2-drop-above .select2-choice,
+.select2-dropdown-open.select2-drop-above .select2-choices {
+  border: 1px solid #999 !important;
+  border-top: 0 !important;
+  background-image: none;
+  background-color: #fff;
+  filter: none;
+  -webkit-box-shadow: none !important;
+  box-shadow: none !important;
+}
+
+.select2-drop.select2-drop-above.select2-drop-active {
+  border: 1px solid #999 !important;
+  border-bottom: 0 !important;
+}
+
+.select2-dropdown-open .select2-choice .select2-arrow b {
+  background-position: -18px 1px;
+}
+
+.select2-results {
+  margin: 5px 0;
+}
+
+.select2-results .select2-highlighted {
+  background: #eee;
+  color: #333;
+}
+
+.select2-results li em {
+  background: #feffde;
+  font-style: normal;
+}
+
+.select2-results .select2-highlighted em {
+  background: transparent;
+}
+
+.select2-results .select2-highlighted ul {
+  background: #fff;
+  color: #000;
+}
+
+.select2-results .select2-no-results,
+.select2-results .select2-searching,
+.select2-results .select2-selection-limit {
+  padding: 3px 7px 4px;
+  background: #f4f4f4;
+  display: list-item;
+}
+
+.select2-container-multi {
+  -webkit-border-radius: 4px;
+  -moz-border-radius: 4px;
+  -ms-border-radius: 4px;
+  -o-border-radius: 4px;
+  border-radius: 4px;
+}
+.select2-container-multi .select2-choices {
+  -webkit-border-radius: 4px;
+  -moz-border-radius: 4px;
+  -ms-border-radius: 4px;
+  -o-border-radius: 4px;
+  border-radius: 4px;
+}
+.select2-container-multi.select2-dropdown-open {
+  -webkit-border-radius: 4px 4px 0 0;
+  -moz-border-radius: 4px 4px 0 0;
+  -ms-border-radius: 4px 4px 0 0;
+  -o-border-radius: 4px 4px 0 0;
+  border-radius: 4px 4px 0 0;
+}
+.select2-container-multi.select2-dropdown-open .select2-choices {
+  -webkit-border-radius: 4px 4px 0 0;
+  -moz-border-radius: 4px 4px 0 0;
+  -ms-border-radius: 4px 4px 0 0;
+  -o-border-radius: 4px 4px 0 0;
+  border-radius: 4px 4px 0 0;
+}
+.select2-container-multi.select2-dropdown-open.select2-drop-above {
+  -webkit-border-radius: 0 0 4px 4px;
+  -moz-border-radius: 0 0 4px 4px;
+  -ms-border-radius: 0 0 4px 4px;
+  -o-border-radius: 0 0 4px 4px;
+  border-radius: 0 0 4px 4px;
+}
+.select2-container-multi.select2-dropdown-open.select2-drop-above .select2-choices {
+  -webkit-border-radius: 0 0 4px 4px;
+  -moz-border-radius: 0 0 4px 4px;
+  -ms-border-radius: 0 0 4px 4px;
+  -o-border-radius: 0 0 4px 4px;
+  border-radius: 0 0 4px 4px;
+}
+
+.select2-container-multi .select2-choices {
+  padding-left: 6px;
+  min-height: 34px;
+  border: 1px solid #e5e5e5;
+  background-image: none;
+  background-color: #fff;
+  filter: none;
+  -webkit-box-shadow: none !important;
+  box-shadow: none !important;
+}
+
+.select2-container-multi.select2-container-active .select2-choices {
+  border: 1px solid #999 !important;
+  background-image: none;
+  background-color: #fff;
+  filter: none;
+  -webkit-box-shadow: none !important;
+  box-shadow: none !important;
+}
+
+.select2-container-multi .select2-choices .select2-search-choice {
+  padding: 3px 5px 3px 18px;
+  margin: 5px 0 3px 5px;
+  border: 1px solid #e5e5e5;
+  background-image: none;
+  background-color: #fff;
+  filter: none;
+  -webkit-box-shadow: none !important;
+  box-shadow: none !important;
+}
+
+/***
+Color variants
+***/
+.has-warning .select2-container .select2-choice,
+.has-warning .select2-container .select2-choices {
+  border-color: #faebcc;
+}
+
+.has-warning .select2-container.select2-dropdown-open .select2-choice,
+.has-warning .select2-container.select2-dropdown-open .select2-choices {
+  border-color: #faebcc;
+}
+
+.has-warning .select2-container.select2-dropdown-open .select2-choice > span {
+  color: #faebcc;
+}
+
+.has-error .select2-container .select2-choice,
+.has-error .select2-container .select2-choices {
+  border-color: #ebccd1;
+}
+
+.has-error .select2-container.select2-dropdown-open .select2-choice,
+.has-error .select2-container.select2-dropdown-open .select2-choices {
+  border-color: #ebccd1;
+}
+
+.has-error .select2-container.select2-dropdown-open .select2-choice > span {
+  color: #ebccd1;
+}
+
+.has-success .select2-container .select2-choice,
+.has-success .select2-container .select2-choices {
+  border-color: #d6e9c6;
+}
+
+.has-success .select2-container.select2-dropdown-open .select2-choice,
+.has-success .select2-container.select2-dropdown-open .select2-choices {
+  border-color: #d6e9c6;
+}
+
+.has-success .select2-container.select2-dropdown-open .select2-choice > span {
+  color: #d6e9c6;
+}
+
+/* Fix z-index when select2 opened in modals*/
+.modal-open .select2-drop-mask {
+  z-index: 10051;
+}
+
+.modal-open .select2-drop {
+  z-index: 10052;
+}
+
+.modal-open .select2-search {
+  z-index: 10053;
+}
+
+/***
+Bootstrap input sizes
+***/
+/* Large input size */
+.form-control.input-lg .select2-choice {
+  height: 46px;
+  padding: 10px 16px;
+}
+
+.select2-container.input-lg .select2-choice .select2-arrow b {
+  background-position: 0 7px;
+}
+
+/* Small input size */
+.form-control.input-sm .select2-choice {
+  height: 30px;
+  padding: 1px 10px 5px 10px;
+}
+
+.select2-container.input-sm .select2-choice .select2-arrow b {
+  background-position: 0 0px;
+}
+
+/* Portlet full screen mode */
+.modal-open.page-portlet-fullscreen .select2-drop-mask {
+  z-index: 10081;
+}
+.modal-open.page-portlet-fullscreen .select2-drop {
+  z-index: 10082;
+}
+.modal-open.page-portlet-fullscreen .select2-search {
+  z-index: 10083;
+}
+
+/***
+jQuery Uniform
+***/
+.checker {
+  margin-top: -2px !important;
+  margin-right: 2px !important;
+}
+
+.checker input,
+.radio input {
+  outline: none !important;
+}
+
+div.checker.disabled span,
+div.checker.disabled.active span {
+  background-position: -152px -260px;
+}
+
+div.checker.disabled:hover,
+div.radio.disabled:hover {
+  cursor: not-allowed;
+}
+
+div.radio,
+div.checker {
+  margin-right: 0;
+  margin-left: 3px;
+}
+
+.BMapLib_bubble_tools {
+  width: auto !important;
+}
+/*.jstree-default .jstree-node, .jstree-default .jstree-icon {
+    background-image: none;
+}
+
+.jstree-default .jstree-node, .jstree-default .jstree-icon {
+  background-image: none;
+}
+.jstree-icon{
+  display: inline-block;
+  font: normal normal normal 14px/1 FontAwesome;
+  font-size: inherit;
+  text-rendering: auto;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+.jstree-open>.jstree-ocl:before{
+  content: "\f147";
+}
+.jstree-ocl:before{
+  content: "\f196";
+}
+.jstree-themeicon:before{
+  content: "\f1b9";
+}
+.jstree-leaf>.jstree-ocl:before{
+  content: "" !important;
+}*/

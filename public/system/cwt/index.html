@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en" class="no-js">
+
+<head>
+  <meta charset="utf-8" />
+  <title>车务通 Web 3.0</title>
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta content="width=device-width, initial-scale=1" name="viewport" />
+  <meta content="车务通 Web 3.0" name="description" />
+  <meta content="nvlbs wangxin" name="author" />
+  <link rel="stylesheet" href="assets/plugins/font-awesome/css/font-awesome.min.css" />
+  <link rel="stylesheet" href="assets/plugins/simple-line-icons/simple-line-icons.min.css" />
+  <link rel="stylesheet" href="assets/plugins/bootstrap/css/bootstrap.min.css" />
+  <link rel="stylesheet" href="assets/plugins/uniform/css/uniform.default.css" />
+  <link rel="stylesheet" href="assets/plugins/bootstrap-switch/css/bootstrap-switch.min.css" />
+  <link rel="stylesheet" href="assets/plugins/bootstrap-modal/css/bootstrap-modal-bs3patch.css" />
+  <link rel="stylesheet" href="assets/plugins/bootstrap-modal/css/bootstrap-modal.css" />
+  <link rel="stylesheet" href="assets/plugins/select2/select2.css" />
+  <link rel="stylesheet" href="assets/plugins/sweetalert/sweetalert.css" />
+  <link rel="stylesheet" href="assets/plugins/bootstrap-datetimepicker/css/bootstrap-datetimepicker.min.css" />
+  <link rel="stylesheet" href="assets/plugins/jstree/dist/themes/default/style.min.css" />
+  <link rel="stylesheet" href="assets/css/components.css" />
+  <link rel="stylesheet" href="assets/css/component-colors.css" />
+  <link rel="stylesheet" href="assets/css/plugins.css" />
+  <link rel="stylesheet" href="assets/css/layout.css" />
+  <link rel="stylesheet" href="assets/css/themes/light.css" id="style_color" />
+  <link rel="stylesheet" href="assets/css/responsive.css" />
+  <link rel="stylesheet" href="http://api.map.baidu.com/library/SearchInfoWindow/1.5/src/SearchInfoWindow_min.css">
+  <link rel="shortcut icon" href="favicon.ico" />
+</head>
+
+<body class="page-quick-sidebar-over-content">
+  <header class="page-header -i navbar navbar-fixed-top">
+    <div class="page-header-inner">
+      <div class="page-logo">
+        <a href="index.html">
+          <img src="assets/img/logo.png" alt="logo" class="logo-default" />
+        </a>
+      </div>
+      <div class="hor-menu hor-menu-light">
+        <ul class="nav navbar-nav">
+          <li class="mega-menu-dropdown mega-menu-full" id="setting-menu"></li>
+        </ul>
+      </div>
+      <div class="top-menu">
+        <ul class="nav navbar-nav pull-right">
+          <li class="dropdown dropdown-user">
+            <a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
+              <span class="username"> Nick </span> <i class="fa fa-angle-down"></i>
+            </a>
+            <ul class="dropdown-menu dropdown-menu-default">
+              <li>
+                <a href="#">
+                  <i class="icon-user"></i> 个人资料
+                </a>
+              </li>
+              <li>
+                <a href="#">
+                  <i class="icon-envelope-open"></i> 我的消息
+                  <span class="badge badge-danger">3</span>
+                </a>
+              </li>
+              <li>
+                <a href="#">
+                  <i class="icon-rocket"></i> 我的任务
+                  <span class="badge badge-success">7</span>
+                </a>
+              </li>
+              <li class="divider">
+              </li>
+              <li>
+                <a href="#" id="user-logout">
+                  <i class="icon-key"></i> 注销
+                </a>
+              </li>
+            </ul>
+          </li>
+          <li class="dropdown dropdown-quick-sidebar-toggler">
+            <a href="javascript:;" class="dropdown-toggle">
+              <i class="icon-logout"></i>
+            </a>
+          </li>
+        </ul>
+        <ul class="nav navbar-nav pull-right nav-bar-plugins"></ul>
+      </div>
+    </div>
+  </header>
+  <div class="page-container">
+    <div class="page-content-wrapper">
+      <div class="page-content">
+        <!-- 窗口容器 -->
+        <div id="modal-container" tabindex="-1">
+          <div id="modal1" class="modal fade modal-scroll modal-dialog modal-full container" tabindex="-1"></div>
+          <div id="modal2" class="modal fade modal-scroll modal-dialog modal-full container" tabindex="-1"></div>
+          <div id="modal3" class="modal fade modal-scroll modal-dialog modal-full container" tabindex="-1"></div>
+        </div>
+        <!--地图容器-->
+        <div id="Map"></div>
+      </div>
+    </div>
+    <!--车辆列表容器-->
+    <div id="treeContainer"></div>
+  </div>
+  <footer class="page-footer">
+    <div class="page-footer-inner">
+      2016 &copy; 北京汇通国力科技有限公司.
+    </div>
+  </footer>
+  <script src="assets/plugins/jquery.min.js"></script>
+  <script src="assets/plugins/jquery-ui/jquery-ui.min.js"></script>
+  <script src="assets/plugins/bootstrap/js/bootstrap.min.js"></script>
+  <script src="assets/plugins/bootstrap-hover-dropdown/bootstrap-hover-dropdown.min.js"></script>
+  <script src="assets/plugins/jquery.slimscroll.min.js"></script>
+  <script src="assets/plugins/jquery.blockui.min.js"></script>
+  <script src="assets/plugins/jquery.cokie.min.js"></script>
+  <script src="assets/plugins/uniform/jquery.uniform.min.js"></script>
+  <script src="assets/plugins/bootstrap-switch/js/bootstrap-switch.min.js"></script>
+  <script src="assets/plugins/bootstrap-modal/js/bootstrap-modalmanager.js"></script>
+  <script src="assets/plugins/bootstrap-modal/js/bootstrap-modal.js"></script>
+  <script src="assets/plugins/select2/select2.js"></script>
+  <script src="assets/plugins/select2/select2_locale_zh-CN.js"></script>
+  <script src="assets/plugins/sweetalert/sweetalert-dev.js"></script>
+  <script src="assets/plugins/bootstrap-datetimepicker/js/bootstrap-datetimepicker.min.js"></script>
+  <script src="assets/plugins/bootstrap-datetimepicker/js/locales/bootstrap-datetimepicker.zh-CN.js"></script>
+  <script src="assets/plugins/jstree/dist/jstree.min.js"></script>
+  <script src="assets/plugins/jquery.pulsate.min.js"></script>
+  <script src="assets/plugins/jquery.sparkline.min.js"></script>
+  <script src="assets/plugins/jQuery.md5.js"></script>
+  <script src="assets/plugins/moment.js"></script>
+  <!-- 配置信息 -->
+  <script src="cfgs/config.js"></script>
+  <script src="assets/scripts/app.js"></script>
+  <script src="assets/scripts/app.map.js"></script>
+  <!--数据服务-->
+  <!--车辆数据服务-->
+  <script src="assets/scripts/services/menu.js"></script>
+  <script src="assets/scripts/services/car.js"></script>
+  <!--业务插件-->
+  <script src="assets/scripts/plugins/setup/location.js"></script>
+  <script src="assets/scripts/plugins/setup/vehicleinfo.js"></script>
+  <script src="assets/scripts/plugins/setup/operator.js"></script>
+  <!--/公务车管理组件-->
+  <script src="assets/scripts/plugins/setup/setvehicleinfo.js"></script>
+
+  <!--轨迹查询-->
+  <script src="assets/scripts/plugins/monitor/routereplay.js"></script>
+  <!--统计查询组件-->
+  <script src="assets/scripts/plugins/statistics.js"></script>
+  <!--统计中心 照片查询-->
+  <!--<script src="assets/scripts/plugins/statistics/photoquery.js"></script>-->
+  <!--统计中心 指令查询-->
+  <!--<script src="assets/scripts/plugins/statistics/orderquery.js"></script>-->
+  <!--统计中心 异步统计-->
+  <!--<script src="assets/scripts/plugins/statistics/async.js"></script>-->
+  <script src="assets/scripts/plugins/manager.js"></script>
+
+  <script src="assets/scripts/plugins/searchs/alert.js"></script>
+  <!--客服中心-->
+  <script src="assets/scripts/plugins/servicecenter/service.js"></script>
+  <!--公务车管理组件-->
+  <script src="assets/scripts/plugins/dispatch.js"></script>
+  <!--/公务车管理组件-->
+
+  <!-- 百度地图 -->
+  <!---->
+  <script src="http://api.map.baidu.com/api?v=2.0&ak=wrwHhkxUiZLLHfDSLTOoWd6c"></script>
+  <!--<script src="http://developer.baidu.com/map/jsdemo/demo/convertor.js"></script>-->
+  <script src="http://api.map.baidu.com/library/DistanceTool/1.2/src/DistanceTool_min.js"></script>
+  <script src="http://api.map.baidu.com/library/TextIconOverlay/1.2/src/TextIconOverlay_min.js"></script>
+  <script src="http://api.map.baidu.com/library/MarkerClusterer/1.2/src/MarkerClusterer_min.js"></script>
+  <script src="http://api.map.baidu.com/library/LuShu/1.2/src/LuShu_min.js"></script>
+  <!---->
+  <!-- 车务通地图核心组件 -->
+  <!---->
+  <script src="assets/scripts/map/cwt.core.js"></script>
+  <script src="assets/scripts/map/cwt.map.js"></script>
+  <script src="assets/scripts/map/plugins/baidu.plugins.js"></script>
+  <script src="assets/scripts/map/cwt.map.baidu.js"></script>
+  <!---->
+  <script>
+    jQuery( document ).ready( function () {
+      App.onReady();  //初始化应用
+      App.services.menu.init();
+      //App.notify.init();//初始化通知模块
+      App.runResizeHandlers();
+      App.map.init( "Map" );
+    } );
+  </script>
+</body>
+
+</html>

@@ -11,7 +11,7 @@ define(['QDP'], function (QDP) {
    * @param {string} dictkey  字典代码
    */
   return {
-    package: function (dictname, dictkey) {
+    init: function (dictname, dictkey) {
       var options = {
         "apis": {
           "list": QDP.api.datadict.datas.replace("{dictkey}", dictkey),

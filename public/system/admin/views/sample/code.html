@@ -1,0 +1,129 @@
+<div class="col-sm-6">
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <h4 class="panel-title"><i class="fa fa-table"></i>文件列表</h4>
+    </div>
+    <div class="panel-body">
+      <p class="m-b-lg">
+        <strong>CodeMirror</strong>提供丰富的API接口和CSS主题，详情请访问
+        <a href="http://codemirror.net/" target="_blank">http://codemirror.net/</a>
+      </p>
+      <textarea id="code1">
+<!--
+for(var line=1;line<30;line++){
+  for(var i=1;i<29;i++){
+    var s = (Math.floor((Math.random()*2)%2))?"／":"＼";
+    document.write(s);
+  }
+  document.write("<br/>");
+}
+// Codemirror 代码
+var editor_one = CodeMirror.fromTextArea(document.getElementById("code1"), {
+    lineNumbers: true,
+    matchBrackets: true,
+    styleActiveLine: true
+});
+-->
+    </textarea>
+    </div>
+  </div>
+
+  <script>
+  var editor_one = CodeMirror.fromTextArea(document.getElementById("code1"), {
+      lineNumbers: true,
+      matchBrackets: true,
+      styleActiveLine: true
+  });
+</script>
+</div>
+<div class="col-sm-6">
+  <div class="panel panel-default float-e-margins">
+    <div class="panel-heading">
+      <h4 class="panel-title">范围滑块 <small>https://github.com/IonDen/ion.rangeSlider</small></h4>
+    </div>
+    <div class="panel-body">
+      <h3>滑块</h3>
+      <p>在指定范围内选择</p>
+
+      <div class="col-sm-12">
+        <small><strong>示例：</strong> 设置值为0-5000，后缀“+”来表示最大值，人民币符号作为前缀，使用刻度</small>
+        <div id="ionrange_1"></div>
+      </div>
+      <div class="col-sm-12">
+        <small><strong>示例：</strong> 设置值为0-10，步长：0.1，使用刻度  </small>
+        <div id="ionrange_2"></div>
+      </div>
+      <div class="col-sm-12">
+        <small><strong>示例：</strong> 设置值微从-50~+50，默认为0， 并使用摄氏度符号作为后缀，使用刻度  </small>
+        <div id="ionrange_3"></div>
+      </div>
+      <div class="col-sm-12">
+        <small><strong>示例:</strong>使用数组设置滑块值为月数，数组可以使任意长度，滑块将自动适应 </small>
+        <div id="ionrange_4"></div>
+      </div>
+      <div class="col-sm-12">
+        <textarea id="code2">
+//示例： 设置值为0-5000，后缀“+”来表示最大值，人民币符号作为前缀，使用刻度
+$("#ionrange_1").ionRangeSlider({min: 0,max: 5000,type: 'double',prefix: "&yen;",maxPostfix: "+",prettify: false,hasGrid: true});
+//示例： 设置值为0-10，步长：0.1，使用刻度
+$("#ionrange_2").ionRangeSlider({min: 0,max: 10,type: 'single',step: 0.1,postfix: " 克",prettify: false,hasGrid: true});
+//示例： 设置值微从-50~+50，默认为0， 并使用摄氏度符号作为后缀，使用刻度
+$("#ionrange_3").ionRangeSlider({min: -50,max: 50,from: 0,postfix: "°",prettify: false,hasGrid: true});
+//示例:使用数组设置滑块值为月数，数组可以使任意长度，滑块将自动适应
+$("#ionrange_4").ionRangeSlider({values: ["一月", "二月", "三月","四月", "五月", "六月","七月", "八月", "九月","十月", "十一月", "十二月"],type: 'single',hasGrid: true});
+</textarea>
+      </div>
+      <div>
+        <a class="btn btn-white pull-right btn-sm" href="https://github.com/IonDen/ion.rangeSlider" target="_blank">API文档</a>
+        <div class="clearfix"></div>
+      </div>
+    </div>
+  </div>
+</div>
+<script>
+$("#ionrange_1").ionRangeSlider({
+    min: 0,
+    max: 5000,
+    type: 'double',
+    prefix: "&yen;",
+    maxPostfix: "+",
+    prettify: false,
+    hasGrid: true
+});
+
+$("#ionrange_2").ionRangeSlider({
+    min: 0,
+    max: 10,
+    type: 'single',
+    step: 0.1,
+    postfix: " 克",
+    prettify: false,
+    hasGrid: true
+});
+
+$("#ionrange_3").ionRangeSlider({
+    min: -50,
+    max: 50,
+    from: 0,
+    postfix: "°",
+    prettify: false,
+    hasGrid: true
+});
+
+$("#ionrange_4").ionRangeSlider({
+    values: [
+        "一月", "二月", "三月",
+        "四月", "五月", "六月",
+        "七月", "八月", "九月",
+        "十月", "十一月", "十二月"
+    ],
+    type: 'single',
+    hasGrid: true
+});
+
+var editor_one = CodeMirror.fromTextArea(document.getElementById("code2"), {
+    lineNumbers: true,
+    matchBrackets: true,
+    styleActiveLine: true
+});
+</script>

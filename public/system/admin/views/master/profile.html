@@ -1,0 +1,81 @@
+<link rel="stylesheet" href="assets/css/profile.css" />
+<div class="row">
+  <div class="col-sm-12" id="info-panel"></div>
+  <div class="col-sm-12">
+    <div class="panel panel-default float-e-margins">
+      <div class="panel-heading">
+        <h4 class="panel-title">最新动态</h4>
+      </div>
+      <div class="panel-body">
+        <div class="row animated">
+          <div class="col-md-12">
+            <div class="feed-activity-list" data-container></div>
+            <button id="btn_load" class="btn btn-primary btn-block"><i class="fa fa-arrow-down"></i> 显示更多</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script id="info-data" type="text/x-jquery-tmpl">
+<div class="panel float-e-margins">
+  <div class="panel-body profile-content">
+    <div class="row">
+      <div class="col-sm-2">
+        <img alt="image" class="img-responsive" src="${$data.url}">
+      </div>
+      <div class="col-sm-8">
+        <h4><strong>${$data.name}</strong></h4>
+        <p><i class="fa fa-map-marker"></i> ${$data.addr}</p>
+        <h5>关于我</h5>
+        <p>${$data.describe}</p>
+
+      </div>
+      <div class="col-sm-2">
+          <div class="col-sm-12">
+            <h5><strong>${$data.about}</strong> 关注</h5>
+          </div>
+          <div class="col-sm-12">
+            <h5><strong>${$data.beabout}</strong> 被关注</h5>
+          </div>
+      </div>
+    </div>
+  </div>
+</div>
+</script>
+
+<script id="article-data" type="text/x-jquery-tmpl">
+<div class="feed-element">
+  <a href="#" class="pull-left">
+    <img alt="image" class="img-circle" src="${$item.api()+$data.header}">
+  </a>
+  <div>
+    <small class="pull-right text-navy">${App.util.utcToCN($data.date)} 来自 ${$data.client}</small>
+    <span><strong>${$data.nickname}</strong></span>
+    <br>
+    <span>${$data.text}</span>
+    <br> {{if $data.HAS_IMAGE}}
+    <div class="photos">
+      {{each(index,img) $data.imgs}}
+      <a target="_blank" href="${$item.api()}${img}">
+        <img alt="image" class="feed-photo" src="${$item.api()+img}">
+      </a>
+      {{/each}}
+    </div>
+    {{/if}}
+    <div class="actions" data-type="A" data-target="${$data.id}">
+      {{if !$data.IS_SELF}}
+      <a class="btn btn-xs" data-action="do-toup"><i class="fa fa-thumbs-up"></i> 赞</a>
+      {{/if}}
+      {{if !$data.IS_SELF}}
+      <a class="btn btn-xs" data-action="do-remark"><i class="fa fa-heart"></i> 收藏</a>
+      {{/if}}
+      {{if !$data.IS_SELF}}
+      <a class="btn btn-xs" data-action="do-return"><i class="fa fa-external-link"></i> 转发</a>
+      {{/if}}
+      <a class="btn btn-xs" data-action="do-comment"><i class="fa fa-commenting-o"></i> 评论</a>
+    </div>
+  </div>
+</div>
+</script>

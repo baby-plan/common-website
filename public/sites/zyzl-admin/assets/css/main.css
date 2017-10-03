@@ -3,6 +3,7 @@
 @import url(controls/control.css);
 @import url(controls/table.css);
 @import url(controls/menu.css);
+@import url(plugins/timeline.css);
 @import url(plugins/login.css);
 @import url(plugins/loading.css);
 @import url(responsive/max767.css);

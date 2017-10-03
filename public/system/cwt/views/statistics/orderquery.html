@@ -1,0 +1,36 @@
+<div class="modal-header">
+	<button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+	<h4 class="modal-title">指令查询</h4>
+</div>
+<div class="modal-body">
+  <div class="row">
+    <div class="col-md-9 form-horizontal">
+     <label class="col-sm-1 control-label" style="margin-top:5px;" >告警类型</label>
+	  <div class="col-sm-2">
+		 <select id="registstate" class="form-control select2" />
+	  </div>
+      <label class="col-sm-1 control-label">开始时间</label>
+      <div class="col-sm-2">
+        <input type="text" class="form-control form_date" id="usecarstarttime">
+      </div>
+      <label class="col-sm-1 control-label">结束时间</label>
+      <div class="col-sm-2">
+        <input type="text" class="form-control form_date" id="usecarendtime">
+      </div>
+      <div class="input-groupcol col-sm-6">
+        <a id="doSearch"></a>
+        <a id="doReset"></a>
+        <a id="doExport"></a>
+      </div>
+      <div class="col-sm-12">
+        <table id="table"></table>
+      </div>
+    </div>
+    <div class="col-md-3">
+      <div id="treeview"></div>
+    </div>
+  </div>
+</div>
+<div class="modal-footer">
+  <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+</div>

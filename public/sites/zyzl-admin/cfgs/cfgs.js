@@ -1,4 +1,4 @@
-﻿define(["jquery", "moment"], function($, moment) {
+﻿define(["jquery", "moment"], function ($, moment) {
   var cfgs = {
     app_name: "车友助理-商户管理平台",
     debug: true,
@@ -9,7 +9,8 @@
       error: true
     },
     /* 是否使用已设定的初始页面,rootable:true 使用菜单第一项作为起始页面,否则使用root定义的内容为起始页面 */
-    rootable: true,
+    rootable: false,
+    root: ["首页"],
     /** API: */
     cache: {},
     /** API: */
@@ -34,66 +35,6 @@
     buffer: {},
     /** 是否读取缓存数据 */
     fromCache: false
-  };
-  cfgs.dict.state = {
-    "0": "禁用",
-    "1": "启用",
-    "2": "删除"
-  };
-  cfgs.dict.checkstate = {
-    "0": "未审核",
-    "1": "已审核"
-  };
-
-  cfgs.dict.publishstate = {
-    "0": "待发布",
-    "1": "已发布"
-  };
-
-  cfgs.dict.codestate = {
-    "0": "待使用",
-    "1": "已使用",
-    "2": "已过期"
-  };
-
-  cfgs.dict.codetype = {
-    "1": "免费券",
-    "2": "折扣券"
-  };
-
-  cfgs.dict.codetype2 = {
-    "1": "基本套餐券",
-    "2": "活动套餐券",
-    "3": "一次性券"
-  };
-
-  cfgs.dict.channeltype = {
-    "1": "和地图",
-    "2": "H5"
-  };
-
-  cfgs.dict.servicestate = {
-    "0": "禁用",
-    "1": "启用"
-  };
-
-  cfgs.dict.cartype = {
-    "1": "小轿车",
-    "2": "SUV/商务车"
-  };
-
-  cfgs.dict.servicetype = {
-    "1": "普洗",
-    "2": "精洗"
-  };
-
-  cfgs.dict.servicename = {
-    "1": "小轿车普洗",
-    "2": "SUV普洗",
-    "3": "商务车普洗",
-    "4": "小轿车精洗",
-    "5": "SUV精洗",
-    "6": "商务车精洗"
   };
 
   /** 各项内容模板设置 */
@@ -152,12 +93,14 @@
     btn_unpublish: '<i class="fa fa-share-square-o"></i> 取消发布 ',
     btn_look: '<i class="fa fa-share-square-o"></i> 查看 ',
     btn_chgpwd: '<i class="fa fa-share-square-o"></i> 重置密码 ',
-    btn_filter: '<i class="fa fa-share-square-o"></i> 筛选 '
+    btn_filter: '<i class="fa fa-filter"></i> 筛选 ',
+    'btn-selectall': '<i class="fa fa-share-square-o"></i> 全选 ',
+    'btn-selectopp': '<i class="fa fa-share-square-o"></i> 反选 '
   };
 
   /** 样式相关参数设置 */
   cfgs.options.styles = {
-    btn_default: "btn",
+    btn_default: "btn-mini",
     // btn_back: "btn btn-danger",
     // btn_save: "btn btn-success",
     // btn_reset: "btn btn-warning",
@@ -171,6 +114,9 @@
     // btn_look: "btn btn-info",
     // btn_chgpwd: "btn btn-info",
     // btn_add: "btn btn-success"
+
+    'btn-selectall': 'btn btn-success',
+    'btn-selectopp': 'btn btn-success'
   };
 
   /** 请求相关参数设置 */
@@ -239,7 +185,7 @@
     }
   };
 
-  var stateformat = function(state) {
+  var stateformat = function (state) {
     if (!state.id) {
       return state.text;
     } else if (state.id.startWith("fa") || state.id.startWith("icon")) {
@@ -261,14 +207,14 @@
   /** 滚动条选项 */
   cfgs.options.scroller = {
     width: "auto", //可滚动区域宽度
-    size: "5px", //组件宽度
-    color: "#195fff", //滚动条颜色
+    size: "6px", //组件宽度
+    color: "#fff", //滚动条颜色
     position: "right", //组件位置:left/right
     distance: "1px", //组件与侧边之间的距离
     opacity: 1, //滚动条透明度
-    alwaysVisible: false, //是否 始终显示组件
-    disableFadeOut: true, //是否 鼠标经过可滚动区域时显示组件，离开时隐藏组件
-    railVisible: true, //是否 显示轨道
+    alwaysVisible: true, //是否 始终显示组件
+    disableFadeOut: false, //是否 鼠标经过可滚动区域时显示组件，离开时隐藏组件
+    railVisible: false, //是否 显示轨道
     railColor: "#dbdbdb", //轨道颜色
     railOpacity: 1, //轨道透明度
     railDraggable: true, //是否 滚动条可拖动
@@ -297,14 +243,19 @@
   cfgs.editpage = "views/common/edits.html";
   /* 公共列表页面地址*/
   cfgs.listpage = "views/common/searchs.html";
-  /* 系统模块定义
-  说明：
-      1. parent   表示模块父级，若为000则视为根目录。
-      2. name     表示模块名称，即菜单名称
-      3. icon     表示模块图标，即菜单图标
-      5. url      表示模块路径，即菜单点击后打开的地址。
-   */
-  cfgs.modules = {};
+
+  cfgs.tooltip = {
+    compute: [
+      "店铺门市价：指的是商户对非会员、非优惠期间执行的普通用户洗车价格。"
+      , "折扣券签约价：指的是车友助理业务支撑方与签约商户确定的对折扣券补贴前的洗车费用。"
+      , "免费券结算价：指的是用户使用免费券到商户洗车后，由车友主助理业务支撑方支付给商户的洗车费用。"
+      , "应结算金额计算方法："
+      , "折扣券应结算金额 = 折扣券签约价 - 用户实际支付"
+      , "免费券应结算金额 = 免费券结算价 - 用户实际支付"
+      , "举例说明：A省支撑方承诺的洗车折扣率为5折，门市价为30元，折扣券签约价为20元，免费券结算价为25元。用户使用免费券去洗车无需支付洗车费用，但支撑方需向商户支付免费洗车费用为25元；用户使用折扣券洗车，由用户支付洗车费用为15元，但是支撑方给商户的折扣券补贴费用为20-15=5元。"
+    ]
+  }
+
 
   cfgs.icons = [
     "fa fa-address-book",

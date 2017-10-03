@@ -14,7 +14,7 @@
   color: #555;
 }
 
-.login aside {
+body.login aside {
   display: none;
 }
 

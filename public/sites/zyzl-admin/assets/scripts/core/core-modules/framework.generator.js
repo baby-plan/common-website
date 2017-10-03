@@ -20,9 +20,10 @@ define(
     "moment",
     "bootstrapValidator",
     "jquery.tmpl",
-    "jquery.tmplPlus"
+    "jquery.tmplPlus",
+    'jquery.template'
   ],
-  function(
+  function (
     $,
     cfgs,
     api,
@@ -52,7 +53,7 @@ define(
     /** 初始化表单内容
      * @param  {json} options 初始化选项
      */
-    var _initListView = function(options) {
+    var init = function (options) {
       const option_default = {
         apis: { list: "", insert: "", update: "", delete: "" },
         columns: [],
@@ -61,7 +62,7 @@ define(
           filter: { icon: "fa fa-search", text: "查询条件" },
           table: { icon: "fa fa-table", text: "查询结果" }
         },
-        helps: { insert: [], update: [] },
+        helps: { insert: [], update: [], list: [] },
         actions: { insert: false, update: false, delete: false },
         editor: {
           page: cfgs.editpage,
@@ -79,13 +80,13 @@ define(
       var hasFilter = false;
 
       // 为列数组设置初始索引 index:用于排序
-      $.each(plugin_option.columns, function(index, column) {
+      $.each(plugin_option.columns, function (index, column) {
         column.index = index;
       });
 
       plugin_option.columns = plugin_option.columns.sort(compare_index);
       // 遍历columns设置,获取table的显示字段名称
-      $.each(plugin_option.columns, function(index, column) {
+      $.each(plugin_option.columns, function (index, column) {
         // 处理主键字段
         if (column.primary) {
           primaryKey = column.name;
@@ -109,13 +110,20 @@ define(
         .appendTo("#record-container");
 
       // 判断是否有新增功能:如果有则设定按钮文字样式及事件
-      if (plugin_option.actions.insert) {
+
+      // TODO: 权限校验：INSERT
+      if (cfgs.pageOptions.powers.indexOf('insert') > -1 && plugin_option.actions.insert) {
         $(".btn_add")
           .attr("data-title", plugin_option.texts.insert)
           .on("click", edit_click);
       } else {
         $(".btn_add").remove();
       }
+      // TODO: 权限校验：EXPORT
+      if (cfgs.pageOptions.powers.indexOf('export') == -1) {
+        $(".btn_export").remove();
+      }
+
       // 渲染表格
       table.render($("#table"), displaycolumns);
 
@@ -127,7 +135,7 @@ define(
           .tmpl(plugin_option)
           .appendTo("#filter-container");
 
-        $.each(plugin_option.columns, function(index, column) {
+        $.each(plugin_option.columns, function (index, column) {
           // if (column.filterindex == 4) { return; }
           // console.log(index + "," + JSON.stringify(column));
           if (column.custom) {
@@ -153,6 +161,36 @@ define(
         $("#filter-container").remove();
       } //if (hasFilter) {
 
+      let helptips = [];
+      $.each(plugin_option.helps.list, function (index, text) {
+        helptips.push(text);
+      });
+
+      if (helptips.length > 0) {
+        var div = $("<div/>")
+          .addClass("alert alert-block alert-success")
+          .insertBefore($("#filter-container"));
+        div.append(
+          $("<a/>")
+            .addClass("close")
+            .attr("data-dismiss", "alert")
+            .attr("href", "#")
+            .attr("aria-hidden", "true")
+            .text("×")
+        );
+        div.append($("<p/>"));
+        div.append(
+          $("<h4/>")
+            .append($("<i/>").addClass("fa fa-bullhorn"))
+            .append(" 注意事项")
+        );
+        div.append($("<p/>"));
+        var ul = $("<ul/>").appendTo(div);
+        $.each(helptips, function (index, text) {
+          ul.append($("<li/>").append(text));
+        });
+      }
+
       form.init();
       // 自动调用查询条件重置方法
       if (hasFilter) {
@@ -167,9 +205,9 @@ define(
     /** 初始化编辑界面,若data有值则视为编辑数据,否则视为新增数据
      * @param {object} data 编辑时传入的数据,新增时不需要
      */
-    var initEditor = function(data) {
+    var initEditor = function (data) {
       /** 编辑界面:保存按钮点击事件处理函数 */
-      var save_click = function(e) {
+      var save_click = function (e) {
         e.preventDefault();
         var validator = $(FROM_KEY).data("bootstrapValidator");
         validator.validate();
@@ -178,7 +216,7 @@ define(
         }
         var requesturl;
         var options = {};
-        $.each(plugin_option.columns, function(index, column) {
+        $.each(plugin_option.columns, function (index, column) {
           if (!column.edit) {
             return;
           }
@@ -206,7 +244,7 @@ define(
             break;
         }
 
-        ajax.get(requesturl, options, function() {
+        ajax.get(requesturl, options, function () {
           layout.back();
         });
       };
@@ -216,12 +254,12 @@ define(
       if (isEdit) {
         $(FROM_KEY).attr(PRIMARY_KEY_ATTR, data[primaryKey]);
         $(FROM_KEY).attr(ACTION_ATTR, ACTION_UPDATE);
-        $.each(plugin_option.helps.insert, function(index, text) {
+        $.each(plugin_option.helps.insert, function (index, text) {
           helptips.push(text);
         });
       } else {
         $(FROM_KEY).attr(ACTION_ATTR, ACTION_INSERT);
-        $.each(plugin_option.helps.update, function(index, text) {
+        $.each(plugin_option.helps.update, function (index, text) {
           helptips.push(text);
         });
       }
@@ -246,7 +284,7 @@ define(
         );
         div.append($("<p/>"));
         var ul = $("<ul/>").appendTo(div);
-        $.each(helptips, function(index, text) {
+        $.each(helptips, function (index, text) {
           ul.append($("<li/>").append(text));
         });
       }
@@ -266,52 +304,73 @@ define(
       $("#editor-data")
         .tmpl(plugin_option)
         .appendTo(".panel-body>.form-horizontal");
+      var validatorOption = {
+        message: 'This value is not valid',
+        feedbackIcons: {
+          valid: 'glyphicon glyphicon-ok',
+          invalid: 'glyphicon glyphicon-remove',
+          validating: 'glyphicon glyphicon-refresh'
+        },
+        fields: {}
+      };
 
-      $.each(plugin_option.columns, function(index, column) {
+      $.each(plugin_option.columns, function (index, column) {
         if (data == undefined) {
           data = {};
         }
+        var _validOption = {};
+        if (!column.novalid) {
+          _validOption = {
+            message: column.text + '验证失败',
+            validators: {
+              notEmpty: {
+                message: column.text + '不能为空'
+              }
+            }
+          };
+          if (column.validtype) {
+            _validOption.validators[column.validtype] = {
+              message: column.message
+            };
+          }
+          if (column.regex) {
+            _validOption.validators['regexp'] = {
+              regexp: column.regex,
+              message: column.message
+            };
+          }
+          if (column.type == "date") {
+            _validOption.validators['date'] = {
+              format: "YYYY-MM-DD",
+              message: '日期格式不正确'
+            };
+          }
+
+          if (column.type == "datetime") {
+            _validOption.validators['date'] = {
+              format: "YYYY-MM-DD h:m:s",
+              message: '日期格式不正确'
+            };
+          }
+        }
+
         let value = data[column.name];
         if (column.base64) {
           value = base64.decode(value);
         }
+
         if (column.custom) {
           var columndiv = $("#" + column.name).parent();
           columndiv.empty();
           column.custom(column, columndiv, value);
-        } else if (column.type == "date" || column.type == "datetime") {
-          // 初始化日期\时间控件,并且设置初始值
-          let datetimepicker;
-          if (column.type == "date") {
-            $("#" + column.name).attr("data-bv-date-format", "YYYY-MM-DD");
-            datetimepicker = $("#" + column.name)
-              .parent()
-              .datetimepicker(cfgs.options.datepicker);
-            if (value) {
-              $("#" + column.name).val(
-                util.utcTostring(value, cfgs.options.defaults.dateformat2)
-              );
-            }
-          } else {
-            $("#" + column.name).attr(
-              "data-bv-date-format",
-              "YYYY-MM-DD h:m:s"
-            );
-            datetimepicker = $("#" + column.name)
-              .parent()
-              .datetimepicker(cfgs.options.datetimepicker);
-            if (value) {
-              $("#" + column.name).val(
-                util.utcTostring(value, cfgs.options.defaults.datetimeformat)
-              );
-            }
-          }
-          datetimepicker.on("changeDate", function(ev) {
-            $("#role-form")
-              .data("bootstrapValidator")
-              .updateStatus(column.name, "NOT_VALIDATED", null)
-              .validateField(column.name);
-          });
+        } else if (column.type == "date" && value) {
+          $("#" + column.name).val(
+            util.utcTostring(value, cfgs.options.defaults.dateformat2)
+          );
+        } else if (column.type == "datetime" && value) {
+          $("#" + column.name).val(
+            util.utcTostring(value, cfgs.options.defaults.datetimeformat)
+          );
         } else if (typeof column.dict === "string") {
           // 初始化下拉列表控件,并且设置初始值
           form.initDict(
@@ -320,30 +379,47 @@ define(
             value,
             column.multiple
           );
+
         } else if (column.name == "_index") {
           // 索引字段不需要处理
         } else if (column.type == "icon") {
           $("#" + column.name).attr("data-value", value);
+        } else if (column.type == "map") {
+          // 处理地图类型字段
+          requirePlugins('map', column, data);
+        } else if (column.type == "image") {
+          // 处理图片类型字段
+          requirePlugins('upload', column, data);
         } else {
           $("#" + column.name).val(value);
           if (column.primary && value) {
             $("#" + column.name).attr("readonly", true);
           }
         }
+
+        validatorOption.fields[column.name] = _validOption;
       });
+
       form.init();
-      $("#role-form").bootstrapValidator(); // 注册表单验证组件
+
+      $("#role-form").bootstrapValidator(validatorOption); // 注册表单验证组件
       $(".btn_save").on("click", save_click); // 处理保存按钮事件
     };
+
+    var requirePlugins = function (plugin_name, args) {
+      require(['generator-plugins/' + plugin_name], plugin => {
+        plugin.init(args);
+      });
+    }
 
     /** 打开数据编辑界面,若data有值则视为编辑数据,否则视为新增数据
      * @param {object} data 编辑时传入的数据,新增时不需要
      */
-    var _open_editview = function(data) {
+    var _open_editview = function (data) {
       form.openview({
         url: plugin_option.editor.page,
         title: data ? plugin_option.texts.update : plugin_option.texts.insert,
-        callback: function() {
+        callback: function () {
           if (plugin_option.editor.callback) {
             plugin_option.editor.callback(data);
           } else {
@@ -353,7 +429,7 @@ define(
       });
     };
 
-    var edit_click = function() {
+    var edit_click = function () {
       var args = $(this).data("args");
       if (listbuffer && listbuffer.length > 0) {
         _open_editview(listbuffer[args]);
@@ -362,15 +438,15 @@ define(
       }
     };
 
-    var reomve_click = function() {
+    var reomve_click = function () {
       var primary = $(this).data("args");
-      var confirmCallback = function(result) {
+      var confirmCallback = function (result) {
         if (!result) {
           return;
         }
         var options = {};
         options[primaryKey] = primary;
-        ajax.get(plugin_option.apis.delete, options, function(json) {
+        ajax.get(plugin_option.apis.delete, options, function () {
           table.reload();
         });
       };
@@ -378,9 +454,9 @@ define(
     };
 
     /** 排序函数：比较filterindex */
-    var compare_filterindex = function(x, y) {
-      if (!x.filterindex) return -1;
-      if (!y.filterindex) return 1;
+    var compare_filterindex = function (x, y) {
+      if (!x.filterindex) return 1;
+      if (!y.filterindex) return -1;
       if (x.filterindex < y.filterindex) {
         return -1;
       } else if (x.filterindex > y.filterindex) {
@@ -391,7 +467,7 @@ define(
     };
 
     /** 排序函数：比较index */
-    var compare_index = function(x, y) {
+    var compare_index = function (x, y) {
       if (x.index < y.index) {
         return -1;
       } else if (x.index > y.index) {
@@ -402,13 +478,13 @@ define(
     };
 
     /** 根据页面输入条件查询也过并填充表格 */
-    var _search = function() {
+    var _search = function () {
       var options = {};
       if (plugin_option.args && plugin_option.args.search) {
         options = plugin_option.args.search;
       }
 
-      $.each(plugin_option.columns, function(index, column) {
+      $.each(plugin_option.columns, function (index, column) {
         if (!column.filter) {
           return;
         } // 没有filter选项,不需要筛选
@@ -439,7 +515,7 @@ define(
         }
       });
 
-      var parsefn = function(tr, index, totalindex, item) {
+      var parsefn = function (tr, index, totalindex, item) {
         if (plugin_option.buffdate) {
           if (index == 0) {
             listbuffer = [];
@@ -448,7 +524,7 @@ define(
         }
         var columns = plugin_option.columns;
         columns = columns.sort(compare_index);
-        $.each(columns, function(column_index, column) {
+        $.each(columns, function (column_index, column) {
           if (column.grid == false) {
             return;
           }
@@ -464,17 +540,19 @@ define(
           } else if (column.name == "_action") {
             // 按钮类型
             td = row.createCell(tr);
-            if (plugin_action.update) {
+            // TODO: 权限校验：UPDATE
+            if (cfgs.pageOptions.powers.indexOf('update') > -1 && plugin_action.update) {
               cell.addAction(td, "btn_edit", index, edit_click);
             }
-            if (plugin_action.delete) {
+            // TODO: 权限校验：DELETE
+            if (cfgs.pageOptions.powers.indexOf('delete') > -1 && plugin_action.delete) {
               cell.addAction(td, "btn_remove", item[primaryKey], reomve_click);
             }
             if (
               column.customAction &&
               typeof column.customAction == "function"
             ) {
-              column.customAction(td, item, index);
+              column.customAction(td, item, index, cfgs.pageOptions.powers);
             }
 
             if (column.command) {
@@ -523,11 +601,12 @@ define(
         parsefn: parsefn,
         args: options
       });
+
     };
 
     /** 重置页面输入项 */
-    var _reset = function() {
-      $.each(plugin_option.columns, function(index, column) {
+    var _reset = function () {
+      $.each(plugin_option.columns, function (index, column) {
         if (!column.filter) {
           return;
         } // 没有filter选项,不需要筛选
@@ -541,8 +620,8 @@ define(
           $("#" + column.name + "_2").val(
             moment().format(cfgs.options.defaults.dateformat)
           );
-        } else if (column.type == "dict") {
-          $("#" + column.name).select2("val", "");
+        } else if (column.dict) {
+          $("#" + column.name).val(null).trigger("change");
         } else {
           $("#" + column.name).val("");
         }
@@ -550,8 +629,8 @@ define(
     };
 
     return {
-      init: _initListView,
-      getdata: function(index) {
+      init: init,
+      getdata: function (index) {
         return listbuffer[index];
       }
     };

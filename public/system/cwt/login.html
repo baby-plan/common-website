@@ -1,0 +1,188 @@
+﻿<!DOCTYPE html>
+<!--[if IE 8]> <html lang="en" class="ie8 no-js"> <![endif]-->
+<!--[if IE 9]> <html lang="en" class="ie9 no-js"> <![endif]-->
+<!--[if !IE]><!-->
+<html lang="en">
+<!--<![endif]-->
+<!-- BEGIN HEAD -->
+<head>
+  <meta charset="utf-8" />
+  <title>车务通 Web 3.0 - 用户登录</title>
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+  <meta http-equiv="Content-type" content="text/html; charset=utf-8">
+  <meta content="" name="description" />
+  <meta content="" name="author" />
+  <!-- BEGIN GLOBAL MANDATORY STYLES -->
+  <link rel="stylesheet" href="assets/plugins/font-awesome/css/font-awesome.min.css" />
+  <link rel="stylesheet" href="assets/plugins/simple-line-icons/simple-line-icons.min.css" />
+  <link rel="stylesheet" href="assets/plugins/bootstrap/css/bootstrap.min.css" />
+  <link rel="stylesheet" href="assets/plugins/uniform/css/uniform.default.css" />
+  <!-- END GLOBAL MANDATORY STYLES -->
+  <!-- BEGIN PAGE LEVEL STYLES -->
+  <link rel="stylesheet" href="assets/plugins/select2/select2.css" />
+  <link rel="stylesheet" href="assets/plugins/sweetalert/sweetalert.css" />
+  <link rel="stylesheet" href="assets/css/login-soft.css" />
+  <!-- END PAGE LEVEL SCRIPTS -->
+  <!-- BEGIN THEME STYLES -->
+  <link rel="stylesheet" href="assets/css/components.css"/>
+  <link rel="stylesheet" href="assets/css/component-colors.css" />
+  <link rel="stylesheet" href="assets/css/plugins.css" />
+  <link rel="stylesheet" href="assets/css/layout.css" />
+  <link rel="stylesheet" href="assets/css/themes/darkblue.css" id="style_color" />
+  <link rel="stylesheet" href="assets/css/responsive.css" />
+  <!-- END THEME STYLES -->
+  <link rel="shortcut icon" href="favicon.ico" />
+  <style>
+    #captcha {
+      border-radius: 2px;
+      cursor: pointer;
+      position: absolute;
+      z-index: 3;
+      right: 0px;
+      top: 1px;
+      height: 32px;
+    }
+
+    #validateCode {
+      padding-right: 85px;
+      padding-left: 5px;
+    }
+  </style>
+</head>
+<!-- END HEAD -->
+<!-- BEGIN BODY -->
+<body class="login">
+  <!-- BEGIN LOGO -->
+  <div class="logo">
+    <a href="index.html">
+      <img src="assets/img/logo-big.png" alt="" />
+    </a>
+  </div>
+  <!-- END LOGO -->
+  <!-- BEGIN LOGIN -->
+  <div class="content">
+    <!-- BEGIN LOGIN FORM -->
+    <form class="login-form">
+      <h3 class="form-title">系统登录</h3>
+      <div class="form-group">
+        <!--ie8, ie9 does not support html5 placeholder, so we just show field title for that-->
+        <label class="control-label visible-ie8 visible-ie9">账号/手机号码</label>
+        <div class="input-icon">
+          <i class="fa fa-user"></i>
+            <input value="13913127799" class="form-control placeholder-no-fix" type="text" autocomplete="off" placeholder="输入手机号..." id="username" />
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="control-label visible-ie8 visible-ie9">账号密码</label>
+        <div class="input-icon">
+          <i class="fa fa-lock"></i>
+          <input value="123123" class="form-control placeholder-no-fix" type="password" autocomplete="off" placeholder="输入账号密码..." id="password" />
+        </div>
+      </div>
+      <div class="form-group" id="group_type">
+        <label class="control-label">业务类型</label>
+        <div class="input-icon">
+          <i class="fa fa-lock"></i>
+          <select class="form-control placeholder-no-fix" id="type"></select>
+        </div>
+      </div>
+          
+      <div class="form-group">
+        <label for="validateCode">
+          验证码 <small>&nbsp;&nbsp;点击图片刷新验证码</small>
+        </label>
+        <div class="input-icon">
+          <img id="captcha">
+          <input type="text" value="htgl" class="form-control placeholder-no-fix" id="validateCode" placeholder="四位字符验证码">
+        </div>
+      </div>
+
+      <div class="form-actions">
+        <label class="checkbox">
+          <input type="checkbox" name="remember" value="1" /> 记住账号
+        </label>
+        <button id="button-submit" type="button" class="btn blue pull-right">
+          登录 <i class="m-icon-swapright m-icon-white"></i>
+        </button>
+      </div>
+      <div class="forget-password">
+        <h4>测试账号</h4>
+        <p>
+          账号：13913127799
+          密码: 123123
+        </p>
+      </div>
+      <div class="forget-password">
+        <h4>测试账号</h4>
+        <p>
+          账号：15905167742
+          密码: abc123
+        </p>
+      </div>
+      <div class="create-account">
+        <p>
+          2016 &copy; 北京汇通国力软件有限公司.
+        </p>
+      </div>
+    </form>
+  </div>
+  <!-- END LOGIN -->
+  <!-- BEGIN JAVASCRIPTS(Load javascripts at bottom, this will reduce page load time) -->
+  <!-- BEGIN CORE PLUGINS -->
+  <!--[if lt IE 9]>
+  <script src="assets/global/plugins/respond.min.js"></script>
+  <script src="assets/global/plugins/excanvas.min.js"></script>
+  <![endif]-->
+  <script src="assets/plugins/jquery.min.js"></script>
+  <script src="assets/plugins/jquery-migrate.min.js"></script>
+  <script src="assets/plugins/bootstrap/js/bootstrap.min.js"></script>
+  <script src="assets/plugins/jquery.blockui.min.js"></script>
+  <script src="assets/plugins/sweetalert/sweetalert.min.js"></script>
+  <script src="assets/plugins/uniform/jquery.uniform.min.js"></script>
+  <script src="assets/plugins/jquery.cokie.min.js"></script>
+  <script src="assets/plugins/jQuery.md5.js"></script>
+  <!-- END CORE PLUGINS -->
+  <!-- BEGIN PAGE LEVEL PLUGINS -->
+  <script src="assets/plugins/jquery.backstretch.min.js"></script>
+  <script src="assets/plugins/select2/select2.min.js"></script>
+  <script src="assets/plugins/bootstrap-modal/js/bootstrap-modalmanager.js"></script>
+  <script src="assets/plugins/bootstrap-modal/js/bootstrap-modal.js"></script>
+  <!-- END PAGE LEVEL PLUGINS -->
+  <!-- BEGIN PAGE LEVEL SCRIPTS -->
+  <script src="cfgs/config.js"></script>
+  <script src="assets/scripts/app.js"></script>
+  <script src="assets/scripts/login-soft.js"></script>
+  <!-- END PAGE LEVEL SCRIPTS -->
+  <script>
+    jQuery(document).ready(function () {
+      //  App.init(); // init metronic core components
+      Login.init();
+      // init background slide images
+      $.backstretch([
+        "assets/media/bg/1.jpg",
+        "assets/media/bg/2.jpg",
+        "assets/media/bg/3.jpg",
+        "assets/media/bg/4.jpg"
+        ], {
+          fade: 1000,
+          duration: 8000
+        }
+      );
+   
+      $( ".form_datetime" ).each( function ( index, item ) {
+        var wrapper = $( "<div></div>" ).addClass( "input-group date" );
+        var span = $( "<span></span>" ).addClass( "input-group-btn" );
+        var button = $( "<a></a>" ).addClass( "btn btn-default date-set" );
+        button.append( $( "<i></i>" ).addClass( "fa fa-calendar" ) );
+        span.append( button );
+        $( this ).wrapAll( wrapper );
+        $( this ).parent().append( span );
+        $( this ).parent().datetimepicker( bus_cfgs.options.datetimepicker );
+      } );
+    });
+  </script>
+  <!-- END JAVASCRIPTS -->
+</body>
+<!-- END BODY -->
+</html>

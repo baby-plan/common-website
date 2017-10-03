@@ -4,8 +4,31 @@
  * ========================================================================
  * Copyright 2016-2026 WangXin nvlbs,Inc.
  * ======================================================================== */
-define(['jquery', 'QDP', 'jquery.tmpl', 'jquery.tmplPlus'], function ($, QDP) {
+define(['QDP', 'jquery.tmpl', 'jquery.tmplPlus', 'echarts'], function (QDP) {
   "use strict";
+
+  let charts = [];
+
+  var _internal_init_chart = (id, url) => {
+    let chart_parent = $('#' + id).parent();
+    QDP.block.show('初始化图表...', chart_parent);
+    require(['modules/charts/' + url], chart => {
+      chart.init(id);
+      charts.push(chart);
+      setTimeout(() => {
+        QDP.block.close(chart_parent);
+      }, 100);
+    });
+  };
+
+  var resizeContainer = function () {
+    var windowHeight = $(window).outerHeight();
+    var breadcrumbHeight = $(".content-header").outerHeight();
+    // 20为#ajax-content的上填充合，padding-top:20px
+    $('#echarts-chart').height(windowHeight - breadcrumbHeight - 20);
+  }
+
+  $(window).on('resize', resizeContainer);
 
   return {
     'define': {
@@ -14,38 +37,29 @@ define(['jquery', 'QDP', 'jquery.tmpl', 'jquery.tmplPlus'], function ($, QDP) {
       'copyright': ' Copyright 2017-2027 WangXin nvlbs,Inc.',
     },
     "status": function () {
-      var callback = function (json) {
-        var max = (json.data.totalmem / 1024 / 1024 / 1024).toFixed(1);
-        var free = (json.data.freemem / 1024 / 1024 / 1024).toFixed(1);
-        // var cur = (max - free).toFixed(1);
-        $("#totalmem").text(max + " G");
-        $("#freemem").text(free + " G");
+      resizeContainer();
 
-        var value = json.data.uptime;
-        var text = parseInt(value / 60 / 60 / 24) + "天";
-        text += parseInt(value / 60 / 60 % 24) + "小时";
-        text += parseInt(value / 60 % 60) + "分";
-        text += parseInt(value % 60) + "秒";
-        $("#uptime").text(text);
-
-        $("#cpu_data").tmpl(json.data.cpus).appendTo('#cpus');
-        var networks = [];
-        $.each(json.data.networkInterfaces, function (key, value) {
-          value.name = key;
-          networks.push(value);
-        });
-        $("#network_data").tmpl(networks).appendTo('#networks');
-
-        $.each(json.data, function (field, value) {
-          if (typeof value === 'string') {
-            $("#" + field).text(value);
-          } else if (typeof value === 'number') { } else { }
-        });
-      };
-      QDP.ajax.get(QDP.api.moritor.serverstatusapi, {}, callback);
+      setTimeout(function () {
+        _internal_init_chart('echarts-chart', 'map2Chart');
+      }, 300);
     },
-    "destroy": function () {
-      console.log("卸载模块");
+    init: function () {
+
+      setTimeout(function () {
+        _internal_init_chart('echarts-cpu', 'serverChart');
+        _internal_init_chart('echarts-mem', 'serverChart');
+        _internal_init_chart('echarts-hd', 'serverChart');
+        _internal_init_chart('echarts-ser', 'serverChart');
+      }, 300);
+
+    },
+    /** 卸载模块 */
+    destroy: function () {
+      $(window).off('resize', resizeContainer);
+      charts.forEach((chart) => {
+        chart.destroy();
+      });
+      charts = [];
     }
   }
 

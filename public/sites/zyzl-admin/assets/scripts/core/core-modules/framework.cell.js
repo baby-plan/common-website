@@ -5,15 +5,14 @@ define(['jquery', 'cfgs'], function ($, cfgs) {
       "version": "1.0.0.0",
       'copyright': ' Copyright 2017-2027 WangXin nvlbs,Inc.',
     },
-    "addAction": function (td, textKey, index, onClick) {
-      var action = $("<a />").appendTo(td);
-      action.html(cfgs.options.texts[textKey]);
-      action.addClass(cfgs.options.styles[textKey]);
-      action.addClass('btn-mini');
-      action.on("click", onClick);
-      action.attr("data-args", index);
-      action.attr("href", "javascript:;");
-      return action;
+    addAction: function (td, textKey, index, onClick) {
+      return $("<a />").appendTo(td)
+        .html(cfgs.options.texts[textKey])
+        .addClass(cfgs.options.styles[textKey])
+        .addClass('btn-mini')
+        .attr("data-args", index)
+        .attr("href", "javascript:;")
+        .on("click", onClick);
     }
   };
 

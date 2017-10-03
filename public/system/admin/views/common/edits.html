@@ -1,0 +1,43 @@
+﻿<div class="panel panel-default border" id="info">
+  <div class="panel-heading">
+    <h4 class="panel-title"><i class="fa fa-table"></i></h4>
+  </div>
+  <div class="panel-body">
+    <form id="role-form" method="post" class="form-horizontal" data-bv-message="This value is not valid" data-bv-feedbackicons-valid="glyphicon glyphicon-ok"
+      data-bv-feedbackicons-invalid="glyphicon glyphicon-remove" data-bv-feedbackicons-validating="glyphicon glyphicon-refresh">
+    </form>
+  </div>
+</div>
+<tools>
+  <a class="btn_back"></a>
+  <a class="btn_save"></a>
+</tools>
+<script id="editor-data" type="text/x-jquery-tmpl">
+{{each(index,column) $data.columns}}
+{{if column.edit}}
+  <div class="form-group">
+    <label class="col-sm-3 control-label">${ column.text }</label>
+    <div class="col-sm-5">
+      {{if column.multiple}}
+      <select id="${ column.name }" name="${ column.name }" multiple="true" class="form-control" data-bv-notempty="true" data-bv-notempty-message="${ column.text }不能为空"/>
+      {{else column.dict != undefined && column.dict != ""}}
+      <select id="${ column.name }" name="${ column.name }" class="form-control" data-bv-notempty="true" data-bv-notempty-message="${ column.text }不能为空"/>
+      {{else column.type == "mulittext"}}
+      <textarea id="${ column.name }" name="${ column.name }" placeholder="请输入${ column.text }..." rows="5" class="form-control"/>
+      {{else column.type == "date"|| column.type == "datetime"}}
+      <div class="input-group date form_date">
+        <input id="${ column.name }" name="${ column.name }" placeholder="请输入${ column.text }..." type="text" class="form-control" data-bv-notempty="true" data-bv-notempty-message="${ column.text }不能为空" data-bv-date="true" data-bv-date-message="${ column.text }不是有效的日期类型,请重新选择">
+        <span class="input-group-addon">
+          <span class="date-set">
+            <i class="fa fa-calendar"></i>
+          </span>
+        </span>
+      </div>
+      {{else}}
+      <input id="${ column.name }" name="${ column.name }" placeholder="请输入${ column.text }..." type="text" class="form-control" data-bv-notempty="true" data-bv-notempty-message="${ column.text }不能为空">
+      {{/if}}
+    </div>
+  </div>
+{{/if}}
+{{/each}}
+</script>

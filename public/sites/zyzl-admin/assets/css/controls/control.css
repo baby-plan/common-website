@@ -1,5 +1,5 @@
 .btn {
-  padding: 2px 12px;
+  padding: 2px 7px;
 }
 
 .btn:focus {
@@ -7,7 +7,9 @@
   outline-offset: -2px;
   outline: thin dotted #333;
 }
-
+.form-control-feedback{
+  display: none !important;
+}
 .btn-mini {
   padding: 2px 5px;
   margin-right: 5px;

@@ -13,13 +13,13 @@ define(
     "core/core-modules/framework.event",
     "core/core-modules/framework.base64"
   ],
-  function($, cfgs, API, ajax, event, base64) {
+  function ($, cfgs, API, ajax, event, base64) {
     // 用户登录后自动加载数据库字典表内容
-    event.on("layout.logined", function() {
+    event.on("layout.logined", function () {
       console.debug("[AUTO]加载数据库字典表内容!");
       var url = API.datadict.dataallapi;
-      ajax.get(url, { noblock: true, args: {} }, function(json) {
-        $.each(json.data.list, function(index, item) {
+      ajax.get(url, { noblock: true, args: {} }, function (json) {
+        $.each(json.data.list, function (index, item) {
           if (cfgs.dict[item.dictkey] == undefined) {
             cfgs.dict[item.dictkey] = {};
           }
@@ -34,12 +34,12 @@ define(
         version: "1.0.0.0",
         copyright: " Copyright 2017-2027 WangXin nvlbs,Inc."
       },
-      get: function(dictkey, func) {
+      get: function (dictkey, func) {
         if (cfgs.dict[dictkey] == undefined) {
           var url = API.datadict.datas.replace("{dictkey}", dictkey);
-          ajax.get(url, {}, function(json) {
+          ajax.get(url, {}, function (json) {
             cfgs.dict[dictkey] = {};
-            $.each(json.data.list, function(index, item) {
+            $.each(json.data.list, function (index, item) {
               cfgs.dict[dictkey][item.itemkey] = base64.decode(item.itemvalue);
               func(cfgs.dict[dictkey]);
             });
@@ -53,7 +53,7 @@ define(
        * 
        * @return {Array} 数据项对象.
        */
-      getDict: function(dictkey, func) {
+      getDict: function (dictkey) {
         if (dictkey) {
           return cfgs.dict[dictkey];
         } else {
@@ -66,18 +66,13 @@ define(
        * 
        * @return {string} 数据项对应的值.
        */
-      getText: function(dictkey, itemkey) {
-        var dictItem = this.getDict(dictkey);
+      getText: function (dictkey, itemkey) {
+        var dictItem = this.getItem(dictkey, itemkey);
         if (dictItem) {
-          var item = dictItem[itemkey];
-          if (!item) {
-            return "未定义:" + itemkey;
+          if (dictItem.text) {
+            return dictItem.text;
           } else {
-            if (item.text) {
-              return item.text;
-            } else {
-              return item;
-            }
+            return "未定义:" + itemkey;
           }
         } else {
           return "数据字典不存在";
@@ -89,10 +84,16 @@ define(
        * 
        * @return {JSONObject} 数据项对象.
        */
-      getItem: function(dictkey, itemkey) {
+      getItem: function (dictkey, itemkey) {
         var dictItem = this.getDict(dictkey);
-        if (dictItem) {
+        if (dictItem && itemkey && dictItem[itemkey]) {
           return dictItem[itemkey];
+        } else if (dictItem) {
+          for (var item in dictItem) {
+            return dictItem[item];
+          }
+          // return dictItem[0];
+          // return undefined;
         } else {
           return undefined;
         }

@@ -1,23 +1,44 @@
 {
-    "env": {
-        "browser": true,
-        "commonjs": true,
-        "es6": true,
-        "node": true
+  "parserOptions": {
+    "ecmaFeatures": {
+      "jsx": true
     },
-    "parserOptions": {
-        "ecmaFeatures": {
-            "jsx": true
-        },
-        "sourceType": "module"
-    },
-    "rules": {
-        "no-const-assign": "warn",
-        "no-this-before-super": "warn",
-        "no-undef": "warn",
-        "no-unreachable": "warn",
-        "no-unused-vars": "warn",
-        "constructor-super": "warn",
-        "valid-typeof": "warn"
-    }
+    "sourceType": "module"
+  },
+  "env": {
+    "browser": true,
+    "node": true,
+    "commonjs": true,
+    "shared-node-browser": true,
+    "worker": true,
+    "amd": true,
+    "mocha": true,
+    "jasmine": true,
+    "jest": true,
+    "phantomjs": true,
+    "jquery": true,
+    "qunit": true,
+    "prototypejs": true,
+    "shelljs": true,
+    "meteor": true,
+    "mongo": true,
+    "protractor": true,
+    "applescript": true,
+    "nashorn": true,
+    "serviceworker": true,
+    "atomtest": true,
+    "embertest": true,
+    "webextensions": true,
+    "es6": true,
+    "greasemonkey": true
+  },
+  "rules": {
+    "no-const-assign": "warn",
+    "no-this-before-super": "warn",
+    "no-undef": "warn",
+    "no-unreachable": "warn",
+    "no-unused-vars": "warn",
+    "constructor-super": "warn",
+    "valid-typeof": "warn"
+  }
 }

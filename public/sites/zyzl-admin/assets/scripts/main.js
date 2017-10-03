@@ -9,18 +9,46 @@ require.config({
 
   paths: {
 
+    'QDP': 'core/core',
     'cfgs': '../../cfgs/cfgs',
     'API': '../../cfgs/apis',
-    'QDP': 'core/core',
 
     'module-server': 'modules/modules.server',
     'module-common': 'modules/modules.common',
     'module-order': 'modules/modules.order',
-    'module-tenant': 'modules/modules.tenant',
+    'module-merchant2': 'modules/modules.merchant',
     'module-dict': 'modules/modules.dict',
     'module-options': 'modules/modules.options',
-    'modules-statistics': 'modules/modules.statistics',
-    
+    'module-user-ticket': 'modules/user/tickets',
+
+    'module-user-active': 'modules/user/active.month',
+    'module-user-history': 'modules/user/history',
+
+    'module-merchant-active': 'modules/merchant/active.month',
+    'module-merchant-success': 'modules/merchant/success.rate',
+    'module-merchant-sign': 'modules/merchant/sign',
+    'module-merchant-signdetail': 'modules/merchant/sign.detail',
+    'module-merchant-history': 'modules/merchant/history',
+    'module-merchant': 'modules/merchant/management',
+    'module-merchant-service': 'modules/merchant/services',
+
+    'module-partner': 'modules/partner/management',
+
+    'common-module': 'modules/commons/module',
+    'common-role': 'modules/commons/role',
+    'common-admin': 'modules/commons/admin',
+
+    'module-demo-charts': 'modules/demo/charts',
+    'map-baidu': 'http://api.map.baidu.com/api?v=2.0&ak=2d12993ce41407db4050140fe342d9ba',
+
+    'map-amap': 'http://webapi.amap.com/maps?v=1.3&key=f0948ced2976d1bcc654eff99d796a32',
+    'map-amap-main': 'http://webapi.amap.com/ui/1.0/main.js',
+    'map-amap-tool': 'http://webapi.amap.com/demos/js/liteToolbar.js',
+    // <script src="http://webapi.amap.com/maps?v=1.3&key=f0948ced2976d1bcc654eff99d796a32"></script>
+    // <script src="http://webapi.amap.com/ui/1.0/main.js"></script>
+    // <script src="http://webapi.amap.com/demos/js/liteToolbar.js"></script>
+
+    'echarts': '/assets/plugins/echarts/echarts-all',
     //系统公共引用
     'jquery': '/assets/plugins/jquery.min',
     'jquery.slimscroll': '/assets/plugins/jquery.slimscroll.min',
@@ -31,21 +59,20 @@ require.config({
     'jquery.uniform': '/assets/plugins/uniform/jquery.uniform.min',
     'jquery.fbmodel': '/assets/plugins/jquery.fbmodel',
     'jquery.md5': '/assets/plugins/jQuery.md5',
+    'jquery.template': '/assets/plugins/jquery.loadTemplate',
     'jquery.tmpl': '/assets/plugins/jquery-tmpl/jquery.tmpl.min',
     'jquery.tmplPlus': '/assets/plugins/jquery-tmpl/jquery.tmplPlus.min',
     'jquery.peity': '/assets/plugins/peity/jquery.peity.min',
     'bootstrap': '/assets/plugins/bootstrap/js/bootstrap.min',
     'bootbox': '/assets/plugins/bootbox.min',
-    'select2': [
-      '/assets/plugins/select2/select2',
-      '/assets/plugins/select2/select2_locale_zh-CN'
-    ],
+    'select2': '/assets/plugins/select2/select2',
+    'select2-CN': '/assets/plugins/select2/select2_locale_zh-CN',
     'bootstrapValidator': '/assets/plugins/bootstrapValidator/bootstrapValidator.min',
     'moment': '/assets/plugins/bootstrap-daterangepicker/moment.min',
     'bootstrap-daterangepicker': '/assets/plugins/bootstrap-daterangepicker/daterangepicker',
-    'bootstrap-datetimepicker': [
-      '/assets/plugins/bootstrap-datetimepicker/bootstrap-datetimepicker.min', '/assets/plugins/bootstrap-datetimepicker/bootstrap-datetimepicker.zh-CN'
-    ],
+
+    'bootstrap-datetimepicker': '/assets/plugins/bootstrap-datetimepicker/bootstrap-datetimepicker.min',
+    'bootstrap-datetimepicker-CN': '/assets/plugins/bootstrap-datetimepicker/bootstrap-datetimepicker.zh-CN',
 
     'jstree': '/assets/plugins/jstree/jstree.min',
     'bootstrap-collapse': '/assets/plugins/bootstrap-collapse',
@@ -63,6 +90,7 @@ require.config({
     'bootstrap': ['jquery'],
     'bootstrap-collapse': ['jquery', 'bootstrap'],
     'bootbox': ['jquery', 'bootstrap'],
+    'jquery.template': ['jquery'],
     'jquery.tmpl': ['jquery'],
     'jquery.tmplPlus': ['jquery.tmpl'],
     'jquery.slimscroll': ['jquery'],
@@ -81,6 +109,8 @@ require.config({
       'css!/assets/plugins/select2/select2.css',
       'css!/assets/plugins/select2/select2-bootstrap.css'
     ],
+    'select2-CN': ['select2'],
+    'bootstrap-datetimepicker-CN': ['bootstrap-datetimepicker'],
     'jstree': [
       'css!/assets/plugins/jstree/themes/default/style.min.css'
     ],
@@ -102,12 +132,18 @@ require.config({
     'codemirror': [
       'css!/assets/plugins/codemirror/codemirror.css',
       'css!/assets/plugins/codemirror/ambiance.css'
-    ]
+    ],
+
+    'map-amap-main': ['map-amap'],
+    'map-amap-tool': ['map-amap'],
   }
 
 });
 
 define(['jquery', 'QDP',
+  '../../cfgs/modules',
+  '../../cfgs/dicts',
+  '../../cfgs/powers',
   'plugins/plugins.actions',
 ], function ($, QDP) {
   QDP.Start();

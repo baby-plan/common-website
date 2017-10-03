@@ -3,7 +3,7 @@ Select2 Plugin
 ***/
 
 .select2-container--default .select2-selection--single {
-  border: 1px solid #e5e5e5;
+  border: 1px solid #ccc;
   background-color: #fff;
   background-image: none;
   filter: none;
@@ -22,7 +22,7 @@ Select2 Plugin
 }
 
 .select2-container--open .select2-selection--single, .select2-container--open .select2-selection--multiple, .select2-container--open .select2-selection__arrow, .select2-dropdown {
-  border-color: #bbb;
+  border-color: #ccc;
 }
 
 .select2-container .select2-selection--single .select2-selection__rendered {
@@ -37,7 +37,7 @@ Select2 Plugin
   background-image: none;
   background-color: #fff;
   filter: none;
-  border-left: 1px solid #e5e5e5;
+  border-left: 1px solid #ccc;
   height: 32px !important;
   transition: border-color 0.15s ease-in-out 0s, box-shadow 0.15s ease-in-out 0s;
 }

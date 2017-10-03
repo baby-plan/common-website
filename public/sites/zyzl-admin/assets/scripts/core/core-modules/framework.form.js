@@ -1,21 +1,25 @@
-define(['jquery', 'cfgs',
-  'core/core-modules/framework.dict',
-  'core/core-modules/framework.ajax'], function ($, cfgs, dict, ajax) {
-
+define(
+  [
+    "jquery",
+    "cfgs",
+    "core/core-modules/framework.dict",
+    "core/core-modules/framework.ajax"
+  ],
+  function ($, cfgs, dict, ajax) {
     var readStyle = function (keyword) {
       if (cfgs.options.styles[keyword]) {
         return cfgs.options.styles[keyword];
       } else {
         return cfgs.options.styles.btn_default;
       }
-    }
+    };
     var module = {
-      'define': {
-        "name": "［插件］表单处理 for MODULE-LAYOUT",
-        "version": "1.0.0.0",
-        'copyright': ' Copyright 2017-2027 WangXin nvlbs,Inc.',
+      define: {
+        name: "［插件］表单处理 for MODULE-LAYOUT",
+        version: "1.0.0.0",
+        copyright: " Copyright 2017-2027 WangXin nvlbs,Inc."
       },
-      'source': {},
+      source: {},
       /**
        * 初始化下拉列表框控件
        * @param {string} dictname 绑定的数据字典项名称
@@ -23,10 +27,14 @@ define(['jquery', 'cfgs',
        * @param {string} value 默认值
        * @param {boolean} ismulit 是否多选,默认为false
        */
-      "initDict": function (dictname, target, value, ismulit) {
+      initDict: function (dictname, target, value, ismulit) {
         dict.get(dictname, function (datas) {
           $.each(datas, function (index, item) {
-            target.append($("<option/>").val(index).text((item.text) ? item.text : item));
+            target.append(
+              $("<option/>")
+                .val(index)
+                .text(item.text ? item.text : item)
+            );
           });
           target.attr("data-value", value);
           if (ismulit) {
@@ -34,44 +42,66 @@ define(['jquery', 'cfgs',
           }
         });
       },
+
       /** 初始化时间段选择控件.
        * @param {string} start  起始时间控件名称（默认为starttime）.
        * @param {string} end    结束时间控件名称（默认为endtime）.
        * @param {string} btn    时间选择按钮控件名称（默认为reportrange）.
        */
-      "initDateRange": function (start, end, btn) {
+      initDateRange: function (start, end, btn) {
         if (!start) {
-          start = "starttime"
+          start = "starttime";
         }
         if (!end) {
-          end = "endtime"
+          end = "endtime";
         }
         if (!btn) {
-          btn = "reportrange"
+          btn = "reportrange";
         }
         /* 注册时间段选择控件 */
         var datarangepicker_callback = function (startdate, enddate) {
-          $("#" + start).val(startdate.format(cfgs.options.defaults.dateformat));
+          $("#" + start).val(
+            startdate.format(cfgs.options.defaults.dateformat)
+          );
           $("#" + end).val(enddate.format(cfgs.options.defaults.dateformat));
         };
 
-        $("#" + btn).daterangepicker(cfgs.options.daterange, datarangepicker_callback);
+        $("#" + btn).daterangepicker(
+          cfgs.options.daterange,
+          datarangepicker_callback
+        );
       },
       /** 初始化日期时间控件 */
-      "initDate": function () {
-        $(".form_date,.form_datetime", parent).each(function () {
+      initDate: function () {
+        $(".form-date,.form-datetime").each(function () {
           var wrapper = $("<div></div>").addClass("input-group date");
           var span = $("<span></span>").addClass("input-group-addon");
-          var button = $("<a></a>").addClass("btn btn-default date-set");
+          var button = $("<a></a>").addClass("date-set");
           button.append($("<i></i>").addClass("fa fa-calendar"));
           span.append(button);
           $(this).wrapAll(wrapper);
-          $(this).parent().append(span);
+          $(this)
+            .parent()
+            .append(span);
+          var datepicker;
           if ($(this).hasClass("form_datetime")) {
-            $(this).parent().datetimepicker(cfgs.options.datetimepicker);
+            datepicker = $(this)
+              .parent()
+              .datetimepicker(cfgs.options.datetimepicker);
           } else {
-            $(this).parent().datetimepicker(cfgs.options.datepicker);
+            datepicker = $(this)
+              .parent()
+              .datetimepicker(cfgs.options.datepicker);
           }
+          
+          datepicker.on("changeDate", function () {
+            var id = $("[id]", $(this)).attr("id")
+            $("#role-form")
+              .data("bootstrapValidator")
+              .updateStatus(id, "NOT_VALIDATED", null)
+              .validateField(id);
+          });
+
         });
       },
       /** 支持缓存的列表请求方法.通常用于请求字典数据.
@@ -90,9 +120,9 @@ define(['jquery', 'cfgs',
        * 
        * @author wangxin
        */
-      "initCache": function (options) {
+      initCache: function (options) {
         if (!options.api) {
-          console.error('未设置数据服务地址!');
+          console.error("未设置数据服务地址!");
           // App.alertText("未设置数据服务地址!");
           return;
         }
@@ -108,10 +138,12 @@ define(['jquery', 'cfgs',
           } else if (options.target && options.textfn && options.valuefn) {
             var value = options.valuefn(index, item);
             var text = options.textfn(index, item);
-            var opotion = $("<option/>").val(value).text(text);
+            var opotion = $("<option/>")
+              .val(value)
+              .text(text);
             options.target.append(opotion);
           }
-        }
+        };
         var requestDone = function (list) {
           if (list && list.length > 0) {
             cfgs.cache[options.api] = list;
@@ -123,7 +155,7 @@ define(['jquery', 'cfgs',
           if (options.done) {
             options.done();
           }
-        }
+        };
 
         if (cfgs.cache[options.api] && options.cached) {
           console.debug("Cached:" + options.api);
@@ -136,62 +168,101 @@ define(['jquery', 'cfgs',
         } else {
           console.debug("UnCached:" + options.api);
 
-          ajax.get(options.api, {
-            "nocache": true,
-            "args": options.args,
-            "block": false
-          }, {
-              "noneDate": function () { requestDone(); },
-              "success": function (json) { requestDone(json.data.list); }
-            });
+          ajax.get(
+            options.api,
+            {
+              nocache: true,
+              args: options.args,
+              block: false
+            },
+            {
+              noneDate: function () {
+                requestDone();
+              },
+              success: function (json) {
+                requestDone(json.data.list);
+              }
+            }
+          );
         }
       },
       /**初始化页面元素 */
-      "init": function () {
+      init: function () {
+
+        var caller = arguments.callee.caller;
+        var i = 0;
+        console.log('控件初始化！！');
+        while (caller && i < 5) {
+          console.log(caller.toString());
+          caller = caller.caller;
+          i++;
+          console.log("***---------------------------------------- ** " + (i + 1));
+        }
         // 注册页面控件
         //todo:解决时间段选择控件冲突问题
-        // $("select:not(.monthselect,.yearselect)").select2(cfgs.options.select2);
         $("select:not(.monthselect,.yearselect)").each(function () {
           var selectvalue = $(this).attr("data-value");
           var ismulit = $(this).attr("data-mulit");
-          $(this).select2(cfgs.options.select2)
+          $(this).select2(cfgs.options.select2);
           if (selectvalue) {
             if (ismulit) {
-              $(this).val(selectvalue.split(",")).trigger("change");
+              $(this)
+                .val(selectvalue.split(","))
+                .trigger("change");
             } else {
-              $(this).val(selectvalue).trigger("change");
+              $(this)
+                .val(selectvalue)
+                .trigger("change");
             }
           } else {
-            $(this).val(null).trigger("change");
+            $(this)
+              .val(null)
+              .trigger("change");
           }
         });
-        // target.attr("data-value",selectValue);
-        // target.val(selectValue).trigger("change");
+
         $(":checkbox,:radio").uniform();
         /** 设置页面按钮文本\图标\颜色等基本信息 */
         $.each(cfgs.options.texts, function (key, value) {
           $("." + key).each(function () {
-            if ($(this).parent().hasClass("panel-tools")) {
-              $(this).attr("href", "javascript:;").html(value);
+            if (
+              $(this)
+                .parent()
+                .hasClass("panel-tools")
+            ) {
+              $(this)
+                .attr("href", "javascript:;")
+                .html(value);
             } else {
-              $(this).attr("href", "javascript:;").html(value).addClass(readStyle(key));
+              $(this)
+                .attr("href", "javascript:;")
+                .html(value)
+                .addClass(readStyle(key));
             }
           });
         });
 
         // 收起/展开功能
         $(".panel-tools .collapse, .panel-tools .expand").click(function () {
-          var el = $(this).parents(".panel").children(".panel-body");
-          var bt = $(this).parents(".panel").children(".panel-heading");
+          var el = $(this)
+            .parents(".panel")
+            .children(".panel-body");
+          var bt = $(this)
+            .parents(".panel")
+            .children(".panel-heading");
           if ($(this).hasClass("collapse")) {
-            $(this).removeClass("collapse").addClass("expand");
+            $(this)
+              .removeClass("collapse")
+              .addClass("expand");
             var i = $(this).children(".fa-chevron-up");
             i.removeClass("fa-chevron-up").addClass("fa-chevron-down");
             el.slideUp(200, function () {
               bt.css("border-bottom-width", "0");
             });
           } else {
-            $(this).removeClass("expand").addClass("collapse");
+            $(this)
+              .removeClass("expand")
+              .addClass("collapse");
             var i = $(this).children(".fa-chevron-down");
             i.removeClass("fa-chevron-down").addClass("fa-chevron-up");
             bt.css("border-bottom-width", "1px");
@@ -201,17 +272,21 @@ define(['jquery', 'cfgs',
 
         $(".picker-icon").empty();
 
-        $(".picker-icon").append($("<option/>").val("000").text("000 - 根目录"));
+        $(".picker-icon").append(
+          $("<option/>")
+            .val("000")
+            .text("000 - 根目录")
+        );
+
         $.each(cfgs.icons, function (index, icon) {
           $(".picker-icon").append(
             $("<option/>")
               .val(icon)
-              .append(icon));
+              .append(icon)
+          );
         });
 
-        // $(".picker-icon .picker-set").click(function () {
-        //   console.log("1");
-        // });
+        setTimeout(this.initDate, 300);
       },
       /** ajax方式加载页面内容.
        * @param {JSON} options 打开页面的参数
@@ -222,46 +297,48 @@ define(['jquery', 'cfgs',
        * 
        * @author wangxin
        */
-      "openview": function (options) {
+      openview: function (options) {
+
         var loadcallback = function () {
           /** 打开界面默认参数 */
           var defaults = {
             /** 界面标题 */
-            "title": "",
+            title: "",
             /** 打开界面的地址*/
-            "url": "",
+            url: "",
             /** 打开界面时是否添加站点地图*/
-            "map": true,
+            map: true,
             /** 打开界面后回调函数 */
-            "callback": function () { }
+            callback: function () { }
           };
           /** 打开界面的参数 */
           var _options = $.extend(defaults, options);
+
           if (_options.title && _options.title != "") {
-            //$("h4", "#ajax-content").eq(0).text(_options.title);
           } else {
-            _options.title = $("h4", "#ajax-content").eq(0).text();
+            _options.title = $("h4", "#ajax-content")
+              .eq(0)
+              .text();
           }
+
           if (_options.map) {
-            $("<span />").text(_options.title).appendTo($("<li />").appendTo($(".content-breadcrumb")));
+            $("<span />")
+              .text(_options.title)
+              .appendTo($("<li />").appendTo($(".content-breadcrumb")));
           }
-          module.init();
-
-          if ($("#ajax-content").hasClass("fadeOutRight")) {
-            $("#ajax-content").removeClass("fadeOutRight");
-          }
-          $("#ajax-content").addClass("fadeInRight");
-
-          setTimeout(function () {
-            $("#ajax-content").removeClass("fadeInRight");
-          }, 500);
+          // module.init();
 
           _options.callback();
-        }
-        $("#ajax-content").addClass("fadeOutRight");
-        if (module.source && module.source.load && typeof module.source.load === 'function')
+        };
+
+        if (
+          module.source &&
+          module.source.load &&
+          typeof module.source.load === "function"
+        )
           module.source.load(options.url, loadcallback);
       }
-    }
+    };
     return module;
-  });
+  }
+);

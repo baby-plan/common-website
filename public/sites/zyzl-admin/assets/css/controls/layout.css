@@ -1,18 +1,8 @@
-* {
-  outline: medium none !important;
+/* * {
   font-family: "Lucida Grande", "Lucida Sans Unicode", Hiragino Sans GB,
     WenQuanYi Micro Hei, Verdana, Aril, sans-serif;
-  -webkit-appearance: none;
-  box-shadow: none !important;
-}
-
+} */
 body {
-  margin: 0;
-  font-size: 14px;
-  border: 0 none;
-  font-weight: 400;
-  padding: 0;
-  height: 100%;
   overflow: hidden;
 }
 
@@ -118,42 +108,25 @@ p {
   font-weight: 600;
 }
 
-body > footer {
-  bottom: 0px;
-  right: 0px;
-  left: 0px;
-  z-index: 1030;
-  position: fixed;
-  padding-bottom: 5px;
-  padding-top: 5px;
-}
-
-.sidebar-collapse {
-  display: none;
-}
-
 /* Content */
-
-section {
-  margin-left: 300px;
-  transition: all 0.25s;
-}
 
 .has-sub {
   transition: all 0.25s;
 }
 
 #filter-container {
-  width: 380px;
-  padding-right: 15px;
+  width: 420px;
   position: fixed;
   height: 100%;
-  background: #f5f6f6;
-  right: -400px;
+  background: #fff;
+  right: -430px;
   padding: 15px;
   z-index: 3;
-  border-left: 1px solid #2e3e4e;
+  margin-top: -20px;
+  border-left: 1px solid #ccc;
   transition: all 0.25s;
+  overflow: auto;
+  padding-bottom:41px;
 }
 
 .filter #filter-container {
@@ -162,29 +135,21 @@ section {
 
 #content-container {
   width: 100% !important;
+  padding-right: 15px;
+  padding-left: 15px;
 }
 
 #content {
   margin-top: 0;
   min-height: 100%;
 }
-/* .form-horizontal {
-  padding-top: 20px;
-} */
+
 #ajax-content {
   padding-top: 20px;
 }
 
 .slimScrollDiv {
   overflow: visible !important;
-}
-
-#content > .slimScrollDiv > .slimScrollBar {
-  margin-right: -15px !important;
-}
-
-#content > .slimScrollDiv > .slimScrollRail {
-  margin-right: -15px !important;
 }
 
 #content .content-title {
@@ -198,12 +163,38 @@ section {
 }
 
 /* 页面内容区-头部样式 */
-
-.content-header {
+.content-header{
+  height: 41px;
+}
+.content-header,
+#content {
   margin: 0 -15px 0px;
   position: relative;
 }
 
-section {
+.content-header::before,
+.content-header::after,
+#content::before,
+#content::after,
+body>section::before,
+body>section::after {
+  display: table;
+  content: " ";
+}
+.content-header::after,
+#content::after,
+body>section::after {
+  clear: both;
+}
+
+body>section {
   display: flex;
+  margin-left: 300px;
+  transition: all 0.25s;
+
+  /* padding-right: 15px; */
+  /* padding-left: 15px; */
+  /* margin-right: auto;
+  margin-left: auto; */
+  /* width: 100% !important; */
 }

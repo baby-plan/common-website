@@ -1,0 +1,78 @@
+<style>
+  .echarts {
+    height: 240px;
+  }
+</style>
+<div class="row text-center">
+  <div class="col-sm-3">
+    <div class="panel padder-v red-bg">
+      <div class="font-thin h1">50%</div>
+      <span class="text-xs">CPU使用</span>
+    </div>
+  </div>
+  <div class="col-sm-3">
+    <div class="panel padder-v yellow-bg">
+      <div class="font-thin h1">50%</div>
+      <span class="text-xs">内存使用</span>
+    </div>
+  </div>
+  <div class="col-sm-3">
+    <div class="panel padder-v green-bg">
+      <div class="font-thin h1">50%</div>
+      <span class="text-xs">磁盘使用</span>
+    </div>
+  </div>
+  <div class="col-sm-3">
+    <div class="panel padder-v navy-bg">
+      <div class="font-thin h1">50%</div>
+      <span class="text-xs">服务监控</span>
+    </div>
+  </div>
+</div>
+
+
+<div class="row">
+  <div class="col-sm-12 col-lg-6">
+    <div class="panel panel-default float-e-margins">
+      <div class="panel-heading">
+        <h4 class="panel-title">CPU使用率</h4>
+      </div>
+      <div class="panel-body">
+        <div class="echarts" id="echarts-cpu"></div>
+      </div>
+    </div>
+  </div>
+  <div class="col-sm-12 col-lg-6">
+    <div class="panel panel-default float-e-margins">
+      <div class="panel-heading">
+        <h4 class="panel-title">内存使用率</h4>
+      </div>
+      <div class="panel-body">
+        <div class="echarts" id="echarts-mem"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-sm-12 col-lg-6">
+    <div class="panel panel-default float-e-margins">
+      <div class="panel-heading">
+        <h4 class="panel-title">磁盘使用率</h4>
+      </div>
+      <div class="panel-body">
+        <div class="echarts" id="echarts-hd"></div>
+      </div>
+    </div>
+  </div>
+  <div class="col-sm-12 col-lg-6">
+    <div class="panel panel-default float-e-margins">
+      <div class="panel-heading">
+        <h4 class="panel-title">服务使用率</h4>
+      </div>
+      <div class="panel-body">
+        <div class="echarts" id="echarts-ser"></div>
+      </div>
+    </div>
+  </div>
+</div>

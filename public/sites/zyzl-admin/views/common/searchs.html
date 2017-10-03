@@ -1,6 +1,5 @@
 ﻿<style>
-  form label,
-  form div {
+  form *[class*='col']{
     padding-bottom: 10px;
   }
 </style>
@@ -15,28 +14,32 @@
   <a class="btn_filter" />
 </tools>
 <!--查询条件模板-->
-<script id="filter-panel" type="text/x-jquery-tmpl">
+<script id="filter-panel" type="text/html">
   <form id="role-form" method="post" class="form-horizontal">
     {{tmpl($data) '#filter-data'}}
   </form>
 </script>
 <!--查询条件内容模板-->
-<script id="filter-data" type="text/x-jquery-tmpl">
+<script id="filter-data-daterange" type="text/html">
+  <label class="col-xs-4 control-label">${ text }</label>
+  <div class="col-xs-8">
+    <input id="${ name }_1" placeholder="请选择${ text }范围最小值..." class="form-control" type="text" />
+  </div>
+  <label class="col-xs-4 control-label">{{if text == "开始时间"}}结束时间{{else}}---{{/if}}</label>
+  <div class="col-xs-8">
+    <div class="input-group">
+      <input id="${ name }_2" placeholder="请选择${ text }范围最大值..." class="form-control" type="text" />
+      <span class="input-group-addon">
+        <a id="${ name }_range"><i class="fa fa-calendar"></i></a>
+      </span>
+    </div>
+  </div>
+</script>
+
+<script id="filter-data" type="text/html">
   {{each(index,column) $data.columns}}
     {{if column.filter == "daterange"}}
-      <label class="col-xs-4 control-label">${ column.text }</label>
-      <div class="col-xs-8">
-        <input id="${ column.name }_1" placeholder="请选择${ column.text }范围最小值..." class="form-control" type="text" />
-      </div>
-      <label class="col-xs-4 control-label">---</label>
-      <div class="col-xs-8">
-        <div class="input-group">
-          <input id="${ column.name }_2" placeholder="请选择${ column.text }范围最大值..." class="form-control" type="text" />
-          <span class="input-group-addon">
-            <a id="${ column.name }_range"><i class="fa fa-calendar"></i></a>
-          </span>
-        </div>
-      </div>
+      {{tmpl(column) '#filter-data-daterange'}}
     {{else column.filter != undefined && column.filter != false}}
       <label class="col-xs-4 control-label">${ column.text }</label>
       <div class="col-xs-8">
@@ -46,6 +49,8 @@
           {{else}}
             <select id="${ column.name }" name="${ column.name }" class="form-control" />
           {{/if}}
+       {{else column.type == "date"}}
+          <input id="${ column.name }" placeholder="请选择${ column.text }..." class="form-control form-date" type="text" />
         {{else}}
           <input class="form-control" type="text" id="${ column.name }" name="${ column.name }" placeholder="请输入${ column.text }...">
         {{/if}}

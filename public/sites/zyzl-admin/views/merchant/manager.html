@@ -1,0 +1,204 @@
+<style>
+  form label,
+  form div {
+    padding-bottom: 5px;
+  }
+
+  form,
+  form>:only-child {
+    -webkit-transition: all 1s ease-in-out;
+    -moz-transition: all 1s ease-in-out;
+    transition: all 1s ease-in-out;
+  }
+
+  form ul {
+    -webkit-padding-start: 0;
+    -webkit-margin-before: 0;
+    -webkit-margin-after: 0;
+  }
+
+  form ul>li {
+    display: inline-block;
+    padding: 0 10px 0 0;
+  }
+
+  form ul>li>a {
+    cursor: pointer;
+  }
+  /* form ul>li>a:hover,
+  form ul>li>a:focus{
+
+  } */
+
+  form {
+    margin-top: -20px;
+  }
+
+  form ul>:first-child {
+    color: #333;
+    font-weight: bold;
+    width: 90px;
+  }
+
+  .input-group-addon:not(:last-child) {
+    border-left: 0;
+  }
+
+  [class*='addon-'] {
+    cursor: pointer;
+  }
+
+  p {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  #list .selected .corner {
+    position: absolute;
+    display: inline-block;
+    width: 0;
+    height: 0;
+    line-height: 0;
+    border: 1em solid transparent;
+    border-right: 1em solid #0786d6;
+    border-bottom: 1em solid #0786d6;
+    right: -15px;
+    bottom: -15px;
+  }
+
+  #list .selected .panel {
+    border-color: #0786d6;
+  }
+
+  #list .selected .panel:only-child {
+    opacity: 0.5;
+  }
+
+  .hide-filter form {
+    position: fixed;
+    z-index: 1;
+    /* background-color: #ccc; */
+    top: 3px;
+    width: 800px;
+    left: 500px;
+  }
+
+  .hide-filter form>:not(:first-child) {
+    /* visibility: hidden; */
+    display: none;
+  }
+
+  .hide-filter form>div:nth-child(2) {
+    margin-top: 204px;
+  }
+
+  .add-new {
+
+  }
+  .add-new:hover .panel{
+border-color:#0786d6;
+cursor: pointer;
+  }
+</style>
+
+<tools>
+  <a class="btn-selectall" />
+  <a class="btn-selectopp" />
+</tools>
+
+<div class='row'>
+  <form class="form-horizontal">
+    <div class="col-sm-12">
+      <ul>
+        <li></li>
+        <li>
+          <div class="input-group">
+            <input id="text" placeholder="输入登录名称\商户编号\商户名称\店铺名称" class="form-control" type="text">
+            <span class="input-group-addon addon-search">搜索</span>
+            <!-- <span class="input-group-addon addon-advanced">高级</span> -->
+            <span class="input-group-addon addon-reset">重置</span>
+          </div>
+        </li>
+      </ul>
+    </div>
+    <div class="col-sm-12">
+      <ul>
+        <li>省份</li>
+        <li><a class="btn">辽宁省</a></li>
+        <li><a class="btn">江苏省</a></li>
+        <li><a class="btn">湖北省</a></li>
+      </ul>
+    </div>
+    <div class="col-sm-12">
+      <ul>
+        <li>城市</li>
+        <li><a class="btn">沈阳市</a></li>
+        <li><a class="btn">大连市</a></li>
+        <li><a class="btn">鞍山市</a></li>
+        <li><a class="btn">抚顺市</a></li>
+      </ul>
+    </div>
+    <div class="col-sm-12">
+      <ul>
+        <li>审核状态</li>
+        <li><a class="btn">已审核</a></li>
+        <li><a class="btn">未审核</a></li>
+      </ul>
+    </div>
+    <div class="col-sm-12">
+      <ul>
+        <li>发布状态</li>
+        <li><a class="btn">已发布</a></li>
+        <li><a class="btn">待发布</a></li>
+      </ul>
+    </div>
+    <div class="col-sm-12">
+      <ul>
+        <li>时间</li>
+        <li><a class="btn">今天</a></li>
+        <li><a class="btn">昨天</a></li>
+        <li><a class="btn">本周</a></li>
+        <li><a class="btn">最近七天</a></li>
+        <li><a class="btn">最近30天</a></li>
+        <li><a class="btn">本月</a></li>
+        <li><a class="btn">本季度</a></li>
+        <li><a class="btn">今年</a></li>
+      </ul>
+    </div>
+  </form>
+</div>
+
+<div class="row" id="list">
+  <div class="col-xs-12 col-md-6 col-lg-3 add-new">
+    <div class="panel panel-default float-e-margins">
+      <div class="panel-body no-padding">
+        <img alt="新增商户信息" class="img-responsive" src="${$data.imgs}">
+      </div>
+      <div class="panel-body profile-content">
+        <div class="col-xs-12">
+          <h4><strong>新增商户</strong></h4>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- animated fadeInUp -->
+<script id="merchant-data" type="text/x-jquery-tmpl">
+  <div class="col-xs-12 col-md-6 col-lg-3">
+    <div class="panel panel-default float-e-margins">
+      <div class="panel-body no-padding">
+        <img alt="image" class="img-responsive" src="assets/img/n-${$data.id}.jpg">
+      </div>
+      <div class="panel-body profile-content">
+        <div class="col-xs-12">
+          <h4><strong>${$item.decode($data.mch_name)}</strong></h4>
+          <p><strong>${$item.decode($data.store_name)}</strong></p>
+          <p>${$item.decode($data.description)}</p>
+          <p><i class="fa fa-map-marker"></i> ${$item.decode($data.mch_addr)}</p>
+          <span class="corner"></span>
+        </div>
+      </div>
+    </div>
+  </div>
+</script>

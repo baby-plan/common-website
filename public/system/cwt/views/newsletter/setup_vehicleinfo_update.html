@@ -1,0 +1,146 @@
+
+<div class="modal-header">
+  <div class="pull-right">
+    <a id="btn_save"></a>
+    <a id="btn_close" data-dismiss="modal" aria-hidden="true"></a>
+  </div>
+  <h4 class="modal-title">车辆维护信息</h4>
+</div>
+<div class="modal-body">
+  <div class="row">
+    <div class="col-sm-12">
+      <form class="form-horizontal" role="form" id="role-form">
+        <div class="form-group">
+          <label class="col-sm-1 control-label">车辆名称</label>
+          <div class="col-sm-2">
+            <input id="vName" placeholder="" class="form-control" type="text">
+          </div>
+          <label class="col-sm-1 control-label">发动机号</label>
+          <div class="col-sm-2">
+            <input id="engineCode" placeholder="" class="form-control" type="text">
+          </div><br><br>
+          
+          <label class="col-sm-1 control-label">SIM卡号</label>
+          <div class="col-sm-2">
+            <input id="sim" placeholder="" class="form-control" type="text">
+          </div>
+        </div>
+       <div class="form-group">  
+          <label class="col-sm-1 control-label">行驶证号</label>
+          <div class="col-sm-2">
+            <input id="drivingLicence" placeholder="" class="form-control" type="text">
+          </div><br><br>
+          
+          <label class="col-sm-1 control-label">车辆类型</label>
+          <div class="col-sm-2">
+            <select id="type" class="form-control select2" />
+          </div>
+          
+          <label class="col-sm-1 control-label">行驶证发放日期</label>
+          <div class="col-sm-2">
+            <input id="drivingLicenceDate" type="text" class="form-control form_date">
+          </div><br><br>
+        </div>
+        <div class="form-group">          
+          <label class="col-sm-1 control-label">车辆颜色</label>
+          <div class="col-sm-2">
+            <input id="color" placeholder="" class="form-control" type="text">
+          </div>
+          
+          <label class="col-sm-1 control-label">行车有效日期</label>
+          <div class="col-sm-2">
+            <input id="runDate" type="text" class="form-control form_date">
+          </div><br><br>
+        </div>
+        
+        <div class="form-group">
+          <label class="col-sm-1 control-label">车辆特征</label>
+          <div class="col-sm-2">
+            <input id="vCharacter" placeholder="" class="form-control" type="text">
+          </div>
+          <label class="col-sm-1 control-label">运营证号</label>
+          <div class="col-sm-2">
+            <input id="businessCode" placeholder="" class="form-control" type="text">
+          </div><br><br>
+        </div>
+        
+        <div class="form-group">
+          <label class="col-sm-1 control-label">百公里油耗</label>
+          <div class="col-sm-2">
+            <input id="oilConsume" placeholder="" class="form-control" type="text">
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-sm-1 control-label">购车金额</label>
+          <div class="col-sm-2">
+            <input id="money" placeholder="" class="form-control" type="text">
+          </div><br><br>
+          
+          <label class="col-sm-1 control-label">车主</label>
+          <div class="col-sm-2">
+            <input id="vOwner" placeholder="" class="form-control" type="text">
+          </div>
+          
+          <label class="col-sm-1 control-label">购买日期</label>
+          <div class="col-sm-2">
+            <input id="buyDate" type="text" class="form-control form_date">
+          </div><br><br>
+        </div>
+        <div class="form-group">
+          <label class="col-sm-1 control-label">联系电话</label>
+          <div class="col-sm-2">
+            <input id="phone" placeholder="" class="form-control" type="text">
+          </div>
+           <label class="col-sm-1 control-label">登记日期</label>
+          <div class="col-sm-2">
+            <input id="registerDate" type="text" class="form-control form_date">
+          </div><br><br>
+           <label class="col-sm-1 control-label">旧密码</label>
+          <div class="col-sm-2">
+            <input id="password" placeholder="" class="form-control" type="text">
+          </div>
+           <label class="col-sm-1 control-label">卖车商家</label>
+          <div class="col-sm-2">
+            <input id="saleMerchant" placeholder="" class="form-control" type="text">
+          </div><br><br>
+           <label class="col-sm-1 control-label">新密码</label>
+          <div class="col-sm-3">
+            <input id="password" placeholder="" class="form-control" type="text">
+          </div>
+           <label class="col-sm-1 control-label">购车发票号</label>
+          <div class="col-sm-2">
+            <input id="invoiceCode" placeholder="" class="form-control" type="text">
+          </div><br><br>
+           <label class="col-sm-1 control-label">重复密码</label>
+          <div class="col-sm-2">
+            <input id="password" placeholder="" class="form-control" type="text">
+          </div>
+           <label class="col-sm-1 control-label">附加费证号</label>
+          <div class="col-sm-2">
+            <input id="subjoinMoneyCode" placeholder="" class="form-control" type="text">
+          </div><br><br>
+           
+          <label class="col-sm-1 control-label">车架号</label>
+          <div class="col-sm-2">
+            <input id="frameCode" placeholder="" class="form-control" type="text">
+          </div>
+           
+          <label class="col-sm-1 control-label">车辆所在城市</label>
+          <div class="col-sm-2">
+            <input id="city" placeholder="" class="form-control" type="text">
+          </div><br><br>
+           
+          <label class="col-sm-1 control-label">备注</label>
+          <div class="col-sm-2">
+            <input id="remark" placeholder="" class="form-control" type="text">
+          </div>
+           <div class="form-group">
+          <label class="col-sm-1 control-label">发动机号</label>
+          <div class="col-sm-2">
+            <input id="engineCode" placeholder="输入发动机号后六位。。" class="form-control" type="text">
+          </div><br><br>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

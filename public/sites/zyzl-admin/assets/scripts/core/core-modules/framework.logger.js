@@ -30,9 +30,9 @@ define(['core/core-modules/framework.util'], function (util) {
     'warn': 'WARN '
   };
 
-  function trace(count) {
+  function trace() {
     var caller = arguments.callee.caller.caller;
-    // console.log(caller.name);
+    //  console.log(caller.name);
   }
 
   console.info = function (text, ...arg) {

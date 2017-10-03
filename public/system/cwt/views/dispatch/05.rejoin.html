@@ -1,0 +1,70 @@
+<div class="modal-header">
+  <div class="pull-right">
+    <a id="btn_close" data-dismiss="modal" aria-hidden="true"></a>
+  </div>
+  <h4 class="modal-title">车辆归队</h4>
+</div>
+<div class="modal-body">
+  <div class="row">
+    <div class="col-sm-12">
+      <form class="form-horizontal" role="form" id="role-form">
+        <div class="form-group">
+          <label class="col-sm-1 control-label">流程编号</label>
+          <div class="col-sm-2">
+            <input id="flownumber" placeholder="输入流程编号..." class="form-control" type="text">
+          </div>
+          <label class="col-sm-1 control-label">用车部门</label>
+          <div class="col-sm-2">
+            <input id="userdept" placeholder="输入用车部门..." class="form-control" type="text">
+          </div>
+
+          <label class="col-sm-1 control-label">车牌号</label>
+          <div class="col-sm-2">
+            <input id="carnumber" placeholder="输入车牌号..." class="form-control" type="text">
+          </div>
+          <label class="col-sm-1 control-label">司机姓名</label>
+          <div class="col-sm-2">
+            <input id="drivername" placeholder="输入司机姓名..." class="form-control" type="text">
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-sm-1 control-label">出车时间</label>
+          <div class="col-sm-2">
+            <input type="text" class="form-control form_date" id="frombegin">
+          </div>
+          <label class="col-sm-1 control-label">至</label>
+          <div class="col-sm-2">
+            <input type="text" class="form-control form_date" id="fromend">
+          </div>
+
+          <label class="col-sm-1 control-label">归队时间</label>
+          <div class="col-sm-2">
+            <input type="text" class="form-control form_date" id="tobegin">
+          </div>
+          <label class="col-sm-1 control-label">至</label>
+          <div class="col-sm-2">
+            <input type="text" class="form-control form_date" id="toend">
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-sm-1 control-label">出车状态</label>
+          <div class="col-sm-2">
+            <select id="fromstate" class="form-control select2" />
+          </div>
+        </div>
+        <div class="form-group text-center">
+          <div class="col-sm-12">
+            <a id="btn_search"></a>
+            <a id="btn_reset"></a>
+            <a id="btn_export"></a>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-sm-12">
+      <table id="table"></table>
+    </div>
+  </div>
+</div>

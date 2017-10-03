@@ -4,7 +4,7 @@
 
   var API = {
     page: {
-      navigation:"views/master/navigation.html",
+      navigation: "views/master/navigation.html",
     }
   };
   /** API: */
@@ -127,7 +127,19 @@
     /** API:删除机构数据*/
     "remove": server + "organization/delete"
   }
-
+  /** 商户管理 */
+  API.merchant = {
+    /** API:商户分页数据*/
+    "datas": server + "merchant/",
+    /** API:添加商户数据*/
+    "add": server + "merchant/add",
+    /** API:更新商户数据*/
+    "update": server + "merchant/update",
+    /** API:删除商户数据*/
+    "remove": server + "merchant/delete",
+    /** PAGE:商户信息编辑页面 */
+    "editpage": "views/merchant/editor.html"
+  }
   /** 学校管理 */
   API.school = {
     /** API:学校分页数据*/
