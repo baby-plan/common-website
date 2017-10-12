@@ -11,7 +11,15 @@
     "**/.DS_Store": true,
     "**/node_modules": true,
     "**/数据模型/": true,
-    "**/iOS": true
+    "**/iOS": true,
+    "LICENSE": true,
+    ".gitignore": true,
+    ".eslintrc.json": true,
+    "README.md": true,
+    "**/docs": true,
+    "**/bin": true,
+    "**/public/resource": true
+    // "**/views": true
   },
   // 一个制表符等于的空格数。该设置在 `editor.detectIndentation` 启用时根据文件内容进行重写。
   "editor.tabSize": 2

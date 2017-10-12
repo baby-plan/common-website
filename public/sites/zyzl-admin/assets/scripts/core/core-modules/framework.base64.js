@@ -187,24 +187,26 @@ define(function () {
   }
 
   return {
+    /** base64编码加密 */
     "encode": function (str) {
       if (str) {
         try {
           return doEncode(str);
         } catch (ex) {
-          console.error("[ERROR]App.base64.encode:" + ex.message);
+          console.error("base64.encode:" + ex.message);
           return "";
         }
       } else {
         return "";
       }
     },
+    /** base64编码解密 */
     "decode": function (str) {
       if (str) {
         try {
           return doDecode(str, false);
         } catch (ex) {
-          console.error("[ERROR]App.base64.decode:" + ex.message);
+          console.error("base64.decode:" + ex.message);
           return "";
         }
       } else {

@@ -17,7 +17,8 @@ require.config({
     'block': 'assets/scripts/core/framework.block',
     'base64': 'assets/scripts/core/framework.base64',
     'ajax': 'assets/scripts/core/framework.ajax',
-    'monitor': 'assets/scripts/modules/center.monitor',
+    'monitor': 'assets/scripts/modules/center-monitor',
+    'monitor2': 'assets/scripts/modules/center.monitor',
     'operation': 'assets/scripts/modules/center.operation',
     'setting': 'assets/scripts/modules/center.setting',
     'filesystem': 'assets/scripts/modules/center.filesystem',
@@ -28,7 +29,7 @@ require.config({
     'jquery.tmplPlus': '/assets/plugins/jquery-tmpl/jquery.tmplPlus.min',
     'bootstrap': '/assets/plugins/bootstrap/js/bootstrap.min',
     'moment': '/assets/plugins/bootstrap-daterangepicker/moment.min',
-    'echarts': '/assets/plugins/echarts/echarts-all',
+    'echarts': '/assets/plugins/echarts/echarts.min',
     // 'codemirror': '/assets/plugins/codemirror/codemirror',
     // 'codemirror-javascript': '/assets/plugins/codemirror/mode/javascript/javascript',
 

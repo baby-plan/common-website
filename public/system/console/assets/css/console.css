@@ -42,7 +42,7 @@ body {
 
 ::-webkit-scrollbar-thumb {
   border-radius: 6px;
-  background-color: #62a7e5;
+  background-color: #293a46;
 }
 
 body {
@@ -77,7 +77,7 @@ section {
   outline: 1px solid transparent;
   outline-offset: -1px;
   box-shadow: 5px 5px 5px #666;
-  border-radius: 15px;
+  border-radius: 8px;
   display: flex !important;
   flex-direction: row;
 }
@@ -86,9 +86,9 @@ section {
   width: 120px;
   /*height: calc(98vh - 50px);*/
   overflow: hidden;
-  background-color: #62a7e5;
-  border-top-left-radius: 15px;
-  border-bottom-left-radius: 15px;
+  background-color: #293a46;
+  border-top-left-radius: 8px;
+  border-bottom-left-radius: 8px;
   list-style: none;
   margin: 0;
   padding: 0;
@@ -101,8 +101,8 @@ section {
   margin: 0;
   padding: 0;
   border: 1px solid transparent;
-  border-top-left-radius: 15px;
-  border-bottom-left-radius: 15px;
+  border-top-left-radius: 8px;
+  border-bottom-left-radius: 8px;
   border-right: none;
   margin: 5px;
   margin-right: 0px;
@@ -146,14 +146,14 @@ section {
 }
 
 .nui-navigator>li.nui-active>a {
-  color: #62a7e5 !important;
+  color: #293a46 !important;
 }
 
 .nui-container {
   flex: 1;
   background-color: #fff;
-  border-top-right-radius: 15px;
-  border-bottom-right-radius: 15px;
+  border-top-right-radius: 8px;
+  border-bottom-right-radius: 8px;
 }
 
 .nui-container>.nui-header {
@@ -165,7 +165,7 @@ section {
 }
 
 .nui-container>.nui-header a, .nui-container>.nui-header a:hover, .nui-container>.nui-header a:focus, .nui-container>.nui-header a:active {
-  color: #62a7e5;
+  color: #293a46;
 }
 
 .nui-container>.nui-header a:hover {

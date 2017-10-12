@@ -11,7 +11,7 @@ define(["cfgs"], function (cfgs) {
     "HOME": {
       "name": "首页", "icon": "fa fa-home",
       "module": "module-server", "method": "status",
-      "url": "views/summary/mapchart.html",
+      "url": "views/common/chart.html",
       "actions": [
       ]
     },
@@ -69,7 +69,7 @@ define(["cfgs"], function (cfgs) {
 
     "SETTLE_REPORT": {
       "name": "结算报表查询", "icon": "fa fa-search",
-      "module": "module-order", "method": "initSettlementSearch",
+      "module": "module-order-report",
       "actions": [
         { "id": "SETTLE_REPORT_EXPORT", "name": "导出", "action": "export" }
       ]
@@ -82,9 +82,11 @@ define(["cfgs"], function (cfgs) {
         { "id": "TICKET_SEARCH_EXPORT", "name": "导出", "action": "export" }
       ]
     },
-
+    "MANAGEMENT": {
+      "name": "业务管理视角"
+    },
     "USER_ACTIVE_TOTAL": {
-      "name": "活跃用户统计月表", "icon": "fa fa-search",
+      "name": "活跃用户统计月表", "icon": "fa fa-search", "parent": "MANAGEMENT",
       "module": "module-user-active",
       "actions": [
         { "id": "USER_ACTIVE_TOTAL_EXPORT", "name": "导出", "action": "export" }
@@ -92,7 +94,7 @@ define(["cfgs"], function (cfgs) {
     },
 
     "MCH_ACTIVE_TOTAL": {
-      "name": "活跃商户统计月表", "icon": "fa fa-search",
+      "name": "活跃商户统计月表", "icon": "fa fa-search", "parent": "MANAGEMENT",
       "module": "module-merchant-active",
       "actions": [
         { "id": "MCH_ACTIVE_TOTAL_EXPORT", "name": "导出", "action": "export" }
@@ -100,23 +102,23 @@ define(["cfgs"], function (cfgs) {
     },
 
     "MCH_SUCCESS_RATE": {
-      "name": "商户上线成功率统计", "icon": "fa fa-search",
+      "name": "商户上线成功率统计", "icon": "fa fa-search", "parent": "MANAGEMENT",
       "module": "module-merchant-success",
       "actions": [
         { "id": "MCH_SUCCESS_RATE_EXPORT", "name": "导出", "action": "export" }
       ]
     },
 
-    "0012": {
-      "name": "商户签约数量统计", "icon": "fa fa-search",
+    "MCH_SIGN": {
+      "name": "商户签约数量统计", "icon": "fa fa-search", "parent": "MANAGEMENT",
       "module": "module-merchant-sign",
       "actions": [
-        { "id": "0010_EXPORT", "name": "导出", "action": "export" }
+        { "id": "MCH_SIGN_EXPORT", "name": "导出", "action": "export" }
       ]
     },
 
     "MCH_SIGN_DETAIL": {
-      "name": "商户签约明细", "icon": "fa fa-search",
+      "name": "商户签约明细", "icon": "fa fa-search", "parent": "MANAGEMENT",
       "module": "module-merchant-signdetail",
       "actions": [
         { "id": "MCH_SIGN_DETAIL_EXPORT", "name": "导出", "action": "export" }
@@ -124,7 +126,7 @@ define(["cfgs"], function (cfgs) {
     },
 
     "PARTNER_MANAGMENT": {
-      "name": "合作方信息管理",
+      "name": "合作方信息管理", "parent": "MANAGEMENT",
       "module": "module-partner",
       "actions": [
         { "id": "PARTNER_MANAGMENT_INSERT", "name": "新增", "action": "insert" },
@@ -134,10 +136,12 @@ define(["cfgs"], function (cfgs) {
         { "id": "PARTNER_MANAGEMENT_RESETPASSWORD", "name": "重置密码", "action": "resetpassword" },
       ]
     },
-
+    "SYSTEM_MANAGEMENT": {
+      "name": "系统管理视角"
+    },
     // "0015": { "parent": "000", "name": "菜单管理", "module": "common-module", "icon": "fa fa-cog" },
     "ACCOUNT_MANAGMENT": {
-      "name": "账户管理", "icon": "fa fa-users",
+      "name": "账户管理", "icon": "fa fa-users", "parent": "SYSTEM_MANAGEMENT",
       "module": "common-admin",
       "actions": [
         { "id": "ACCOUNT_MANAGMENT_INSERT", "name": "新增", "action": "insert" },
@@ -148,7 +152,7 @@ define(["cfgs"], function (cfgs) {
     },
 
     "ROLE_MANAGMENT": {
-      "name": "角色管理", "icon": "fa fa-users",
+      "name": "角色管理", "icon": "fa fa-users", "parent": "SYSTEM_MANAGEMENT",
       "module": "common-role",
       "actions": [
         { "id": "ROLE_MANAGMENT_INSERT", "name": "新增", "action": "insert" },
@@ -159,8 +163,8 @@ define(["cfgs"], function (cfgs) {
     },
 
     "AREA_MANAGMENT": {
-      "name": "行政区划管理", "icon": "fa fa-book",
-      "module": "module-dict", "method": "init-coderange",
+      "name": "行政区划管理", "icon": "fa fa-book", "parent": "SYSTEM_MANAGEMENT",
+      "module": "common-dict", "method": "init-coderange",
       "actions": [
         { "id": "AREA_MANAGEMENT_INSERT", "name": "新增", "action": "insert" },
         { "id": "AREA_MANAGEMENT_UPDATE", "name": "编辑", "action": "update" },
@@ -170,8 +174,8 @@ define(["cfgs"], function (cfgs) {
     },
 
     "CODE_MANAGEMENT": {
-      "name": "号段表管理", "icon": "fa fa-book",
-      "module": "module-dict",
+      "name": "号段表管理", "icon": "fa fa-book", "parent": "SYSTEM_MANAGEMENT",
+      "module": "common-dict",
       "actions": [
         { "id": "CODE_MANAGEMENT_INSERT", "name": "新增", "action": "insert" },
         { "id": "CODE_MANAGEMENT_UPDATE", "name": "编辑", "action": "update" },
@@ -181,7 +185,7 @@ define(["cfgs"], function (cfgs) {
     },
 
     "SYS_LOG": {
-      "name": "日志查询", "icon": "fa fa-search",
+      "name": "日志查询", "icon": "fa fa-search", "parent": "SYSTEM_MANAGEMENT",
       "module": "module-common", "method": "init-log-search",
       "actions": [
         { "id": "SYS_LOG_EXPORT", "name": "导出", "action": "export" }
@@ -189,7 +193,7 @@ define(["cfgs"], function (cfgs) {
     },
 
     "SYS_MONITOR": {
-      "name": "系统监控", "icon": "fa fa-tachometer",
+      "name": "系统监控(后期设想)", "icon": "fa fa-tachometer",
       "url": "views/summary/serverstatus.html",
       "module": "module-server",
       "actions": [
@@ -200,7 +204,12 @@ define(["cfgs"], function (cfgs) {
 
 
     // "d00": { "parent": "000", "name": "公共示例", "icon": "fa fa-object-ungroup" },
-    "d01": { "name": "图标字体 | WebFont", "url": "views/sample/icons.html" },
+    "d01": {
+      "name": "图标字体 | WebFont",
+      "url": "views/sample/icons.html",
+      "actions": [
+      ]
+    },
     // "d03": { "parent": "d00", "name": "时间轴 | timeline", "url": "views/sample/timeline.html" },
     // "d05": { "parent": "d00", "name": "CSS动画", "url": "views/sample/animation.html" },
     // "d06": { "parent": "d00", "name": "统计图表 | ECHARTS", "url": "views/sample/charts.html", "module": 'module-demo-charts' },

@@ -1,0 +1,9 @@
+<div class="well">
+  <strong>${ App.base64.decode($data.nickname)}:</strong> ${App.base64.decode($data.text)}
+  <small class="pull-right">
+    ${App.util.utcToCN($data.date)} 来自 ${App.base64.decode($data.client)}
+    {{if  App.base64.decode($data.nickname) == App.userinfo.nickname}}
+    <a class="btn btn-xs comment-delete" data-id="${$data.id}"> 删除</a>
+    {{/if}}
+  </small>
+</div>

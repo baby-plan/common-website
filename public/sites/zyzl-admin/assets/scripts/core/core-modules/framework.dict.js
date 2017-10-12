@@ -14,7 +14,7 @@ define(
     "core/core-modules/framework.base64"
   ],
   function ($, cfgs, API, ajax, event, base64) {
-    // 用户登录后自动加载数据库字典表内容
+    // EVENT-ON:layout.logined 用户登录后自动加载数据库字典表内容
     event.on("layout.logined", function () {
       console.debug("[AUTO]加载数据库字典表内容!");
       var url = API.datadict.dataallapi;

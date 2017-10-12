@@ -7,7 +7,7 @@ define(["QDP"], function (QDP) {
   var info_customAction = function (td, data, index, powers) {
     // TODO: 权限校验-PARTNER_MANAGEMENT_RESETPASSWORD
     if (powers.indexOf('resetpassword') > -1) {
-      QDP.cell.addAction(td, "btn_chgpwd", index, edit_click);
+      QDP.form.appendAction(td, "btn_chgpwd", edit_click, index);
     }
   };
   return {

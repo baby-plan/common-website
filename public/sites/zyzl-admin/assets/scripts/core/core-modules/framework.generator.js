@@ -15,9 +15,14 @@ define(
     "core/core-modules/framework.util",
     "core/core-modules/framework.form",
     "core/core-modules/framework.table",
-    "core/core-modules/framework.row",
-    "core/core-modules/framework.cell",
-    "moment",
+    "core/core-modules/framework.event",
+
+    'generator-plugins/input-text/index',
+    'generator-plugins/input-dict/index',
+    'generator-plugins/input-date/index',
+    'generator-plugins/select-icon/index',
+    'generator-plugins/select-image/index',
+
     "bootstrapValidator",
     "jquery.tmpl",
     "jquery.tmplPlus",
@@ -34,8 +39,12 @@ define(
     util,
     form,
     table,
-    row,
-    cell
+    event,
+    plugin_inputtext,
+    plugin_inputdict,
+    plugin_inputdate,
+    plugin_selecticon,
+    plugin_selectimage
   ) {
     "use strict";
     const ACTION_ATTR = "data-action";
@@ -47,7 +56,7 @@ define(
 
     var listbuffer = [],
       plugin_option = {},
-      plugin_action = {},
+      // plugin_action = {},
       primaryKey;
 
     /** 初始化表单内容
@@ -73,18 +82,38 @@ define(
       };
 
       plugin_option = $.extend(true, option_default, options);
-      plugin_action = plugin_option.actions;
+      // plugin_action = plugin_option.actions;
 
       var displaycolumns = [];
 
       var hasFilter = false;
 
-      // 为列数组设置初始索引 index:用于排序
+      // 遍历数组：1、设置初始索引 index:用于排序；2、控件处理插件；3、判断是否需要筛选条件
       $.each(plugin_option.columns, function (index, column) {
         column.index = index;
+
+        if (column.dict && column.dict != '') {
+          column.plugin = plugin_inputdict;
+        } else if (column.type == 'date' || column.type == "datetime") {
+          column.plugin = plugin_inputdate;
+        } else if (column.type == "icon") {
+          column.plugin = plugin_selecticon;
+        } else if (column.type == 'image') {
+          column.plugin = plugin_selectimage;
+          // } else if (column.type) {
+          //   column.plugin = plugin_inputtext;
+        } else {
+          column.plugin = plugin_inputtext;
+        }
+        // 查询条件处理 BEGIN
+        if (!hasFilter && column.filter) {
+          hasFilter = true;
+        } // 检查表单是否存在filter功能.
+
       });
 
       plugin_option.columns = plugin_option.columns.sort(compare_index);
+
       // 遍历columns设置,获取table的显示字段名称
       $.each(plugin_option.columns, function (index, column) {
         // 处理主键字段
@@ -95,19 +124,17 @@ define(
           }
           return;
         }
+        if (column.name == '_action') {
+          return;
+        }
         //跳过不需要在GRID中显示的列
         if (column.grid == undefined || column.grid == true) {
           displaycolumns.push(column.text);
         }
-        // 查询条件处理 BEGIN
-        if (!hasFilter && column.filter) {
-          hasFilter = true;
-        } // 检查表单是否存在filter功能.
       });
 
-      $("#record-panel")
-        .tmpl(plugin_option)
-        .appendTo("#record-container");
+      // 渲染表格
+      table.render($("#table"), displaycolumns);
 
       // 判断是否有新增功能:如果有则设定按钮文字样式及事件
 
@@ -119,38 +146,58 @@ define(
       } else {
         $(".btn_add").remove();
       }
+
       // TODO: 权限校验：EXPORT
       if (cfgs.pageOptions.powers.indexOf('export') == -1) {
         $(".btn_export").remove();
       }
 
-      // 渲染表格
-      table.render($("#table"), displaycolumns);
+      // TODO: 权限校验：UPDATE
+      if (cfgs.pageOptions.powers.indexOf('update') > -1 && plugin_option.actions.update) {
+        $(".btn_edit")
+          .attr('data-mode', 'update')
+          .on("click", edit_click)
+          .attr('disabled', "true");
+      } else {
+        $(".btn_edit").remove();
+      }
 
+      // TODO: 权限校验：DELETE
+      if (cfgs.pageOptions.powers.indexOf('delete') > -1 && plugin_option.actions.delete) {
+        $(".btn_remove")
+          .on("click", reomve_click)
+          .attr('disabled', "true");
+      } else {
+        $(".btn_remove").remove();
+      }
+
+      $(".btn_look")
+        // .on("click", reomve_click)
+        .attr('disabled', "true");
+
+      // 处理查询条件区块内容及事件
       if (hasFilter) {
-        // 处理查询条件区块内容及事件
         plugin_option.columns = plugin_option.columns.sort(compare_filterindex);
 
-        $("#filter-panel")
-          .tmpl(plugin_option)
-          .appendTo("#filter-container");
-
+        var container = $("#filter-container>form");
         $.each(plugin_option.columns, function (index, column) {
-          // if (column.filterindex == 4) { return; }
-          // console.log(index + "," + JSON.stringify(column));
           if (column.custom) {
             var columndiv = $("#" + column.name).parent();
             columndiv.empty();
             column.custom(column, columndiv, null);
-          } else if (column.filter == "daterange") {
-            form.initDateRange(
-              column.name + "_1",
-              column.name + "_2",
-              column.name + "_range"
-            );
-          } else if (typeof column.dict === "string") {
-            form.initDict(column.dict, $("#" + column.name), null);
+          } else if (column.filter && column.plugin && column.plugin.filter) {
+            var columnContainer = $('<div/>')
+              .addClass('col-sm-4 col-lg-3')
+              .appendTo(container);
+            var labelContainer = $('<label/>')
+              .addClass('control-label')
+              .appendTo(columnContainer);
+            // var valueContainer = $('<div/>')
+            //   // .addClass('col-xs-2')
+            //   .appendTo(columnContainer);
+            column.plugin.filter(column, labelContainer, columnContainer);
           }
+
         }); //$.each(columns, function (index, column) {
 
         /* 注册查询按钮点击事件 */
@@ -167,9 +214,13 @@ define(
       });
 
       if (helptips.length > 0) {
+
         var div = $("<div/>")
           .addClass("alert alert-block alert-success")
-          .insertBefore($("#filter-container"));
+          .appendTo(
+          $('<div/>').addClass('col-sm-12')
+            .insertBefore($("#filter-container"))
+          );
         div.append(
           $("<a/>")
             .addClass("close")
@@ -220,16 +271,22 @@ define(
           if (!column.edit) {
             return;
           }
-          let value = $("#" + column.name).val();
-          if (column.type == "date" || column.type == "datetime") {
-            options[column.name] = util.stringToUTC(value);
-          } else if (column.multiple) {
-            options[column.name] = value.join();
+          // generator-plugin 的赋值函数
+          if (column.plugin && column.plugin.get && typeof column.plugin.get === 'function') {
+            column.plugin.get(options);
+            return;
           } else {
-            if (column.base64) {
-              options[column.name] = base64.encode(value);
+            let value = $("#" + column.name).val();
+            if (column.type == "date" || column.type == "datetime") {
+              options[column.name] = util.stringToUTC(value);
+            } else if (column.multiple) {
+              options[column.name] = value.join();
             } else {
-              options[column.name] = value;
+              if (column.base64) {
+                options[column.name] = base64.encode(value);
+              } else {
+                options[column.name] = value;
+              }
             }
           }
         });
@@ -244,6 +301,7 @@ define(
             break;
         }
 
+        // 调用API，并在操作成功时返回列表页面
         ajax.get(requesturl, options, function () {
           layout.back();
         });
@@ -304,6 +362,7 @@ define(
       $("#editor-data")
         .tmpl(plugin_option)
         .appendTo(".panel-body>.form-horizontal");
+
       var validatorOption = {
         message: 'This value is not valid',
         feedbackIcons: {
@@ -328,17 +387,33 @@ define(
               }
             }
           };
+
           if (column.validtype) {
-            _validOption.validators[column.validtype] = {
-              message: column.message
-            };
+            if (column.validtype == 'phone') {
+              // _validOption.validators['stringLength'] = {
+              //   min: 11,
+              //   max: 11,
+              //   message: '请输入11位手机号码'
+              // };
+              _validOption.validators['regexp'] = {
+                regexp: /^1[3|5|8]{1}[0-9]{9}$/,
+                message: '请输入正确的手机号码'
+              };
+
+            } else {
+              _validOption.validators[column.validtype] = {
+                message: column.message
+              };
+            }
           }
+
           if (column.regex) {
             _validOption.validators['regexp'] = {
               regexp: column.regex,
               message: column.message
             };
           }
+
           if (column.type == "date") {
             _validOption.validators['date'] = {
               format: "YYYY-MM-DD",
@@ -386,10 +461,10 @@ define(
           $("#" + column.name).attr("data-value", value);
         } else if (column.type == "map") {
           // 处理地图类型字段
-          requirePlugins('map', column, data);
+          requirePlugins('map', column, data, column.events);
         } else if (column.type == "image") {
           // 处理图片类型字段
-          requirePlugins('upload', column, data);
+          requirePlugins('upload', column, data, column.events);
         } else {
           $("#" + column.name).val(value);
           if (column.primary && value) {
@@ -406,9 +481,9 @@ define(
       $(".btn_save").on("click", save_click); // 处理保存按钮事件
     };
 
-    var requirePlugins = function (plugin_name, args) {
-      require(['generator-plugins/' + plugin_name], plugin => {
-        plugin.init(args);
+    var requirePlugins = function (plugin_name, column, data, events) {
+      require(['generator-plugins/' + plugin_name + '/index'], function (plugin) {
+        plugin.init(column, data, events);
       });
     }
 
@@ -429,16 +504,34 @@ define(
       });
     };
 
+    /** 编辑按钮事件处理程序 */
     var edit_click = function () {
-      var args = $(this).data("args");
-      if (listbuffer && listbuffer.length > 0) {
-        _open_editview(listbuffer[args]);
+      if ($(this).attr('disabled')) {
+        return;
+      }
+      var mode = $(this).data('mode');
+
+      if (mode == 'update') {
+        var selector = $('table tr[class="selected"]');
+        if (selector.length == 1) {
+          var index = selector.data('id');
+          if (listbuffer && listbuffer.length > 0) {
+            _open_editview(listbuffer[index]);
+          } else {
+            dialog.alertText("数据异常！");
+          }
+        }
       } else {
         _open_editview();
       }
+
     };
 
+    /** 删除按钮事件处理程序 */
     var reomve_click = function () {
+      if ($(this).attr('disabled')) {
+        return;
+      }
       var primary = $(this).data("args");
       var confirmCallback = function (result) {
         if (!result) {
@@ -484,37 +577,24 @@ define(
         options = plugin_option.args.search;
       }
 
+      // 生成查询条件：遍历每一个column，根据类型取值
       $.each(plugin_option.columns, function (index, column) {
+        // 没有filter选项,不需要筛选
         if (!column.filter) {
           return;
-        } // 没有filter选项,不需要筛选
-        if (column.filter == "daterange") {
-          var starttime = $("#" + column.name + "_1").val();
-          if (starttime && starttime != "") {
-            options[column.name + "_1"] = util.stringToUTC(starttime);
-          }
-          var endtime = $("#" + column.name + "_2").val();
-          if (endtime && endtime != "") {
-            options[column.name + "_2"] = util.stringToUTC(endtime) + 86400;
-          }
-        } else if (column.multiple) {
-          var value = $("#" + column.name).val();
-          if (!value || value == "") {
-            return;
-          }
-          options[column.name] = value.join();
-        } else {
-          var value = $("#" + column.name).val();
-          if (!value || value == "") {
-            return;
-          }
+        }
+        var value = column.plugin.getFilter(column);
+
+        if (value) {
           if (column.base64) {
             value = base64.encode(value);
           }
           options[column.name] = value;
         }
+
       });
 
+      // 解析表格记录内容
       var parsefn = function (tr, index, totalindex, item) {
         if (plugin_option.buffdate) {
           if (index == 0) {
@@ -528,74 +608,16 @@ define(
           if (column.grid == false) {
             return;
           }
-          var td = undefined;
           var value = item[column.name];
-
           if (column.base64) {
             value = base64.decode(value);
           }
-          if (column.name == "_index") {
-            // 序号
-            row.addText(tr, totalindex);
-          } else if (column.name == "_action") {
-            // 按钮类型
-            td = row.createCell(tr);
-            // TODO: 权限校验：UPDATE
-            if (cfgs.pageOptions.powers.indexOf('update') > -1 && plugin_action.update) {
-              cell.addAction(td, "btn_edit", index, edit_click);
-            }
-            // TODO: 权限校验：DELETE
-            if (cfgs.pageOptions.powers.indexOf('delete') > -1 && plugin_action.delete) {
-              cell.addAction(td, "btn_remove", item[primaryKey], reomve_click);
-            }
-            if (
-              column.customAction &&
-              typeof column.customAction == "function"
-            ) {
-              column.customAction(td, item, index, cfgs.pageOptions.powers);
-            }
-
-            if (column.command) {
-              column.command(td, item, index);
-            }
-          } else if (column.type == "date") {
-            // 显示时间类型
-            td = row.addUTCText(tr, value, cfgs.options.defaults.dateformat2);
-          } else if (column.type == "datetime") {
-            // 显示时间类型
-            td = row.addUTCText(
-              tr,
-              value,
-              cfgs.options.defaults.datetimeformat
-            );
-          } else if (column.dict && column.dict != "") {
-            // 数据字典类型
-            td = row.addDictText(tr, column.dict, value, column.multiple);
-          } else if (column.type == "icon") {
-            // 图标类型
-            td = row.createCell(tr);
-            td.append($("<i></i>").addClass(value));
-            td.append(" " + value);
-          } else if (column.primary) {
-            // 主键，不显示
-            if (column.display) {
-              td = row.addText(tr, value);
-            }
-          } else {
-            if (
-              column.overflow != undefined &&
-              column.overflow > 0 &&
-              value.length > column.overflow
-            ) {
-              td = row.addText(tr, value.substring(0, column.overflow) + "..."); // 文本类型
-              td.attr("title", value);
-            } else {
-              row.addText(tr, value); // 文本类型
-            }
+          if (column.name != "_action") {
+            column.plugin.grid(column, tr, value, totalindex, index);
           }
         });
       };
-
+      //  查询数据并且填充表格（TABLE）
       table.load({
         api: plugin_option.apis.list,
         parsefn: parsefn,
@@ -610,17 +632,7 @@ define(
         if (!column.filter) {
           return;
         } // 没有filter选项,不需要筛选
-        if (column.filter == "daterange") {
-          // 处理时间段类型筛选
-          $("#" + column.name + "_1").val(
-            moment()
-              .subtract(29, "days")
-              .format(cfgs.options.defaults.dateformat)
-          );
-          $("#" + column.name + "_2").val(
-            moment().format(cfgs.options.defaults.dateformat)
-          );
-        } else if (column.dict) {
+        if (column.dict) {
           $("#" + column.name).val(null).trigger("change");
         } else {
           $("#" + column.name).val("");

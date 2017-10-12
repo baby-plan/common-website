@@ -6,9 +6,7 @@
   margin: 0;
 }
 
-.content-breadcrumb > li {
-  display: inline-block;
-}
+.content-breadcrumb > li { display: inline-block; }
 
 .content-breadcrumb > li + li:before {
   content: "/\00a0";
@@ -29,18 +27,19 @@ body>aside {
 body>aside > header {
   flex: 0;
   border: none;
+  cursor: pointer;
 }
 
-body>aside > nav {
+body>aside  nav {
   flex: 2;
+}
+.header-title {
+  color: #fff;
+  font-size: 16px;
 }
 
 body>aside > ul {
   flex: 0;
-}
-
-body>aside > header{
-  cursor: pointer;
 }
 
 .sidebar-menu-container {
@@ -158,29 +157,27 @@ body>aside > header{
 }
 
 /* Sidebar collapse */
-
-.sidebar-collapse,
-.switcher {
-  padding: 10px 10px 0 0;
-  position: absolute;
-  top: 6px;
-  padding: 6px 8px;
+.sidebar-collapse{
+  /* padding: 10px 10px 0 0; */
+  /* position: absolute; */
+  /* top: 6px; */
+  padding: 12px 15px 0;
+  border-right: solid 1px #ccc;
+  height: 100%;
+  /* margin-left:-15px; */
+  cursor: pointer;
 }
 
-.sidebar-collapse > [class*="fa-"],
-.switcher > [class*="fa-"] {
-  cursor: pointer;
-  display: inline-block;
-  padding: 0 5px;
-  position: relative;
+.sidebar-collapse > [class*="fa-"] {
   float: right;
 }
 body.mini-menu >section{
   margin-left:0;
 }
-.content-breadcrumb {
+
+/* .content-breadcrumb {
   padding-left: 50px !important;
-}
+} */
 /* .sidebar-collapse {
   display: none;
 } */
@@ -215,11 +212,6 @@ body.mini-menu >section{
 }
 
 /* 页面内容区-头部-右侧工具栏*/
-
-.content-toolbar {
-  text-align: right;
-  padding: 8px 0px 3px 0px;
-}
 
 .nav-fold {
   padding: 0.75rem 2rem;

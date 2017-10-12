@@ -28,20 +28,32 @@ define('cfgs', ['jquery'], function ($) {
     "B00000": {
       "parent": "000",
       "name": "系统维护",
-      "icon": "fa fa-gears",
+      "icon": "fa fa-heartbeat",
       "module": "operation"
     },
     "C00000": {
       "parent": "000",
       "name": "设置中心",
-      "icon": "fa fa-cog",
+      "icon": "fa fa-gears",
       "module": "setting"
+    },
+    "L00000": {
+      "parent": "000",
+      "name": "日志中心",
+      "icon": "fa fa-cog",
+      "module": "filesystem"
     },
     "F00000": {
       "parent": "000",
       "name": "文件中心",
-      "icon": "fa fa-cog",
+      "icon": "fa fa-file",
       "module": "filesystem"
+    },
+    "T00000": {
+      "parent": "000",
+      "name": "辅助工具",
+      "icon": "fa fa-wrench",
+      "module": "monitor2"
     }
   };
   /** 文本相关参数设置 */

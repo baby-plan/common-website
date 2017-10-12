@@ -1,4 +1,4 @@
-define(['jquery', 'echarts'], ($) => {
+define(['jquery', 'echarts'], ($,echarts) => {
   let module = {};
   let chart;
   module.init = (el) => {
@@ -22,7 +22,7 @@ define(['jquery', 'echarts'], ($) => {
       series: [{
         name: '访问来源',
         type: 'pie',
-        radius: '55%',
+        radius: ['50%', '70%'],
         center: ['50%', '60%'],
         data: [{
             value: 335,

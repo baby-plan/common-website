@@ -1,4 +1,4 @@
-﻿define(["jquery", "moment"], function ($, moment) {
+﻿define(["jquery"], function ($) {
   var cfgs = {
     app_name: "车友助理-商户管理平台",
     debug: true,
@@ -9,8 +9,8 @@
       error: true
     },
     /* 是否使用已设定的初始页面,rootable:true 使用菜单第一项作为起始页面,否则使用root定义的内容为起始页面 */
-    rootable: false,
-    root: ["首页"],
+    rootable: true,
+    root: ["商户基本信息管理"],
     /** API: */
     cache: {},
     /** API: */
@@ -74,28 +74,27 @@
 
   /** 文本相关参数设置 */
   cfgs.options.texts = {
-    btn_add: ' <i class="fa fa-plus"></i> 新增 ',
-    btn_edit: '<i class="fa fa-pencil"></i> 编辑 ',
-    btn_search: '<i class="fa fa-search"></i> 查询 ',
-    btn_reset: '<i class="fa fa-refresh"></i> 重置 ',
-    btn_remove: ' <i class="fa fa-trash-o"></i> 删除 ',
-    btn_refresh: ' <i class="fa fa-refresh"></i> 刷新 ',
-    btn_back: '<i class="fa fa-arrow-circle-left"></i> 返回 ',
-    btn_cancel: '<i class="fa fa-arrow-circle-left"></i> 取消 ',
-    btn_save: ' 保存 <i class="fa fa-arrow-circle-right"></i> ',
-    btn_details: ' <i class="fa fa-align-justify"></i> 详情 ',
-    btn_priv: ' <i class="fa fa-arrow-circle-left"></i> 上一步 ',
-    btn_next: ' 下一步 <i class="fa fa-arrow-circle-right"></i> ',
-    btn_export: '<i class="fa fa-share-square-o"></i> 导出 ',
+    btn_add: '<i class="fa fa-plus"></i> 新增',
+    btn_edit: '<i class="fa fa-pencil"></i> 编辑',
+    btn_search: '<i class="fa fa-search"></i> 查询',
+    btn_reset: '<i class="fa fa-refresh"></i> 重置',
+    btn_remove: '<i class="fa fa-trash-o"></i> 删除',
+    btn_refresh: '<i class="fa fa-refresh"></i> 刷新',
+    btn_back: '<i class="fa fa-arrow-circle-left"></i> 返回',
+    btn_cancel: '<i class="fa fa-arrow-circle-left"></i> 取消',
+    btn_save: '保存 <i class="fa fa-arrow-circle-right"></i>',
+    btn_details: '<i class="fa fa-align-justify"></i> 详情',
+    btn_priv: '<i class="fa fa-arrow-circle-left"></i> 上一步',
+    btn_next: '下一步 <i class="fa fa-arrow-circle-right"></i>',
+    btn_export: '<i class="fa fa-share-square-o"></i> 导出',
 
-    btn_check: '<i class="fa fa-share-square-o"></i> 审核 ',
-    btn_publish: '<i class="fa fa-share-square-o"></i> 发布 ',
-    btn_unpublish: '<i class="fa fa-share-square-o"></i> 取消发布 ',
-    btn_look: '<i class="fa fa-share-square-o"></i> 查看 ',
-    btn_chgpwd: '<i class="fa fa-share-square-o"></i> 重置密码 ',
-    btn_filter: '<i class="fa fa-filter"></i> 筛选 ',
-    'btn-selectall': '<i class="fa fa-share-square-o"></i> 全选 ',
-    'btn-selectopp': '<i class="fa fa-share-square-o"></i> 反选 '
+    btn_check: '<i class="fa fa-share-square-o"></i> 审核',
+    btn_publish: '<i class="fa fa-share-square-o"></i> 发布',
+    btn_unpublish: '<i class="fa fa-share-square-o"></i> 取消发布',
+    btn_look: '<i class="fa fa-share-square-o"></i> 查看',
+    btn_chgpwd: '<i class="fa fa-share-square-o"></i> 重置密码',
+    'btn-selectall': '<i class="fa fa-share-square-o"></i> 全选',
+    'btn-selectopp': '<i class="fa fa-share-square-o"></i> 反选'
   };
 
   /** 样式相关参数设置 */
@@ -115,74 +114,14 @@
     // btn_chgpwd: "btn btn-info",
     // btn_add: "btn btn-success"
 
-    'btn-selectall': 'btn btn-success',
-    'btn-selectopp': 'btn btn-success'
+    // 'btn-selectall': 'btn btn-success',
+    // 'btn-selectopp': 'btn btn-success'
   };
 
   /** 请求相关参数设置 */
   cfgs.options.request = {
     /* 设置AJAX请求超时时间:单位毫秒*/
     timeout: 5000
-  };
-
-  /** 时间段选项 */
-  cfgs.options.daterange = {
-    opens: "left",
-    startDate: moment().subtract(29, "days"),
-    endDate: moment(),
-    minDate: "2012-01-01",
-    maxDate: moment(),
-    dateLimit: {
-      days: 60
-    },
-    showDropdowns: true,
-    showWeekNumbers: false,
-    timePicker: false,
-    timePickerIncrement: 1,
-    timePicker12Hour: false,
-    ranges: {
-      今天: [moment(), moment()],
-      昨天: [moment().subtract(1, "days"), moment().subtract(1, "days")],
-      最近1周: [moment().subtract(6, "days"), moment()],
-      最近30天: [moment().subtract(29, "days"), moment()],
-      本月: [moment().startOf("month"), moment().endOf("month")],
-      上月: [
-        moment()
-          .subtract(1, "month")
-          .startOf("month"),
-        moment()
-          .subtract(1, "month")
-          .endOf("month")
-      ]
-    },
-    buttonClasses: ["btn"],
-    applyClass: "btn-info",
-    cancelClass: "btn-default",
-    format: "YYYY-M-DD",
-    separator: " to ",
-    locale: {
-      applyLabel: "确定",
-      cancelLabel: "取消",
-      fromLabel: "起始日期",
-      toLabel: "结束日期",
-      customRangeLabel: "自定义时间段",
-      daysOfWeek: ["日", "一", "二", "三", "四", "五", "六"],
-      monthNames: [
-        "1月",
-        "2月",
-        "3月",
-        "4月",
-        "5月",
-        "6月",
-        "7月",
-        "8月",
-        "9月",
-        "10月",
-        "11月",
-        "12月"
-      ],
-      firstDay: 1
-    }
   };
 
   var stateformat = function (state) {
@@ -239,10 +178,12 @@
     /** 是否读取缓存数据 */
     fromCache: false
   };
-  /* 公共编辑页面地址*/
+  /* 公共编辑页面地址 */
   cfgs.editpage = "views/common/edits.html";
-  /* 公共列表页面地址*/
+  /* 公共列表页面地址 */
   cfgs.listpage = "views/common/searchs.html";
+  /* 公共列表页面地址 */
+  cfgs.chartpage = "views/common/chart.html";
 
   cfgs.tooltip = {
     compute: [
@@ -255,7 +196,6 @@
       , "举例说明：A省支撑方承诺的洗车折扣率为5折，门市价为30元，折扣券签约价为20元，免费券结算价为25元。用户使用免费券去洗车无需支付洗车费用，但支撑方需向商户支付免费洗车费用为25元；用户使用折扣券洗车，由用户支付洗车费用为15元，但是支撑方给商户的折扣券补贴费用为20-15=5元。"
     ]
   }
-
 
   cfgs.icons = [
     "fa fa-address-book",

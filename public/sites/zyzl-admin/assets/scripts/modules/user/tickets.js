@@ -10,6 +10,7 @@ define(["QDP"], function (QDP) {
     },
     /** 加载模块 */
     init: function () {
+
       var options = {
         apis: { list: QDP.api.logs.datas },
         columns: [
@@ -33,6 +34,55 @@ define(["QDP"], function (QDP) {
         ]
       };
       QDP.generator.init(options);
+      var selectedValue = 3;
+      var select = $("<select/>");
+      select.width(200);
+      select.append($("<option/>").val(1).text('按省份统计'));
+      select.append($("<option/>").val(2).text('按城市统计'));
+      select.append($("<option/>").val(3).text('按区县统计'));
+      $('.content-toolbar').prepend(select);
+      select.select2(QDP.config.options.select2);
+      select.val(selectedValue).trigger('change');
+      //cfgs.listpage
+
+      select.on('change', function () {
+        var value = $(this).val();
+        if (!value || value == selectedValue) {
+          return;
+        }
+        selectedValue = value;
+        var city_code = options.columns.find(function (p) { return p.name == 'city_code'; });
+        var county_code = options.columns.find(function (p) { return p.name == 'county_code'; });
+
+        switch (value) {
+          case "1":
+            city_code.grid = false;
+            city_code.filter = false;
+            county_code.grid = false;
+            county_code.filter = false;
+            break;
+          case "2":
+            city_code.grid = true;
+            city_code.filter = true;
+            county_code.grid = false;
+            county_code.filter = false;
+            break;
+          case "3":
+            city_code.grid = true;
+            city_code.filter = true;
+            county_code.grid = true;
+            county_code.filter = true;
+            break;
+          default:
+            return;
+        }
+
+        $('#ajax-content').load(QDP.config.listpage, function () {
+          $('.datetimepicker').remove();
+          QDP.generator.init(options);
+          select.val(selectedValue).trigger('change');
+        });
+      });
     },
     /** 卸载模块 */
     destroy: function () {

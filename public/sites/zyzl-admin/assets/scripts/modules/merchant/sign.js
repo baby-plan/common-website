@@ -1,6 +1,8 @@
 define(["QDP"], function (QDP) {
   "use strict";
 
+  var plugin;
+
   return {
     define: {
       name: "商户签约数量统计",
@@ -25,10 +27,30 @@ define(["QDP"], function (QDP) {
         ]
       };
       QDP.generator.init(options);
+
+      var btn_chart = $("<a/>").addClass("btn_chart btn-mini");
+      btn_chart.attr("href", "javascript:;");
+      btn_chart.html(' <i class="fa fa-line-chart"></i> 图表 ');
+      btn_chart.on("click", function () {
+        QDP.form.openview({
+          map: true,
+          title: '图表',
+          url: QDP.config.chartpage,
+          callback: function () {
+            require(['plugins/plugins-chart'], plugin => {
+              plugin.init('echarts-chart', 'map-new');
+            });
+          }
+        });
+      });
+
+      $('.view-action').prepend(btn_chart);
     },
     /** 卸载模块 */
     destroy: function () {
-
+      if (plugin && typeof plugin.destroy === 'function') {
+        plugin.destroy();
+      }
     }
   };
 });

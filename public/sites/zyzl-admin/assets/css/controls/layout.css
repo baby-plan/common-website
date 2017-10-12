@@ -114,25 +114,6 @@ p {
   transition: all 0.25s;
 }
 
-#filter-container {
-  width: 420px;
-  position: fixed;
-  height: 100%;
-  background: #fff;
-  right: -430px;
-  padding: 15px;
-  z-index: 3;
-  margin-top: -20px;
-  border-left: 1px solid #ccc;
-  transition: all 0.25s;
-  overflow: auto;
-  padding-bottom:41px;
-}
-
-.filter #filter-container {
-  right: 0;
-}
-
 #content-container {
   width: 100% !important;
   padding-right: 15px;
@@ -165,11 +146,52 @@ p {
 /* 页面内容区-头部样式 */
 .content-header{
   height: 41px;
+  display: flex;
 }
+
 .content-header,
 #content {
   margin: 0 -15px 0px;
   position: relative;
+}
+
+.content-breadcrumb{
+  flex: 1;
+}
+
+.action-bar{
+  background-color:#fff;
+  border:solid 1px #ccc;
+  margin-top:5px;
+  margin-bottom:5px;
+  display:flex;
+}
+
+.action-bar>.view-action{
+  flex:1;
+}
+
+.action-bar>.view-action,
+.action-bar>.common-action,
+.content-toolbar{
+  display:flex;
+}
+
+.view-action>.btn-mini,
+.common-action>.btn-mini,
+.content-toolbar>.btn-mini{
+  padding: 12px 15px;
+  margin:0;
+  cursor: pointer;
+}
+
+.common-action>.btn-mini,
+.content-toolbar>.btn-mini{
+  border-left: solid 1px #ccc;
+}
+
+.view-action>.btn-mini{
+  border-right: solid 1px #ccc;
 }
 
 .content-header::before,
@@ -181,6 +203,7 @@ body>section::after {
   display: table;
   content: " ";
 }
+
 .content-header::after,
 #content::after,
 body>section::after {
@@ -191,10 +214,4 @@ body>section {
   display: flex;
   margin-left: 300px;
   transition: all 0.25s;
-
-  /* padding-right: 15px; */
-  /* padding-left: 15px; */
-  /* margin-right: auto;
-  margin-left: auto; */
-  /* width: 100% !important; */
 }

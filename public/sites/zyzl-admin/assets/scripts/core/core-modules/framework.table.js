@@ -1,19 +1,20 @@
 define(['jquery', 'cfgs',
-  'core/core-modules/framework.ajax'], function ($, cfgs, ajax) {
+  'core/core-modules/framework.ajax'],
+  function ($, cfgs, ajax) {
 
     /**
      * 根据缓存数据索引获取数据内容
      * @param {number} index 缓存数据的索引
      */
-    var getData = function (index) {
+    var getdata = (index) => {
       if (cfgs.pageOptions.buffer && cfgs.pageOptions.buffer.data.length > 0) {
         return cfgs.pageOptions.buffer.data[index];
       } else {
         return;
       }
-    }
+    };
 
-    var rander = function (target, columns) {
+    var render = (target, columns) => {
       target.addClass("datatable table table-striped table-bordered table-hover");
       var row = $("<div />").addClass("col-sm-12 bottom text-right").appendTo(target.parent().parent());
       $("<ul/>").addClass("pagination").appendTo(row);
@@ -21,10 +22,9 @@ define(['jquery', 'cfgs',
       $("<span/>").addClass("pageinfo").appendTo(row);
       row.hide();
       var thead = $("<thead/>").appendTo(target);
-
       var tr = $("<tr/>").appendTo(thead);
-      $.each(columns, function (index, column) {
-        $("<th/>").text(column).addClass("center").appendTo(tr);
+      $.each(columns, (index, column) => {
+        $("<th/>").html(column).addClass("center").appendTo(tr);
       });
     }
 
@@ -32,8 +32,9 @@ define(['jquery', 'cfgs',
      * @param {object} options 请求参数选项
      *  pagecount : 页面总数.
      *  pageindex : 当前页面索引.
+     * @private
      */
-    var _regist_table = function (options) {
+    var _regist_table = (options) => {
       var defaults = { "pagecount": "1", "pageindex": "1" };
       var options = $.extend(defaults, options);
       // 仅有1页时,删除分页内容
@@ -51,12 +52,12 @@ define(['jquery', 'cfgs',
       var end = paper_index + 2;
 
       var li = $("<li />").appendTo($(".pagination"));
-      $("<a href=\"#\"/>").text("首页").attr("data-index", 1).appendTo(li);
+      $("<a href=\"javascript:;\"/>").text("首页").attr("data-index", 1).appendTo(li);
       if (paper_index == 1) {
         li.addClass("disabled");
       }
       li = $("<li />").appendTo($(".pagination"));
-      $("<a href=\"#\"/>").text("上一页").attr("data-index", paper_index - 1).appendTo(li);
+      $("<a href=\"javascript:;\"/>").text("上一页").attr("data-index", paper_index - 1).appendTo(li);
       if (paper_index == 1) {
         li.addClass("disabled");
       }
@@ -76,34 +77,34 @@ define(['jquery', 'cfgs',
       }
       for (; begin <= end; begin++) {
         li = $("<li />").appendTo($(".pagination"));
-        $("<a href=\"#\"/>").attr("data-index", begin).text(begin).appendTo(li);
+        $("<a href=\"javascript:;\"/>").attr("data-index", begin).text(begin).appendTo(li);
         if (paper_index == begin) {
           li.addClass("active");
         }
       }
       li = $("<li />").appendTo($(".pagination"));
-      $("<a href=\"#\"/>").text("下一页").attr("data-index", (paper_index + 1)).appendTo(li);
+      $("<a href=\"javascript:;\"/>").text("下一页").attr("data-index", (paper_index + 1)).appendTo(li);
       if (paper_index == options.pagecount) {
         li.addClass("disabled");
       }
       li = $("<li />").appendTo($(".pagination"));
-      $("<a href=\"#\"/>").text("末页").attr("data-index", options.pagecount).appendTo(li);
+      $("<a href=\"javascript:;\"/>").text("末页").attr("data-index", options.pagecount).appendTo(li);
       if (paper_index == options.pagecount) {
         li.addClass("disabled");
       }
       // 注册内容中的点击事件
       $(".pagination>li>a").on("click", function () {
-        if ($(this).parent().hasClass("active") || $(this).parent().hasClass("disabled")) {
+        //  当前选中的页或禁用的页不响应事件
+        if ($(this).parent().hasClass("active")
+          || $(this).parent().hasClass("disabled")) {
           return;
         }
         var index = $(this).attr("data-index");
-        current_pageindex = index;
-        re_common_load_data(index);
+        module.reload(index);
       });
-      // App.refreshScroll();
     };
 
-    /** 将缓存中的数据填充至表格 */
+    /** 将缓存中的数据填充至表格 @private */
     var displayTable = function () {
       var start_index = (cfgs.pageOptions.buffer.pageindex - 1) * cfgs.pageOptions.buffer.pagesize + 1;
       /* 生成页面数据起始索引 */
@@ -121,7 +122,7 @@ define(['jquery', 'cfgs',
       });
     }
 
-    /** 获取需要处理的表格对象(支持FBModal) */
+    /** 获取需要处理的表格对象 @private*/
     var getTable = function () {
       return $("#table");
     }
@@ -134,7 +135,7 @@ define(['jquery', 'cfgs',
      *  parsefn   : 填充表格的解析函数,参数为新增的列,列索引,列数据索引,数据内容对象
      *  token     : 请求的TOKEN,默认为当前用户TOKEN
      */
-    var common_load_data = function (options) {
+    var load = (options) => {
       /* 缓存最后一次操作，用于删除数据后重新加载 */
       cfgs.pageOptions.requestOptions = options;
       var defaults = {
@@ -180,48 +181,47 @@ define(['jquery', 'cfgs',
       ajax.get(options.api, reqOptions, callback);
     }
 
-    /** 使用common_load_data前一次参数重新加载并处理数据
+    /** 使用 load 前一次参数重新加载并处理数据
      * @param {number} pageindex 请求新页面的索引
      */
-    var re_common_load_data = function (pageindex) {
-      if ($("#table").length == 0) {
-        return;
-      }
+    var reload = (pageindex) => {
       if (cfgs.pageOptions.requestOptions) {
         if (pageindex) {
           cfgs.pageOptions.requestOptions.pageindex = pageindex;
         }
-        common_load_data(cfgs.pageOptions.requestOptions);
+        module.load(cfgs.pageOptions.requestOptions);
       }
     }
 
-    return {
+    var Export = () => {
+      console.debug('导出EXCEL');
+      var uri = 'data:application/vnd.ms-excel;base64,',
+        template = '<html xmlns:o="urn:schemas-microsoft-com:office:office" xmlns:x="urn:schemas-microsoft-com:office:excel" xmlns="http://www.w3.org/TR/REC-html40"><head><!--[if gte mso 9]><xml><x:ExcelWorkbook><x:ExcelWorksheets><x:ExcelWorksheet><x:Name>{worksheet}</x:Name><x:WorksheetOptions><x:DisplayGridlines/></x:WorksheetOptions></x:ExcelWorksheet></x:ExcelWorksheets></x:ExcelWorkbook></xml><![endif]--></head><body><table>{table}</table></body></html>',
+        base64 = function (s) { return window.btoa(unescape(encodeURIComponent(s))) },
+        format = function (s, c) {
+          return s.replace(/{(\w+)}/g,
+            function (m, p) { return c[p]; })
+        }
+      return function (name) {
+        var table = document.getElementById('table');
+        var ctx = { worksheet: name || 'Worksheet', table: table.innerHTML }
+        window.location.href = uri + base64(format(template, ctx))
+      }
+    }
+
+    var module = {
       'define': {
         "name": "PLUGIN-LAYOUT-TABLE",
-        "version": "1.0.0.0",
+        "version": "1.0.1.0",
         'copyright': ' Copyright 2017-2027 WangXin nvlbs,Inc.',
       },
-      //公共数据处理:回调parsefn填充数据并且生成分页按钮
-      "load": common_load_data,
-      "reload": re_common_load_data,
-      //根据缓存数据索引获取数据内容
-      "getdata": getData,
-      "render": rander,
-      "export": function () {
-        console.debug('导出EXCEL');
-        var uri = 'data:application/vnd.ms-excel;base64,',
-          template = '<html xmlns:o="urn:schemas-microsoft-com:office:office" xmlns:x="urn:schemas-microsoft-com:office:excel" xmlns="http://www.w3.org/TR/REC-html40"><head><!--[if gte mso 9]><xml><x:ExcelWorkbook><x:ExcelWorksheets><x:ExcelWorksheet><x:Name>{worksheet}</x:Name><x:WorksheetOptions><x:DisplayGridlines/></x:WorksheetOptions></x:ExcelWorksheet></x:ExcelWorksheets></x:ExcelWorkbook></xml><![endif]--></head><body><table>{table}</table></body></html>',
-          base64 = function (s) { return window.btoa(unescape(encodeURIComponent(s))) },
-          format = function (s, c) {
-            return s.replace(/{(\w+)}/g,
-              function (m, p) { return c[p]; })
-          }
-        return function (name) {
-          var table = document.getElementById('table');
-          var ctx = { worksheet: name || 'Worksheet', table: table.innerHTML }
-          window.location.href = uri + base64(format(template, ctx))
-        }
-      }
+      getdata: getdata,
+      render: render,
+      load: load,
+      reload: reload,
+      export: Export
     };
+
+    return module;
 
   });

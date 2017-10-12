@@ -7,10 +7,12 @@
  * ======================================================================== */
 
 define(function () {
+
   /** 解析URL返回URL中各部件。例如：文件名、地址、域名、请求、端口、协议等
    * @param {string} url 完整的URL地址 
    * @returns {object} 自定义的对象 
    * @description
+   * @example
    *  var myURL = parseURL('http://abc.com:8080/dir/index.html?id=255&m=hello#top'); 
    *  myURL.file='index.html' 
    *  myURL.hash= 'top' 
@@ -54,6 +56,7 @@ define(function () {
       segments: a.pathname.replace(/^\//, '').split('/')
     };
   };
+
   /** 日期格式字符串转为时间戳
    * @param {string} text 日期格式字符串,例如2015年10月29日,2015-10-29 14:00:36
    * @returns {int} 
@@ -61,6 +64,7 @@ define(function () {
   var stringToUTC = function (text) {
     return new Date(text.replace(/-/g, '/')).getTime() / 1000;
   };
+
   /** 时间戳转为日期格式字符串 
    * @param {int} timestamp 时间戳字符串,例如123121234123
    * @param {string} format 日期格式字符串
@@ -75,6 +79,7 @@ define(function () {
     }
     return datetimeToString(new Date(parseInt(timestamp) * 1000), format);
   };
+
   /** 对Date的扩展，将 Date 转化为指定格式的String
    * 月(M)、日(d)、12小时(h)、24小时(H)、分(m)、秒(s)、周(E)、季度(q) 可以用 1-2 个占位符
    * 年(y)可以用 1-4 个占位符，毫秒(S)只能用 1 个占位符(是 1-3 位的数字)
@@ -118,7 +123,8 @@ define(function () {
     }
     return format;
   }
-  var utcToCN = function(timestamp)  {
+
+  var utcToCN = function (timestamp) {
     var result = undefined;
     var minute = 1000 * 60;
     var hour = minute * 60;

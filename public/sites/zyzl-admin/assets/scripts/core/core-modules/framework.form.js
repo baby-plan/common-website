@@ -2,10 +2,13 @@ define(
   [
     "jquery",
     "cfgs",
+    "core/core-modules/framework.event",
     "core/core-modules/framework.dict",
-    "core/core-modules/framework.ajax"
+    "core/core-modules/framework.ajax",
+    'core/core-modules/framework.util'
   ],
-  function ($, cfgs, dict, ajax) {
+  function ($, cfgs, event, dict, ajax, util) {
+
     var readStyle = function (keyword) {
       if (cfgs.options.styles[keyword]) {
         return cfgs.options.styles[keyword];
@@ -13,6 +16,17 @@ define(
         return cfgs.options.styles.btn_default;
       }
     };
+
+    // EVENT-ON:sidebar.changed
+    event.on('sidebar.changed', function () {
+      module.initAllSelect();
+    });
+    $(window).on('resize', function () {
+      setTimeout(function () {
+        module.initAllSelect();
+      }, 500);
+    });
+
     var module = {
       define: {
         name: "［插件］表单处理 for MODULE-LAYOUT",
@@ -43,34 +57,30 @@ define(
         });
       },
 
-      /** 初始化时间段选择控件.
-       * @param {string} start  起始时间控件名称（默认为starttime）.
-       * @param {string} end    结束时间控件名称（默认为endtime）.
-       * @param {string} btn    时间选择按钮控件名称（默认为reportrange）.
-       */
-      initDateRange: function (start, end, btn) {
-        if (!start) {
-          start = "starttime";
-        }
-        if (!end) {
-          end = "endtime";
-        }
-        if (!btn) {
-          btn = "reportrange";
-        }
-        /* 注册时间段选择控件 */
-        var datarangepicker_callback = function (startdate, enddate) {
-          $("#" + start).val(
-            startdate.format(cfgs.options.defaults.dateformat)
-          );
-          $("#" + end).val(enddate.format(cfgs.options.defaults.dateformat));
-        };
-
-        $("#" + btn).daterangepicker(
-          cfgs.options.daterange,
-          datarangepicker_callback
-        );
+      initAllSelect: function () {
+        //todo:解决时间段选择控件冲突问题
+        $("select:not(.monthselect,.yearselect)").each(function () {
+          var selectvalue = $(this).attr("data-value");
+          var ismulit = $(this).attr("data-mulit");
+          $(this).select2(cfgs.options.select2);
+          if (selectvalue) {
+            if (ismulit) {
+              $(this)
+                .val(selectvalue.split(","))
+                .trigger("change");
+            } else {
+              $(this)
+                .val(selectvalue)
+                .trigger("change");
+            }
+          } else {
+            $(this)
+              .val(null)
+              .trigger("change");
+          }
+        });
       },
+
       /** 初始化日期时间控件 */
       initDate: function () {
         $(".form-date,.form-datetime").each(function () {
@@ -93,17 +103,20 @@ define(
               .parent()
               .datetimepicker(cfgs.options.datepicker);
           }
-          
+
           datepicker.on("changeDate", function () {
-            var id = $("[id]", $(this)).attr("id")
-            $("#role-form")
-              .data("bootstrapValidator")
-              .updateStatus(id, "NOT_VALIDATED", null)
-              .validateField(id);
+            if ($("#role-form").data("bootstrapValidator")) {
+              var id = $("[id]", $(this)).attr("id")
+              $("#role-form")
+                .data("bootstrapValidator")
+                .updateStatus(id, "NOT_VALIDATED", null)
+                .validateField(id);
+            }
           });
 
         });
       },
+
       /** 支持缓存的列表请求方法.通常用于请求字典数据.
        * 
        * @param {Object} options 参数设置
@@ -123,7 +136,6 @@ define(
       initCache: function (options) {
         if (!options.api) {
           console.error("未设置数据服务地址!");
-          // App.alertText("未设置数据服务地址!");
           return;
         }
         if (!options.args) {
@@ -169,13 +181,11 @@ define(
           console.debug("UnCached:" + options.api);
 
           ajax.get(
-            options.api,
-            {
+            options.api, {
               nocache: true,
               args: options.args,
               block: false
-            },
-            {
+            }, {
               noneDate: function () {
                 requestDone();
               },
@@ -186,98 +196,15 @@ define(
           );
         }
       },
-      /**初始化页面元素 */
-      init: function () {
 
-        var caller = arguments.callee.caller;
-        var i = 0;
-        console.log('控件初始化！！');
-        while (caller && i < 5) {
-          console.log(caller.toString());
-          caller = caller.caller;
-          i++;
-          console.log("***---------------------------------------- ** " + (i + 1));
-        }
-        // 注册页面控件
-        //todo:解决时间段选择控件冲突问题
-        $("select:not(.monthselect,.yearselect)").each(function () {
-          var selectvalue = $(this).attr("data-value");
-          var ismulit = $(this).attr("data-mulit");
-          $(this).select2(cfgs.options.select2);
-          if (selectvalue) {
-            if (ismulit) {
-              $(this)
-                .val(selectvalue.split(","))
-                .trigger("change");
-            } else {
-              $(this)
-                .val(selectvalue)
-                .trigger("change");
-            }
-          } else {
-            $(this)
-              .val(null)
-              .trigger("change");
-          }
-        });
-
-        $(":checkbox,:radio").uniform();
-        /** 设置页面按钮文本\图标\颜色等基本信息 */
-        $.each(cfgs.options.texts, function (key, value) {
-          $("." + key).each(function () {
-            if (
-              $(this)
-                .parent()
-                .hasClass("panel-tools")
-            ) {
-              $(this)
-                .attr("href", "javascript:;")
-                .html(value);
-            } else {
-              $(this)
-                .attr("href", "javascript:;")
-                .html(value)
-                .addClass(readStyle(key));
-            }
-          });
-        });
-
-        // 收起/展开功能
-        $(".panel-tools .collapse, .panel-tools .expand").click(function () {
-          var el = $(this)
-            .parents(".panel")
-            .children(".panel-body");
-          var bt = $(this)
-            .parents(".panel")
-            .children(".panel-heading");
-          if ($(this).hasClass("collapse")) {
-            $(this)
-              .removeClass("collapse")
-              .addClass("expand");
-            var i = $(this).children(".fa-chevron-up");
-            i.removeClass("fa-chevron-up").addClass("fa-chevron-down");
-            el.slideUp(200, function () {
-              bt.css("border-bottom-width", "0");
-            });
-          } else {
-            $(this)
-              .removeClass("expand")
-              .addClass("collapse");
-            var i = $(this).children(".fa-chevron-down");
-            i.removeClass("fa-chevron-down").addClass("fa-chevron-up");
-            bt.css("border-bottom-width", "1px");
-            el.slideDown(200);
-          }
-        });
-
+      /** 初始化图标选择组件 */
+      initIconPicker: function () {
         $(".picker-icon").empty();
-
         $(".picker-icon").append(
           $("<option/>")
             .val("000")
             .text("000 - 根目录")
         );
-
         $.each(cfgs.icons, function (index, icon) {
           $(".picker-icon").append(
             $("<option/>")
@@ -286,8 +213,28 @@ define(
           );
         });
 
+      },
+
+      /**初始化页面元素 */
+      init: function () {
+        // 注册页面控件
+        this.initAllSelect();
+
+        $(":checkbox,:radio").uniform();
+        /** 设置页面按钮文本\图标\颜色等基本信息 */
+        $.each(cfgs.options.texts, function (key, value) {
+          $("." + key).each(function () {
+            $(this)
+              .attr("href", "javascript:;")
+              .html(value)
+              .addClass(readStyle(key));
+          });
+        });
+
+        this.initIconPicker();
         setTimeout(this.initDate, 300);
       },
+
       /** ajax方式加载页面内容.
        * @param {JSON} options 打开页面的参数
        *   {string}   title     界面的标题
@@ -298,7 +245,6 @@ define(
        * @author wangxin
        */
       openview: function (options) {
-
         var loadcallback = function () {
           /** 打开界面默认参数 */
           var defaults = {
@@ -314,8 +260,7 @@ define(
           /** 打开界面的参数 */
           var _options = $.extend(defaults, options);
 
-          if (_options.title && _options.title != "") {
-          } else {
+          if (_options.title && _options.title != "") { } else {
             _options.title = $("h4", "#ajax-content")
               .eq(0)
               .text();
@@ -337,8 +282,109 @@ define(
           typeof module.source.load === "function"
         )
           module.source.load(options.url, loadcallback);
-      }
-    };
+      },
+
+      /** 在container中增加空单元格（td），并且返回该单元格
+       * @param {Element} container 承载空单元格的容器
+       * @returns {Element} 装入container的单元格
+       */
+      appendEmpty: function (container) {
+        return $(cfgs.templates.cell).appendTo(container);
+      },
+
+      /** 在container中增加一个动作按钮，并且返回该按钮
+       * @param {Element} container 承载动作按钮的容器
+       * @param {string} textKey 动作按钮的文本键，对应cfgs.texts
+       * @param {function} clickEventHandler 动作按钮点击事件的处理函数
+       * @param {string} eventArgs 动作按钮附加的参数 data-args='eventArgs'
+       * @returns {Element} 动作按钮
+       */
+      appendAction: function (container, textKey, clickEventHandler, eventArgs) {
+        var actionButton = $("<a />").appendTo(container)
+          .html(cfgs.options.texts[textKey])
+          .addClass(cfgs.options.styles[textKey])
+          .addClass('btn-mini')
+          .addClass(textKey)
+          .attr("href", "javascript:;")
+          .on("click", clickEventHandler);
+        if (eventArgs) {
+          actionButton.attr('data-args', eventArgs);
+        }
+        return actionButton;
+      },
+
+      /** 在container中增加HTML单元格（td），并且返回该单元格
+       * @param {Element} container 承载动作按钮的容器
+       * @param {string} html 添加到单元格的HTML内容
+       * @returns {Element} 承载HTML内容的单元格
+       */
+      appendHTML: function (container, html) {
+        return this.appendEmpty(container).html(html);
+      },
+
+      /** 在container中增加文本单元格（td），并且返回该单元格
+       * @param {Element} container 承载动作按钮的容器
+       * @param {string} text 添加到单元格的文本内容
+       * @returns {Element} 承载文本内容的单元格
+       */
+      appendText: function (container, text) {
+        return this.appendEmpty(container).text(text);
+      },
+
+      /** 在container中增加字典单元格（td），并且返回该单元格
+       * @param {Element} container 承载动作按钮的容器
+       * @param {string} dictname 字典名称
+       * @param {string} text 字典对应的值，若isMulit=true，则多个值用，分割
+       * @param {boolean} isMulit 是否支持多值转换
+       * @returns {Element} 承载字典内容的单元格
+       */
+      appendDictText: function (container, dictname, text, isMulit) {
+        if (isMulit) {
+          // 内容不存在时不需要处理
+          if (!text) {
+            return this.appendText(container, '');
+          }
+          let newtext = "";
+          $.each(text.split(","), function (index, item) {
+            if (index > 0) {
+              newtext += ",";
+            }
+            newtext += dict.getText(dictname, item);
+          });
+          return this.appendText(container, newtext);
+        } else {
+          let item = dict.getItem(dictname, text);
+          if (item.text) {
+            var td = this.appendEmpty(container);
+            var span = $('<span/>').append(item.text);
+            // if (item.label) {
+            //   span.addClass('label label-sm');
+            //   span.addClass(item.label);
+            // }
+            td.append(span);
+            return td;
+          } else {
+            return this.appendText(container, item);
+          }
+        }
+      },
+
+      /** 在container中增加时间单元格（td），并且返回该单元格
+       * @param {Element} container 承载动作按钮的容器
+       * @param {string} text 时间文本（UTC）格式
+       * @param {string} format 日期转换的格式
+       * @returns {Element} 承载时间内容的单元格
+       */
+      appendDateText: function (container, text, format) {
+        var newtext = "";
+        if (format) {
+          newtext = util.utcTostring(text, format)
+        } else {
+          newtext = util.utcTostring(text, cfgs.options.defaults.datetimeformat)
+        }
+        return this.appendText(container, newtext);
+      },
+    }
     return module;
   }
 );

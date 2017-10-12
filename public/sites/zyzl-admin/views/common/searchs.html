@@ -1,64 +1,36 @@
-﻿<style>
-  form *[class*='col']{
+﻿<!-- <style>
+  form *[class*='col'] {
     padding-bottom: 10px;
   }
-</style>
-<div id="filter-container"></div>
-<div id="record-container"></div>
-<tools>
-  <a class="btn_add" />
-  <a class="btn_export" />
-  <a class="btn_refresh" />
-  <a class="btn_search" />
-  <a class="btn_reset" />
-  <a class="btn_filter" />
-</tools>
-<!--查询条件模板-->
-<script id="filter-panel" type="text/html">
-  <form id="role-form" method="post" class="form-horizontal">
-    {{tmpl($data) '#filter-data'}}
-  </form>
-</script>
-<!--查询条件内容模板-->
-<script id="filter-data-daterange" type="text/html">
-  <label class="col-xs-4 control-label">${ text }</label>
-  <div class="col-xs-8">
-    <input id="${ name }_1" placeholder="请选择${ text }范围最小值..." class="form-control" type="text" />
+</style> -->
+<div class="row">
+  <!-- <div class="col-sm-12"> -->
+  <div id="filter-container">
+    <form id="role-form" method="post" class="form-horizontal">
+    </form>
   </div>
-  <label class="col-xs-4 control-label">{{if text == "开始时间"}}结束时间{{else}}---{{/if}}</label>
-  <div class="col-xs-8">
-    <div class="input-group">
-      <input id="${ name }_2" placeholder="请选择${ text }范围最大值..." class="form-control" type="text" />
-      <span class="input-group-addon">
-        <a id="${ name }_range"><i class="fa fa-calendar"></i></a>
-      </span>
+  <!-- </div> -->
+</div>
+<div class='action-bar'>
+  <div class="view-action">
+    <a class="btn_add" />
+    <a class="btn-selectall" />
+    <a class="btn-selectopp" />
+    <a class="btn_edit" />
+    <a class="btn_remove" />
+    <a class="btn_look" />
+  </div>
+  <div class="common-action">
+    <a class="btn_search" />
+    <a class="btn_export" />
+    <a class="btn_refresh" />
+    <a class="btn_reset" />
+  </div>
+</div>
+<div class="row">
+  <div class="col-sm-12">
+    <div id="record-container">
+      <table id="table" />
     </div>
   </div>
-</script>
-
-<script id="filter-data" type="text/html">
-  {{each(index,column) $data.columns}}
-    {{if column.filter == "daterange"}}
-      {{tmpl(column) '#filter-data-daterange'}}
-    {{else column.filter != undefined && column.filter != false}}
-      <label class="col-xs-4 control-label">${ column.text }</label>
-      <div class="col-xs-8">
-        {{if column.dict != undefined && column.dict != ""}}
-          {{if column.multiple}}
-            <select id="${ column.name }" name="${ column.name }" class="form-control" multiple="true" />
-          {{else}}
-            <select id="${ column.name }" name="${ column.name }" class="form-control" />
-          {{/if}}
-       {{else column.type == "date"}}
-          <input id="${ column.name }" placeholder="请选择${ column.text }..." class="form-control form-date" type="text" />
-        {{else}}
-          <input class="form-control" type="text" id="${ column.name }" name="${ column.name }" placeholder="请输入${ column.text }...">
-        {{/if}}
-      </div>
-    {{/if}}
-  {{/each}}
-</script>
-<!--查询结果模板-->
-<script id="record-panel" type="text/x-jquery-tmpl">
-  <table id="table" />
-</script>
+</div>

@@ -4,7 +4,6 @@ define(
     "cfgs",
     "API",
     "core/core-modules/framework.block",
-    "core/core-modules/framework.dict",
     "core/core-modules/framework.base64",
     "core/core-modules/framework.ajax",
     "core/core-modules/framework.util",
@@ -12,7 +11,6 @@ define(
     "core/core-modules/framework.cookie",
     "core/core-modules/framework.event",
     "jquery.slimscroll",
-    "bootstrap-daterangepicker",
     'bootstrap-datetimepicker-CN',
     "jquery.uniform",
     'select2-CN',
@@ -29,7 +27,6 @@ define(
     cfgs,
     api,
     block,
-    dict,
     base64,
     ajax,
     util,
@@ -38,10 +35,18 @@ define(
     event
   ) {
     let loaded = undefined, leaveAction = undefined, leaveModule = undefined;
+
     let events = {
       logined: "layout.logined",
-      initialied: "layout.initialied"
+      started: "layout.started",
+      initialize: 'latout.initialize',
+      initialized: "layout.initialized"
     };
+
+    let times = {
+      initialize: '平台初始化耗时',
+      pageload: '页面加载耗时'
+    }
 
     var _initMenu = function () {
 
@@ -120,96 +125,111 @@ define(
         cfgs.root = [];
       }
 
-      if (cfgs.debug) {
-        functions = [];
-        $.each(cfgs.modules, function (index, item) {
-          if (!item.parent) {
-            item.parent = '000'
-          }
-          if (item.parent != "000" || item.module || item.url) {
-            functions.push(index);
-          }
-        });
-        // functions = functions.sort();
-      }
+      $.each(cfgs.powers, function (index, power) {
+        if (power.id) {
+          functions.push(power.id);
+        }
+      });
 
       var container = $(".sidebar-menu-container");
       container.empty();
 
       $.each(functions, function (index, functionID) {
-        var a, span, parentItem, parentA;
+
+        var a, span, parentA;
         var module = cfgs.modules[functionID]; // 获取系统功能模块
+        // 若module不存在则忽略
         if (!module) {
           return;
         }
 
-        var parentModule = undefined;
-        parentModule = module.parent == "000" ? {} : cfgs.modules[module.parent];
-
-        // 判断菜单项级别
-        parentItem = $('li[data-id="' + module.parent + '"]', container);
-
-        if (module.parent == "000" && (module.module || module.url)) {
-          createMenuItem(functionID, module, undefined, container);
-        }
-        // 处理一级菜单
-        else if (parentItem.length == 0) {
+        if (module.parent) {
+          // 处理二级菜单
           var parentModule = cfgs.modules[module.parent];
-          parentItem = $("<li/>")
-            .attr("data-id", module.parent)
-            .appendTo(container);
-          a = $("<a/>").appendTo(parentItem);
-          a.attr("href", "javascript:;");
-          if (parentModule.icon) {
-            var icon = $("<i/>")
-              .addClass(parentModule.icon)
-              .appendTo(a);
-            if (parentModule.iconcolor) {
-              icon.css("color", parentModule.iconcolor + " !important");
-            }
-            icon.css("fontSize", "20px");
-          }
-          span = $("<span/>")
-            .text(parentModule.name)
-            .addClass("menu-text")
-            .appendTo(a);
+          // 判断菜单项级别
+          var parentItem = $('li[data-id="' + module.parent + '"]', container);
 
-          if (parentModule.tags) {
-            $.each(parentModule.tags, function (tindex, titem) {
-              createTag(titem).appendTo(span);
-            });
+          if (parentItem.length == 0) {
+            // 处理一级目录
+            parentItem = $("<li/>")
+              .attr("data-id", module.parent)
+              .appendTo(container);
+            a = $("<a/>")
+              .appendTo(parentItem)
+              .attr("href", "javascript:;");
+            if (parentModule.icon) {
+              var icon = $("<i/>")
+                .addClass(parentModule.icon)
+                .appendTo(a);
+              if (parentModule.iconcolor) {
+                icon.css("color", parentModule.iconcolor + " !important");
+              }
+              icon.css("fontSize", "20px");
+            }
+
+            span = $("<span/>")
+              .text(parentModule.name)
+              .addClass("menu-text")
+              .appendTo(a);
+
+            if (parentModule.tags) {
+              $.each(parentModule.tags, function (tindex, titem) {
+                createTag(titem).appendTo(span);
+              });
+            }
+
+            if (parentItem.hasClass("has-sub") == false) {
+              parentItem.addClass("has-sub");
+              parentA = $('a[href="javascript:;"]', parentItem);
+              $("<span/>")
+                .addClass("arrow")
+                .appendTo(parentA);
+              $("<ul/>")
+                .addClass("sub")
+                .appendTo(parentItem);
+            }
+
+            // 如果启用初始菜单则设定
+            if (cfgs.rootable && cfgs.root.length == 0) {
+              cfgs.root.push(parentModule.name);
+            }
           }
+
+          createMenuItem(functionID, module, parentModule, parentItem);
 
           // 如果启用初始菜单则设定
+          // if (cfgs.rootable && cfgs.root.length == 1) {
+          //   cfgs.root.push(module.name);
+          // }
+        } else if (module.module || module.url) {
+          // 处理一级菜单
+          createMenuItem(functionID, module, undefined, container);
+          // 如果启用初始菜单则设定
           if (cfgs.rootable && cfgs.root.length == 0) {
-            cfgs.root.push(parentModule.name);
+            cfgs.root.push(module.name);
           }
+        } else {
+
+
         }
 
-        if (parentItem.hasClass("has-sub") == false) {
-          parentItem.addClass("has-sub");
-          parentA = $('a[href="javascript:;"]', parentItem);
-          $("<span/>")
-            .addClass("arrow")
-            .appendTo(parentA);
-          $("<ul/>")
-            .addClass("sub")
-            .appendTo(parentItem);
-        }
-
-        createMenuItem(functionID, module, parentModule, parentItem);
-
-        // 如果启用初始菜单则设定
-        if (cfgs.rootable && cfgs.root.length == 1) {
-          cfgs.root.push(module.name);
-        }
       });
 
       console.info("菜单初始化完成");
 
       // 延迟初始化初始页面，避免菜单初始化过慢导致无法显示初始页面
       setTimeout(function () {
-        auto_navigation(cfgs.root);
+        var url = util.parseURL(window.location);
+        if (url && url.query) {
+          var args = url.query.substring(1);
+          var ArgsObject = args.split('\\');
+          var root = [];
+          root.push(cfgs.modules[ArgsObject[0]].name);
+          auto_navigation(root);
+        } else {
+          auto_navigation(cfgs.root);
+        }
+        // console.log(url);
       }, 100);
     };
 
@@ -231,19 +251,6 @@ define(
 
       $("#content-container").css("height", contentHeight + "px");
       $("#content-container").slimScroll(options);
-
-      // 判断是否有筛选窗口，若有则增加滚动条
-      // var filterContainer = $('#filter-container');
-      // var filterContainerForm = $('#role-form');
-      // if (filterContainer.length == 1) {
-      //   filterContainer.append(filterContainerForm);
-      //   $("#ajax-content>.slimScrollDiv").remove();
-      //   filterContainerForm.removeAttr("style");
-
-      //   filterContainerForm.css("height", contentHeight + "px");
-      //   filterContainerForm.slimScroll(options);
-      // }
-
     }
 
     /** 重置导航区域滚动条 */
@@ -263,27 +270,79 @@ define(
       $(".sidebar-menu").css("height", sidebarHeight + "px");
       $(".sidebar-menu").slimScroll(options);
 
-      $("select:not(.monthselect,.yearselect)").each(function () {
-        var selectvalue = $(this).attr("data-value");
-        var ismulit = $(this).attr("data-mulit");
-        $(this).select2(cfgs.options.select2);
-        if (selectvalue) {
-          if (ismulit) {
+    };
+
+    //#region 处理 采用AJAX方式加载内容
+
+    /** 初始化选中菜单层级 */
+    var initMenuLevel = function () {
+      cfgs.pageOptions.items = new Array();
+      cfgs.pageOptions.menus = new Array();
+      var datasid = cfgs.pageOptions.currentmenu.parent().attr("data-id");
+      var item = cfgs.modules[datasid];
+      cfgs.pageOptions.items.push(item);
+      while (item.parent && item.parent != "000") {
+        item = cfgs.modules[item.parent];
+        cfgs.pageOptions.items.push(item);
+      }
+    };
+
+    /** 处理mini-menu高亮状态 */
+    var highlightSelected = function () {
+      if ($("body").hasClass("mini-menu")) {
+        $(".open", $(".sidebar-menu")).each(function () {
+          $(this).removeClass("open");
+        });
+        var text =
+          cfgs.pageOptions.items[cfgs.pageOptions.items.length - 1].name;
+        $("li>a>.menu-text", $(".sidebar-menu-container")).each(function () {
+          if ($(this).text() == text) {
             $(this)
-              .val(selectvalue.split(","))
-              .trigger("change");
-          } else {
-            $(this)
-              .val(selectvalue)
-              .trigger("change");
+              .parent()
+              .parent()
+              .addClass("open");
           }
+        });
+      }
+    };
+
+    /** 重置页面描述性信息:导航地图、权限按钮等等 */
+    var resetBreadcrumb = function () {
+      $(".content-breadcrumb").empty();
+      /* 移除breadcrumb全部节点 */
+      for (
+        var index = cfgs.pageOptions.items.length - 1;
+        index >= 0;
+        index--
+      ) {
+        cfgs.pageOptions.menus[index] = cfgs.pageOptions.items[index].name;
+        var breadcrumb = $("<li />").appendTo($(".content-breadcrumb"));
+
+        if (index == 0) {
+          var a = $(
+            '<a href="javascript:;" class="breadcrumb-item"/>'
+          ).appendTo(breadcrumb);
+
+          if (cfgs.pageOptions.items[index].icon) {
+            $("<i />")
+              .addClass(cfgs.pageOptions.items[index].icon)
+              .appendTo(a);
+          }
+
+          a.append(" " + cfgs.pageOptions.items[index].name);
         } else {
-          $(this)
-            .val(null)
-            .trigger("change");
+          $("<span/>")
+            .text(" " + cfgs.pageOptions.items[index].name)
+            .appendTo(breadcrumb);
         }
+      }
+
+      $(".breadcrumb-item").on("click", function () {
+        auto_navigation(cfgs.pageOptions.menus);
       });
     };
+
+    //#endregion //#region 处理 采用AJAX方式加载内容
 
     /** ajax方式加载页面内容.
      * @param {string} url 待加载内容的URL地址.
@@ -291,88 +350,19 @@ define(
      */
     var _ajax_load_content = function (url, callback) {
 
-      /** 初始化选中菜单层级 */
-      var initMenuLevel = function () {
-        cfgs.pageOptions.items = new Array();
-        cfgs.pageOptions.menus = new Array();
-        var datasid = cfgs.pageOptions.currentmenu.parent().attr("data-id");
-        var item = cfgs.modules[datasid];
-        cfgs.pageOptions.items.push(item);
-        while (item.parent != "000") {
-          item = cfgs.modules[item.parent];
-          cfgs.pageOptions.items.push(item);
-        }
-      };
-
-      /** 处理mini-menu高亮状态 */
-      var highlightSelected = function () {
-        if ($("body").hasClass("mini-menu")) {
-          $(".open", $(".sidebar-menu")).each(function () {
-            $(this).removeClass("open");
-          });
-          var text =
-            cfgs.pageOptions.items[cfgs.pageOptions.items.length - 1].name;
-          $("li>a>.menu-text", $(".sidebar-menu-container")).each(function () {
-            if ($(this).text() == text) {
-              $(this)
-                .parent()
-                .parent()
-                .addClass("open");
-            }
-          });
-        }
-      };
-
-      /** 重置页面描述性信息:导航地图、权限按钮等等 */
-      var resetBreadcrumb = function () {
-        $(".content-breadcrumb").empty();
-        /* 移除breadcrumb全部节点 */
-        for (
-          var index = cfgs.pageOptions.items.length - 1;
-          index >= 0;
-          index--
-        ) {
-          cfgs.pageOptions.menus[index] = cfgs.pageOptions.items[index].name;
-          var breadcrumb = $("<li />").appendTo($(".content-breadcrumb"));
-
-          if (index == 0) {
-            var a = $(
-              '<a href="javascript:;" class="breadcrumb-item"/>'
-            ).appendTo(breadcrumb);
-
-            if (cfgs.pageOptions.items[index].icon) {
-              $("<i />")
-                .addClass(cfgs.pageOptions.items[index].icon)
-                .appendTo(a);
-            }
-
-            a.append(" " + cfgs.pageOptions.items[index].name);
-          } else {
-            $("<span/>")
-              .text(" " + cfgs.pageOptions.items[index].name)
-              .appendTo(breadcrumb);
-          }
-        }
-
-        $(".breadcrumb-item").on("click", function () {
-          auto_navigation(cfgs.pageOptions.menus);
-        });
-      };
-
       /** 页面加载完成时的回调函数 */
       var loadcallback = function () {
         block.close();
         console.info("加载完成:" + options.url);
-
-        // 重置页面内容区工具栏
         $(".content-toolbar").empty();
-
-        var tools = $("tools");
+        var tools = $("tools>a");
         if (tools.length > 0) {
-          tools.appendTo($(".content-toolbar"));
+          // 重置页面内容区工具栏
+          $(".content-toolbar").empty();
+          $.each(tools, function () {
+            $(this).appendTo($(".content-toolbar"));
+          });
         }
-
-        // $(".content-header").show();
 
         initMenuLevel();
         resetBreadcrumb();
@@ -389,7 +379,6 @@ define(
 
         setTimeout(function () {
           $("#ajax-content").removeClass("fadeInRight");
-          // resizeContentScroll();
         }, 500);
       };
 
@@ -404,16 +393,15 @@ define(
         console.info("准备加载:%s", url);
       }
 
-      block.show("正在加载页面...");
-
       var options = {
         url: url,
         callback: loadcallback,
         block: true
       };
 
+      block.show("正在加载页面...");
       /* 初始化页面元素 */
-      $("body>.datetimepicker,body>.daterangepicker").remove();
+      $("body>.datetimepicker").remove();
       $("#ajax-content").addClass("fadeOutRight");
       /* 加载页面内容 */
       $("#ajax-content").load(url, loadcallback);
@@ -516,10 +504,12 @@ define(
       var moduleID = sender.parent().attr('data-id');
       var moduleDefine = cfgs.modules[moduleID];
       var modulePowers = cfgs.powers.find(function (p) { return p.id == moduleID; });
-      $.each(modulePowers.actions, function (index, action) {
-        var powerdefine = moduleDefine.actions.find(function (p) { return p.id == action });
-        powers.push(powerdefine.action);
-      })
+      if (modulePowers && modulePowers.actions && modulePowers.actions.length > 0) {
+        $.each(modulePowers.actions, function (index, action) {
+          var powerdefine = moduleDefine.actions.find(function (p) { return p.id == action });
+          powers.push(powerdefine.action);
+        })
+      }
       cfgs.pageOptions.powers = powers;
 
       _ajax_load_content(url, callback);
@@ -565,6 +555,8 @@ define(
 
     /** 导航至系统主界面 */
     var gotoMain = function () {
+      // EVENT-RAISE:layout.logined 用户登录后触发,{cfgs.INFO}
+      event.raise(events.logined, cfgs.INFO);
       $("body").removeClass("login");
       $('body>section').empty();
       $('body>section').height($(document).height());
@@ -573,21 +565,10 @@ define(
       // setTimeout(function () {
       $("body>aside").load(api.page.navigation, function () {
         block.close($("body>aside"));
-        // ajax.get(api.module.all, {}, function(json) {
-        //   cfgs.modules = {};
-        //   $.each(json.data.list, function(index, item) {
-        //     item.name = base64.decode(item.name);
-        //     item.module = base64.decode(item.module);
-        //     item.method = base64.decode(item.method);
-        //     item.url = base64.decode(item.url);
-        //     item.args = base64.decode(item.args);
-        //     item.leave = base64.decode(item.leave);
-        //     cfgs.modules[item.id] = item;
-        //   });
         _initMenu();
         _refresh_scroller();
-        event.raise(events.initialied);
-        // });
+        // EVENT-RAISE:layout.initialized 初始化完成后触发
+        event.raise(events.initialized);
       });
       // }, 5000);
 
@@ -627,9 +608,8 @@ define(
             p: base64.encode(password)
           };
           var callback = function (json) {
-            json.data.powers =
-              cookie.save(json);
-            event.raise(events.logined);
+            // json.data.powers =
+            cookie.save(json);
             gotoMain();
           };
           ajax.get(api.login.loginapi, options, callback);
@@ -638,77 +618,30 @@ define(
       $("body>section").load(api.login.page, loginPageLoadCallback);
     };
 
-    var initialize = function () {
+    // EVENT-ON:layout.started
+    event.on(events.started, function () {
+      console.info("应用程序启动");
+
       $(window).on("resize", function () {
         setTimeout(_refresh_scroller, 500);
         setTimeout(resizeContentScroll, 500);
       });
 
-      $(document).on("change", "select", function (e) {
-
-        if (e.target.name == 'province_code' && $('#city_code').length == 1) {
-          var value = e.target.value;
-          if ($('#city_code').hasClass('select2-hidden-accessible')) {
-            $('#city_code').select2('destroy');
-            $('#city_code').empty();
-          }
-
-          $.each(cfgs.dict.city, function (index, item) {
-            if (item.parent == value) {
-              $('#city_code').append(
-                $("<option/>")
-                  .val(index)
-                  .text(item.text ? item.text : item)
-              );
-            }
-          });
-          $('#city_code').select2(cfgs.options.select2);
-          $('#city_code').val(null).trigger("change");
-        }
-
-        else if (e.target.name == 'city_code' && $('#county_code').length == 1) {
-          var value = e.target.value;
-          if ($('#county_code').hasClass('select2-hidden-accessible')) {
-            $('#county_code').select2('destroy');
-            $('#county_code').empty();
-          }
-
-          $.each(cfgs.dict.county, function (index, item) {
-            if (item.parent == value) {
-              $('#county_code').append(
-                $("<option/>")
-                  .val(index)
-                  .text(item.text ? item.text : item)
-              );
-            }
-          });
-          $('#county_code').select2(cfgs.options.select2);
-          $('#county_code').val(null).trigger("change");
-        }
-
-      });
-
       // 注册导航栏一级菜单点击事件
       $(document).on("click", ".sidebar-menu .has-sub > a", function () {
-        var isOpen = $(this)
-          .parent()
-          .hasClass("open");
+        var isOpen = $(this).parent().hasClass("open");
+        // 获取最后一个打开的一级菜单，并且清除打开状态
         var last = $(".has-sub.open", $(".sidebar-menu"));
         last.removeClass("open");
         $(".arrow", last).removeClass("open");
 
         if (isOpen) {
           $(".arrow", $(this)).removeClass("open");
-          $(this)
-            .parent()
-            .removeClass("open");
+          $(this).parent().removeClass("open");
         } else {
           $(".arrow", $(this)).addClass("open");
-          $(this)
-            .parent()
-            .addClass("open");
+          $(this).parent().addClass("open");
         }
-        // _refresh_scroller();
       });
 
       // 注册菜单点击事件
@@ -716,6 +649,29 @@ define(
         on_menu_click($(this), e);
       });
 
+      /* 处理【取消/返回】按钮事件 */
+      $(document).on('click', '.btn_back', function (e) {
+        e.preventDefault();
+        if ($(this).hasClass("custom") == false) {
+          module.back();
+        }
+      });
+
+      /* 注册按钮事件 */
+      $(document).on('click', '.sys-logout', function () {
+        ajax.get(api.login.logoutapi, {}, function () {
+          gotoLogin();
+        });
+      });
+
+      // 触发框架初始化事件
+      // EVENT-RAISE:layout.initialize 框架开始初始化时触发
+      event.raise(events.initialize);
+    });
+
+    // EVENT-ON:layout.initialize
+    event.on(events.initialize, function () {
+      console.time(times.initialize);
       if (!(cfgs.INFO = cookie.read())) {
         console.info("TOKEN验证失败,重新登录");
         gotoLogin(); /*不存在token或token失效，需重新登录*/
@@ -723,23 +679,44 @@ define(
         console.info("TOKEN验证成功,进入系统");
         gotoMain(); /*token有效，可正常使用系统*/
       }
-    };
+    });
 
+    // EVENT-ON:layout.initialized
+    event.on(events.initialized, function () {
+      console.timeEnd(times.initialize);
+    });
+
+    /** 当前登录状态是否超时 */
+    let isLoginTimeout = false;
+    // EVENT-ON:layout.logined 当用户登录后触发：用于处理登录超时后弹出多个对话框
+    event.on(events.logined, function () {
+      isLoginTimeout = false;
+    });
+
+    // EVENT-ON:ajax.login.timeout 当用户session过期时出发，进入用户登录界面
     event.on(ajax.events.logintimeout, function () {
+      // 解决登录超时后弹出多个对话框
+      if (isLoginTimeout) {
+        return;
+      }
+      isLoginTimeout = true;
+
       dialog.alertText("登录超时,请重新登录", function () {
         gotoLogin();
       });
     });
 
     let module = {
-      events: events,
+      /** 开始初始化UI框架 @returns */
+      init: function () {
+        // EVENT-RAISE:layout.started 框架启动时触发
+        event.raise(events.started);
+      },
       load: _ajax_load_content,
-      /** 导航至前一界面 */
+      /** 导航至前一界面 @returns */
       back: function () {
         auto_navigation(cfgs.pageOptions.menus);
       },
-      init: initialize,
-      gotoLogin: gotoLogin
     };
 
     return module;
