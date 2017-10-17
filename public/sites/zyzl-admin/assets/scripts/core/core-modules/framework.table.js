@@ -209,6 +209,27 @@ define(['jquery', 'cfgs',
       }
     }
 
+    var getSelectData = function () {
+      var datas = getSelectDatas();
+      if (datas.length == 1) {
+        return datas[0];
+      } else {
+        return null;
+      }
+    }
+
+    var getSelectDatas = function () {
+      var selector = $('table tr[class="selected"]');
+      var datas = [];
+      $.each(selector, function (index, item) {
+        var id = $(item).attr('data-id');
+        var data = getdata(id);
+        datas.push(data);
+      });
+
+      return datas;
+    }
+
     var module = {
       'define': {
         "name": "PLUGIN-LAYOUT-TABLE",
@@ -219,7 +240,9 @@ define(['jquery', 'cfgs',
       render: render,
       load: load,
       reload: reload,
-      export: Export
+      export: Export,
+      getSelects: getSelectDatas,
+      getSelect: getSelectData
     };
 
     return module;

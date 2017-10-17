@@ -276,15 +276,20 @@ define(
 
     /** 初始化选中菜单层级 */
     var initMenuLevel = function () {
+
+      var newUrl = "zyzl-admin/?";
+
       cfgs.pageOptions.items = new Array();
       cfgs.pageOptions.menus = new Array();
       var datasid = cfgs.pageOptions.currentmenu.parent().attr("data-id");
       var item = cfgs.modules[datasid];
+      newUrl += datasid;
       cfgs.pageOptions.items.push(item);
       while (item.parent && item.parent != "000") {
         item = cfgs.modules[item.parent];
         cfgs.pageOptions.items.push(item);
       }
+      history.pushState({}, 0, 'http://' + window.location.host + '/' + newUrl);
     };
 
     /** 处理mini-menu高亮状态 */
@@ -355,7 +360,7 @@ define(
         block.close();
         console.info("加载完成:" + options.url);
         $(".content-toolbar").empty();
-        var tools = $("tools>a");
+        var tools = $("tools>*");
         if (tools.length > 0) {
           // 重置页面内容区工具栏
           $(".content-toolbar").empty();
@@ -533,18 +538,16 @@ define(
           } else {
             li.addClass("active");
             cfgs.pageOptions.currentmenu = li.find("a");
-            li.parent().slideDown(200, function () {
-              on_menu_click(cfgs.pageOptions.currentmenu);
-            });
+            li.parent().parent().addClass('open');
+            // li.parent().slideDown(200, function () {
+            on_menu_click(cfgs.pageOptions.currentmenu);
+            // });
           }
         });
       };
       var openeds = $(".has-sub.open", $(".sidebar-menu-container"));
       var count = openeds.length;
-      if (
-        count == 1 &&
-        $('a>span[class="menu-text"]', openeds).text() != path[path.length - 1]
-      ) {
+      if (count == 1 && $('a>span[class="menu-text"]', openeds).text() != path[path.length - 1]) {
         openeds.removeClass("open");
         $(".arrow", openeds).removeClass("open");
         $(".sub", openeds).slideUp(200, doNavigation);
@@ -708,13 +711,13 @@ define(
 
     let module = {
       /** 开始初始化UI框架 @returns */
-      init: function () {
+      "init": function () {
         // EVENT-RAISE:layout.started 框架启动时触发
         event.raise(events.started);
       },
-      load: _ajax_load_content,
+      "load": _ajax_load_content,
       /** 导航至前一界面 @returns */
-      back: function () {
+      "back": function () {
         auto_navigation(cfgs.pageOptions.menus);
       },
     };

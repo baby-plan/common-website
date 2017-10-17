@@ -43,8 +43,7 @@ define(["QDP"], function (QDP) {
           { name: "date", text: "创建时间", type: "datetime" },
           { name: "begin_date", text: "创建开始时间", type: "date", filter: true, filterindex: 6, grid: false },
           { name: "end_date", text: "创建结束时间", type: "date", filter: true, filterindex: 7, grid: false },
-          { name: "description", text: "描述", novalid: true, type: "mulittext", base64: true, edit: true },
-          { name: "_action", text: "操作", customAction: info_customAction }
+          { name: "description", text: "描述", novalid: true, type: "mulittext", base64: true, edit: true }
         ]
       };
       QDP.generator.init(options);

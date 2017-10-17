@@ -107,8 +107,7 @@ define(["cfgs", "core/core-modules/framework.event"], function (cfgs, event) {
           "actions": []
         }
       ]
-    } else if (info.args.account == 'user3'
-      || info.args.account == 'wangxin') {
+    } else if (info.args.account == 'user3') {
       // 合作方视角
       cfgs.powers = [
         {
@@ -122,7 +121,9 @@ define(["cfgs", "core/core-modules/framework.event"], function (cfgs, event) {
             "MCH_MANAGEMENT_UPDATE",
             "MCH_MANAGEMENT_DELETE",
             "MCH_MANAGEMENT_EXPORT",
-            "MCH_MANAGEMENT_CHECH",
+            "MCH_MANAGEMENT_APPROVAL",
+            "MCH_MANAGEMENT_REJECT",
+            "MCH_MANAGEMENT_REJECT",
             "MCH_MANAGEMENT_PUBLISH",
             "MCH_MANAGEMENT_UNPUBLISH",
             "MCH_MANAGEMENT_RESETPASSWORD"
@@ -169,7 +170,8 @@ define(["cfgs", "core/core-modules/framework.event"], function (cfgs, event) {
           ]
         }
       ]
-    } else if (info.args.account == 'debug') {
+    } else if (info.args.account == 'debug'
+      || info.args.account == 'wangxin') {
       // 开发人员视角
       cfgs.powers = [
         {
@@ -183,7 +185,8 @@ define(["cfgs", "core/core-modules/framework.event"], function (cfgs, event) {
             "MCH_MANAGEMENT_UPDATE",
             "MCH_MANAGEMENT_DELETE",
             "MCH_MANAGEMENT_EXPORT",
-            "MCH_MANAGEMENT_CHECH",
+            "MCH_MANAGEMENT_APPROVAL",
+            "MCH_MANAGEMENT_REJECT",
             "MCH_MANAGEMENT_PUBLISH",
             "MCH_MANAGEMENT_UNPUBLISH",
             "MCH_MANAGEMENT_RESETPASSWORD"

@@ -14,13 +14,6 @@ define([], function () {
       "version": "1.0.0.0",
       'copyright': ' Copyright 2017-2027 WangXin nvlbs,Inc.',
     },
-
-    "status": function () {
-      require(['plugins/plugins-chart'], plugin => {
-        plugin.init('echarts-chart', 'home-maptotal');
-      });
-    },
-
     init: function () {
 
       setTimeout(function () {

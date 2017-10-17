@@ -45,6 +45,6 @@ define(['jquery', 'cfgs', 'API',
         layout.init();
       }
     };
-
+    
     return exportModule
   });

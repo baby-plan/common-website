@@ -3,11 +3,6 @@ define(['jquery', 'echarts'], ($, echarts) => {
   let module = {};
   let chart;
   module.init = (el) => {
-    // 省份	城市	区县	
-    // 获取权益免费券用户数	验证权益免费券用户数
-    // 获取权益折扣券用户数	验证权益折扣券用户数
-    // 获取活动免费券用户数	验证活动免费券用户数
-    // 获取活动折扣券用户数	验证活动折扣券用户数
     var chart = echarts.init(document.getElementById(el));
     var chartOptions = {
       title: {

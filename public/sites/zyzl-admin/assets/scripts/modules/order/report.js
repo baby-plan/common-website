@@ -9,11 +9,12 @@ define(["QDP"], function (QDP) {
     /** 加载模块 */
     init: function () {
       var options = {
-        apis: { list: QDP.api.logs.datas },
-        columns: [
+        "apis": { "list": QDP.api.logs.datas },
+        "plugins": ['city'],
+        "columns": [
           { name: "_index", text: "序号" },
           { name: "province_code", text: "省份", dict: "province", filter: true, filterindex: 1 },
-          { name: "city_code", text: "城市", dict: "city", filter: true, filterindex: 2 },
+          { name: "city_code", text: "地市", dict: "city", filter: true, filterindex: 2 },
           { name: "county_code", text: "区县", dict: "county", filter: true, filterindex: 3 },
           { name: "storeCode", text: "商户编号", base64: true, filter: true },
           { name: "poi", text: "POIID", base64: true, display: false, filter: true },

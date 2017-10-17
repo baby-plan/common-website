@@ -35,6 +35,11 @@ define(["QDP"], function (QDP) {
           "update": QDP.api.admin.update,
           "delete": QDP.api.admin.remove
         },
+        "detailor": {
+          "mode": 'modal',
+          "width": '400px',
+          "height": '200px'
+        },
         "texts": { "insert": "新增用户", "update": "用户编辑" },
         "headers": { "edit": { "text": "用户信息" }, "table": { "text": "用户列表" } },
         "actions": { "insert": true, "update": true, "delete": true },
@@ -48,8 +53,7 @@ define(["QDP"], function (QDP) {
           },
           { "name": "name", "text": "姓名", "base64": true, "edit": true, "filter": true },
           { "name": "roleid", "text": "角色", "edit": true, "custom": initRole, "grid": false, "filter": true },
-          { "name": "rolename", "text": "角色名称", "base64": true },
-          { "name": "_action", "text": "操作" }
+          { "name": "rolename", "text": "角色名称", "base64": true }
         ]
       };
       QDP.generator.init(options);

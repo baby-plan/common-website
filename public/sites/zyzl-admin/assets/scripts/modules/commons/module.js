@@ -52,8 +52,7 @@ define(["QDP"], function (QDP) {
           { "name": "CreateTime", "text": "创建时间", "type": "datetime" },
           { "name": "LastModifyUser", "text": "最后修改者", "base64": true },
           { "name": "LastModiftTime", "text": "最后修改时间", "type": "datetime" },
-          { "name": "state", "text": "状态", "dict": "state" },
-          { "name": "_action", "text": "操作" }
+          { "name": "state", "text": "状态", "dict": "state" }
         ]
       };
       QDP.generator.init(options);

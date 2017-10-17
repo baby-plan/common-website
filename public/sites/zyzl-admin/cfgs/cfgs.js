@@ -21,6 +21,16 @@
     /* 设定初始页面 */
     //, "root": ["会员管理", "会员明细"]
   };
+  /** 公共编辑页面地址 */
+  cfgs.editpage = "views/common/edits.html";
+  /** 公共列表页面地址 */
+  cfgs.listpage = "views/common/searchs.html";
+  /** 公共列表页面地址 */
+  cfgs.chartpage = "views/common/chart.html";
+  /** 公共详情页面地址 */
+  cfgs.detailpage = "views/common/detail.html";
+  /** 模式对话框页面地址 */
+  cfgs.modalpage = "views/common/dialog.html";
   /** 当前页面选项 */
   cfgs.pageOptions = {
     /**  */
@@ -77,7 +87,7 @@
     btn_add: '<i class="fa fa-plus"></i> 新增',
     btn_edit: '<i class="fa fa-pencil"></i> 编辑',
     btn_search: '<i class="fa fa-search"></i> 查询',
-    btn_reset: '<i class="fa fa-refresh"></i> 重置',
+    btn_reset: '<i class="fa fa-spinner"></i> 重置',
     btn_remove: '<i class="fa fa-trash-o"></i> 删除',
     btn_refresh: '<i class="fa fa-refresh"></i> 刷新',
     btn_back: '<i class="fa fa-arrow-circle-left"></i> 返回',
@@ -88,18 +98,18 @@
     btn_next: '下一步 <i class="fa fa-arrow-circle-right"></i>',
     btn_export: '<i class="fa fa-share-square-o"></i> 导出',
 
-    btn_check: '<i class="fa fa-share-square-o"></i> 审核',
-    btn_publish: '<i class="fa fa-share-square-o"></i> 发布',
-    btn_unpublish: '<i class="fa fa-share-square-o"></i> 取消发布',
-    btn_look: '<i class="fa fa-share-square-o"></i> 查看',
-    btn_chgpwd: '<i class="fa fa-share-square-o"></i> 重置密码',
-    'btn-selectall': '<i class="fa fa-share-square-o"></i> 全选',
-    'btn-selectopp': '<i class="fa fa-share-square-o"></i> 反选'
+    btn_check: '<i class="fa fa-check-circle-o"></i> 审核',
+    btn_publish: '<i class="fa fa-external-link"></i> 发布',
+    btn_unpublish: '<i class="fa fa-external-link-square"></i> 取消发布',
+    btn_look: '<i class="fa fa-eye"></i> 查看',
+    btn_chgpwd: '<i class="fa fa-key"></i> 重置密码',
+    'btn-selectall': '<i class="fa fa-check-square-o"></i> 全选',
+    'btn-selectopp': '<i class="fa fa-check-square"></i> 反选'
   };
 
   /** 样式相关参数设置 */
   cfgs.options.styles = {
-    btn_default: "btn-mini",
+    btn_default: "",
     // btn_back: "btn btn-danger",
     // btn_save: "btn btn-success",
     // btn_reset: "btn btn-warning",
@@ -124,6 +134,10 @@
     timeout: 5000
   };
 
+  /**
+   * 
+   * @param {JSON} state 
+   */
   var stateformat = function (state) {
     if (!state.id) {
       return state.text;
@@ -135,6 +149,7 @@
       return $('<span><i class="fa fa-book" /></i> ' + state.text + "</span>");
     }
   };
+
   /** 下拉列表选项 */
   cfgs.options.select2 = {
     placeholder: "请在列表中选择...",
@@ -143,9 +158,10 @@
     templateResult: stateformat,
     templateSelection: stateformat
   };
+
   /** 滚动条选项 */
   cfgs.options.scroller = {
-    width: "auto", //可滚动区域宽度
+    // width: "auto", //可滚动区域宽度
     size: "6px", //组件宽度
     color: "#fff", //滚动条颜色
     position: "right", //组件位置:left/right
@@ -154,15 +170,16 @@
     alwaysVisible: true, //是否 始终显示组件
     disableFadeOut: false, //是否 鼠标经过可滚动区域时显示组件，离开时隐藏组件
     railVisible: false, //是否 显示轨道
-    railColor: "#dbdbdb", //轨道颜色
+    railColor: "#fff", //轨道颜色
     railOpacity: 1, //轨道透明度
     railDraggable: true, //是否 滚动条可拖动
     allowPageScroll: false, //是否 使用滚轮到达顶端/底端时，滚动窗口
     // "wheelStep": 20, //滚轮滚动量
     // "touchScrollStep": 200, //滚动量当用户使用手势
-    borderRadius: "4px", //滚动条圆角
+    borderRadius: "0", //滚动条圆角
     railBorderRadius: "0px" //轨道圆角
   };
+
   /** 当前页面选项 */
   cfgs.pageOptions = {
     /**  */
@@ -178,12 +195,6 @@
     /** 是否读取缓存数据 */
     fromCache: false
   };
-  /* 公共编辑页面地址 */
-  cfgs.editpage = "views/common/edits.html";
-  /* 公共列表页面地址 */
-  cfgs.listpage = "views/common/searchs.html";
-  /* 公共列表页面地址 */
-  cfgs.chartpage = "views/common/chart.html";
 
   cfgs.tooltip = {
     compute: [

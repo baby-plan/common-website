@@ -8,12 +8,11 @@
 define(['bootbox'], function () {
 
   var module = {
-    /** 
-     * 自定义弹出对话框样式
+    /** 自定义弹出对话框样式
      * @param {object} options
      * @return {void}
      */
-    alert: function (options) {
+    "alert": function (options) {
       var defaults = {
         buttons: {
           ok: { label: "确定", className: "btn-success" }
@@ -25,13 +24,12 @@ define(['bootbox'], function () {
       bootbox.alert(options);
     },
 
-    /**
-     * 带有确定|取消按钮的弹出式对话框.
+    /** 带有确定|取消按钮的弹出式对话框.
      * @param {string} text 对话框提示的信息.
      * @param {Function} calback 操作完成反馈 function(bool),参数为BOOLEAN.
      * @return {void}
      */
-    confirm: function (text, callback) {
+    "confirm": function (text, callback) {
       bootbox.dialog({
         "message": text,
         "title": "操作确认",
@@ -50,13 +48,12 @@ define(['bootbox'], function () {
       });
     },
 
-    /**
-     * 带有确定按钮的弹出式对话框
+    /** 带有确定按钮的弹出式对话框
      * @param {string} text 对话框提示的信息.
      * @param {Function} calback 操作完成反馈 function()
      * @return {void}
      */
-    alertText: function (text, callback) {
+    "alertText": function (text, callback) {
       module.alert({ "message": text, "callback": callback });
     }
   }

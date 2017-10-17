@@ -2,9 +2,9 @@ define(["QDP"], function (QDP) {
   "use strict";
 
   /** 初始化商户列表
-   * @param  {} filter
-   * @param  {} column
-   * @param  {} value
+   * @param {JSON} filter
+   * @param {JSON} column
+   * @param {string} value
    */
   var initMerchant = function (filter, column, value) {
     $("<select/>")

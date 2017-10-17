@@ -10,10 +10,11 @@ define(["QDP"], function (QDP) {
     init: function () {
       var options = {
         apis: { list: QDP.api.logs.datas },
+        "plugins": ['city'],
         columns: [
           { name: "_index", text: "序号" },
           { name: "province_code", text: "省份", dict: "province", filter: true, filterindex: 1 },
-          { name: "city_code", text: "城市", dict: "city", filter: true, filterindex: 2 },
+          { name: "city_code", text: "地市", dict: "city", filter: true, filterindex: 2 },
           { name: "ordercode", text: "订单编号", base64: true, filter: true, filterindex: 5 },
           { name: "orderdate", text: "订单时间", type: "date" },
           { name: "begin_date", text: "订单开始时间", type: "date", filter: true, filterindex: 8, grid: false },

@@ -186,6 +186,7 @@ define(function () {
     }
   }
 
+
   return {
     /** base64编码加密 */
     "encode": function (str) {

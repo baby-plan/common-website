@@ -2,7 +2,7 @@ define(["QDP"], function (QDP) {
   "use strict";
 
   /** 初始化编辑界面,若data有值则视为编辑数据,否则视为新增数据
-   * @param {object} data 编辑时传入的数据,新增时不需要
+   * @param {JSON} data 编辑时传入的数据,新增时不需要
    */
   var initEditor = function (data) {
     /* 初始化编辑界面 */
@@ -126,45 +126,17 @@ define(["QDP"], function (QDP) {
           "update": QDP.api.role.update,
           "delete": QDP.api.role.remove
         },
-        "texts": {
-          "insert": "新增角色信息",
-          "update": "角色信息编辑"
-        },
+        "texts": { "insert": "新增角色信息", "update": "角色信息编辑" },
         "headers": {
-          "edit": {
-            "text": "角色信息"
-          },
-          "table": {
-            "text": "角色信息列表"
-          }
+          "edit": { "text": "角色信息" },
+          "table": { "text": "角色信息列表" }
         },
-        "actions": {
-          "insert": true,
-          "update": true,
-          "delete": true
-        },
-        "editor": {
-          "page": QDP.api.role.editpage,
-          "callback": initEditor
-        },
-        "columns": [{
-          "name": "_index",
-          "text": "序号"
-        },
-        {
-          "name": "id",
-          "primary": true
-        },
-        {
-          "name": "name",
-          "text": "角色名称",
-          "base64": true,
-          "filter": true
-        },
-        {
-          "name": "_action",
-          "text": "操作"
-        }
+        "actions": { "insert": true, "update": true, "delete": true },
+        "editor": { "page": QDP.api.role.editpage, "callback": initEditor },
+        "columns": [
+          { "name": "_index", "text": "序号" },
+          { "name": "id", "primary": true },
+          { "name": "name", "text": "角色名称", "base64": true, "filter": true }
         ]
       };
       QDP.generator.init(options);

@@ -11,13 +11,14 @@ define(["QDP"], function (QDP) {
     init: function () {
       var options = {
         apis: { list: QDP.api.logs.datas },
+        "plugins": ['city'],
         "helps": {
           "list": QDP.config.tooltip.compute
         },
         columns: [
           { name: "_index", text: "序号" },
           { name: "province_code", text: "省份", dict: "province", filter: true, filterindex: 1 },
-          { name: "city_code", text: "城市", dict: "city", filter: true, filterindex: 2 },
+          { name: "city_code", text: "地市", dict: "city", filter: true, filterindex: 2 },
           { name: "county_code", text: "区县", dict: "county", filter: true, filterindex: 3 },
           { name: "storeCode", text: "商户编号", base64: true, filter: true, filterindex: 7 },
           { name: "poi", text: "POIID", base64: true, filter: true, filterindex: 6 },

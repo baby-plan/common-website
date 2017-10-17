@@ -31,18 +31,29 @@ define(['core/core-modules/framework.util'], function (util) {
   };
 
   function trace() {
-    var caller = arguments.callee.caller.caller;
-    //  console.log(caller.name);
+    try {
+
+      var caller = arguments.callee.caller.caller;
+      console.log(caller.name);
+    } catch (e) { }
   }
 
   console.info = function (text, ...arg) {
     var func = 'info';
+    // console.trace();
     // var date = util.dateformat(new Date(), "yyyy-MM-dd HH:mm:ss");
     var date = '';
     oldConsole[func](textformat + text, consoleStyles[func], date, logtypes[func], ...arg);
   }
   console.debug = function (text, ...arg) {
+
+    // try {
+
+    //   var caller = arguments.callee.caller.caller;
+    //   console.log(caller.name);
+    // } catch (e) { }
     // var c = console.trace();
+    // trace();
     var func = 'debug';
     // var date = util.dateformat(new Date(), "yyyy-MM-dd HH:mm:ss");
     var date = '';

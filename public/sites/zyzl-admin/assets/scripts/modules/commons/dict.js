@@ -29,8 +29,7 @@ define(['QDP'], function (QDP) {
         "columns": [
           { "name": "_index", "text": "序号" },
           { "name": "itemkey", "text": dictname + "编号", "primary": true, "display": true, "edit": true, "filter": true },
-          { "name": "itemvalue", "text": dictname, "base64": true, "edit": true, "filter": true },
-          { "name": "_action", "text": "操作" }
+          { "name": "itemvalue", "text": dictname, "base64": true, "edit": true, "filter": true }
         ],
         "filters": []
       };
@@ -57,10 +56,8 @@ define(['QDP'], function (QDP) {
           { "name": "codename", "text": "号段名称", "base64": true, "edit": true, "filter": true },
           { "name": "provinceid", "text": "所属省代码", "filter": true, "edit": true },
           { "name": "cityid", "text": "所属市代码", "filter": true, "edit": true },
-          { "name": "state", "text": "状态", "filter": true },
-          { "name": "_action", "text": "操作" }
-        ],
-        "filters": []
+          { "name": "state", "text": "状态", "filter": true }
+        ]
       };
       QDP.generator.init(options);
     }

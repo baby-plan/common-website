@@ -13,34 +13,31 @@ require.config({
     'cfgs': '../../cfgs/cfgs',
     'API': '../../cfgs/apis',
 
-    'module-server': 'modules/modules.server',
-    'module-common': 'modules/modules.common',
-    'module-merchant2': 'modules/modules.merchant',
-    'module-options': 'modules/modules.options',
     'module-user-ticket': 'modules/user/tickets',
 
     'module-user-active': 'modules/user/active.month',
     'module-user-history': 'modules/user/history',
 
-    'module-merchant-active': 'modules/merchant/active.month',
-    'module-merchant-success': 'modules/merchant/success.rate',
+    'module-merchant-active': 'modules/merchant/active-month',
+    'module-merchant-success': 'modules/merchant/success-rate',
     'module-merchant-sign': 'modules/merchant/sign',
-    'module-merchant-signdetail': 'modules/merchant/sign.detail',
+    'module-merchant-signdetail': 'modules/merchant/sign-detail',
     'module-merchant-history': 'modules/merchant/history',
     'module-merchant': 'modules/merchant/management',
     'module-merchant-service': 'modules/merchant/services',
 
     'module-partner': 'modules/partner/management',
 
+    'common-home': 'modules/commons/home',
     'common-module': 'modules/commons/module',
     'common-role': 'modules/commons/role',
     'common-admin': 'modules/commons/admin',
     'common-dict': 'modules/commons/dict',
+    'common-log': 'modules/commons/log',
+    'common-server': 'modules/commons/server',
 
     'module-order': 'modules/order/search',
     'module-order-report': 'modules/order/report',
-
-    'module-demo-charts': 'modules/demo/charts',
 
     //系统公共引用
     'jquery': '/assets/plugins/jquery.min',
@@ -95,7 +92,7 @@ require.config({
       'css!/assets/plugins/bootstrapValidator/bootstrapValidator.min.css'
     ],
     'bootstrap-datetimepicker': [
-      '/assets/plugins/bootstrap-daterangepicker/moment.min',
+      // '/assets/plugins/bootstrap-daterangepicker/moment.min',
       'css!/assets/plugins/bootstrap-datetimepicker/bootstrap-datetimepicker.min.css'
     ],
     'bootstrap-datetimepicker-CN': ['bootstrap-datetimepicker'],

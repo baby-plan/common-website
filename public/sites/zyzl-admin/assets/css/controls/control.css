@@ -10,11 +10,6 @@
 .form-control-feedback{
   display: none !important;
 }
-.btn-mini {
-  padding: 2px 5px;
-  margin-right: 5px;
-  display: inline;
-}
 
 .input-group-addon {
   border-radius: 0;

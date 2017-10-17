@@ -21,6 +21,7 @@ define(
     event.on('sidebar.changed', function () {
       module.initAllSelect();
     });
+
     $(window).on('resize', function () {
       setTimeout(function () {
         module.initAllSelect();
@@ -28,20 +29,19 @@ define(
     });
 
     var module = {
-      define: {
+      "define": {
         name: "［插件］表单处理 for MODULE-LAYOUT",
         version: "1.0.0.0",
         copyright: " Copyright 2017-2027 WangXin nvlbs,Inc."
       },
-      source: {},
-      /**
-       * 初始化下拉列表框控件
+      "source": {},
+      /** 初始化下拉列表框控件
        * @param {string} dictname 绑定的数据字典项名称
        * @param {object} target 控件绑定的dom对象
        * @param {string} value 默认值
        * @param {boolean} ismulit 是否多选,默认为false
        */
-      initDict: function (dictname, target, value, ismulit) {
+      "initDict": function (dictname, target, value, ismulit) {
         dict.get(dictname, function (datas) {
           $.each(datas, function (index, item) {
             target.append(
@@ -57,7 +57,7 @@ define(
         });
       },
 
-      initAllSelect: function () {
+      "initAllSelect": function () {
         //todo:解决时间段选择控件冲突问题
         $("select:not(.monthselect,.yearselect)").each(function () {
           var selectvalue = $(this).attr("data-value");
@@ -82,7 +82,7 @@ define(
       },
 
       /** 初始化日期时间控件 */
-      initDate: function () {
+      "initDate": function () {
         $(".form-date,.form-datetime").each(function () {
           var wrapper = $("<div></div>").addClass("input-group date");
           var span = $("<span></span>").addClass("input-group-addon");
@@ -133,7 +133,7 @@ define(
        * 
        * @author wangxin
        */
-      initCache: function (options) {
+      "initCache": function (options) {
         if (!options.api) {
           console.error("未设置数据服务地址!");
           return;
@@ -198,7 +198,7 @@ define(
       },
 
       /** 初始化图标选择组件 */
-      initIconPicker: function () {
+      "initIconPicker": function () {
         $(".picker-icon").empty();
         $(".picker-icon").append(
           $("<option/>")
@@ -215,8 +215,8 @@ define(
 
       },
 
-      /**初始化页面元素 */
-      init: function () {
+      /** 初始化页面元素 */
+      "init": function () {
         // 注册页面控件
         this.initAllSelect();
 
@@ -225,7 +225,7 @@ define(
         $.each(cfgs.options.texts, function (key, value) {
           $("." + key).each(function () {
             $(this)
-              .attr("href", "javascript:;")
+              // .attr("href", "javascript:;")
               .html(value)
               .addClass(readStyle(key));
           });
@@ -244,26 +244,24 @@ define(
        * 
        * @author wangxin
        */
-      openview: function (options) {
+      "openview": function (options) {
         var loadcallback = function () {
           /** 打开界面默认参数 */
           var defaults = {
             /** 界面标题 */
-            title: "",
+            "title": "",
             /** 打开界面的地址*/
-            url: "",
+            "url": "",
             /** 打开界面时是否添加站点地图*/
-            map: true,
+            "map": true,
             /** 打开界面后回调函数 */
-            callback: function () { }
+            "callback": function () { }
           };
           /** 打开界面的参数 */
           var _options = $.extend(defaults, options);
 
           if (_options.title && _options.title != "") { } else {
-            _options.title = $("h4", "#ajax-content")
-              .eq(0)
-              .text();
+            _options.title = $("h4", "#ajax-content").eq(0).text();
           }
 
           if (_options.map) {
@@ -271,24 +269,106 @@ define(
               .text(_options.title)
               .appendTo($("<li />").appendTo($(".content-breadcrumb")));
           }
-          // module.init();
-
           _options.callback();
         };
 
-        if (
-          module.source &&
-          module.source.load &&
-          typeof module.source.load === "function"
-        )
+        if (module.source && module.source.load && typeof module.source.load === "function")
           module.source.load(options.url, loadcallback);
+      },
+
+      /** ajax方式加载页面内容.
+       * @param {JSON} options 打开页面的参数
+       *   {string}   title     界面的标题
+       *   {string}   url       打开界面的地址
+       *   {boolean}  map       打开界面时是否添加站点地图
+       *   {function} callback  打开界面后回调函数
+       * 
+       * @author wangxin
+       */
+      "openWidow": function (options) {
+        /** 打开界面默认参数 */
+        var defaults = {
+          /** 界面标题 */
+          "title": "",
+          /** 打开界面的地址*/
+          "url": "",
+          /** 模式对话框的宽度 */
+          "width": 'full',
+          /** 模式对话框的高度 */
+          'height': 'full',
+          /** 打开模式对话框时处理函数 */
+          "onshow": function () { },
+          /** 关闭模式对话框时处理函数 */
+          "onhide": function () { }
+        };
+        /** 打开界面的参数 */
+        var _options = $.extend(defaults, options);
+
+        // 移除模式对话框容器
+        if ($('.modal-container').length > 0) {
+          $('.modal-container').remove();
+        }
+        $('body').append($("<div/>").addClass('modal-container'));
+
+        var modalHeight, modalWidth;
+        if (_options.width == 'full') {
+          modalWidth = $(window).width() - 50;
+        } else {
+          modalWidth = _options.width;
+        }
+
+        if (_options.height == 'full') {
+          modalHeight = $(window).height() - 180;
+        } else {
+          modalHeight = _options.height;
+        }
+
+        $('.modal-container').load(cfgs.modalpage, function () {
+
+          if (_options.title) {
+            $(".modal-container .modal .modal-title").html(_options.title);
+          }
+
+          $(".modal-container .modal .modal-dialog").width(modalWidth);
+          $(".modal-container .modal .modal-body").height(modalHeight);
+
+          var scrollOption = $.extend(cfgs.options.scroller, {
+            height: modalHeight
+          });
+          $(".modal-container .modal .modal-body").css("height", (modalHeight) + "px");
+          $(".modal-container .modal .modal-body").slimScroll(scrollOption);
+
+          $('.modal-container .modal .modal-body').load(_options.url, function () {
+
+            var eventArgs = {
+              "sender": $('.modal-container .modal')
+            };
+
+            $('.modal-container .modal').on('show.bs.modal', function () {
+              // EVENT-RAISE:form.modal.show
+              event.raise('form.modal.show', eventArgs);
+              _options.onshow($('.modal-container .modal'));
+            });
+
+            $('.modal-container .modal').on('hide.bs.modal', function () {
+              // EVENT-RAISE:form.modal.hide
+              event.raise('form.modal.hide', eventArgs);
+              _options.onhide($('.modal-container .modal'));
+            });
+
+            $('.modal-container .modal').modal({ keyboard: false });
+
+          });
+
+        });
+        // return $('.modal-container .modal');
       },
 
       /** 在container中增加空单元格（td），并且返回该单元格
        * @param {Element} container 承载空单元格的容器
        * @returns {Element} 装入container的单元格
        */
-      appendEmpty: function (container) {
+      "appendEmpty": function (container) {
         return $(cfgs.templates.cell).appendTo(container);
       },
 
@@ -299,13 +379,13 @@ define(
        * @param {string} eventArgs 动作按钮附加的参数 data-args='eventArgs'
        * @returns {Element} 动作按钮
        */
-      appendAction: function (container, textKey, clickEventHandler, eventArgs) {
-        var actionButton = $("<a />").appendTo(container)
+      "appendAction": function (container, textKey, clickEventHandler, eventArgs) {
+        var actionButton = $("<button />").appendTo(container)
           .html(cfgs.options.texts[textKey])
           .addClass(cfgs.options.styles[textKey])
-          .addClass('btn-mini')
+          // .addClass('btn-mini')
           .addClass(textKey)
-          .attr("href", "javascript:;")
+          // .attr("href", "javascript:;")
           .on("click", clickEventHandler);
         if (eventArgs) {
           actionButton.attr('data-args', eventArgs);
@@ -318,7 +398,7 @@ define(
        * @param {string} html 添加到单元格的HTML内容
        * @returns {Element} 承载HTML内容的单元格
        */
-      appendHTML: function (container, html) {
+      "appendHTML": function (container, html) {
         return this.appendEmpty(container).html(html);
       },
 
@@ -327,7 +407,7 @@ define(
        * @param {string} text 添加到单元格的文本内容
        * @returns {Element} 承载文本内容的单元格
        */
-      appendText: function (container, text) {
+      "appendText": function (container, text) {
         return this.appendEmpty(container).text(text);
       },
 
@@ -338,7 +418,7 @@ define(
        * @param {boolean} isMulit 是否支持多值转换
        * @returns {Element} 承载字典内容的单元格
        */
-      appendDictText: function (container, dictname, text, isMulit) {
+      "appendDictText": function (container, dictname, text, isMulit) {
         if (isMulit) {
           // 内容不存在时不需要处理
           if (!text) {
@@ -375,7 +455,7 @@ define(
        * @param {string} format 日期转换的格式
        * @returns {Element} 承载时间内容的单元格
        */
-      appendDateText: function (container, text, format) {
+      "appendDateText": function (container, text, format) {
         var newtext = "";
         if (format) {
           newtext = util.utcTostring(text, format)

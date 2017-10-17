@@ -16,7 +16,7 @@ define(["QDP"], function (QDP) {
         "columns": [
           { name: "_index", text: "序号" },
           { name: "province_code", text: "省份", dict: "province", filter: true, filterindex: 1 },
-          { name: "city_code", text: "城市", dict: "city", filter: true, filterindex: 2 },
+          { name: "city_code", text: "地市", dict: "city", filter: true, filterindex: 2 },
           { name: "telphone", text: "手机号码", filter: true, filterindex: 7 },
           { name: "code", text: "洗车券码", base64: true, filter: true, filterindex: 8 },
           { name: "codestate", text: "券码状态", dict: "codestate", filter: true, filterindex: 12 },
