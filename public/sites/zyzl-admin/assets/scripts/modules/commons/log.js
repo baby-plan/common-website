@@ -42,11 +42,11 @@ define(["QDP"], function (QDP) {
           { "name": "msg", "text": "详情", "base64": true, "filter": true, "filterindex": 3 },
           { "name": "date", "text": "操作时间", "type": "datetime" },
           { "name": "ip", "text": "登录IP", "base64": true, "filter": true, "filterindex": 4 },
-          { "name": "begin_date", "text": "订单开始时间", "type": "date", "filter": true, "filterindex": 8, "grid": false },
-          { "name": "end_date", "text": "订单结束时间", "type": "date", "filter": true, "filterindex": 9, "grid": false },
+          { "name": "begin_date", "text": "订单开始时间", "type": "date", "filter": true, "filterindex": 8, "display": false },
+          { "name": "end_date", "text": "订单结束时间", "type": "date", "filter": true, "filterindex": 9, "display": false },
         ]
       };
-      QDP.generator.init(options);
+      QDP.generator.build(options);
     },
     /** 卸载模块 */
     destroy: function () {

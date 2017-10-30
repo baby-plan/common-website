@@ -7,7 +7,7 @@ define(["QDP"], function (QDP) {
   var info_customAction = function (td, data, index, powers) {
     // TODO: 权限校验-PARTNER_MANAGEMENT_RESETPASSWORD
     if (powers.indexOf('resetpassword') > -1) {
-      QDP.form.appendAction(td, "btn_chgpwd", edit_click, index);
+      QDP.form.appendAction(td, "btn-chgpwd", edit_click, index);
     }
   };
   return {
@@ -34,19 +34,19 @@ define(["QDP"], function (QDP) {
           { name: "name", text: "合作方名称", base64: true, edit: true, filter: true, filterindex: 1 },
           { name: "partner_addr", text: "合作方地址", base64: true, edit: true },
           { name: "province", text: "负责的省份", multiple: true, dict: "province", edit: true, filter: true, filterindex: 1 },
-          { name: "signatory", text: "负责人", novalid: true, base64: true, edit: true, filter: true, filterindex: 2 },
+          { name: "link_man", text: "负责人", novalid: true, base64: true, edit: true, filter: true, filterindex: 2 },
           { name: "partner_phone", text: "联系电话", base64: true, edit: true, filter: true, filterindex: 3 },
           { name: "start_time", text: "生效时间", type: 'date', edit: true },
           { name: "end_time", text: "有效时间", type: 'date', edit: true },
-          { name: "publish_status", text: "发布状态", dict: "publishstate", filter: true, filterindex: 4 },
-          { name: "audit_status", text: "审核状态", dict: "checkstate", filter: true, filterindex: 5 },
+          //  { name: "publish_status", text: "发布状态", dict: "publish_status", filter: true, filterindex: 4 },
+          // { name: "audit_status", text: "审核状态", dict: "audit_status", filter: true, filterindex: 5 },
           { name: "date", text: "创建时间", type: "datetime" },
-          { name: "begin_date", text: "创建开始时间", type: "date", filter: true, filterindex: 6, grid: false },
-          { name: "end_date", text: "创建结束时间", type: "date", filter: true, filterindex: 7, grid: false },
+          { name: "begin_date", text: "创建开始时间", type: "date", filter: true, filterindex: 6, "display": false },
+          { name: "end_date", text: "创建结束时间", type: "date", filter: true, filterindex: 7, "display": false },
           { name: "description", text: "描述", novalid: true, type: "mulittext", base64: true, edit: true }
         ]
       };
-      QDP.generator.init(options);
+      QDP.generator.build(options);
     },
     /** 卸载模块 */
     destroy: function () {

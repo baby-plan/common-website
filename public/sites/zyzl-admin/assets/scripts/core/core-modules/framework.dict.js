@@ -14,19 +14,7 @@ define(
     "core/core-modules/framework.base64"
   ],
   function ($, cfgs, API, ajax, event, base64) {
-    // EVENT-ON:layout.logined 用户登录后自动加载数据库字典表内容
-    event.on("layout.logined", function () {
-      console.debug("[AUTO]加载数据库字典表内容!");
-      var url = API.datadict.dataallapi;
-      ajax.get(url, { noblock: true, args: {} }, function (json) {
-        $.each(json.data.list, function (index, item) {
-          if (cfgs.dict[item.dictkey] == undefined) {
-            cfgs.dict[item.dictkey] = {};
-          }
-          cfgs.dict[item.dictkey][item.itemkey] = base64.decode(item.itemvalue);
-        });
-      });
-    });
+
 
     var get = function (dictkey, func) {
       if (cfgs.dict[dictkey] == undefined) {
@@ -86,8 +74,17 @@ define(
       if (!itemkey) {
         return '';
       }
+      let itemkeylist;
+      if (typeof itemkey === 'number') {
+        itemkeylist = [itemkey];
+      } else if (typeof itemkey === 'string') {
+        itemkeylist = itemkey.split(',');
+      } else {
+        itemkeylist = [];
+      }
+
       let newtext = "";
-      $.each(itemkey.split(","), function (index, key) {
+      $.each(itemkeylist, function (index, key) {
         if (index > 0) {
           newtext += ",";
         }
@@ -106,10 +103,25 @@ define(
     }
 
     return {
-      define: {
-        name: "数据字典处理模块",
-        version: "1.0.0.0",
-        copyright: " Copyright 2017-2027 WangXin nvlbs,Inc."
+      "define": {
+        "name": "数据字典处理模块",
+        "version": "1.0.0.0",
+        "copyright": " Copyright 2017-2027 WangXin nvlbs,Inc."
+      },
+      "init": function () {
+        // EVENT-ON:layout.logined 用户登录后自动加载数据库字典表内容
+        event.on("layout.logined", function () {
+          console.debug("[AUTO]加载数据库字典表内容!");
+          var url = API.datadict.dataallapi;
+          ajax.get(url, { block: false, args: {} }, function (json) {
+            $.each(json.data.list, function (index, item) {
+              if (cfgs.dict[item.dictkey] == undefined) {
+                cfgs.dict[item.dictkey] = {};
+              }
+              cfgs.dict[item.dictkey][item.itemkey] = base64.decode(item.itemvalue);
+            });
+          });
+        });
       },
       "get": get,
       "getDict": getDict,

@@ -1,0 +1,75 @@
+﻿<div id="info">
+  <form method="post" class="core-form form-horizontal">
+  </form>
+</div>
+<!-- <div class="panel panel-default border" id="info">
+  <div class="panel-heading">
+    <h4 class="panel-title">
+      <i class="fa fa-table"></i>
+    </h4>
+  </div>
+  <div class="panel-body">
+  </div>
+</div> -->
+<tools>
+  <button class="btn-back" />
+  <button class="btn-save" />
+</tools>
+
+<script id="editor-data-label" type='text/html'>
+${ text }{{if novalid }}{{else}} <span style="color:red">*</span>{{/if}}
+</script>
+
+<script id="editor-data-select" type='text/html'>
+  <select id="${ name }" name="${ name }" class="form-control"/>
+</script>
+
+<script id="editor-data-multiple" type='text/html'>
+  <select id="${ name }" name="${ name }" multiple="true" class="form-control"/>
+</script>
+
+<script id="editor-data-date" type='text/html'>
+  <input id="${ name }" name="${ name }" placeholder="请输入${ text }..." type="text" class="form-control form-${type}"/>
+</script>
+
+<!-- || stoplabel || type == 'money'  -->
+<script id="editor-data-input" type='text/html'>
+  {{if label}}
+  <div class="input-group">
+  {{/if}}
+  <input id="${ name }" name="${ name }" placeholder="请输入${ text }..." type="text" class="form-control"/>
+  {{if label }}
+    <span class="input-group-addon">${label}</span>
+  </div>
+  {{/if}}
+</script>
+
+<script id="editor-data-mulittext" type='text/html'>
+  <textarea id="${ name }" name="${ name }" placeholder="请输入${ text }..." rows="5" class="form-control"/>
+</script>
+
+
+<script id="editor-data" type="text/html">
+  {{each(index,column) $data.columns}}
+    {{if column.edit}}
+      <div class="form-group">
+        <label class="col-sm-3 control-label">
+          {{tmpl(column) '#editor-data-label'}}
+        </label>
+        <div class="col-sm-5">
+          {{if column.multiple}}
+            {{tmpl(column) '#editor-data-multiple'}}
+          {{else column.dict != undefined && column.dict != ""}}
+            {{tmpl(column) '#editor-data-select'}}
+          {{else column.type == "date" || column.type == "datetime"}}
+            {{tmpl(column) '#editor-data-date'}}
+          {{else column.type == "mulittext"}}
+            {{tmpl(column) '#editor-data-mulittext'}}
+          {{else}}
+            {{tmpl(column) '#editor-data-input'}}
+          {{/if}}
+        </div>
+      </div>
+    {{/if}}
+  {{/each}}
+</script>

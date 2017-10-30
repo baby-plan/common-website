@@ -1,13 +1,13 @@
 require.config({
-  baseUrl: 'assets/scripts/',
+  "baseUrl": 'assets/scripts/',
 
-  map: {
+  "map": {
     '*': {
       'css': '/assets/plugins/css.js'
     }
   },
 
-  paths: {
+  "paths": {
 
     'QDP': 'core/core',
     'cfgs': '../../cfgs/cfgs',
@@ -24,7 +24,11 @@ require.config({
     'module-merchant-signdetail': 'modules/merchant/sign-detail',
     'module-merchant-history': 'modules/merchant/history',
     'module-merchant': 'modules/merchant/management',
-    'module-merchant-service': 'modules/merchant/services',
+
+
+    'module-notice': 'modules/notice/management',
+
+    'module-service': 'modules/service/management',
 
     'module-partner': 'modules/partner/management',
 
@@ -36,7 +40,7 @@ require.config({
     'common-log': 'modules/commons/log',
     'common-server': 'modules/commons/server',
 
-    'module-order': 'modules/order/search',
+    'module-order-search': 'modules/order/search',
     'module-order-report': 'modules/order/report',
 
     //系统公共引用
@@ -45,9 +49,7 @@ require.config({
     'jquery.blockUI': '/assets/plugins/jquery.blockUI.min',
     'jquery.cookie': '/assets/plugins/jquery.cookie.min',
     'jquery.uniform': '/assets/plugins/uniform/jquery.uniform.min',
-    'jquery.fbmodel': '/assets/plugins/jquery.fbmodel',
     'jquery.md5': '/assets/plugins/jQuery.md5',
-    'jquery.template': '/assets/plugins/jquery.loadTemplate',
     'jquery.tmpl': '/assets/plugins/jquery-tmpl/jquery.tmpl.min',
     'jquery.tmplPlus': '/assets/plugins/jquery-tmpl/jquery.tmplPlus.min',
     'bootstrap': '/assets/plugins/bootstrap/js/bootstrap.min',
@@ -67,10 +69,9 @@ require.config({
     'echarts-all': '/assets/plugins/echarts/echarts.all',
   },
 
-  shim: {
+  "shim": {
     'bootstrap': ['jquery'],
     'bootbox': ['jquery', 'bootstrap'],
-    'jquery.template': ['jquery'],
     'jquery.tmpl': ['jquery'],
     'jquery.tmplPlus': ['jquery.tmpl'],
     'jquery.slimscroll': ['jquery'],
@@ -80,7 +81,6 @@ require.config({
       'jquery',
       'css!/assets/plugins/uniform/css/uniform.default.min.css'
     ],
-    'jquery.fbmodel': ['jquery'],
     'jquery.md5': ['jquery'],
     'select2': [
       'css!/assets/plugins/select2/select2.css',
@@ -92,7 +92,6 @@ require.config({
       'css!/assets/plugins/bootstrapValidator/bootstrapValidator.min.css'
     ],
     'bootstrap-datetimepicker': [
-      // '/assets/plugins/bootstrap-daterangepicker/moment.min',
       'css!/assets/plugins/bootstrap-datetimepicker/bootstrap-datetimepicker.min.css'
     ],
     'bootstrap-datetimepicker-CN': ['bootstrap-datetimepicker'],
@@ -107,9 +106,12 @@ define(['jquery', 'QDP',
   '../../cfgs/modules',
   '../../cfgs/dicts',
   '../../cfgs/powers',
-  'plugins/plugins.actions',
-  'plugins/plugins-province',
-  'plugins/plugins-events',
 ], function ($, QDP) {
-  QDP.Start();
+  QDP.Start([
+    'plugins/plugins-ajax',
+    'plugins/plugins.actions',
+    'plugins/plugins-province',
+    'plugins/plugins-events',
+    'plugins/plugins-table-color',
+  ]);
 });

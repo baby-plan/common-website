@@ -1,11 +1,11 @@
 define(["cfgs"], function (cfgs) {
   /* 系统模块定义
-说明：
-    1. parent   表示模块父级，若为000则视为根目录。
-    2. name     表示模块名称，即菜单名称
-    3. icon     表示模块图标，即菜单图标
-    5. url      表示模块路径，即菜单点击后打开的地址。
- */
+   * 说明：
+   *  1. parent   表示模块父级，若为000则视为根目录。
+   *  2. name     表示模块名称，即菜单名称
+   *  3. icon     表示模块图标，即菜单图标
+   *  4. url      表示模块路径，即菜单点击后打开的地址。
+   */
   cfgs.modules = {
 
     "HOME": {
@@ -24,8 +24,8 @@ define(["cfgs"], function (cfgs) {
         { "id": "MCH_MANAGEMENT_UPDATE", "name": "编辑", "action": "update" },
         { "id": "MCH_MANAGEMENT_DELETE", "name": "删除", "action": "delete" },
         { "id": "MCH_MANAGEMENT_EXPORT", "name": "导出", "action": "export" },
-        { "id": "MCH_MANAGEMENT_APPROVAL", "name": "审核通过", "action": "check" },
-        { "id": "MCH_MANAGEMENT_REJECT", "name": "审核驳回", "action": "check" },
+        { "id": "MCH_MANAGEMENT_SUBMIT", "name": "提交审核", "action": "submit" },
+        { "id": "MCH_MANAGEMENT_AUDIT", "name": "审核", "action": "audit" },
         { "id": "MCH_MANAGEMENT_PUBLISH", "name": "发布", "action": "publish" },
         { "id": "MCH_MANAGEMENT_UNPUBLISH", "name": "取消发布", "action": "unpublish" },
         { "id": "MCH_MANAGEMENT_RESETPASSWORD", "name": "重置密码", "action": "resetpassword" },
@@ -34,13 +34,13 @@ define(["cfgs"], function (cfgs) {
 
     "MCH_SERVICE_MANAGEMENT": {
       "name": "商户服务项目管理", "icon": "fa fa-shower",
-      "module": "module-merchant-service",
+      "module": "module-service",
       "actions": [
         { "id": "MCH_SERVICE_MANAGEMENT_INSERT", "name": "新增", "action": "insert" },
         { "id": "MCH_SERVICE_MANAGEMENT_UPDATE", "name": "编辑", "action": "update" },
         { "id": "MCH_SERVICE_MANAGEMENT_DELETE", "name": "删除", "action": "delete" },
         { "id": "MCH_SERVICE_MANAGEMENT_EXPORT", "name": "导出", "action": "export" },
-        { "id": "MCH_SERVICE_MANAGEMENT_CHECH", "name": "审核", "action": "check" },
+        { "id": "MCH_SERVICE_MANAGEMENT_AUDIT", "name": "审核", "action": "audit" },
       ]
     },
 
@@ -62,9 +62,10 @@ define(["cfgs"], function (cfgs) {
 
     "ORDER_SEARCH": {
       "name": "订单信息查询", "icon": "fa fa-server",
-      "module": "module-order",
+      "module": "module-order-search",
       "actions": [
-        { "id": "ORDER_SEARCH_EXPORT", "name": "导出", "action": "export" }
+        { "id": "ORDER_SEARCH_EXPORT", "name": "导出", "action": "export" },
+        { "id": "ORDER_SEARCH_AUDIT", "name": "审核", "action": "audit" },
       ]
     },
 
@@ -83,9 +84,11 @@ define(["cfgs"], function (cfgs) {
         { "id": "TICKET_SEARCH_EXPORT", "name": "导出", "action": "export" }
       ]
     },
+
     "MANAGEMENT": {
       "name": "业务管理视角", "icon": "fa fa-folder-open"
     },
+
     "USER_ACTIVE_TOTAL": {
       "name": "活跃用户统计月表", "icon": "fa fa-bar-chart-o", "parent": "MANAGEMENT",
       "module": "module-user-active",
@@ -137,10 +140,11 @@ define(["cfgs"], function (cfgs) {
         { "id": "PARTNER_MANAGEMENT_RESETPASSWORD", "name": "重置密码", "action": "resetpassword" },
       ]
     },
+
     "SYSTEM_MANAGEMENT": {
       "name": "系统管理视角", "icon": "fa fa-folder-open"
     },
-    // "0015": { "parent": "000", "name": "菜单管理", "module": "common-module", "icon": "fa fa-cog" },
+
     "ACCOUNT_MANAGMENT": {
       "name": "账户管理", "icon": "fa fa-users", "parent": "SYSTEM_MANAGEMENT",
       "module": "common-admin",
@@ -165,7 +169,7 @@ define(["cfgs"], function (cfgs) {
 
     "AREA_MANAGMENT": {
       "name": "行政区划管理", "icon": "fa fa-book", "parent": "SYSTEM_MANAGEMENT",
-      "module": "common-dict", "method": "init-coderange",
+      "module": "common-dict", "method": "init-codearea",
       "actions": [
         { "id": "AREA_MANAGEMENT_INSERT", "name": "新增", "action": "insert" },
         { "id": "AREA_MANAGEMENT_UPDATE", "name": "编辑", "action": "update" },
@@ -176,7 +180,7 @@ define(["cfgs"], function (cfgs) {
 
     "CODE_MANAGEMENT": {
       "name": "号段表管理", "icon": "fa fa-book", "parent": "SYSTEM_MANAGEMENT",
-      "module": "common-dict",
+      "module": "common-dict", "method": "init-coderange",
       "actions": [
         { "id": "CODE_MANAGEMENT_INSERT", "name": "新增", "action": "insert" },
         { "id": "CODE_MANAGEMENT_UPDATE", "name": "编辑", "action": "update" },
@@ -190,6 +194,20 @@ define(["cfgs"], function (cfgs) {
       "module": "common-log",
       "actions": [
         { "id": "SYS_LOG_EXPORT", "name": "导出", "action": "export" }
+      ]
+    },
+
+    "MCH_NOTICE": {
+      "name": "商户公告发布", "icon": "fa fa-tachometer",
+      "module": "module-notice",
+      "actions": [
+        { "id": "MCH_NOTICE_INSERT", "name": "新增", "action": "insert" },
+        { "id": "MCH_NOTICE_UPDATE", "name": "编辑", "action": "update" },
+        { "id": "MCH_NOTICE_DELETE", "name": "删除", "action": "delete" },
+        { "id": "MCH_NOTICE_SUBMIT", "name": "提交审核", "action": "submit" },
+        { "id": "MCH_NOTICE_AUDIT", "name": "审核", "action": "audit" },
+        { "id": "MCH_NOTICE_PUBLISH", "name": "发布", "action": "publish" },
+        { "id": "MCH_NOTICE_UNPUBLISH", "name": "取消发布", "action": "unpublish" },
       ]
     },
 

@@ -21,13 +21,11 @@ define(
     'generator-plugins/input-text/index',
     'generator-plugins/input-dict/index',
     'generator-plugins/input-date/index',
-    'generator-plugins/select-icon/index',
-    'generator-plugins/select-image/index',
+    'generator-plugins/select-merchant/index',
 
     "bootstrapValidator",
     "jquery.tmpl",
-    "jquery.tmplPlus",
-    'jquery.template'
+    "jquery.tmplPlus"
   ],
   function (
     $,
@@ -45,24 +43,52 @@ define(
     plugin_inputtext,
     plugin_inputdict,
     plugin_inputdate,
-    plugin_selecticon,
-    plugin_selectimage
+    plugin_select_merchant
   ) {
     "use strict";
     const ACTION_ATTR = "data-action";
     const ACTION_INSERT = "INSERT";
     const ACTION_UPDATE = "UPDATE";
-    const FORM_NAME = "role-form";
-    const FROM_KEY = "#" + FORM_NAME;
+    const FROM_KEY = ".core-form";
     const PRIMARY_KEY_ATTR = "data-primary";
-    var plugin_option = {}, primaryKey;
+    var plugin_option = {},
+      /** 编辑视图参数设置 */
+      view_edit_optoin = {},
+      /** 预览视图参数设置 */
+      view_preview_option = {}, primaryKey;
 
     var module = {
-
-      /** 初始化表单内容
+      "init": function () {
+        // EVENT-ON:table.selected
+        event.on('table.selected', function (eventArgs) {
+          var args = eventArgs.args;
+          if (args.length == 1) {
+            var index = args.selector.data('id');
+            var data = table.getdata(index);
+            if (data) {
+              $('.qdp-mulit,.qdp-single').each(function () {
+                var match = $(this).attr("class").match("btn-(.+?) ");
+                if (match) {
+                  let key = match[1];
+                  let power = plugin_option.powers.find(function (p) { return p.name == key })
+                  if (!power || !power.controller || power.controller(data)) {
+                    $(this).removeAttr('disabled');
+                  }
+                }
+              });
+            }
+          } else if (args.length == 0) {
+            $('.qdp-mulit,.qdp-single').attr('disabled', "true");
+          } else {
+            $('.qdp-mulit').removeAttr('disabled');
+            $('.qdp-single').attr('disabled', "true");
+          }
+        });
+      },
+      /** 构建表单内容
        * @param  {JSON} options 初始化选项
        */
-      "init": function (options) {
+      "build": function (options) {
         const option_default = {
           "apis": { "list": "", "insert": "", "update": "", "delete": "" },
           "columns": [],
@@ -72,23 +98,60 @@ define(
             "table": { icon: "fa fa-table", text: "查询结果" }
           },
           "helps": { "insert": [], "update": [], "list": [] },
-          "actions": { "insert": false, "update": false, "delete": false },
-          "editor": {
-            "page": cfgs.editpage,
-            "callback": initEditView
+          "actions": {
+            "insert": false,
+            "update": false,
+            "delete": false,
+            "preview": true,
+            "export": true,
+            "select": true,
+            "refresh": true,
+            "reset": true
           },
-          "detailor": {
-            "mode": "modal",//"mode:page|modal"
-            "width": 'full',
-            "height": 'full',
-            "page": cfgs.detailpage,
-            "callback": initDetailView
+          // "actiondefines": {
+          //   "insert": {
+          //     "page": cfgs.editpage,
+          //     "callback": initEditView
+          //   },
+          //   "select": true,
+          //   "update": {
+          //     "page": cfgs.editpage,
+          //     "callback": initEditView
+          //   },
+          //   "delete": false,
+          //   "preview": {
+          //     "mode": "modal",//"mode:page|modal"
+          //     "width": '800px',//'full',
+          //     "height": 'full',
+          //     "page": cfgs.detailpage,
+          //     "callback": initDetailView
+          //   },
+          //   "export": true,
+          //   "refresh": true,
+          //   "reset": true
+          // },
+          "views": {
+            "edit": {
+              "page": cfgs.editpage,
+              "callback": initEditView
+            },
+            "preview": {
+              "mode": "modal",//"mode:page|modal"
+              "width": '800px',//'full',
+              "height": 'full',
+              'title': '详情',
+              "page": cfgs.detailpage,
+              "callback": initDetailView
+            }
           },
           "autosearch": true,
           "buffdate": true
         };
 
         plugin_option = $.extend(true, option_default, options);
+        view_edit_optoin = plugin_option.views.edit;
+        view_preview_option = plugin_option.views.preview;
+
         var displaycolumns = [];
 
         var hasFilter = false;
@@ -101,12 +164,9 @@ define(
             column.plugin = plugin_inputdict;
           } else if (column.type == 'date' || column.type == "datetime") {
             column.plugin = plugin_inputdate;
-          } else if (column.type == "icon") {
-            column.plugin = plugin_selecticon;
-          } else if (column.type == 'image') {
-            column.plugin = plugin_selectimage;
-            // } else if (column.type) {
-            //   column.plugin = plugin_inputtext;
+          } else if (column.type == 'select-merchant') {
+            plugin_select_merchant.init(module);
+            column.plugin = plugin_select_merchant;
           } else {
             column.plugin = plugin_inputtext;
           }
@@ -130,84 +190,145 @@ define(
             return;
           }
           //跳过不需要在GRID中显示的列
-          if (column.grid == undefined || column.grid == true) {
+          if (column.display == undefined || column.display == true) {
             displaycolumns.push(column.text);
           }
         });
 
         // 渲染表格
-        table.render($("#table"), displaycolumns);
+        table.render($(".qdp-table"), displaycolumns);
 
         // #region 判断是否有新增功能:如果有则设定按钮文字样式及事件
+
         // TODO: 权限校验：INSERT
         if (cfgs.pageOptions.powers.indexOf('insert') > -1 && plugin_option.actions.insert) {
-          $(".btn_add")
+          $(".btn-add")
             .attr("data-title", plugin_option.texts.insert)
             .on("click", edit_click);
         } else {
-          $(".btn_add").remove();
+          $(".btn-add").remove();
         }
 
         // TODO: 权限校验：EXPORT
         if (cfgs.pageOptions.powers.indexOf('export') == -1) {
-          $(".btn_export").remove();
+          $(".btn-export").remove();
         }
 
         // TODO: 权限校验：UPDATE
         if (cfgs.pageOptions.powers.indexOf('update') > -1 && plugin_option.actions.update) {
-          $(".btn_edit")
+          $(".btn-edit")
             .attr('data-mode', 'update')
             .on("click", edit_click)
             .attr('disabled', "true");
         } else {
-          $(".btn_edit").remove();
+          $(".btn-edit").remove();
         }
 
         // TODO: 权限校验：DELETE
         if (cfgs.pageOptions.powers.indexOf('delete') > -1 && plugin_option.actions.delete) {
-          $(".btn_remove")
+          $(".btn-remove")
             .on("click", reomve_click)
             .attr('disabled', "true");
         } else {
-          $(".btn_remove").remove();
+          $(".btn-remove").remove();
         }
 
-        $(".btn_look")
-          .on("click", look_click)
-          .attr('disabled', "true");
+        if (plugin_option.actions.preview) {
+          $(".btn-preview")
+            .on("click", look_click)
+            .attr('disabled', "true");
+        } else {
+          $(".btn-preview").remove();
+        }
+
+        if (plugin_option.actions.export) {
+        } else {
+          $('.btn-export').remove();
+        }
+
+        if (plugin_option.actions.select) {
+        } else {
+          $('.btn-selectall').remove();
+          $('.btn-selectopp').remove();
+        }
+
+        if (plugin_option.actions.refresh) {
+        } else {
+          $('.btn-refresh').remove();
+        }
+
+        if (plugin_option.actions.reset) {
+        } else {
+          $('.btn-reset').remove();
+        }
+
+
+        // $.each(plugin_option.actiondefines, function (action, actionOption) {
+        //   // 忽略不需要的动作
+        //   if (!plugin_option.actions[action]) {
+        //     return;
+        //   }
+        //   try {
+        //     require(['generator-actions/action-' + action + '/index'], action_plugin => {
+        //       action_plugin.init(action, actionContainer, actionOption);
+        //     });
+        //   } finally {
+
+        //   }
+        // });
+
+        // TODO：处理功能权限
+        if (plugin_option.powers) {
+          let actionContainer = $('.view-action');
+          let powers = cfgs.pageOptions.powers;
+          $.each(plugin_option.powers, function (index, power) {
+            if (powers.indexOf(power.name) > -1) {
+              let button = form.appendAction(actionContainer, power.class, power.action);
+              if (power.mulit) {
+                button.addClass("qdp-mulit");
+              } else {
+                button.addClass("qdp-single");
+              }
+            }
+          });
+        }
+
         // #endregion // #region 判断是否有新增功能:如果有则设定按钮文字样式及事件
 
         // 处理查询条件区块内容及事件
         if (hasFilter) {
           plugin_option.columns = plugin_option.columns.sort(compare_filterindex);
 
-          var container = $("#filter-container>form");
+          var container = $(".filter-container>form");
           $.each(plugin_option.columns, function (index, column) {
+            // 不作为筛选条件的字段，不需要处理
+            if (!column.filter) {
+              return;
+            }
+            // 不存在 处理插件或插件不存在筛选条件，不需要处理筛选
+            if (!column.plugin || !column.plugin.filter) {
+              console.warn(column.name + " 不存在处理插件或插件不存在筛选条件！");
+              return;
+            }
+
             if (column.custom) {
               var columndiv = $("#" + column.name).parent();
               columndiv.empty();
               column.custom(column, columndiv, null);
-            } else if (column.filter && column.plugin && column.plugin.filter) {
-              var columnContainer = $('<div/>')
-                .addClass('col-sm-4 col-lg-3')
-                .appendTo(container);
-              var labelContainer = $('<label/>')
-                .addClass('control-label')
-                .appendTo(columnContainer);
-              // var valueContainer = $('<div/>')
-              //   // .addClass('col-xs-2')
-              //   .appendTo(columnContainer);
+            } else {
+              var columnContainer = $('<div/>').addClass('col-sm-4 col-lg-3').appendTo(container);
+              var labelContainer = $('<label/>').addClass('control-label').appendTo(columnContainer);
               column.plugin.filter(column, labelContainer, columnContainer);
             }
 
           }); //$.each(columns, function (index, column) {
 
           /* 注册查询按钮点击事件 */
-          $(".btn_search").on("click", _search);
+          $(".btn-search").on("click", _search);
           /* 注册重置按钮点击事件 */
-          $(".btn_reset").on("click", _reset);
+          $(".btn-reset").on("click", _reset);
         } else {
-          $("#filter-container").remove();
+          $(".filter-container").remove();
         } //if (hasFilter) {
 
         initHelptipView(plugin_option.helps.list);
@@ -215,7 +336,7 @@ define(
         // EVENT-RAISE:generator.option.inited 自动创建表单完成时触发。
         event.raise('generator.option.inited', options);
 
-        form.init();
+        form.render();
 
         // EVENT-RAISE:generator.option.rendered 自动创建表单渲染完成时触发。
         event.raise('generator.option.rendered', options);
@@ -228,12 +349,15 @@ define(
           _search();
         }
       },
+      "buildDetailView": function (data, container) {
+        initDetailView(data, container);
+      },
       /** 根据当前配置内容，创建验证规则
        * @return {JSON} 返回验证规则
        */
       "validator": function () {
         var validatorOption = {
-          message: 'This value is not valid',
+          message: '数据无效',
           feedbackIcons: {
             valid: 'glyphicon glyphicon-ok',
             invalid: 'glyphicon glyphicon-remove',
@@ -243,53 +367,55 @@ define(
         };
 
         $.each(plugin_option.columns, function (index, column) {
-          var _validOption = {};
-          if (!column.novalid) {
-            _validOption = {
-              message: column.text + '验证失败',
-              validators: {
-                notEmpty: {
-                  message: column.text + '不能为空'
-                }
-              }
-            };
+          if (column.novalid) {
+            return;
+          }
 
-            if (column.validtype) {
-              if (column.validtype == 'phone') {
-                _validOption.validators['regexp'] = {
-                  regexp: /^1[3|5|8]{1}[0-9]{9}$/,
-                  message: '请输入正确的手机号码'
-                };
-
-              } else {
-                _validOption.validators[column.validtype] = {
-                  message: column.message
-                };
+          var _validOption = {
+            message: column.text + '无效',
+            validators: {
+              notEmpty: {
+                message: column.text + '不能为空'
               }
             }
+          };
 
-            if (column.regex) {
+          if (column.validtype) {
+            if (column.validtype == 'phone') {
               _validOption.validators['regexp'] = {
-                regexp: column.regex,
+                regexp: /^1[3|5|8]{1}[0-9]{9}$/,
+                message: '请输入正确的手机号码'
+              };
+
+            } else {
+              _validOption.validators[column.validtype] = {
                 message: column.message
               };
             }
+          }
 
-            if (column.type == "date") {
-              _validOption.validators['date'] = {
-                format: "YYYY-MM-DD",
-                message: '日期格式不正确'
-              };
-            }
+          if (column.regex) {
+            _validOption.validators['regexp'] = {
+              regexp: column.regex,
+              message: column.message
+            };
+          }
 
-            if (column.type == "datetime") {
-              _validOption.validators['date'] = {
-                format: "YYYY-MM-DD h:m:s",
-                message: '日期格式不正确'
-              };
-            }
+          if (column.type == "date") {
+            _validOption.validators['date'] = {
+              format: "YYYY-MM-DD",
+              message: '日期格式不正确'
+            };
+          }
+
+          if (column.type == "datetime") {
+            _validOption.validators['date'] = {
+              format: "YYYY-MM-DD h:m:s",
+              message: '日期格式不正确'
+            };
           }
           validatorOption.fields[column.name] = _validOption;
+
         });
 
         return validatorOption;
@@ -326,6 +452,34 @@ define(
         return options;
       },
 
+      "setValue": function (data, parent) {
+        if (parent) {
+          parent = $('body');
+        }
+        $.each(plugin_option.columns, function (index, column) {
+
+          if (data == undefined) {
+            data = {};
+          }
+          if (!column.edit) {
+            return;
+          }
+          let value = data[column.name];
+          if (column.base64) {
+            value = base64.decode(value);
+          }
+
+          if (column.custom) {
+            var columndiv = $("#" + column.name, parent).parent();
+            columndiv.empty();
+            column.custom(column, columndiv, value);
+          } else {
+            column.plugin.setValue(column, value, data, parent);
+          }
+
+        });
+      },
+
       /** 执行保存操作，自动判断新增或更新状态，没有设置options则自动获取
        * @param {JSON} options 执行保存操作的数据
        * @return 
@@ -355,7 +509,7 @@ define(
         }
 
         // 调用API，并在操作成功时返回列表页面
-        ajax.get(_url, _options, function () {
+        ajax.post(_url, _options, function () {
           layout.back();
         });
       }
@@ -377,88 +531,62 @@ define(
         initHelptipView(plugin_option.helps.update);
       }
 
-      if (plugin_option.headers.edit) {
-        $("#info>.panel-heading>.panel-title").empty();
-        $("#info>.panel-heading>.panel-title").append(
-          $("<i/>").addClass(plugin_option.headers.edit.icon)
-        );
-        $("#info>.panel-heading>.panel-title").append(
-          plugin_option.headers.edit.text
-        );
-      }
-
       plugin_option.columns = plugin_option.columns.sort(compare_index);
       // 调用Jquery.tmpl模板,初始化页面控件
-      $("#editor-data").tmpl(plugin_option).appendTo(".panel-body>.form-horizontal");
+      // $("#editor-data").tmpl(plugin_option).appendTo("#info .form-horizontal");
 
+      var container = $("#info .form-horizontal");
       $.each(plugin_option.columns, function (index, column) {
-        if (data == undefined) {
-          data = {};
+        // 不作为编辑内容的字段，不需要处理
+        if (!column.edit) {
+          return;
         }
-
-        let value = data[column.name];
-        if (column.base64) {
-          value = base64.decode(value);
+        // 不存在 处理插件或插件不存在筛选条件，不需要处理筛选
+        if (!column.plugin || !column.plugin.editor) {
+          console.warn(column.name + " 不存在处理插件或插件不存在编辑内容！");
+          return;
         }
+        var columnContainer = $('<div/>').addClass('col-sm-5');
+        var labelContainer = $('<label/>').addClass('col-sm-3 control-label');
 
-        if (column.custom) {
-          var columndiv = $("#" + column.name).parent();
-          columndiv.empty();
-          column.custom(column, columndiv, value);
-        } else if (column.type == "date" && value) {
-          $("#" + column.name).val(
-            util.utcTostring(value, cfgs.options.defaults.dateformat2)
-          );
-        } else if (column.type == "datetime" && value) {
-          $("#" + column.name).val(
-            util.utcTostring(value, cfgs.options.defaults.datetimeformat)
-          );
-        } else if (typeof column.dict === "string") {
-          // 初始化下拉列表控件,并且设置初始值
-          form.initDict(
-            column.dict,
-            $("#" + column.name),
-            value,
-            column.multiple
-          );
-
-        } else if (column.name == "_index") {
-          // 索引字段不需要处理
-        } else if (column.type == "icon") {
-          $("#" + column.name).attr("data-value", value);
-        } else if (column.type == "map") {
-          // 处理地图类型字段
-          requirePlugins('map', column, data, column.events);
-        } else if (column.type == "image") {
-          // 处理图片类型字段
-          requirePlugins('upload', column, data, column.events);
+        if (column.novalid) {
+          labelContainer.html(column.text);
         } else {
-          $("#" + column.name).val(value);
-          if (column.primary && value) {
-            $("#" + column.name).attr("readonly", true);
-          }
+          labelContainer.html('<span style="color:red">*</span>' + column.text);
         }
-      });
 
-      form.init();
+        $('<div/>')
+          .addClass('form-group')
+          .append(labelContainer)
+          .append(columnContainer)
+          .appendTo(container);
+
+        column.plugin.editor(column, labelContainer, columnContainer);
+
+      }); //$.each(columns, function (index, column) {
+
+      module.setValue(data);
+      form.render();
 
       var validatorOption = module.validator();
-      $("#role-form").bootstrapValidator(validatorOption); // 注册表单验证组件
-      $(".btn_save").on("click", save_click); // 处理保存按钮事件
+      $(FROM_KEY).bootstrapValidator(validatorOption); // 注册表单验证组件
+      $(".btn-save").on("click", save_click); // 处理保存按钮事件
     };
 
     /** 初始化详情界面
      * @param {JSON} data 详情展示所需要的数据内容
+     * @param {Element} container 承载详情字段内容的容器
+     * @returns
      */
     var initDetailView = function (data, container) {
       var rowContainer, second = false, formContainer;
       if (container) {
-        formContainer = $('#role-form', container);
+        formContainer = $(FROM_KEY, container);
       } else {
-        formContainer = $('#role-form');
+        formContainer = $(FROM_KEY);
       }
       $.each(plugin_option.columns, function (index, column) {
-        if (column.type == "icon" || column.type == "image" || column.type == "map" || column.name == '_index') {
+        if (column.name == '_index' || column.primary || column.display == false) {
           return;
         }
         if (second) {
@@ -468,38 +596,24 @@ define(
           rowContainer = $('<div/>').addClass('form-group').appendTo(formContainer);
         }
 
-        var label = $('<label/>').addClass('col-sm-2 control-label');
-        form.appendText(label, column.text);
-        rowContainer.append(label);
+        var label = $('<label/>').addClass('col-sm-2 control-label').appendTo(rowContainer);
         var div = $('<div/>').addClass('col-sm-4').appendTo(rowContainer);
-        var ctrl = $('<input/>')
-          .attr('readonly', true)
-          .addClass('form-control')
-          .appendTo(div);
         var text = data[column.name];
-        if (column.base64) {
-          text = base64.decode(text);
-          ctrl.val(text);
-        } else if (column.type == 'datetime') {
-          ctrl.val(
-            util.utcTostring(text, cfgs.options.defaults.dateformat2)
-          );
-        } else if (column.type == 'date') {
-          ctrl.val(
-            util.utcTostring(text, cfgs.options.defaults.datetimeformat)
-          );
-        } else if (typeof column.dict === "string") {
-          ctrl.val(dict.getText(column.dict, text));
+
+        if (column.plugin && column.plugin.preview) {
+          column.plugin.preview(column, text, label, div);
         } else {
-          ctrl.val(text);
+          var ctrl = $('<input/>')
+            .attr('readonly', true)
+            .addClass('form-control')
+            .appendTo(div);
+          ctrl.val(JSON.stringify(column));
         }
 
       });
 
       if (!container) {
-        form.init();
-      } else {
-        $('tools').remove();
+        form.render();
       }
     }
 
@@ -519,7 +633,7 @@ define(
     }
 
     var appendTips = function (helptips) {
-      var container = $('#filter-container');
+      var container = $('.filter-container');
       if (container.length == 0) {
         container = $('#info');
       }
@@ -550,22 +664,16 @@ define(
 
     }
 
-    var requirePlugins = function (plugin_name, column, data, events) {
-      require(['generator-plugins/' + plugin_name + '/index'], function (plugin) {
-        plugin.init(column, data, events);
-      });
-    }
-
     /** 打开数据编辑界面,若data有值则视为编辑数据,否则视为新增数据
      * @param {JSON} data 编辑时传入的数据,新增时不需要
      * @returns 
      */
     var _open_editview = function (data) {
       form.openview({
-        url: plugin_option.editor.page,
+        url: view_edit_optoin.page,
         title: data ? plugin_option.texts.update : plugin_option.texts.insert,
         callback: function () {
-          plugin_option.editor.callback(data);
+          view_edit_optoin.callback(data);
         }
       });
     };
@@ -575,25 +683,24 @@ define(
      * @returns 
      */
     var _open_detailview = function (data) {
-
-      switch (plugin_option.detailor.mode) {
+      switch (view_preview_option.mode) {
         case "modal":
           form.openWidow({
-            'url': plugin_option.detailor.page,
-            'title': '详情',
-            'width': plugin_option.detailor.width,
-            'height': plugin_option.detailor.height,
+            'url': view_preview_option.page,
+            'title': view_preview_option.title,
+            'width': view_preview_option.width,
+            'height': view_preview_option.height,
             'onshow': function (parent) {
-              plugin_option.detailor.callback(data, parent);
+              view_preview_option.callback(data, parent);
             }
           });
           break;
         case "page":
           form.openview({
-            'url': plugin_option.detailor.page,
-            'title': '详情',
+            'url': view_preview_option.page,
+            'title': view_preview_option.title,
             'callback': function () {
-              plugin_option.detailor.callback(data);
+              view_preview_option.callback(data);
             }
           });
           break;
@@ -624,7 +731,7 @@ define(
       }
 
       // 调用API，并在操作成功时返回列表页面
-      ajax.get(requesturl, options, function () {
+      ajax.post(requesturl, options, function () {
         layout.back();
       });
     };
@@ -666,7 +773,7 @@ define(
         }
         var options = {};
         options[primaryKey] = primary;
-        ajax.get(plugin_option.apis.delete, options, function () {
+        ajax.post(plugin_option.apis.delete, options, function () {
           table.reload();
         });
       };
@@ -710,37 +817,44 @@ define(
         if (!column.filter) {
           return;
         }
-        var value = column.plugin.getFilter(column);
 
+        // 不存在 处理插件或插件不存在筛选条件，不需要处理筛选
+        if (!column.plugin || !column.plugin.getFilter) {
+          console.warn(column.name + " 不存在处理插件或插件不存在筛选条件！");
+          return;
+        }
+
+        var value = column.plugin.getFilter(column);
         if (value) {
-          if (column.base64) {
-            value = base64.encode(value);
-          }
           options[column.name] = value;
         }
 
       });
 
-      // 解析表格记录内容
-      var parsefn = function (tr, index, totalindex, item) {
-        var columns = plugin_option.columns;
-        columns = columns.sort(compare_index);
-        $.each(columns, function (column_index, column) {
-          if (column.grid == false) {
-            return;
-          }
-          var value = item[column.name];
-          if (column.base64) {
-            value = base64.decode(value);
-          }
-          column.plugin.grid(column, tr, value, totalindex, index);
-        });
-      };
       //  查询数据并且填充表格（TABLE）
       table.load({
-        api: plugin_option.apis.list,
-        parsefn: parsefn,
-        args: options
+        "api": plugin_option.apis.list,
+        /** 解析表格记录内容
+         * @param {Element} tr
+         * @param {number} index
+         * @param {number} totalindex
+         * @param {JSON} item
+         * @returns 
+         */
+        "parsefn": function (tr, index, totalindex, item) {
+          var columns = plugin_option.columns;
+          columns = columns.sort(compare_index);
+          //EVENT-RAISE:generator.parse.row
+          event.raise("generator.parse.row", { "data": item, "row": tr });
+          $.each(columns, function (column_index, column) {
+            // 未在表格中展示的内容，不需要处理
+            if (column.display == false) {
+              return;
+            }
+            column.plugin.grid(column, tr, item[column.name], totalindex, index);
+          });
+        },
+        "args": options
       });
 
     };

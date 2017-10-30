@@ -1,0 +1,339 @@
+<tools>
+  <button class="btn-approval" />
+  <button class="btn-reject" />
+  <button data-dismiss="modal" class="btn-close" />
+</tools>
+<style>
+  .modal-container {
+    position: absolute;
+    max-height: 90%;
+    overflow-y: auto;
+    top: 66px;
+    right: 10px;
+    width: 280px;
+  }
+
+  .form-group .form-group {
+    margin-left: 0;
+    margin-right: 0;
+  }
+</style>
+
+<div class="tabbable header-tabs">
+  <ul class="nav nav-tabs">
+    <li class="active">
+      <a href="#tab_info" data-toggle="tab">
+        <span class="hidden-inline-mobile">商户基本信息</span>
+      </a>
+    </li>
+    <li>
+      <a href="#tab_service" data-toggle="tab">
+        <span class="hidden-inline-mobile">商户服务项目</span>
+      </a>
+    </li>
+    <li>
+      <a href="#tab_audit_info" data-toggle="tab">
+        <span class="hidden-inline-mobile">审核信息</span>
+      </a>
+    </li>
+    <li>
+      <a href="#tab_audit_record" data-toggle="tab">
+        <span class="hidden-inline-mobile">审核记录</span>
+      </a>
+    </li>
+  </ul>
+  <div class="tab-content">
+
+    <div class="tab-pane fade in active" id="tab_info">
+      <div class="tab-item-body">
+        <form method="post" class="core-form form-horizontal">
+          <div class="form-group col-sm-6">
+            <div class="form-group">
+              <label class="col-sm-4 control-label">商户名称</label>
+              <div class="col-sm-8">
+                <input id="mch_name" readonly type="text" class="form-control" />
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="col-sm-4 control-label">店铺名称</label>
+              <div class="col-sm-8">
+                <input id="store_name" readonly type="text" class="form-control" />
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="col-sm-4 control-label">用户名</label>
+              <div class="col-sm-8">
+                <input id="user_name" readonly type="text" class="form-control" />
+              </div>
+            </div>
+          </div>
+          <div class="form-group col-sm-6">
+            <img id="mch_photourl_img" alt="点击选择商户照片" style="margin-top:1px;height:200px" class="form-control" />
+          </div>
+
+          <div class="form-group col-sm-6">
+            <label class="col-sm-4 control-label">联系人</label>
+            <div class="col-sm-8">
+              <input id="link_man" readonly type="text" class="form-control" />
+            </div>
+          </div>
+          <div class="form-group col-sm-6">
+            <label class="col-sm-4 control-label">联系电话</label>
+            <div class="col-sm-8">
+              <input id="store_phone" readonly type="text" class="form-control" />
+            </div>
+          </div>
+          <div class="form-group col-sm-6">
+            <label class="col-sm-4 control-label">法人代表</label>
+            <div class="col-sm-8">
+              <input id="legal_person" readonly type="text" class="form-control" />
+            </div>
+          </div>
+          <div class="form-group col-sm-6">
+            <label class="col-sm-4 control-label">车道数</label>
+            <div class="col-sm-8">
+              <input id="lane_number" readonly type="text" class="form-control" />
+            </div>
+          </div>
+          <div class="form-group col-sm-6">
+            <label class="col-sm-4 control-label">商家规模</label>
+            <div class="col-sm-8">
+              <div class="input-group">
+                <input id="mch_scale" readonly type="text" class="form-control">
+                <span class="input-group-addon">人</span>
+              </div>
+            </div>
+          </div>
+          <div class="form-group col-sm-6">
+            <label class="col-sm-4 control-label">是否连锁</label>
+            <div class="col-sm-8">
+              <input id="mch_is_chain" readonly class="form-control" />
+            </div>
+          </div>
+          <div class="form-group col-sm-6">
+            <label class="col-sm-4 control-label">连锁店数量</label>
+            <div class="col-sm-8">
+              <input id="mch_chain_count" readonly type="text" class="form-control" />
+            </div>
+          </div>
+          <div class="form-group col-sm-6">
+            <label class="col-sm-4 control-label">开业时间</label>
+            <div class="col-sm-8">
+              <input id="open_time" readonly type="text" class="form-control" />
+            </div>
+          </div>
+          <div class="form-group col-sm-6">
+            <label class="col-sm-4 control-label">营业时间</label>
+            <div class="col-sm-8">
+              <input id="business_time" readonly class="form-control" />
+            </div>
+          </div>
+          <div class="form-group col-sm-6">
+            <label class="col-sm-4 control-label">主营业务</label>
+            <div class="col-sm-8">
+              <input id="master_business" readonly type="text" class="form-control" />
+            </div>
+          </div>
+          <div class="form-group col-sm-6">
+            <label class="col-sm-4 control-label">推荐业务</label>
+            <div class="col-sm-8">
+              <textarea id="recommend_business" readonly cols="82" class="form-control"></textarea>
+            </div>
+          </div>
+          <div class="form-group col-sm-6">
+            <label class="col-sm-4 control-label">兼营业务</label>
+            <div class="col-sm-8">
+              <textarea id="slave_business" readonly cols="82" class="form-control"></textarea>
+            </div>
+          </div>
+          <div class="form-group col-sm-6">
+            <label class="col-sm-4 control-label">营业面积</label>
+            <div class="col-sm-8">
+              <div class="input-group">
+                <input id="business_area" readonly type="text" class="form-control">
+                <span class="input-group-addon">平方米</span>
+              </div>
+            </div>
+          </div>
+          <div class="form-group col-sm-6">
+            <label class="col-sm-4 control-label">日均营业额</label>
+            <div class="col-sm-8">
+              <div class="input-group">
+                <input id="business_volumn" readonly type="text" class="form-control">
+                <span class="input-group-addon">元</span>
+              </div>
+            </div>
+          </div>
+          <div class="form-group col-sm-6">
+            <label class="col-sm-4 control-label">人均消费额</label>
+            <div class="col-sm-8">
+              <div class="input-group">
+                <input id="per_person_amount" readonly type="text" class="form-control">
+                <span class="input-group-addon">元</span>
+              </div>
+            </div>
+          </div>
+          <div class="form-group col-sm-6">
+            <label class="col-sm-4 control-label">签约人编号</label>
+            <div class="col-sm-8">
+              <input id="signatory_no" readonly type="text" class="form-control" />
+            </div>
+          </div>
+          <div class="form-group col-sm-6">
+            <label class="col-sm-4 control-label">签约人</label>
+            <div class="col-sm-8">
+              <input id="signatory" readonly type="text" class="form-control" />
+            </div>
+          </div>
+          <div class="form-group col-sm-6">
+            <label class="col-sm-4 control-label">签约人电话</label>
+            <div class="col-sm-8">
+              <input id="signatory_phone" readonly type="text" class="form-control" />
+            </div>
+          </div>
+          <div class="form-group col-sm-6">
+            <label class="col-sm-4 control-label">合同签约时间</label>
+            <div class="col-sm-8">
+              <input id="contract_time" readonly type="text" class="form-control" />
+            </div>
+          </div>
+          <div class="form-group col-sm-6">
+            <label class="col-sm-4 control-label">合同编号</label>
+            <div class="col-sm-8">
+              <input id="contract_no" readonly type="text" class="form-control" />
+            </div>
+          </div>
+          <div class="form-group col-sm-6">
+            <label class="col-sm-4 control-label">合同开始时间</label>
+            <div class="col-sm-8">
+              <input id="start_time" readonly type="text" class="form-control" />
+            </div>
+          </div>
+          <div class="form-group col-sm-6">
+            <label class="col-sm-4 control-label">合同到期时间</label>
+            <div class="col-sm-8">
+              <input id="end_time" readonly type="text" class="form-control" />
+            </div>
+          </div>
+          <div class="form-group col-sm-12">
+            <label class="col-sm-2 control-label">地区</label>
+            <div class="col-sm-2">
+              <input id="province_code" readonly class="form-control" />
+            </div>
+            <div class="col-sm-2">
+              <input id="city_code" readonly class="form-control" />
+            </div>
+            <div class="col-sm-2">
+              <input id="county_code" readonly class="form-control" />
+            </div>
+          </div>
+          <div class="form-group col-sm-12">
+            <label class="col-sm-2 control-label">详细地址</label>
+            <div class="col-sm-8">
+              <input id="store_addr" readonly type="text" class="form-control" />
+            </div>
+            <div class="col-sm-2">
+              <input id="lnglat" readonly type="text" class="form-control" />
+            </div>
+          </div>
+          <div class="form-group col-sm-12">
+            <label class="col-sm-2 control-label">商家级别</label>
+            <div class="col-sm-10">
+              <input id="mch_level" readonly type="text" class="form-control" />
+            </div>
+          </div>
+          <div class="form-group col-sm-12">
+            <label class="col-sm-2 control-label">商户描述</label>
+            <div class="col-sm-10">
+              <textarea id="description" readonly cols="82" class="form-control"></textarea>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <div class="tab-pane fade" id="tab_service">
+      <div class="tab-item-body">
+        <div class="col-sm-12">
+          <div class="table-scrollable">
+            <table class="qdp-table datatable table table-striped table-bordered table-hover" id="table">
+              <thead>
+                <tr>
+                  <th class="center">序号</th>
+                  <th class="center">服务类别</th>
+                  <th class="center">服务车型</th>
+                  <th class="center">折扣券签约价</th>
+                  <th class="center">店铺门市价</th>
+                  <th class="center">免费券结算价</th>
+                  <th class="center">服务状态</th>
+                  <th class="center">发布状态</th>
+                  <th class="center">创建时间</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr data-id="0">
+                  <td class="center" title="1">1</td>
+                  <td class="center">普洗</td>
+                  <td class="center">商务车</td>
+                  <td class="center" title="40">40</td>
+                  <td class="center" title=""></td>
+                  <td class="center" title=""></td>
+                  <td class="center">
+                    <span>禁用</span>
+                  </td>
+                  <td class="center">
+                    <span>待发布</span>
+                  </td>
+                  <td class="center">2017-10-09 12:38:09</td>
+                </tr>
+                <tr data-id="1">
+                  <td class="center" title="2">2</td>
+                  <td class="center">普洗</td>
+                  <td class="center">SUV</td>
+                  <td class="center" title="30">30</td>
+                  <td class="center" title=""></td>
+                  <td class="center" title=""></td>
+                  <td class="center">
+                    <span>禁用</span>
+                  </td>
+                  <td class="center">
+                    <span>待发布</span>
+                  </td>
+                  <td class="center">2017-10-07 09:32:18</td>
+                </tr>
+                <tr data-id="2">
+                  <td class="center" title="3">3</td>
+                  <td class="center">普洗</td>
+                  <td class="center">小轿车</td>
+                  <td class="center" title="20">20</td>
+                  <td class="center" title=""></td>
+                  <td class="center" title=""></td>
+                  <td class="center">
+                    <span>禁用</span>
+                  </td>
+                  <td class="center">
+                    <span>待发布</span>
+                  </td>
+                  <td class="center">2017-10-06 21:11:04</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <div class="tab-pane fade" id="tab_audit_info">
+      <div class="tab-item-body">
+
+      </div>
+    </div>
+
+    <div class="tab-pane fade" id="tab_audit_record">
+      <div class="tab-item-body">
+
+      </div>
+    </div>
+
+  </div>
+</div>

@@ -1,13 +1,12 @@
 define(['jquery', 'QDP'], function ($, QDP) {
   "use strict";
   // EVENT-ON:layout.started
-  QDP.event.on("layout.started", function () {
-    console.info("注册->系统运行后自动注册 - plugins-actions");
-
+  QDP.on("layout.started", function () {
+    console.info("注册->系统运行后自动注册 - plugins-actions - 功能扩展插件：city、chart");
   });
   var plugins = [];
   // EVENT-ON:generator.option.rendered
-  QDP.event.on('generator.option.rendered', function (eventArgs) {
+  QDP.on('generator.option.rendered', function (eventArgs) {
     // 释放之前使用过的plugin
     $.each(plugins, function (index, plugin) {
       if (plugin && typeof plugin.destory === 'function') {
@@ -44,7 +43,7 @@ define(['jquery', 'QDP'], function ($, QDP) {
   var resizeContainer = function () {
     var windowHeight = $(window).outerHeight();
     var breadcrumbHeight = $(".content-header").outerHeight();
-    // 20为#ajax-content的上填充合，padding-top:20px
+    // 20为.ajax-content的上填充合，padding-top:20px
     $('#echarts-chart').height(windowHeight - breadcrumbHeight - 20);
   }
 
@@ -59,15 +58,15 @@ define(['jquery', 'QDP'], function ($, QDP) {
       },
     });
 
-    var btn_chart = $("<button/>").addClass("btn_chart");
-    btn_chart.html(' <i class="fa fa-line-chart"></i> 图表 ');
-    btn_chart.on("click", function () {
+    var btnChart = $("<button/>").addClass("btn-chart");
+    btnChart.html(' <i class="fa fa-line-chart"></i> 图表 ');
+    btnChart.on("click", function () {
       QDP.form.openview({
         map: true,
         title: '图表',
         url: QDP.config.chartpage,
         callback: function () {
-          QDP.form.init();
+          QDP.form.render();
           $(window).on('resize', resizeContainer);
           resizeContainer();
           require(['plugins/plugins-chart'], plugin => {
@@ -77,7 +76,7 @@ define(['jquery', 'QDP'], function ($, QDP) {
         }
       });
     });
-    $('.view-action').prepend(btn_chart);
+    $('.view-action').prepend(btnChart);
   }
 
   var selectedValue = 3;
@@ -105,31 +104,31 @@ define(['jquery', 'QDP'], function ($, QDP) {
 
       switch (value) {
         case "1":
-          city_code.grid = false;
+          city_code.display = false;
           city_code.filter = false;
-          county_code.grid = false;
+          county_code.display = false;
           county_code.filter = false;
           break;
         case "2":
-          city_code.grid = true;
+          city_code.display = true;
           city_code.filter = true;
-          county_code.grid = false;
+          county_code.display = false;
           county_code.filter = false;
           break;
         case "3":
-          city_code.grid = true;
+          city_code.display = true;
           city_code.filter = true;
-          county_code.grid = true;
+          county_code.display = true;
           county_code.filter = true;
           break;
         default:
           return;
       }
 
-      $('#ajax-content').load(QDP.config.listpage, function () {
+      $('.ajax-content').load(QDP.config.listpage, function () {
         $('.datetimepicker').remove();
         $('.content-toolbar').empty();
-        QDP.generator.init(options);
+        QDP.generator.build(options);
       });
     });
 

@@ -1,6 +1,10 @@
 ﻿define(["jquery"], function ($) {
   var cfgs = {
-    app_name: "车友助理-商户管理平台",
+    "site": {
+      title: "中国移动通讯 - 车友助理 - 商户管理平台",
+      keywords: "商户管理平台,大数据统计中心",
+      description: "商户管理平台",
+    },
     debug: true,
     output: {
       debug: true,
@@ -21,6 +25,7 @@
     /* 设定初始页面 */
     //, "root": ["会员管理", "会员明细"]
   };
+
   /** 公共编辑页面地址 */
   cfgs.editpage = "views/common/edits.html";
   /** 公共列表页面地址 */
@@ -31,6 +36,13 @@
   cfgs.detailpage = "views/common/detail.html";
   /** 模式对话框页面地址 */
   cfgs.modalpage = "views/common/dialog.html";
+  /** 导航栏页面地址 */
+  cfgs.navpage = "views/master/navigation.html";
+  /** PAGE:登录页面*/
+  cfgs.loginpage = "views/master/login.html";
+  /** PAGE:系统主页面*/
+  cfgs.mainpage = "views/master/main.html";
+
   /** 当前页面选项 */
   cfgs.pageOptions = {
     /**  */
@@ -84,48 +96,42 @@
 
   /** 文本相关参数设置 */
   cfgs.options.texts = {
-    btn_add: '<i class="fa fa-plus"></i> 新增',
-    btn_edit: '<i class="fa fa-pencil"></i> 编辑',
-    btn_search: '<i class="fa fa-search"></i> 查询',
-    btn_reset: '<i class="fa fa-spinner"></i> 重置',
-    btn_remove: '<i class="fa fa-trash-o"></i> 删除',
-    btn_refresh: '<i class="fa fa-refresh"></i> 刷新',
-    btn_back: '<i class="fa fa-arrow-circle-left"></i> 返回',
-    btn_cancel: '<i class="fa fa-arrow-circle-left"></i> 取消',
-    btn_save: '保存 <i class="fa fa-arrow-circle-right"></i>',
-    btn_details: '<i class="fa fa-align-justify"></i> 详情',
-    btn_priv: '<i class="fa fa-arrow-circle-left"></i> 上一步',
-    btn_next: '下一步 <i class="fa fa-arrow-circle-right"></i>',
-    btn_export: '<i class="fa fa-share-square-o"></i> 导出',
+    'btn-add': '<i class="fa fa-plus"></i> 新增',
+    'btn-insert': '<i class="fa fa-plus"></i> 新增',
+    'btn-edit': '<i class="fa fa-pencil"></i> 编辑',
+    'btn-update': '<i class="fa fa-pencil"></i> 编辑',
+    'btn-search': '<i class="fa fa-search"></i> 查询',
+    'btn-reset': '<i class="fa fa-spinner"></i> 重置',
+    'btn-remove': '<i class="fa fa-trash-o"></i> 删除',
+    'btn-delete': '<i class="fa fa-trash-o"></i> 删除',
+    'btn-refresh': '<i class="fa fa-refresh"></i> 刷新',
+    'btn-back': '<i class="fa fa-arrow-circle-left"></i> 返回',
+    'btn-cancel': '<i class="fa fa-arrow-circle-left"></i> 取消',
+    'btn-save': '保存 <i class="fa fa-arrow-circle-right"></i>',
+    'btn-details': '<i class="fa fa-align-justify"></i> 详情',
+    'btn-priv': '<i class="fa fa-arrow-circle-left"></i> 上一步',
+    'btn-next': '下一步 <i class="fa fa-arrow-circle-right"></i>',
+    'btn-export': '<i class="fa fa-share-square-o"></i> 导出',
 
-    btn_check: '<i class="fa fa-check-circle-o"></i> 审核',
-    btn_publish: '<i class="fa fa-external-link"></i> 发布',
-    btn_unpublish: '<i class="fa fa-external-link-square"></i> 取消发布',
-    btn_look: '<i class="fa fa-eye"></i> 查看',
-    btn_chgpwd: '<i class="fa fa-key"></i> 重置密码',
+    'btn-close': '<i class="fa fa-check-circle-o"></i> 关闭',
+    'btn-audit': '<i class="fa fa-check-circle-o"></i> 审核',
+    'btn-submit': '<i class="fa fa-check-circle-o"></i> 提交审核',
+    'btn-approval': '<i class="fa fa-check-circle-o"></i> 通过审核',
+    'btn-reject': '<i class="fa fa-check-circle"></i> 驳回审核',
+    'btn-check': '<i class="fa fa-check-circle-o"></i> 审核',
+    'btn-publish': '<i class="fa fa-external-link"></i> 发布',
+    'btn-unpublish': '<i class="fa fa-external-link-square"></i> 取消发布',
+    'btn-preview': '<i class="fa fa-eye"></i> 查看',
+    'btn-chgpwd': '<i class="fa fa-key"></i> 重置密码',
     'btn-selectall': '<i class="fa fa-check-square-o"></i> 全选',
     'btn-selectopp': '<i class="fa fa-check-square"></i> 反选'
   };
 
   /** 样式相关参数设置 */
   cfgs.options.styles = {
-    btn_default: "",
-    // btn_back: "btn btn-danger",
-    // btn_save: "btn btn-success",
-    // btn_reset: "btn btn-warning",
-    // btn_next: "btn btn-success",
-    // btn_priv: "btn btn-danger",
-    // btn_edit: "btn btn-success",
-    // btn_remove: "btn btn-danger",
-    // btn_check: "btn btn-info",
-    // btn_publish: "btn btn-info",
-    // btn_unpublish: "btn btn-info",
-    // btn_look: "btn btn-info",
-    // btn_chgpwd: "btn btn-info",
-    // btn_add: "btn btn-success"
-
-    // 'btn-selectall': 'btn btn-success',
-    // 'btn-selectopp': 'btn btn-success'
+    'btn-default': "",
+    // 'btn-back': "btn btn-danger",
+    // 'btn-save': "btn btn-success",
   };
 
   /** 请求相关参数设置 */
@@ -163,7 +169,7 @@
   cfgs.options.scroller = {
     // width: "auto", //可滚动区域宽度
     size: "6px", //组件宽度
-    color: "#fff", //滚动条颜色
+    color: "#0786d6", //滚动条颜色
     position: "right", //组件位置:left/right
     distance: "1px", //组件与侧边之间的距离
     opacity: 1, //滚动条透明度
@@ -207,113 +213,6 @@
       , "举例说明：A省支撑方承诺的洗车折扣率为5折，门市价为30元，折扣券签约价为20元，免费券结算价为25元。用户使用免费券去洗车无需支付洗车费用，但支撑方需向商户支付免费洗车费用为25元；用户使用折扣券洗车，由用户支付洗车费用为15元，但是支撑方给商户的折扣券补贴费用为20-15=5元。"
     ]
   }
-
-  cfgs.icons = [
-    "fa fa-address-book",
-    "fa fa-address-book-o",
-    "fa fa-tachometer",
-    "fa fa-drivers-license",
-    "fa fa-bars",
-    "fa fa-television",
-    "fa fa-angle-down",
-    "fa fa-key",
-    "fa fa-book",
-    "fa fa-power-off",
-    "fa fa-address-book",
-    "fa fa-address-book-o",
-    "fa fa-address-card",
-    "fa fa-address-card-o",
-    "fa fa-bandcamp",
-    "fa fa-bath",
-    "fa fa-bathtub",
-    "fa fa-drivers-license",
-    "fa fa-drivers-license-o",
-    "fa fa-eercast",
-    "fa fa-envelope-open",
-    "fa fa-envelope-open-o",
-    "fa fa-etsy",
-    "fa fa-free-code-camp",
-    "fa fa-grav",
-    "fa fa-handshake-o",
-    "fa fa-id-badge",
-    "fa fa-id-card",
-    "fa fa-id-card-o",
-    "fa fa-imdb",
-    "fa fa-linode",
-    "fa fa-meetup",
-    "fa fa-microchip",
-    "fa fa-podcast",
-    "fa fa-quora",
-    "fa fa-ravelry",
-    "fa fa-s15",
-    "fa fa-shower",
-    "fa fa-snowflake-o",
-    "fa fa-superpowers",
-    "fa fa-telegram",
-    "fa fa-thermometer",
-    "fa fa-thermometer-0",
-    "fa fa-thermometer-1",
-    "fa fa-thermometer-2",
-    "fa fa-thermometer-3",
-    "fa fa-thermometer-4",
-    "fa fa-thermometer-empty",
-    "fa fa-thermometer-full",
-    "fa fa-thermometer-half",
-    "fa fa-thermometer-quarter",
-    "fa fa-thermometer-three-quarters",
-    "fa fa-times-rectangle",
-    "fa fa-times-rectangle-o",
-    "fa fa-user-circle",
-    "fa fa-user-circle-o",
-    "fa fa-user-o",
-    "fa fa-vcard",
-    "fa fa-vcard-o",
-    "fa fa-window-close",
-    "fa fa-window-close-o",
-    "fa fa-window-maximize",
-    "fa fa-window-minimize",
-    "fa fa-window-restore",
-    "fa fa-wpexplorer",
-    "fa fa-address-book",
-    "fa fa-address-book-o",
-    "fa fa-address-card",
-    "fa fa-address-card-o",
-    "fa fa-adjust",
-    "fa fa-american-sign-language-interpreting",
-    "fa fa-anchor",
-    "fa fa-archive",
-    "fa fa-area-chart",
-    "fa fa-arrows",
-    "fa fa-arrows-h",
-    "fa fa-arrows-v",
-    "fa fa-asl-interpreting",
-    "fa fa-assistive-listening-systems",
-    "fa fa-asterisk",
-    "fa fa-at",
-    "fa fa-audio-description",
-    "fa fa-automobile",
-    "fa fa-balance-scale",
-    "fa fa-ban",
-    "fa fa-bank",
-    "fa fa-bar-chart",
-    "fa fa-bar-chart-o",
-    "fa fa-barcode",
-    "fa fa-bars",
-    "fa fa-bath",
-    "fa fa-bathtub",
-    "fa fa-battery",
-    "fa fa-battery-0",
-    "fa fa-battery-1",
-    "fa fa-battery-2",
-    "fa fa-battery-3",
-    "fa fa-battery-4",
-    "fa fa-battery-empty",
-    "fa fa-battery-full",
-    "fa fa-battery-half",
-    "fa fa-battery-quarter",
-    "fa fa-battery-three-quarters",
-    "fa fa-bed"
-  ];
 
   return cfgs;
 });

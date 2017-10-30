@@ -57,21 +57,21 @@ define(["QDP"], function (QDP) {
         }
       });
     }
-
+    QDP.form.render();
     setTimeout(function () {
       $(":checkbox").uniform();
     }, 500);
 
     /* 处理保存按钮事件 */
-    $(".btn_save").on("click", function (e) {
-      e.preventDefault();
+    $(".btn-save").on("click", function (e) {
+      //TODO:数组类型AJAX提交处理
       var requestURL;
       var args = {
         "name": $("#rolename").val(),
         funcids: ""
       };
       if (args.rolename == "") {
-        QDP.alertText("角色名称不能为空!");
+        QDP.alert("角色名称不能为空!");
         return;
       }
       args.name = QDP.base64.encode(args.name);
@@ -97,7 +97,7 @@ define(["QDP"], function (QDP) {
       if (args.funcids.length > 0) {
         args.funcids = args.funcids.substr(0, args.funcids.length - 1);
       } else {
-        QDP.alertText("请为该角色设置权限!");
+        QDP.alert("请为该角色设置权限!");
         return;
       }
       if (data) {
@@ -106,7 +106,7 @@ define(["QDP"], function (QDP) {
       } else {
         requestURL = QDP.api.role.add;
       }
-      QDP.ajax.get(requestURL, args);
+      QDP.post(requestURL, args);
     });
 
   }
@@ -131,15 +131,20 @@ define(["QDP"], function (QDP) {
           "edit": { "text": "角色信息" },
           "table": { "text": "角色信息列表" }
         },
-        "actions": { "insert": true, "update": true, "delete": true },
-        "editor": { "page": QDP.api.role.editpage, "callback": initEditor },
+        "actions": { "insert": true, "update": true, "delete": true, "preview": false },
+        "views": {
+          "edit": {
+            "page": "views/business/role-edit.html",
+            "callback": initEditor
+          }
+        },
         "columns": [
           { "name": "_index", "text": "序号" },
           { "name": "id", "primary": true },
           { "name": "name", "text": "角色名称", "base64": true, "filter": true }
         ]
       };
-      QDP.generator.init(options);
+      QDP.generator.build(options);
     },
     /** 卸载模块 */
     destroy: function () {

@@ -13,26 +13,30 @@ define(
       if (cfgs.options.styles[keyword]) {
         return cfgs.options.styles[keyword];
       } else {
-        return cfgs.options.styles.btn_default;
+        return cfgs.options.styles['btn-default'];
       }
     };
-
-    // EVENT-ON:sidebar.changed
-    event.on('sidebar.changed', function () {
-      module.initAllSelect();
-    });
-
-    $(window).on('resize', function () {
-      setTimeout(function () {
-        module.initAllSelect();
-      }, 500);
-    });
 
     var module = {
       "define": {
         name: "［插件］表单处理 for MODULE-LAYOUT",
         version: "1.0.0.0",
         copyright: " Copyright 2017-2027 WangXin nvlbs,Inc."
+      },
+      "init": function (layout) {
+        this.source = layout;
+
+        // EVENT-ON:sidebar.changed
+        event.on('sidebar.changed', function () {
+          module.renderAllSelect();
+        });
+
+        $(window).on('resize', function () {
+          setTimeout(function () {
+            module.renderAllSelect();
+          }, 500);
+        });
+
       },
       "source": {},
       /** 初始化下拉列表框控件
@@ -57,8 +61,9 @@ define(
         });
       },
 
-      "initAllSelect": function () {
-        //todo:解决时间段选择控件冲突问题
+      /** 渲染下拉列表控件 */
+      "renderAllSelect": function () {
+        // 解决时间段选择控件冲突问题
         $("select:not(.monthselect,.yearselect)").each(function () {
           var selectvalue = $(this).attr("data-value");
           var ismulit = $(this).attr("data-mulit");
@@ -81,8 +86,8 @@ define(
         });
       },
 
-      /** 初始化日期时间控件 */
-      "initDate": function () {
+      /** 渲染日期时间控件 */
+      "renderDate": function () {
         $(".form-date,.form-datetime").each(function () {
           var wrapper = $("<div></div>").addClass("input-group date");
           var span = $("<span></span>").addClass("input-group-addon");
@@ -95,19 +100,21 @@ define(
             .append(span);
           var datepicker;
           if ($(this).hasClass("form_datetime")) {
+            // $(this).removeClass('.form-datetime');
             datepicker = $(this)
               .parent()
               .datetimepicker(cfgs.options.datetimepicker);
           } else {
+            // $(this).removeClass('.form-date');
             datepicker = $(this)
               .parent()
               .datetimepicker(cfgs.options.datepicker);
           }
 
           datepicker.on("changeDate", function () {
-            if ($("#role-form").data("bootstrapValidator")) {
+            if ($(".core-form").data("bootstrapValidator")) {
               var id = $("[id]", $(this)).attr("id")
-              $("#role-form")
+              $(".core-form")
                 .data("bootstrapValidator")
                 .updateStatus(id, "NOT_VALIDATED", null)
                 .validateField(id);
@@ -182,7 +189,7 @@ define(
 
           ajax.get(
             options.api, {
-              nocache: true,
+              cache: false,
               args: options.args,
               block: false
             }, {
@@ -197,42 +204,22 @@ define(
         }
       },
 
-      /** 初始化图标选择组件 */
-      "initIconPicker": function () {
-        $(".picker-icon").empty();
-        $(".picker-icon").append(
-          $("<option/>")
-            .val("000")
-            .text("000 - 根目录")
-        );
-        $.each(cfgs.icons, function (index, icon) {
-          $(".picker-icon").append(
-            $("<option/>")
-              .val(icon)
-              .append(icon)
-          );
-        });
-
-      },
-
-      /** 初始化页面元素 */
-      "init": function () {
-        // 注册页面控件
-        this.initAllSelect();
-
-        $(":checkbox,:radio").uniform();
+      "renderButton": function () {
         /** 设置页面按钮文本\图标\颜色等基本信息 */
         $.each(cfgs.options.texts, function (key, value) {
           $("." + key).each(function () {
-            $(this)
-              // .attr("href", "javascript:;")
-              .html(value)
-              .addClass(readStyle(key));
+            $(this).html(value).addClass(readStyle(key));
           });
         });
+      },
 
-        this.initIconPicker();
-        setTimeout(this.initDate, 300);
+      /** 渲染页面元素 */
+      "render": function () {
+        // 注册页面控件
+        this.renderAllSelect();
+        this.renderButton();
+        this.renderDate();
+        $(":checkbox,:radio").uniform();
       },
 
       /** ajax方式加载页面内容.
@@ -261,7 +248,7 @@ define(
           var _options = $.extend(defaults, options);
 
           if (_options.title && _options.title != "") { } else {
-            _options.title = $("h4", "#ajax-content").eq(0).text();
+            _options.title = $("h4", ".ajax-content").eq(0).text();
           }
 
           if (_options.map) {
@@ -275,7 +262,6 @@ define(
         if (module.source && module.source.load && typeof module.source.load === "function")
           module.source.load(options.url, loadcallback);
       },
-
       /** ajax方式加载页面内容.
        * @param {JSON} options 打开页面的参数
        *   {string}   title     界面的标题
@@ -343,11 +329,17 @@ define(
             var eventArgs = {
               "sender": $('.modal-container .modal')
             };
+            $(".modal-container .modal-footer").append(
+              $('.modal-container tools')
+            );
 
             $('.modal-container .modal').on('show.bs.modal', function () {
               // EVENT-RAISE:form.modal.show
               event.raise('form.modal.show', eventArgs);
+              $('tools>button').unwrap();
               _options.onshow($('.modal-container .modal'));
+
+              module.renderButton();
             });
 
             $('.modal-container .modal').on('hide.bs.modal', function () {

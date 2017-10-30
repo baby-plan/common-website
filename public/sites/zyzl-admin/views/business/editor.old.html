@@ -1,0 +1,392 @@
+<tools>
+  <button class="btn-back" />
+  <button class="btn-save" />
+</tools>
+<style>
+  .modal-container {
+    position: absolute;
+    max-height: 90%;
+    overflow-y: auto;
+    top: 66px;
+    right: 10px;
+    width: 280px;
+  }
+
+  .modal-container *[class*='col'] {
+    padding-left: 0;
+    padding-right: 0;
+  }
+
+  .modal-container .form-group {
+    margin-bottom: 0;
+  }
+
+  .form-horizontal .form-group {
+    margin-left: 0;
+    margin-right: 0;
+  }
+
+  #map-input-panel {
+    margin-top: 5px;
+  }
+
+  .map-search {
+    cursor: pointer;
+  }
+
+  .amap-sug-result {
+    z-index: 9999;
+  }
+</style>
+<div id="map-container">
+  <div class="modal fade" tabindex="-1" role="dialog" aria-labelledby="map-label" id="map" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button class="close" type="button" data-dismiss="modal" aria-hidden="true"> ×</button>
+          <h4 class="modal-title" id="map-label">地图选点(鼠标滚动缩放地图,鼠标拖动移动地图)</h4>
+        </div>
+        <div class="modal-body" id="map-main"></div>
+        <div class="modal-container">
+          <div class="form-group col-sm-12">
+            <div class="input-group">
+              <input type="text" id="map-input" placeholder="请输入关键字进行搜索" class="form-control">
+              <span class="input-group-addon map-search">搜索</span>
+            </div>
+          </div>
+          <div class="from-group col-sm-12">
+            <div id="map-input-panel"></div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button id='btn-ok' class="btn btn-default" disabled>确定</button>
+          <button data-dismiss="modal" class="btn btn-primary">关闭</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="tabbable header-tabs">
+  <ul class="nav nav-tabs">
+    <li class="active">
+      <a href="#tab_info" data-toggle="tab">
+        <span class="hidden-inline-mobile">商户基本信息</span>
+      </a>
+    </li>
+    <li>
+      <a href="#tab_service" data-toggle="tab">
+        <span class="hidden-inline-mobile">商户服务项目</span>
+      </a>
+    </li>
+  </ul>
+  <div class="tab-content">
+
+    <div class="tab-pane fade in active" id="tab_info">
+      <div class="tab-item-body">
+        <form method="post" class="core-form form-horizontal">
+          <div>
+            <div class="col-sm-6">
+              <div class="form-group">
+                <label class="col-sm-4 control-label">
+                  商户名称
+                  <span style='color:red'>*</span>
+                </label>
+                <div class="col-sm-8">
+                  <input id="mch_name" name="mch_name" type="text" class="form-control" placeholder="输入商户名称..." />
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="col-sm-4 control-label">
+                  店铺名称
+                  <span style='color:red'>*</span>
+                </label>
+                <div class="col-sm-8">
+                  <input id="store_name" name="store_name" type="text" class="form-control" placeholder="输入店铺名称..." />
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="col-sm-4 control-label">
+                  用户名
+                  <span style='color:red'>*</span>
+                </label>
+                <div class="col-sm-8">
+                  <input id="user_name" name="user_name" type="text" class="form-control" placeholder="输入用户名..." />
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="col-sm-4 control-label">
+                  密码
+                  <span style='color:red'>*</span>
+                </label>
+                <div class="col-sm-8">
+                  <input id="password" name="password" type="password" class="form-control" placeholder="输入密码..." />
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="col-sm-4 control-label">
+                  联系人
+                  <span style='color:red'>*</span>
+                </label>
+                <div class="col-sm-8">
+                  <input id="link_man" name="link_man" type="text" class="form-control" placeholder="输入联系人..." />
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="col-sm-4 control-label">
+                  联系电话
+                  <span style='color:red'>*</span>
+                </label>
+                <div class="col-sm-8">
+                  <input id="store_phone" name="store_phone" type="text" class="form-control" placeholder="输入联系电话..." />
+                </div>
+              </div>
+            </div>
+            <div class="col-sm-6">
+              <div class="form-group">
+                <label class="col-sm-4 control-label">
+                  商户照片
+                  <span style='color:red'>*</span>
+                </label>
+                <div class="col-sm-8">
+                  <div class="input-group imagepicker">
+                    <input id="photo_url" name="photo_url" readonly type="text" class="form-control" />
+                    <span class="input-group-addon">
+                      <span class="map-set">...</span>
+                    </span>
+                  </div>
+                  <img id="photo_url_img" alt="点击选择商户照片" style="margin-top:1px;height:200px" class="form-control" />
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="form-group col-sm-12"></div>
+          <div class="form-group col-sm-6">
+            <label class="col-sm-4 control-label">法人代表</label>
+            <div class="col-sm-8">
+              <input id="legal_person" name="legal_person" type="text" class="form-control" placeholder="输入法人代表..." />
+            </div>
+          </div>
+          <div class="form-group col-sm-6">
+            <label class="col-sm-4 control-label">车道数</label>
+            <div class="col-sm-8">
+              <input id="lane_number" name="lane_number" type="text" class="form-control" placeholder="输入车道数..." />
+            </div>
+          </div>
+          <div class="form-group col-sm-6">
+            <label class="col-sm-4 control-label">商家规模</label>
+            <div class="col-sm-8">
+              <div class="input-group">
+                <input id="mch_scale" name="mch_scale" placeholder="输入商家规模（人数）..." type="text" class="form-control">
+                <span class="input-group-addon">人</span>
+              </div>
+            </div>
+          </div>
+          <div class="form-group col-sm-6">
+            <label class="col-sm-4 control-label">是否连锁</label>
+            <div class="col-sm-8">
+              <select id="mch_is_chain" name="mch_is_chain" type="text" class="select2 form-control" />
+            </div>
+          </div>
+          <div class="form-group col-sm-6">
+            <label class="col-sm-4 control-label">连锁店数量</label>
+            <div class="col-sm-8">
+              <input id="mch_chain_count" name="mch_chain_count" type="text" class="form-control" placeholder="输入连锁店数量..." />
+            </div>
+          </div>
+          <div class="form-group col-sm-6">
+            <label class="col-sm-4 control-label">开业时间</label>
+            <div class="col-sm-8">
+              <input id="open_time" name="open_time" type="text" class="form-control form-date" placeholder="选择开业时间..." />
+            </div>
+          </div>
+          <div class="form-group col-sm-6">
+            <label class="col-sm-4 control-label">
+              营业时间
+              <span style='color:red'>*</span>
+            </label>
+            <div class="col-sm-8">
+              <select id="business_time" name="business_time" type="text" class="select2 form-control" />
+            </div>
+          </div>
+          <div class="form-group col-sm-6">
+            <label class="col-sm-4 control-label">主营业务</label>
+            <div class="col-sm-8">
+              <input id="master_business" name="master_business" type="text" class="form-control" placeholder="输入主营业务..." />
+            </div>
+          </div>
+          <div class="form-group col-sm-6">
+            <label class="col-sm-4 control-label">推荐业务</label>
+            <div class="col-sm-8">
+              <input id="recommend_business" name="recommend_business" type="text" class="form-control" placeholder="输入推荐业务..." />
+            </div>
+          </div>
+          <div class="form-group col-sm-6">
+            <label class="col-sm-4 control-label">兼营业务</label>
+            <div class="col-sm-8">
+              <input id="slave_business" name="slave_business" type="text" class="form-control" placeholder="输入兼营业务..." />
+            </div>
+          </div>
+          <div class="form-group col-sm-6">
+            <label class="col-sm-4 control-label">营业面积</label>
+            <div class="col-sm-8">
+              <div class="input-group">
+                <input id="business_area" name="business_area" placeholder="输入营业面积..." type="text" class="form-control">
+                <span class="input-group-addon">平方米</span>
+              </div>
+            </div>
+
+          </div>
+          <div class="form-group col-sm-6">
+            <label class="col-sm-4 control-label">日均营业额</label>
+            <div class="col-sm-8">
+              <div class="input-group">
+                <input id="business_volumn" name="business_volumn" placeholder="输入日均营业额..." type="text" class="form-control">
+                <span class="input-group-addon">元</span>
+              </div>
+            </div>
+          </div>
+          <div class="form-group col-sm-6">
+            <label class="col-sm-4 control-label">人均消费额</label>
+            <div class="col-sm-8">
+              <div class="input-group">
+                <input id="per_person_amount" name="per_person_amount" placeholder="输入人均消费额..." type="text" class="form-control">
+                <span class="input-group-addon">元</span>
+              </div>
+            </div>
+          </div>
+          <div class="form-group col-sm-6">
+            <label class="col-sm-4 control-label">签约人编号</label>
+            <div class="col-sm-8">
+              <input id="signatory_no" name="signatory_no" type="text" class="form-control" placeholder="输入签约人编号..." />
+            </div>
+          </div>
+          <div class="form-group col-sm-6">
+            <label class="col-sm-4 control-label">
+              签约人
+              <span style='color:red'>*</span>
+            </label>
+            <div class="col-sm-8">
+              <input id="signatory" name="signatory" type="text" class="form-control" placeholder="输入签约人..." />
+            </div>
+          </div>
+          <div class="form-group col-sm-6">
+            <label class="col-sm-4 control-label">签约人电话</label>
+            <div class="col-sm-8">
+              <input id="signatory_phone" name="signatory_phone" type="text" class="form-control" placeholder="输入签约人电话..." />
+            </div>
+          </div>
+          <div class="form-group col-sm-6">
+            <label class="col-sm-4 control-label">
+              合同签约时间
+              <span style='color:red'>*</span>
+            </label>
+            <div class="col-sm-8">
+              <input id="contract_time" name="contract_time" type="text" class="form-control form-date" placeholder="选择合同签约时间..." />
+            </div>
+          </div>
+          <div class="form-group col-sm-6">
+            <label class="col-sm-4 control-label">合同编号</label>
+            <div class="col-sm-8">
+              <input id="contract_no" name="contract_no" type="text" class="form-control" placeholder="输入合同编号..." />
+            </div>
+          </div>
+          <div class="form-group col-sm-6">
+            <label class="col-sm-4 control-label">合同开始时间</label>
+            <div class="col-sm-8">
+              <input id="start_time" name="start_time" type="text" class="form-control form-date" placeholder="选择合同开始时间..." />
+            </div>
+          </div>
+          <div class="form-group col-sm-6">
+            <label class="col-sm-4 control-label">
+              合同到期时间
+              <span style='color:red'>*</span>
+            </label>
+            <div class="col-sm-8">
+              <input id="end_time" name="end_time" type="text" class="form-control form-date" placeholder="选择合同到期时间..." />
+            </div>
+          </div>
+          <div class="form-group col-sm-12">
+            <label class="col-sm-2 control-label">
+              地区
+              <span style='color:red'>*</span>
+            </label>
+            <div class="col-sm-2">
+              <select id="province_code" class="select2 form-control" />
+            </div>
+            <div class="col-sm-2">
+              <select id="city_code" class="select2 form-control" />
+            </div>
+            <div class="col-sm-2">
+              <select id="county_code" class="select2 form-control" />
+            </div>
+          </div>
+          <div class="form-group col-sm-12">
+            <label class="col-sm-2 control-label">
+              详细地址
+              <span style='color:red'>*</span>
+            </label>
+            <div class="col-sm-8">
+              <input id="store_addr" name="store_addr" type="text" class="form-control" placeholder="输入详细地址..." />
+            </div>
+            <div class="col-sm-2">
+              <div class="input-group mappicker">
+                <input id="lnglat" name="lnglat" readonly placeholder="点击在地图中选择..." type="text" class="form-control" />
+                <span class="input-group-addon">
+                  <span class="map-set">
+                    <i class="fa fa-map-marker"></i>
+                  </span>
+                </span>
+              </div>
+            </div>
+          </div>
+          <div class="form-group col-sm-12">
+            <label class="col-sm-2 control-label">商家级别</label>
+            <div class="col-sm-10">
+              <input id="mch_level" name="mch_level" type="text" class="form-control" placeholder="输入商家级别..." />
+            </div>
+          </div>
+          <div class="form-group col-sm-12">
+            <label class="col-sm-2 control-label">商户描述</label>
+            <div class="col-sm-10">
+              <textarea id="description" name="description" placeholder="输入商户描述..." cols="82" class="form-control"></textarea>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+    <div class="tab-pane fade" id="tab_service">
+      <div class="tab-item-body">
+        <div class="col-sm-12">
+          <div class="filter-container">
+            <form method="post" class="form-horizontal"></form>
+          </div>
+        </div>
+        <div class='action-bar col-sm-12'>
+          <div class="view-action">
+            <button class="btn-add" />
+            <button class="btn-selectall" />
+            <button class="btn-selectopp" />
+            <button class="btn-edit" />
+            <button class="btn-remove" />
+            <button class="btn-preview" />
+          </div>
+          <div class="common-action">
+            <button class="btn-search" />
+            <button class="btn-export" />
+            <button class="btn-refresh" />
+            <button class="btn-reset" />
+          </div>
+        </div>
+        <div class="col-sm-12">
+          <div id="record-container">
+            <table class="qdp-table" id="table" />
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<form id="upload-mch_photourl" enctype="multipart/form-data" style="display:none">
+  <input id="input-photo_url" name="input-photo_url" type="file">
+</form>

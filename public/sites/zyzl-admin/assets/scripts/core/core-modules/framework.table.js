@@ -1,6 +1,7 @@
 define(['jquery', 'cfgs',
-  'core/core-modules/framework.ajax'],
-  function ($, cfgs, ajax) {
+  'core/core-modules/framework.ajax',
+  'core/core-modules/framework.event'],
+  function ($, cfgs, ajax, event) {
 
     /**
      * 根据缓存数据索引获取数据内容
@@ -15,6 +16,7 @@ define(['jquery', 'cfgs',
     };
 
     var render = (target, columns) => {
+      console.log("渲染表格");
       target.addClass("datatable table table-striped table-bordered table-hover");
       var row = $("<div />").addClass("col-sm-12 bottom text-right").appendTo(target.parent().parent());
       $("<ul/>").addClass("pagination").appendTo(row);
@@ -116,6 +118,12 @@ define(['jquery', 'cfgs',
           cfgs.pageOptions.requestOptions.parsefn($("<tr />").appendTo(table), index, start_index + index, item);
         });
       }
+      var selector = $('table>tbody>tr[class*="selected"]');
+      // EVENT-RAISE:table.selected table选中行后触发 {selector,length}
+      event.raise('table.selected', {
+        "selector": selector,
+        "length": selector.length
+      });
       _regist_table({
         "pagecount": cfgs.pageOptions.buffer.pagecount,
         "pageindex": cfgs.pageOptions.buffer.pageindex
@@ -124,7 +132,7 @@ define(['jquery', 'cfgs',
 
     /** 获取需要处理的表格对象 @private*/
     var getTable = function () {
-      return $("#table");
+      return $(".qdp-table");
     }
 
     /** 公共数据处理:回调parsefn填充数据并且生成分页按钮
@@ -219,7 +227,7 @@ define(['jquery', 'cfgs',
     }
 
     var getSelectDatas = function () {
-      var selector = $('table tr[class="selected"]');
+      var selector = $('table tr[class*="selected"]');
       var datas = [];
       $.each(selector, function (index, item) {
         var id = $(item).attr('data-id');

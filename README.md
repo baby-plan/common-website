@@ -35,12 +35,12 @@ bootstrap负责UI展示，nodejs用于后台请求处理，数据存储到mysql
 
 ### 安装
 
-1. 进入website根目录
+1. 进入common-website根目录
 2. 初始化nodejs依赖包 `npm install`
 
 ### 部署
 
-1. 进入website根目录
+1. 进入common-website根目录
 2. 执行启动命令 `npm start`
 
 # 更新日志 

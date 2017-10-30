@@ -1,44 +1,31 @@
-define(["QDP"
+define(["QDP",
 ], function (QDP) {
-
   "use strict";
-  var edit_click = function () {
-    // dialog.alertText("1");
-    if ($(this).attr('disabled')) {
-      return;
-    }
+  // 执行提交审核操作
+  var submit_click = function () {
     var data = QDP.table.getSelect();
     if (data == null) {
-      QDP.alertText('请选择需要查看的记录（仅选择1条记录）');
+      QDP.alert('请选择需要提交审核的商户（仅选择1条记录）');
       return;
     }
-
-    // 打开窗口后回调函数:用于初始化页面内容
-    var openviewCallback = function (parent) {
-      $('#province_code', parent).val(QDP.dict.getText('province', data.province));
-      $('#city_code', parent).val(QDP.dict.getText('city', data.city));
-      $('#county_code', parent).val(QDP.dict.getText('county', data.county));
-
-      $('#mch_name', parent).val(QDP.base64.decode(data.mch_name));
-      $('#mch_phone', parent).val(QDP.base64.decode(data.mch_phone));
-      $('#store_name', parent).val(QDP.base64.decode(data.store_name));
-    };
-
-    QDP.form.openWidow({
-      'title': QDP.base64.decode(data.mch_name),
-      'url': QDP.api.merchant.detailPage,
-      'onshow': openviewCallback
+    QDP.confirm("确定该商户需要提交审批?", function (result) {
+      if (!result) {
+        return;
+      }
+      console.debug("MCH_MANAGEMENT_APPROVAL" + ":" + data);
+      // var data = QDP.table.getdata(primary);
+      // // console.log(JSON.stringify(data));
+      // QDP.ajax.get(QDP.api.merchant.publish, { "id": data.id }, function () {
+      //   QDP.table.reload();
+      // });
     });
-  };
+  }
 
-  // 执行发布商户信息操作
-  var onPublish = function () {
-    if ($(this).attr('disabled')) {
-      return;
-    }
+  // 执行发布操作
+  var publish_click = function () {
     var data = QDP.table.getSelect();
     if (data == null) {
-      QDP.alertText('请选择需要发布的商户（仅选择1条记录）');
+      QDP.alert('请选择需要发布的商户（仅选择1条记录）');
       return;
     }
 
@@ -55,78 +42,73 @@ define(["QDP"
     });
   }
 
-  // var onCheck = function () {
-
-  // }
-
-  /** 处理商户管理相关功能可用性及可见度ƒ */
-  var table_select_handler = () => {
-    var selector = $('.table>tbody>tr[class="selected"]');
-    if (selector.length == 1) {
-      var index = selector.data('id');
-      var data = QDP.table.getdata(index);
-      if (data) {
-        if (data.audit_status == 0) {
-          $(".btn_check").removeAttr('disabled');
-        }
-        if (data.publish_status == 0) {
-          $(".btn_publish").removeAttr('disabled');
-        }
-        if (data.publish_status == 1) {
-          $(".btn_unpublish").removeAttr('disabled');
-        }
+  // 执行取消发布操作
+  var unpublish_click = function () {
+    var data = QDP.table.getSelect();
+    QDP.confirm("确定取消该商户的发布状态?", function (result) {
+      if (!result) {
+        return;
       }
-      $(".btn_chgpwd").removeAttr('disabled');
-
-    } else if (selector.length == 0) {
-      $(".btn_check").attr('disabled', "true");
-      $(".btn_chgpwd").attr('disabled', "true");
-      $(".btn_publish").attr('disabled', "true");
-      $(".btn_unpublish").attr('disabled', "true");
-    } else {
-      $(".btn_check").attr('disabled', "true");
-      $(".btn_chgpwd").attr('disabled', "true");
-      $(".btn_publish").attr('disabled', "true");
-      $(".btn_unpublish").attr('disabled', "true");
-    }
+      console.debug('MCH_MANAGEMENT_UNPUBLISH' + ":" + data);
+      // var data = QDP.table.getdata(primary);
+      // // console.log(JSON.stringify(data));
+      // QDP.ajax.get(QDP.api.merchant.publish, { "id": data.id }, function () {
+      //   QDP.table.reload();
+      // });
+    });
   }
 
-  var initAction = () => {
-    var powers = QDP.config.pageOptions.powers;
-    var actionContainer = $('.view-action');
-    // TODO: 权限校验-MCH_MANAGEMENT_APPROVAL
-    if (powers.indexOf('check') > -1) {
-      QDP.form.appendAction(actionContainer, "btn_check", edit_click);
-    }
-    // TODO: 权限校验-MCH_MANAGEMENT_PUBLISH
-    if (powers.indexOf('publish') > -1) {
-      QDP.form.appendAction(actionContainer, "btn_publish", onPublish);
-    }
-    // TODO: 权限校验-MCH_MANAGEMENT_UNPUBLISH
-    if (powers.indexOf('unpublish') > -1) {
-      QDP.form.appendAction(actionContainer, "btn_unpublish", edit_click);
-    }
-    // TODO: 权限校验-MCH_MANAGEMENT_RESETPASSWORD
-    if (powers.indexOf('resetpassword') > -1) {
-      QDP.form.appendAction(actionContainer, "btn_chgpwd", edit_click);
-    }
+  // 执行审核操作
+  var audit_click = function () {
 
-    table_select_handler();
+    var data = QDP.table.getSelect();
+    if (data == null) {
+      QDP.alert('请选择需要提交审核的商户（仅选择1条记录）');
+      return;
+    }
+    QDP.form.openWidow({
+      'title': '审核商户信息',
+      'width': '800px',
+      'url': 'views/business/merchant-audit.html',
+      'onshow': function (parent) {
+        // parent
+      }
+    });
+  }
+
+  // 执行重置密码操作
+  var resetpassword_click = function () {
+    QDP.form.openWidow({
+      'title': '修改商户密码',
+      'width': '380px',
+      'height': '150px',
+      'url': 'views/business/reset-password.html',
+      'onshow': function (parent) {
+        // parent
+      }
+    });
   }
 
   /** 初始化编辑界面,若data有值则视为编辑数据,否则视为新增数据
    * @param {object} data 编辑时传入的数据,新增时不需要
    */
   var initEditor = function (data) {
-    QDP.form.init();
+    QDP.generator.setValue(data);
+    setTimeout(function () {
+      // 获取模块配置验证项
+      var validatorOption = QDP.generator.validator();
+      validatorOption.fields["lnglat"] = {
+        validators: {
+          notEmpty: {
+            message: '经纬度不能为空'
+          }
+        }
+      };
+      $(".core-form").bootstrapValidator(validatorOption); // 注册表单验证组件
+    }, 200);
 
-    // 获取模块配置验证项
-    var validatorOption = QDP.generator.validator();
-
-    $("#role-form").bootstrapValidator(validatorOption); // 注册表单验证组件
-
-    $('.btn_save').on('click', function () {
-      var validator = $('#role-form').data("bootstrapValidator");
+    $('.btn-save').on('click', function () {
+      var validator = $('.core-form').data("bootstrapValidator");
       validator.validate();
       if (!validator.isValid()) {
         return;
@@ -136,7 +118,7 @@ define(["QDP"
     });
 
     // #region 处理图片上传
-    $('#input-mch_photourl').on('change', function () {
+    $('#input-photo_url').on('change', function () {
       if ($(this).val() != "") {
         //exec_upload();
         var imgurl;
@@ -148,151 +130,53 @@ define(["QDP"
           imgurl = window.URL.createObjectURL($(this)[0].files.item(0));
         }
 
-        $('#mch_photourl_img').attr('src', imgurl);
-        $('#mch_photourl').val(imgurl);
+        $('#photo_url_img').attr('src', imgurl);
+        $('#photo_url').val(imgurl);
 
-        if ($("#role-form").data("bootstrapValidator")) {
-          $("#role-form")
+        if ($(".core-form").data("bootstrapValidator")) {
+          $(".core-form")
             .data("bootstrapValidator")
-            .updateStatus('mch_photourl', "NOT_VALIDATED", null)
-            .validateField('mch_photourl');
+            .updateStatus('photo_url', "NOT_VALIDATED", null)
+            .validateField('photo_url');
         }
       }
     });
 
-    $('#mch_photourl_img')
-      // .css('minHeight', '200px')
-      .on('click', function () { $("#input-mch_photourl").click(); });
-    $('#mch_photourl')
+    $('#photo_url_img')
+      .on('click', function () { $("#input-photo_url").click(); });
+    $('#photo_url')
       .parent()
-      .on('click', function () { $("#input-mch_photourl").click(); });
+      .on('click', function () { $("#input-photo_url").click(); });
 
     // #endregion// #region 处理图片上传
 
     // #region 处理地图选点
+    require(['module-plugins/map-gaode'], function (plugin) {
 
-    require([
-      'http://webapi.amap.com/maps?v=1.3&key=f0948ced2976d1bcc654eff99d796a32&plugin=AMap.Autocomplete',
-      'http://cache.amap.com/lbs/static/addToolbar.js'
-    ], () => {
-
-      var placeSearch, eventArgs;
-      var showMapContainer = function () {
-        var marker, map = new AMap.Map('map-main', {
-          resizeEnable: true,
-        });
-
-        if (eventArgs) {
-          if (eventArgs && eventArgs.lng && eventArgs.lat) {
-            marker = new AMap.Marker({
-              icon: "http://webapi.amap.com/theme/v1.3/markers/n/mark_r.png",
-              position: [eventArgs.lng, eventArgs.lat]
-            });
-            marker.setMap(map);
-            map.setZoomAndCenter(15, [eventArgs.lng, eventArgs.lat]);
-            $('#btn-ok').attr('class', 'btn btn-success').attr('disabled', false);
-          } else {
-            $('#btn-ok').attr('class', 'btn btn-default').attr('disabled', true);
+      QDP.on("map.submit", function (eventArgs) {
+        var lnglat = eventArgs.args;
+        if (lnglat && lnglat.lng && lnglat.lat) {
+          $("#lnglat").val(lnglat.lng + "," + lnglat.lat);
+          var validator = $(".core-form").data("bootstrapValidator");
+          if (validator) {
+            validator.updateStatus("lnglat", "NOT_VALIDATED", null).validateField("lnglat");
           }
         }
-
-        //为地图注册click事件获取鼠标点击出的经纬度坐标
-        map.on('click', function (e) {
-          if (marker) {
-            marker.setMap(null);
-            marker = null;
-          }
-
-          if (placeSearch) {
-            placeSearch.clear();
-          }
-
-          marker = new AMap.Marker({
-            icon: "http://webapi.amap.com/theme/v1.3/markers/n/mark_r.png",
-            position: [e.lnglat.getLng(), e.lnglat.getLat()]
-          });
-          marker.setMap(map);
-
-          eventArgs = {
-            lng: e.lnglat.getLng(),
-            lat: e.lnglat.getLat()
-          };
-          $('#btn-ok').attr('class', 'btn btn-success').attr('disabled', false);
-        });
-
-        $(".map-search").on("click", function () {
-          var text = $('#map-input').val();
-          //关键字查询
-          if (placeSearch) {
-            placeSearch.search(text);
-          }
-        });
-
-        //注册监听，当选中某条记录时会触发
-        AMap.event.addListener(new AMap.Autocomplete({ input: "map-input" }), "select", function (e) {
-          placeSearch.setCity(e.poi.adcode);
-          placeSearch.search(e.poi.name);  //关键字查询查询
-        });
-
-        AMap.service(["AMap.PlaceSearch"], function () {
-          placeSearch = new AMap.PlaceSearch({ //构造地点查询类
-            pageSize: 5,
-            pageIndex: 1,
-            map: map,
-            panel: 'map-input-panel'
-          });
-
-          var searchClick = function (e) {
-            if (marker) {
-              marker.setMap(null);
-              marker = null;
-            }
-            if (e.data && e.data.location) {
-              map.setZoom(15);
-              map.setCenter(e.data.location);
-              eventArgs = {
-                lng: e.data.location.lng,
-                lat: e.data.location.lat
-              };
-              $('#btn-ok').attr('class', 'btn btn-success').attr('disabled', false);
-            }
-          }
-
-          AMap.event.addListener(placeSearch, "markerClick", searchClick);
-          AMap.event.addListener(placeSearch, "listElementClick", searchClick);
-
-          var mch_addr = $("#mch_addr").val();
-          if (mch_addr) {
-            $('#map-input').val(mch_addr);
-            if (placeSearch) {
-              placeSearch.search(mch_addr);
-            }
-          }
-        });
-
-      }
-      $("#map-container .modal-dialog").width($(window).width() - 50);
-      $("#map-container .modal-body").height($(window).height() - 220);
-      // 地图容器中的确定按钮点击事件处理函数
-      $("#map #btn-ok").on('click', function () {
-        $("#lnglat").val(eventArgs.lng + "," + eventArgs.lat);
-        var validator = $("#role-form").data("bootstrapValidator");
-        if (validator) {
-          validator.updateStatus("lnglat", "NOT_VALIDATED", null).validateField("lnglat");
-        }
-        $('#map').modal('hide');
+      });
+      QDP.on("map.initialized", function () {
+        var text = $("#store_addr").val();
+        plugin.search(text);
       });
 
-      $('#lnglat').parent()
-        .on('click', function () {
-          $('.amap-sug-result').remove();
-          $('#map').modal({ keyboard: false });
-          //添加延时加载。解决问题
-          setTimeout(showMapContainer, 300);
-        });
+      plugin.init();
+      $('#lnglat').parent().on('click', function () {
+        plugin.show();
+      });
 
     });
     // #endregion// #region 处理地图选点
+
+    QDP.form.render();
 
     /* 请求角色详情 */
     if (data) {
@@ -313,83 +197,127 @@ define(["QDP"
   }
 
   var initDetailView = function (data, parent) {
-    $('#province_code', parent).val(QDP.dict.getText('province', data.province_code));
-    $('#city_code', parent).val(QDP.dict.getText('city', data.city_code));
-    $('#county_code', parent).val(QDP.dict.getText('county', data.county_code));
+    QDP.generator.setValue(data, parent);
+  }
 
-    $('#mch_name', parent).val(QDP.base64.decode(data.mch_name));
-    $('#mch_phone', parent).val(QDP.base64.decode(data.mch_phone));
-    $('#store_name', parent).val(QDP.base64.decode(data.store_name));
+  var action_status_controller = function (data) {
+    return data.audit_status == 0;
+  }
+  var action_publish_controller = function (data) {
+    return data.publish_status == 0 && data.audit_status == 1;
+  }
+  var action_unpublish_controller = function (data) {
+    return data.publish_status == 1;
   }
 
   return {
-    define: {
-      name: "商户基本信息管理",
+    "define": {
+      "name": "商户基本信息管理",
       version: "1.0.0.0",
       copyright: " Copyright 2017-2027 WangXin nvlbs,Inc."
     },
 
     /** 加载模块 */
-    init: function () {
+    "init": function () {
       var options = {
-        apis: {
-          list: QDP.api.merchant.datas,
-          insert: QDP.api.merchant.add,
-          update: QDP.api.merchant.update,
-          delete: QDP.api.merchant.remove
+        "apis": {
+          "list": QDP.api.merchant.datas,
+          "insert": QDP.api.merchant.add,
+          "update": QDP.api.merchant.update,
+          "delete": QDP.api.merchant.remove
         },
-        "editor": {
-          "page": QDP.api.merchant.editpage,
-          "callback": initEditor
-        },
-        "detailor": {
-          "mode": "modal",
-          "page": QDP.api.merchant.detailPage,
-          "callback": initDetailView
-        },
-        texts: { insert: "新增商户信息", update: "商户信息编辑" },
-        headers: { edit: { text: "商户信息" }, table: { text: "商户列表" } },
-        actions: { insert: true, update: true, delete: true },
-        columns: [
-          { name: "_index", text: "序号" },
-          { name: "province_code", text: "省份", dict: "province", edit: true, filter: true, filterindex: 1 },
-          { name: "city_code", text: "地市", change: "province_code", dict: "city", edit: true, filter: true, filterindex: 2 },
-          { name: "county_code", text: "区县", dict: "county", edit: true, filter: true, filterindex: 2.1 },
-          { name: "id", text: "商户编号", filter: true, filterindex: 3, primary: true, display: true },
-          { name: "poi_id", text: "POIID", base64: true, filter: true, filterindex: 4 },
-          { name: "mch_name", text: "商户名称", base64: true, edit: true, filter: true, filterindex: 5 },
-          { name: "store_name", text: "店铺名称", base64: true, edit: true, filter: true, filterindex: 6 },
-          { name: "mch_addr", text: "商户地址", base64: true, edit: true, overflow: 5 },
-          {
-            name: "mch_phone", text: "商户登录名", validtype: 'phone', message: '商户登录名必须为手机号码',
-            base64: true, edit: true, filter: true, filterindex: 8
+        "views": {
+          "edit": {
+            "page": "views/business/editor.html",
+            "callback": initEditor
           },
-          { name: "signatory", text: "签约人", base64: true, edit: true, filter: true, filterindex: 7 },
-          { name: "audit_status", text: "商户审核状态", dict: "audit_status", filter: true, filterindex: 9 },
-          { name: "publish_status", text: "商户发布状态", dict: "publish_status", filter: true, filterindex: 10 },
-          { name: "online_status", text: "商户上线状态", dict: "online_status", filter: true, filterindex: 11 },
-          { name: "description", text: "商户描述", novalid: true, type: "mulittext", base64: true, edit: true, grid: false },
-          { name: "photo_url", text: "封面", type: "image", edit: true, base64: true, grid: false },
-          { name: "creator", text: "创建人", base64: true },
-          { name: "create_time", text: "创建时间", type: "datetime" },
-          { name: "begin_date", text: "开始时间", type: "date", filter: true, filterindex: 12, grid: false },
-          { name: "end_date", text: "结束时间", type: "date", filter: true, filterindex: 13, grid: false },
-          { name: 'password', text: '密码', grid: false, edit: true },
-          { name: 'people', text: '联系人', grid: false, edit: true },
-          { name: 'people_phone', text: '联系电话', validtype: 'phone', grid: false, edit: true }
+          "preview": {
+            "mode": "modal",
+            "page": "views/business/detail.html",
+            "callback": initDetailView
+          }
+        },
+        /**
+         * 设置权限
+         * 
+         * JSON结构定义
+         * name {string} 功能权限名称
+         * class {string} 功能按钮样式名称，对应cfgs的texts
+         * action {function} 功能按钮点击事件处理函数
+         * controller {function} 判断功能权限是否可用 function(data){return boolean;} 返回结果为true时按钮可用，否则为禁用状态
+         */
+        "powers": [
+          { "name": "submit", "class": "btn-submit", "action": submit_click },
+          { "name": "audit", "class": "btn-audit", "action": audit_click, "controller": action_status_controller },
+          { "name": "chgpwd", "class": "btn-chgpwd", "action": resetpassword_click },
+          { "name": "publish", "class": "btn-publish", "action": publish_click, "controller": action_publish_controller },
+          { "name": "unpublish", "class": "btn-unpublish", "action": unpublish_click, "controller": action_unpublish_controller },
+        ],
+        "texts": { "insert": "新增商户信息", "update": "商户信息编辑" },
+        "headers": { "edit": { "text": "商户信息" }, "table": { "text": "商户列表" } },
+        "actions": { "insert": true, "update": true, "delete": true },
+        "columns": [
+          { "name": "_index", "text": "序号" },
+          { "name": "province_code", "text": "省份", "dict": "province", "edit": true, "filter": true, "filterindex": 1 },
+          { "name": "city_code", "text": "地市", "dict": "city", "edit": true, "filter": true, "filterindex": 2 },
+          { "name": "county_code", "text": "区县", "dict": "county", "edit": true, "filter": true, "filterindex": 2.1 },
+          { "name": "id", "text": "商户编号", "filter": true, "filterindex": 3, "primary": true, "display": true },
+          { "name": "poi_id", "text": "POIID", "filter": true, "filterindex": 4 },
+          { "name": "mch_name", "text": "商户名称", "edit": true, "filter": true, "filterindex": 5 },
+          { "name": "store_name", "text": "店铺名称", "edit": true, "filter": true, "filterindex": 6 },
+          { "name": "user_name", "text": "用户名", "edit": true },
+          { "name": "password", "text": "密码", "edit": true, "display": false },
+          { "name": "link_man", "text": "联系人", "edit": true },
+          { "name": "store_phone", "text": "联系电话", "edit": true },
+
+          { "name": "legal_person", "text": "法人代表", "edit": true, "display": false },
+          { "name": "lane_number", "text": "车道数", "novalid": true, "edit": true, "display": false },
+          { "name": "mch_scale", "text": "商家规模", "label": "人", "novalid": true, "edit": true, "display": false },
+          { "name": "mch_is_chain", "text": "是否连锁", "dict": "ischain", "novalid": true, "edit": true, "display": false },
+          { "name": "mch_chain_count", "text": "连锁店数量", "novalid": true, "edit": true, "display": false },
+          { "name": "open_time", "text": "开业时间", "novalid": true, "type": "date", "edit": true, "display": false },
+          { "name": "business_time", "text": "营业时间", "dict": "businesstime", "edit": true, "display": false },
+          { "name": "master_business", "text": "主营业务", "novalid": true, "edit": true, "display": false },
+          { "name": "recommend_business", "text": "推荐业务", "novalid": true, "edit": true, "display": false },
+          { "name": "slave_business", "text": "兼营业务", "novalid": true, "edit": true, "display": false },
+          { "name": "business_area", "text": "营业面积", "label": "平方米", "novalid": true, "edit": true, "display": false },
+
+          { "name": "business_volumn", "text": "日均营业额", "novalid": true, "edit": true, "display": false },
+          { "name": "per_person_amount", "text": "人均消费额", "novalid": true, "edit": true, "display": false },
+          { "name": "signatory_no", "text": "签约人编号", "novalid": true, "edit": true, "display": false },
+          { "name": "signatory", "text": "签约人", "edit": true, "filter": true, "filterindex": 7 },
+          { "name": "signatory_phone", "text": "签约人电话", "novalid": true, "edit": true, "display": false },
+          { "name": "contract_time", "text": "合同签约时间", "edit": true, "display": false },
+          { "name": "contract_no", "text": "合同编号", "novalid": true, "type": "date", "edit": true, "display": false },
+
+          { "name": "start_time", "text": "合同开始时间", "novalid": true, "type": "date", "edit": true, "display": false },
+          { "name": "end_time", "text": "合同到期时间", "type": "date", "edit": true, "display": false },
+
+          { "name": "contract_time", "text": "合同签约时间", "edit": true, "display": false },
+
+          { "name": "store_addr", "text": "详细地址", "edit": true, "overflow": 15 },
+          { "name": "location_lon", "text": "经度", "edit": true, "display": false },
+          { "name": "location_lat", "text": "纬度", "edit": true, "display": false },
+
+          { "name": "mch_level", "text": "商家级别", "novalid": true, "edit": true },
+
+          { "name": "audit_status", "text": "商户审核状态", "dict": "audit_status", "filter": true, "filterindex": 9 },
+          { "name": "publish_status", "text": "商户发布状态", "dict": "publish_status", "filter": true, "filterindex": 10 },
+          { "name": "online_status", "text": "商户上线状态", "dict": "online_status", "filter": true, "filterindex": 11 },
+          { "name": "description", "text": "商户描述", "novalid": true, "type": "mulittext", "edit": true, "display": false },
+          { "name": "photo_url", "text": "商户照片", "type": "image", "edit": true, "display": false },
+          { "name": "creator", "text": "创建人" },
+          { "name": "create_time", "text": "创建时间", "type": "datetime" },
+          { "name": "begin_date", "text": "开始时间", "type": "date", "filter": true, "filterindex": 12, "display": false },
+          { "name": "end_date", "text": "结束时间", "type": "date", "filter": true, "filterindex": 13, "display": false },
         ]
       };
-      QDP.generator.init(options);
-      initAction();
-      // EVENT-ON:table.selected
-      QDP.event.on('table.selected', table_select_handler);
 
+      QDP.generator.build(options);
     },
 
     /** 卸载模块 */
-    destroy: function () {
-      // EVENT-OFF:table.selected
-      QDP.event.off('table.selected', table_select_handler);
+    "destroy": function () {
     }
 
   };

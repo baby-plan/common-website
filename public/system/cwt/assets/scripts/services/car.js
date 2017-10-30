@@ -249,7 +249,6 @@
       if (item == "info") {
         button.addClass("blue");
         button.append($("<i/>").addClass("icon-info"));
-        // button.on("click", doTalk);
       } else if (item == "talk") {
         button.addClass("red");
         button.append($("<i/>").addClass("icon-bubbles"));
@@ -489,6 +488,7 @@
     }
     setTimeout(refreshRealData, bus_cfgs.options.request.monitor);
   };
+  
   // 刷新实时数据
   var refreshRealData = function () {
     App.ajax(bus_cfgs.carservice.realtrackapi, { "block": false, "args": {} }, realdata_callback);

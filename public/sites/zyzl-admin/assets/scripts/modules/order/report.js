@@ -1,13 +1,13 @@
 define(["QDP"], function (QDP) {
   "use strict";
   return {
-    define: {
-      name: "订单处理模块",
-      version: "1.0.0.0",
-      copyright: ' Copyright 2017-2027 WangXin nvlbs,Inc.',
+    "define": {
+      "name": "订单处理模块",
+      "version": "1.0.0.0",
+      "copyright": ' Copyright 2017-2027 WangXin nvlbs,Inc.',
     },
     /** 加载模块 */
-    init: function () {
+    "init": function () {
       var options = {
         "apis": { "list": QDP.api.logs.datas },
         "plugins": ['city'],
@@ -48,10 +48,10 @@ define(["QDP"], function (QDP) {
           { name: "c22", text: "生成时间", base64: true, type: 'date' },
         ]
       };
-      QDP.generator.init(options);
+      QDP.generator.build(options);
     },
     /** 卸载模块 */
-    destroy: function () {
+    "destroy": function () {
 
     }
   };

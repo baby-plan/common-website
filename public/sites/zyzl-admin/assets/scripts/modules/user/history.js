@@ -26,8 +26,8 @@ define(["QDP"], function (QDP) {
           { name: "channeltype", text: "领券渠道", dict: "channeltype", filter: true, filterindex: 14 },
           { name: "publishdate", text: "领券时间", type: "date" },
 
-          { name: "begin_date2", text: "领券开始时间", type: "date", filter: true, filterindex: 5, grid: false },
-          { name: "end_date2", text: "领券结束时间", type: "date", filter: true, filterindex: 6, grid: false },
+          { name: "begin_date2", text: "领券开始时间", type: "date", filter: true, filterindex: 5, display: false },
+          { name: "end_date2", text: "领券结束时间", type: "date", filter: true, filterindex: 6, display: false },
 
           { name: "outdate", text: "过期时间", type: "date" },
           { name: "usedate", text: "验证时间", type: "date" },
@@ -42,8 +42,8 @@ define(["QDP"], function (QDP) {
           { name: "ordercode", text: "订单编号", base64: true },
           { name: "orderdate", text: "订单时间", type: "date" },
 
-          { name: "begin_date", text: "订单开始时间", type: "date", filter: true, filterindex: 3, grid: false },
-          { name: "end_date", text: "订单结束时间", type: "date", filter: true, filterindex: 4, grid: false },
+          { name: "begin_date", text: "订单开始时间", type: "date", filter: true, filterindex: 3, display: false },
+          { name: "end_date", text: "订单结束时间", type: "date", filter: true, filterindex: 4, display: false },
 
           { name: "orderauditstate", text: "订单审核状态" },
           { name: "orderamount", text: "订单金额" },
@@ -55,7 +55,7 @@ define(["QDP"], function (QDP) {
           { name: "realamount", text: "应结算金额", base64: true }
         ]
       };
-      QDP.generator.init(options);
+      QDP.generator.build(options);
     },
     /** 卸载模块 */
     destroy: function () {

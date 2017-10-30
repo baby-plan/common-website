@@ -11,7 +11,7 @@ define(["QDP"], function (QDP) {
     init: function () {
       var options = {
         apis: { list: QDP.api.logs.datas },
-        "plugins": ['city'],
+        // "plugins": ['city'],
         "helps": {
           "list": QDP.config.tooltip.compute
         },
@@ -39,8 +39,8 @@ define(["QDP"], function (QDP) {
           { name: "carplate", text: "车牌号码" },
           { name: "ordercode", text: "订单编号" },
           { name: "orderdate", text: "订单时间", type: "date" },
-          { name: "begin_date", text: "订单开始时间", type: "date", filter: 'date', filterindex: 4, grid: false },
-          { name: "end_date", text: "订单结束时间", type: "date", filter: 'date', filterindex: 5, grid: false },
+          { name: "begin_date", text: "订单开始时间", type: "date", filter: 'date', filterindex: 4, display: false },
+          { name: "end_date", text: "订单结束时间", type: "date", filter: 'date', filterindex: 5, display: false },
           { name: "orderauditstate", text: "订单审核状态" },
           { name: "orderamount", text: "订单金额" },
           { name: "payamount", text: "实付金额" },
@@ -51,7 +51,7 @@ define(["QDP"], function (QDP) {
           { name: "realamount", text: "应结算金额", base64: true }
         ]
       };
-      QDP.generator.init(options);
+      QDP.generator.build(options);
     },
     /** 卸载模块 */
     destroy: function () {

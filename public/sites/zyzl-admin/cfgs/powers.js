@@ -2,7 +2,7 @@ define(["cfgs", "core/core-modules/framework.event"], function (cfgs, event) {
 
   cfgs.powers = [];
   // EVENT-ON:layout.logined
-  event.on("layout.logined", function (info) {
+  event.on("layout.logined", function tmp_powers(info) {
 
     if (info.args.account == 'user1') {
       //业务管理视角
@@ -103,6 +103,17 @@ define(["cfgs", "core/core-modules/framework.event"], function (cfgs, event) {
           ]
         },
         {
+          "id": "MCH_NOTICE", "actions": [
+            "MCH_NOTICE_INSERT",
+            "MCH_NOTICE_UPDATE",
+            "MCH_NOTICE_DELETE",
+            "MCH_NOTICE_SUBMIT",
+            "MCH_NOTICE_AUDIT",
+            "MCH_NOTICE_PUBLISH",
+            "MCH_NOTICE_UNPUBLISH",
+          ]
+        },
+        {
           "id": "SYS_MONITOR",
           "actions": []
         }
@@ -121,9 +132,6 @@ define(["cfgs", "core/core-modules/framework.event"], function (cfgs, event) {
             "MCH_MANAGEMENT_UPDATE",
             "MCH_MANAGEMENT_DELETE",
             "MCH_MANAGEMENT_EXPORT",
-            "MCH_MANAGEMENT_APPROVAL",
-            "MCH_MANAGEMENT_REJECT",
-            "MCH_MANAGEMENT_REJECT",
             "MCH_MANAGEMENT_PUBLISH",
             "MCH_MANAGEMENT_UNPUBLISH",
             "MCH_MANAGEMENT_RESETPASSWORD"
@@ -185,8 +193,8 @@ define(["cfgs", "core/core-modules/framework.event"], function (cfgs, event) {
             "MCH_MANAGEMENT_UPDATE",
             "MCH_MANAGEMENT_DELETE",
             "MCH_MANAGEMENT_EXPORT",
-            "MCH_MANAGEMENT_APPROVAL",
-            "MCH_MANAGEMENT_REJECT",
+            "MCH_MANAGEMENT_SUBMIT",
+            "MCH_MANAGEMENT_AUDIT",
             "MCH_MANAGEMENT_PUBLISH",
             "MCH_MANAGEMENT_UNPUBLISH",
             "MCH_MANAGEMENT_RESETPASSWORD"
@@ -198,8 +206,7 @@ define(["cfgs", "core/core-modules/framework.event"], function (cfgs, event) {
             "MCH_SERVICE_MANAGEMENT_INSERT",
             "MCH_SERVICE_MANAGEMENT_UPDATE",
             "MCH_SERVICE_MANAGEMENT_DELETE",
-            "MCH_SERVICE_MANAGEMENT_EXPORT",
-            "MCH_SERVICE_MANAGEMENT_CHECH"
+            "MCH_SERVICE_MANAGEMENT_EXPORT"
           ]
         },
         {
@@ -217,7 +224,8 @@ define(["cfgs", "core/core-modules/framework.event"], function (cfgs, event) {
         {
           "id": "ORDER_SEARCH",
           "actions": [
-            "ORDER_SEARCH_EXPORT"
+            "ORDER_SEARCH_EXPORT",
+            "ORDER_SEARCH_AUDIT"
           ]
         },
         {
@@ -312,6 +320,17 @@ define(["cfgs", "core/core-modules/framework.event"], function (cfgs, event) {
           "id": "SYS_LOG",
           "actions": [
             "SYS_LOG_EXPORT"
+          ]
+        },
+        {
+          "id": "MCH_NOTICE", "actions": [
+            "MCH_NOTICE_INSERT",
+            "MCH_NOTICE_UPDATE",
+            "MCH_NOTICE_DELETE",
+            "MCH_NOTICE_SUBMIT",
+            "MCH_NOTICE_AUDIT",
+            "MCH_NOTICE_PUBLISH",
+            "MCH_NOTICE_UNPUBLISH",
           ]
         },
         {

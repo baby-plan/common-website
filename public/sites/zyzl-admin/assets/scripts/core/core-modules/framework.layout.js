@@ -4,17 +4,14 @@ define(
     "cfgs",
     "API",
     "core/core-modules/framework.block",
-    "core/core-modules/framework.base64",
     "core/core-modules/framework.ajax",
     "core/core-modules/framework.util",
     "core/core-modules/framework.dialog",
-    "core/core-modules/framework.cookie",
     "core/core-modules/framework.event",
     "jquery.slimscroll",
     'bootstrap-datetimepicker-CN',
     "jquery.uniform",
     'select2-CN',
-    "jquery.fbmodel",
     "bootstrap",
     "css!/assets/plugins/bootstrap/css/bootstrap.min.css",
     "css!/assets/css/animate.css",
@@ -27,26 +24,12 @@ define(
     cfgs,
     api,
     block,
-    base64,
     ajax,
     util,
     dialog,
-    cookie,
     event
   ) {
     let loaded = undefined, leaveAction = undefined, leaveModule = undefined;
-
-    let events = {
-      logined: "layout.logined",
-      started: "layout.started",
-      initialize: 'latout.initialize',
-      initialized: "layout.initialized"
-    };
-
-    let times = {
-      initialize: '平台初始化耗时',
-      pageload: '页面加载耗时'
-    }
 
     var _initMenu = function () {
 
@@ -246,7 +229,7 @@ define(
       var options = $.extend(cfgs.options.scroller,
         {
           height: contentHeight,
-          color: "#0786d6"
+          // color: "#0786d6"
         });
 
       $("#content-container").css("height", contentHeight + "px");
@@ -276,8 +259,8 @@ define(
 
     /** 初始化选中菜单层级 */
     var initMenuLevel = function () {
-
-      var newUrl = "zyzl-admin/?";
+      var res = util.parseURL(window.location);
+      var newUrl = res.path.substring(1) + "?";
 
       cfgs.pageOptions.items = new Array();
       cfgs.pageOptions.menus = new Array();
@@ -373,17 +356,17 @@ define(
         resetBreadcrumb();
         highlightSelected();
 
-        if ($("#ajax-content").hasClass("fadeOutRight")) {
-          $("#ajax-content").removeClass("fadeOutRight");
+        if ($(".ajax-content").hasClass("fadeOutRight")) {
+          $(".ajax-content").removeClass("fadeOutRight");
         }
-        $("#ajax-content").addClass("fadeInRight");
+        $(".ajax-content").addClass("fadeInRight");
 
         if (typeof callback === "function") {
           callback();
         }
 
         setTimeout(function () {
-          $("#ajax-content").removeClass("fadeInRight");
+          $(".ajax-content").removeClass("fadeInRight");
         }, 500);
       };
 
@@ -407,9 +390,9 @@ define(
       block.show("正在加载页面...");
       /* 初始化页面元素 */
       $("body>.datetimepicker").remove();
-      $("#ajax-content").addClass("fadeOutRight");
+      $(".ajax-content").addClass("fadeOutRight");
       /* 加载页面内容 */
-      $("#ajax-content").load(url, loadcallback);
+      $(".ajax-content").load(url, loadcallback);
 
     };
 
@@ -556,165 +539,45 @@ define(
       }
     };
 
-    /** 导航至系统主界面 */
-    var gotoMain = function () {
-      // EVENT-RAISE:layout.logined 用户登录后触发,{cfgs.INFO}
-      event.raise(events.logined, cfgs.INFO);
-      $("body").removeClass("login");
-      $('body>section').empty();
-      $('body>section').height($(document).height());
-      // 加载导航页面
-      block.show("初始化导航", $("body>aside"));
-      // setTimeout(function () {
-      $("body>aside").load(api.page.navigation, function () {
-        block.close($("body>aside"));
-        _initMenu();
-        _refresh_scroller();
-        // EVENT-RAISE:layout.initialized 初始化完成后触发
-        event.raise(events.initialized);
-      });
-      // }, 5000);
-
-      // 加载主页面
-      block.show("初始化页面", $("body>section"));
-      // setTimeout(function () {
-      $("body>section").load(api.login.mainpage, function () {
-        block.close($("body>section"));
-        $(".username").text(cfgs.INFO.name);
-        $(".userrole").text(cfgs.INFO.rolename);
-        resizeContentScroll();
-      });
-      // }, 5000);
-    };
-
-    /** 导航至登录界面 */
-    var gotoLogin = function () {
-      cookie.save("");
-      $("body").addClass("login");
-      $("body>section").removeAttr("style");
-      $("body>aside").removeAttr("style");
-      $("body>aside").empty();
-      var loginPageLoadCallback = function () {
-        $(".btn-login").on("click", function () {
-          var username = $("#inputusername").val();
-          var password = $("#inputpassword").val();
-          if (!username || username == "") {
-            dialog.alertText("账号不能为空!");
-            return;
-          }
-          if (!password || password == "") {
-            dialog.alertText("密码不能为空!");
-            return;
-          }
-          var options = {
-            u: base64.encode(username),
-            p: base64.encode(password)
-          };
-          var callback = function (json) {
-            // json.data.powers =
-            cookie.save(json);
-            gotoMain();
-          };
-          ajax.get(api.login.loginapi, options, callback);
-        });
-      };
-      $("body>section").load(api.login.page, loginPageLoadCallback);
-    };
-
-    // EVENT-ON:layout.started
-    event.on(events.started, function () {
-      console.info("应用程序启动");
-
-      $(window).on("resize", function () {
-        setTimeout(_refresh_scroller, 500);
-        setTimeout(resizeContentScroll, 500);
-      });
-
-      // 注册导航栏一级菜单点击事件
-      $(document).on("click", ".sidebar-menu .has-sub > a", function () {
-        var isOpen = $(this).parent().hasClass("open");
-        // 获取最后一个打开的一级菜单，并且清除打开状态
-        var last = $(".has-sub.open", $(".sidebar-menu"));
-        last.removeClass("open");
-        $(".arrow", last).removeClass("open");
-
-        if (isOpen) {
-          $(".arrow", $(this)).removeClass("open");
-          $(this).parent().removeClass("open");
-        } else {
-          $(".arrow", $(this)).addClass("open");
-          $(this).parent().addClass("open");
-        }
-      });
-
-      // 注册菜单点击事件
-      $(document).on("click", ".sidebar-menu-container a", function (e) {
-        on_menu_click($(this), e);
-      });
-
-      /* 处理【取消/返回】按钮事件 */
-      $(document).on('click', '.btn_back', function (e) {
-        e.preventDefault();
-        if ($(this).hasClass("custom") == false) {
-          module.back();
-        }
-      });
-
-      /* 注册按钮事件 */
-      $(document).on('click', '.sys-logout', function () {
-        ajax.get(api.login.logoutapi, {}, function () {
-          gotoLogin();
-        });
-      });
-
-      // 触发框架初始化事件
-      // EVENT-RAISE:layout.initialize 框架开始初始化时触发
-      event.raise(events.initialize);
-    });
-
-    // EVENT-ON:layout.initialize
-    event.on(events.initialize, function () {
-      console.time(times.initialize);
-      if (!(cfgs.INFO = cookie.read())) {
-        console.info("TOKEN验证失败,重新登录");
-        gotoLogin(); /*不存在token或token失效，需重新登录*/
-      } else {
-        console.info("TOKEN验证成功,进入系统");
-        gotoMain(); /*token有效，可正常使用系统*/
-      }
-    });
-
-    // EVENT-ON:layout.initialized
-    event.on(events.initialized, function () {
-      console.timeEnd(times.initialize);
-    });
-
-    /** 当前登录状态是否超时 */
-    let isLoginTimeout = false;
-    // EVENT-ON:layout.logined 当用户登录后触发：用于处理登录超时后弹出多个对话框
-    event.on(events.logined, function () {
-      isLoginTimeout = false;
-    });
-
-    // EVENT-ON:ajax.login.timeout 当用户session过期时出发，进入用户登录界面
-    event.on(ajax.events.logintimeout, function () {
-      // 解决登录超时后弹出多个对话框
-      if (isLoginTimeout) {
-        return;
-      }
-      isLoginTimeout = true;
-
-      dialog.alertText("登录超时,请重新登录", function () {
-        gotoLogin();
-      });
-    });
-
     let module = {
       /** 开始初始化UI框架 @returns */
       "init": function () {
         // EVENT-RAISE:layout.started 框架启动时触发
-        event.raise(events.started);
+        event.raise("layout.started");
+        $(window).on("resize", function () {
+          setTimeout(_refresh_scroller, 500);
+          setTimeout(resizeContentScroll, 500);
+        });
+
+        // 注册导航栏一级菜单点击事件
+        $('body').on("click", ".sidebar-menu .has-sub > a", function () {
+          var isOpen = $(this).parent().hasClass("open");
+          // 获取最后一个打开的一级菜单，并且清除打开状态
+          var last = $(".has-sub.open", $(".sidebar-menu"));
+          last.removeClass("open");
+          $(".arrow", last).removeClass("open");
+
+          if (isOpen) {
+            $(".arrow", $(this)).removeClass("open");
+            $(this).parent().removeClass("open");
+          } else {
+            $(".arrow", $(this)).addClass("open");
+            $(this).parent().addClass("open");
+          }
+        });
+
+        // 注册菜单点击事件
+        $('body').on("click", ".sidebar-menu-container a", function (e) {
+          on_menu_click($(this), e);
+        });
+
+        // 触发框架初始化事件
+        // EVENT-RAISE:layout.initialize 框架开始初始化时触发
+        event.raise("layout.initialize");
       },
+      "initMenu": _initMenu,
+      "resizeScroller": _refresh_scroller,
+      "resizeContentScroller": resizeContentScroll,
       "load": _ajax_load_content,
       /** 导航至前一界面 @returns */
       "back": function () {

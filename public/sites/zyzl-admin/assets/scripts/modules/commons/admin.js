@@ -42,21 +42,22 @@ define(["QDP"], function (QDP) {
         },
         "texts": { "insert": "新增用户", "update": "用户编辑" },
         "headers": { "edit": { "text": "用户信息" }, "table": { "text": "用户列表" } },
-        "actions": { "insert": true, "update": true, "delete": true },
+        "actions": { "insert": true, "update": true, "delete": true, "preview": false },
         "columns": [
           { "name": "_index", "text": "序号" },
           { "name": "id", "primary": true },
           {
             "name": "account", "text": "登录名",
-            validtype: 'phone', message: '商户登录名必须为手机号码',
+            "validtype": 'phone', "message": '商户登录名必须为手机号码',
             "base64": true, "edit": true, "filter": true
           },
           { "name": "name", "text": "姓名", "base64": true, "edit": true, "filter": true },
-          { "name": "roleid", "text": "角色", "edit": true, "custom": initRole, "grid": false, "filter": true },
-          { "name": "rolename", "text": "角色名称", "base64": true }
+          { "name": "roleid", "text": "角色", "edit": true, "custom": initRole, "display": false, "filter": true },
+          { "name": "rolename", "text": "角色名称", "base64": true },
+          { "name": "password", "text": "密码", "display": false, "edit": true },
         ]
       };
-      QDP.generator.init(options);
+      QDP.generator.build(options);
     },
     /** 卸载模块 */
     destroy: function () {
