@@ -23,13 +23,12 @@ define(['QDP'], function (QDP) {
           "insert": ["字典项编号不要相同,会影响使用,暂时未加入判断,需操作人员自行判断.", "字典项编号保存后不允许修改."],
           "update": ["字典项编号保存后不允许修改."]
         },
-        "headers": { "edit": { "text": dictname + "信息" }, "table": { "text": dictname + "列表" } },
         "texts": { "insert": dictname + "信息", "update": dictname + "信息编辑" },
-        "actions": { "insert": true, "update": true, "delete": true, "preview": false },
+        "actions": { "insert": true, "update": true, "preview": false },
         "columns": [
           { "name": "_index", "text": "序号" },
           { "name": "itemkey", "text": dictname + "编号", "primary": true, "display": true, "edit": true, "filter": true },
-          { "name": "itemvalue", "text": dictname, "base64": true, "edit": true, "filter": true }
+          { "name": "itemvalue", "text": dictname, "edit": true, "filter": true }
         ],
         "filters": []
       };
@@ -46,13 +45,12 @@ define(['QDP'], function (QDP) {
           "update": QDP.api.coderange.update,
           "delete": QDP.api.coderange.remove
         },
-        "headers": { "edit": { "text": "行政区划信息" }, "table": { "text": "行政区划信息列表" } },
         "texts": { "insert": "新增行政区划信息", "update": "行政区划信息编辑" },
-        "actions": { "insert": true, "update": true, "delete": true, "preview": false },
+        "actions": { "insert": true, "update": true, "preview": false },
         "columns": [
           { "name": "_index", "text": "序号" },
           { "name": "id", "text": "地区编号", "primary": true, "display": true, "filter": true },
-          { "name": "name", "text": "地区名称", "base64": true, "edit": true, "filter": true },
+          { "name": "name", "text": "地区名称", "edit": true, "filter": true },
           { "name": "level", "text": "级别", "edit": true },
           { "name": "parent_id", "text": "上级编码", "filter": true, "edit": true },
           { "name": "status", "text": "状态", "edit": true, "filter": true },
@@ -74,9 +72,8 @@ define(['QDP'], function (QDP) {
           "update": QDP.api.coderange.update,
           "delete": QDP.api.coderange.remove
         },
-        "headers": { "edit": { "text": "号段信息" }, "table": { "text": "号段信息列表" } },
         "texts": { "insert": "新增号段信息", "update": "号段信息编辑" },
-        "actions": { "insert": true, "update": true, "delete": true, "preview": false },
+        "actions": { "insert": true, "update": true, "preview": false },
         "columns": [
           { "name": "_index", "text": "序号" },
           { "name": "id", "text": "号段", "primary": true, "display": true, "filter": true },

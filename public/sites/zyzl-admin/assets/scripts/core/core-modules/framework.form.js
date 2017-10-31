@@ -54,7 +54,8 @@ define(
                 .text(item.text ? item.text : item)
             );
           });
-          target.attr("data-value", value);
+          target.val(value);
+          // target.attr("data-value", value);
           if (ismulit) {
             target.attr("data-mulit", true);
           }
@@ -65,7 +66,7 @@ define(
       "renderAllSelect": function () {
         // 解决时间段选择控件冲突问题
         $("select:not(.monthselect,.yearselect)").each(function () {
-          var selectvalue = $(this).attr("data-value");
+          var selectvalue = $(this).val();
           var ismulit = $(this).attr("data-mulit");
           $(this).select2(cfgs.options.select2);
           if (selectvalue) {
@@ -262,6 +263,7 @@ define(
         if (module.source && module.source.load && typeof module.source.load === "function")
           module.source.load(options.url, loadcallback);
       },
+      
       /** ajax方式加载页面内容.
        * @param {JSON} options 打开页面的参数
        *   {string}   title     界面的标题
@@ -282,6 +284,8 @@ define(
           "width": 'full',
           /** 模式对话框的高度 */
           'height': 'full',
+          /** 对话框内容模式：影响滚动条 normal=普通页面|tab=带有tab的页面 */
+          "mode": "normal", //normal|tab
           /** 打开模式对话框时处理函数 */
           "onshow": function () { },
           /** 关闭模式对话框时处理函数 */
@@ -315,41 +319,47 @@ define(
             $(".modal-container .modal .modal-title").html(_options.title);
           }
 
-          $(".modal-container .modal .modal-dialog").width(modalWidth);
-          $(".modal-container .modal .modal-body").height(modalHeight);
+          var eventArgs = {
+            "sender": $('.modal-container .modal')
+          };
 
-          var scrollOption = $.extend(cfgs.options.scroller, {
-            height: modalHeight
-          });
-          $(".modal-container .modal .modal-body").css("height", (modalHeight) + "px");
-          $(".modal-container .modal .modal-body").slimScroll(scrollOption);
+          $(".modal-dialog", eventArgs.sender).width(modalWidth);
+          $(".modal-body", eventArgs.sender).height(modalHeight);
 
-          $('.modal-container .modal .modal-body').load(_options.url, function () {
+          if (_options.mode == "normal") {
+            let scrollOption = $.extend(cfgs.options.scroller, {
+              height: modalHeight
+            });
+            $(".modal-body", eventArgs.sender).css("height", (modalHeight) + "px");
+            $(".modal-body", eventArgs.sender).slimScroll(scrollOption);
+          }
 
-            var eventArgs = {
-              "sender": $('.modal-container .modal')
-            };
+          $(".modal-body", eventArgs.sender).load(_options.url, function () {
+
             $(".modal-container .modal-footer").append(
               $('.modal-container tools')
             );
 
-            $('.modal-container .modal').on('show.bs.modal', function () {
-              // EVENT-RAISE:form.modal.show
-              event.raise('form.modal.show', eventArgs);
+            eventArgs.sender.on('show.bs.modal', function () {
               $('tools>button').unwrap();
-              _options.onshow($('.modal-container .modal'));
-
+              _options.onshow(eventArgs.sender);
               module.renderButton();
             });
 
-            $('.modal-container .modal').on('hide.bs.modal', function () {
-              // EVENT-RAISE:form.modal.hide
-              event.raise('form.modal.hide', eventArgs);
-              _options.onhide($('.modal-container .modal'));
+            eventArgs.sender.on('hide.bs.modal', function () {
+              $('.modal-container').remove();
+              _options.onhide(eventArgs.sender);
             });
 
-            $('.modal-container .modal').modal({ keyboard: false });
-
+            if (_options.mode == "tab") {
+              modalHeight = modalHeight - $(".tabbable.header-tabs .nav-tabs").height() - 15;
+              let scrollOption = $.extend(cfgs.options.scroller, {
+                height: modalHeight
+              });
+              $(".tabbable.header-tabs .tab-content", eventArgs.sender).css("height", (modalHeight) + "px");
+              $(".tabbable.header-tabs .tab-content", eventArgs.sender).slimScroll(scrollOption);
+            }
+            eventArgs.sender.modal();
           });
 
         });

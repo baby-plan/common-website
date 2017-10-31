@@ -13,11 +13,16 @@ define(["QDP"], function (QDP) {
         plugins: ['city', { 'name': 'chart', 'chart': 'user-active-month' }],
         columns: [
           { name: "_index", text: "序号" },
+
           { name: "province_code", text: "省份", dict: "province", filter: true, filterindex: 1 },
           { name: "city_code", text: "地市", dict: "city", filter: true, filterindex: 2 },
           { name: "county_code", text: "区县", dict: "county", filter: true, filterindex: 3 },
-          { name: "begin_date", text: "开始时间", type: "date", filter: true, filterindex: 4, display: false },
-          { name: "end_date", text: "结束时间", type: "date", filter: true, filterindex: 5, display: false },
+          { name: "channeltype", text: "领券渠道", dict: "channeltype", filter: true, filterindex: 4 },
+          { name: "itemtype", text: "套餐类型", dict: "itemtype", filter: true, filterindex: 5 },
+          { name: "itemcode", text: "套餐编号", filter: true, filterindex: 6 },
+          { name: "begin_date", text: "开始时间", type: "date", filter: true, filterindex: 7, display: false },
+          { name: "end_date", text: "结束时间", type: "date", filter: true, filterindex: 8, display: false },
+
           { name: "publishdate", text: "获取权益免费券用户数" },
           { name: "outdate", text: "验证权益免费券用户数" },
           { name: "usedate", text: "获取权益折扣券用户数" },

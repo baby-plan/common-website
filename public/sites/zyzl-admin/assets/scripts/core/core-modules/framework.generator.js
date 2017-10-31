@@ -9,7 +9,6 @@ define(
     "cfgs",
     "API",
     "core/core-modules/framework.ajax",
-    "core/core-modules/framework.base64",
     "core/core-modules/framework.dialog",
     "core/core-modules/framework.layout",
     "core/core-modules/framework.util",
@@ -32,7 +31,6 @@ define(
     cfgs,
     api,
     ajax,
-    base64,
     dialog,
     layout,
     util,
@@ -104,7 +102,7 @@ define(
             "delete": false,
             "preview": true,
             "export": true,
-            "select": true,
+            "select": false,
             "refresh": true,
             "reset": true
           },
@@ -136,7 +134,8 @@ define(
               "callback": initEditView
             },
             "preview": {
-              "mode": "modal",//"mode:page|modal"
+              "viewmode": "modal",//"mode:page|modal"
+              "mode": "normal",
               "width": '800px',//'full',
               "height": 'full',
               'title': '详情',
@@ -349,9 +348,11 @@ define(
           _search();
         }
       },
+
       "buildDetailView": function (data, container) {
         initDetailView(data, container);
       },
+
       /** 根据当前配置内容，创建验证规则
        * @return {JSON} 返回验证规则
        */
@@ -440,11 +441,7 @@ define(
             } else if (column.multiple) {
               options[column.name] = value.join();
             } else {
-              if (column.base64) {
-                options[column.name] = base64.encode(value);
-              } else {
-                options[column.name] = value;
-              }
+              options[column.name] = value;
             }
           }
         });
@@ -453,7 +450,7 @@ define(
       },
 
       "setValue": function (data, parent) {
-        if (parent) {
+        if (!parent) {
           parent = $('body');
         }
         $.each(plugin_option.columns, function (index, column) {
@@ -465,10 +462,6 @@ define(
             return;
           }
           let value = data[column.name];
-          if (column.base64) {
-            value = base64.decode(value);
-          }
-
           if (column.custom) {
             var columndiv = $("#" + column.name, parent).parent();
             columndiv.empty();
@@ -565,7 +558,9 @@ define(
 
       }); //$.each(columns, function (index, column) {
 
-      module.setValue(data);
+      if (isEdit) {
+        module.setValue(data);
+      }
       form.render();
 
       var validatorOption = module.validator();
@@ -579,7 +574,7 @@ define(
      * @returns
      */
     var initDetailView = function (data, container) {
-      var rowContainer, second = false, formContainer;
+      var formContainer;
       if (container) {
         formContainer = $(FROM_KEY, container);
       } else {
@@ -589,15 +584,10 @@ define(
         if (column.name == '_index' || column.primary || column.display == false) {
           return;
         }
-        if (second) {
-          second = false;
-        } else {
-          second = true;
-          rowContainer = $('<div/>').addClass('form-group').appendTo(formContainer);
-        }
-
-        var label = $('<label/>').addClass('col-sm-2 control-label').appendTo(rowContainer);
-        var div = $('<div/>').addClass('col-sm-4').appendTo(rowContainer);
+        var div = $('<div/>').addClass('col-sm-6').appendTo(formContainer);
+        var label = $('<label/>').addClass('control-label').appendTo(div);
+        // var label = $('<label/>').addClass('col-sm-2 control-label').appendTo(rowContainer);
+        // var div = $('<div/>').addClass('col-sm-4').appendTo(rowContainer);
         var text = data[column.name];
 
         if (column.plugin && column.plugin.preview) {
@@ -683,10 +673,11 @@ define(
      * @returns 
      */
     var _open_detailview = function (data) {
-      switch (view_preview_option.mode) {
+      switch (view_preview_option.viewmode) {
         case "modal":
           form.openWidow({
             'url': view_preview_option.page,
+            'mode': view_preview_option.mode,
             'title': view_preview_option.title,
             'width': view_preview_option.width,
             'height': view_preview_option.height,

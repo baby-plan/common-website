@@ -10,7 +10,7 @@ define(['core/core-modules/framework.form', 'core/core-modules/framework.table']
       return;
     }
     var data = table.getSelect();
-    switch (options.mode) {
+    switch (options.viewmode) {
       case "modal":
         form.openWidow({
           'url': options.page,

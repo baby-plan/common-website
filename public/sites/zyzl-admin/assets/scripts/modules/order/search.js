@@ -11,9 +11,10 @@ define(["QDP"], function (QDP) {
     QDP.form.openWidow({
       'title': '审核订单信息',
       'width': '800px',
+      'mode': 'tab',
       'url': 'views/business/order-audit.html',
       'onshow': function (parent) {
-        // parent
+        QDP.generator.buildDetailView(data, parent);
       }
     });
   }
@@ -38,7 +39,8 @@ define(["QDP"], function (QDP) {
         ],
         "views": {
           "preview": {
-            "mode": "modal",
+            "viewmode": "modal",
+            "mode": "tab",
             'title': '订单详情',
             "page": 'views/business/order-detail.html',
             "callback": QDP.generator.buildDetailView

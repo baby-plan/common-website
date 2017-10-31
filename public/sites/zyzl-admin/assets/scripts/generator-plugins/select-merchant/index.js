@@ -1,8 +1,4 @@
-define([
-  'cfgs',
-  'API',
-  'core/core-modules/framework.form',
-], function (cfgs, api, form) {
+define(['cfgs', 'API', 'core/core-modules/framework.form'], function (cfgs, api, form) {
   let module = {
     "define": {
       "name": "select-merchant"
@@ -39,32 +35,23 @@ define([
       'url': cfgs.listpage,
       'title': '选择商户',
       'width': '800px',
-      // 'height': options.height,
       'onshow': function () {
         var options = {
           "apis": {
             "list": api.merchant.datas,
           },
           "actions": { "select": false, "preview": false, "export": false },
-          // "powers": [
-          //   { "name": "submit", "class": "btn-submit", "action": submit_click },
-          //   { "name": "approval", "class": "btn-approval", "action": approval_click, "controller": action_status_controller },
-          //   { "name": "reject", "class": "btn-reject", "action": reject_click, "controller": action_status_controller },
-          //   { "name": "chgpwd", "class": "btn-chgpwd", "action": resetpassword_click },
-          //   { "name": "publish", "class": "btn-publish", "action": publish_click, "controller": action_publish_controller },
-          //   { "name": "unpublish", "class": "btn-unpublish", "action": unpublish_click, "controller": action_unpublish_controller },
-          // ],
           "columns": [
             { "name": "_index", "text": "序号" },
             { "name": "mch_name", "text": "商户名称", "edit": true, "filter": true },
             { "name": "store_name", "text": "店铺名称", "edit": true, "filter": true },
             { "name": "user_name", "text": "用户名", "edit": true, "filter": true },
             { "name": "store_phone", "text": "联系电话", "edit": true },
-
             { "name": "store_addr", "text": "详细地址", "edit": true, "overflow": 15 },
             { "name": "create_time", "text": "创建时间", "type": "datetime" },
           ]
         };
+        
         generator.build(options);
       }
     });

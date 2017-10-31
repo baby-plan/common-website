@@ -59,24 +59,24 @@ define(["QDP"
       // });
     });
   }
-  
+
   // 执行审核操作
   var audit_click = function () {
-    
-        var data = QDP.table.getSelect();
-        if (data == null) {
-          QDP.alert('请选择需要提交审核的商户（仅选择1条记录）');
-          return;
-        }
-        QDP.form.openWidow({
-          'title': '审核商户信息',
-          'width': '800px',
-          'url': 'views/business/audit.html',
-          'onshow': function (parent) {
-            // parent
-          }
-        });
+
+    var data = QDP.table.getSelect();
+    if (data == null) {
+      QDP.alert('请选择需要提交审核的商户（仅选择1条记录）');
+      return;
+    }
+    QDP.form.openWidow({
+      'title': '审核商户信息',
+      'width': '800px',
+      'url': 'views/business/audit.html',
+      'onshow': function (parent) {
+        // parent
       }
+    });
+  }
   /** 初始化商户列表
    * @param {JSON} filter
    * @param {JSON} column
@@ -92,7 +92,7 @@ define(["QDP"
       "api": QDP.api.merchant.alldatasapi,
       "target": $("#" + filter.name),
       "valuefn": function (index, item) { return item.id; },
-      "textfn": function (index, item) { return QDP.base64.decode(item.mch_name); },
+      "textfn": function (index, item) { return item.mch_name; },
       "done": function () { $("#" + filter.name).attr("data-value", value); }
     });
   }

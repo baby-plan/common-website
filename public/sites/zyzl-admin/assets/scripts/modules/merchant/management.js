@@ -69,10 +69,11 @@ define(["QDP",
     QDP.form.openWidow({
       'title': '审核商户信息',
       'width': '800px',
+      'mode': 'tab',
       'url': 'views/business/merchant-audit.html',
-      'onshow': function (parent) {
-        // parent
-      }
+      // 'onshow': function (parent) {
+      //   // parent
+      // }
     });
   }
 
@@ -83,9 +84,9 @@ define(["QDP",
       'width': '380px',
       'height': '150px',
       'url': 'views/business/reset-password.html',
-      'onshow': function (parent) {
-        // parent
-      }
+      // 'onshow': function (parent) {
+      //   // parent
+      // }
     });
   }
 
@@ -180,15 +181,15 @@ define(["QDP",
 
     /* 请求角色详情 */
     if (data) {
-      $('#mch_addr').val(QDP.base64.decode(data.mch_addr));
-      $('#mch_name').val(QDP.base64.decode(data.mch_name));
-      $('#store_name').val(QDP.base64.decode(data.store_name));
+      $('#mch_addr').val(data.mch_addr);
+      $('#mch_name').val(data.mch_name);
+      $('#store_name').val(data.store_name);
 
       $('#province_code').val(QDP.dict.getText('province', data.province_code));
       $('#city_code').val(QDP.dict.getText('city', data.city_code));
       $('#county_code').val(QDP.dict.getText('county', data.county_code));
 
-      var url = QDP.base64.decode(data.photo_url);
+      var url = data.photo_url;
       $('#mch_photourl_img').attr('src', url);
       $('#mch_photourl').val(url);
 
@@ -213,8 +214,8 @@ define(["QDP",
   return {
     "define": {
       "name": "商户基本信息管理",
-      version: "1.0.0.0",
-      copyright: " Copyright 2017-2027 WangXin nvlbs,Inc."
+      "version": "1.0.0.0",
+      "copyright": " Copyright 2017-2027 WangXin nvlbs,Inc."
     },
 
     /** 加载模块 */
@@ -226,14 +227,18 @@ define(["QDP",
           "update": QDP.api.merchant.update,
           "delete": QDP.api.merchant.remove
         },
+        "texts": { "insert": "新增商户信息", "update": "商户信息编辑" },
+        "actions": { "insert": true, "update": true },
         "views": {
           "edit": {
-            "page": "views/business/editor.html",
+            "page": "views/business/merchant-edit.html",
             "callback": initEditor
           },
           "preview": {
-            "mode": "modal",
-            "page": "views/business/detail.html",
+            "viewmode": "modal",
+            "mode": "tab",
+            "title": "商户详情",
+            "page": "views/business/merchant-preview.html",
             "callback": initDetailView
           }
         },
@@ -253,9 +258,6 @@ define(["QDP",
           { "name": "publish", "class": "btn-publish", "action": publish_click, "controller": action_publish_controller },
           { "name": "unpublish", "class": "btn-unpublish", "action": unpublish_click, "controller": action_unpublish_controller },
         ],
-        "texts": { "insert": "新增商户信息", "update": "商户信息编辑" },
-        "headers": { "edit": { "text": "商户信息" }, "table": { "text": "商户列表" } },
-        "actions": { "insert": true, "update": true, "delete": true },
         "columns": [
           { "name": "_index", "text": "序号" },
           { "name": "province_code", "text": "省份", "dict": "province", "edit": true, "filter": true, "filterindex": 1 },

@@ -1,7 +1,6 @@
 define(['jquery', 'cfgs', 'API',
   'core/core-modules/framework.event',
   'core/core-modules/framework.ajax',
-  'core/core-modules/framework.base64',
   'core/core-modules/framework.block',
   'core/core-modules/framework.dialog',
   'core/core-modules/framework.generator',
@@ -13,7 +12,7 @@ define(['jquery', 'cfgs', 'API',
 
   "core/core-modules/framework.cookie",
   'core/core-plugins/plugins-logging'],
-  function ($, cfgs, api, event, ajax, base64, block, dialog, generator, layout, util, form, table, dict, cookie) {
+  function ($, cfgs, api, event, ajax, block, dialog, generator, layout, util, form, table, dict, cookie) {
 
     String.prototype.startWith = function (str) {
       var reg = new RegExp("^" + str);
@@ -28,7 +27,6 @@ define(['jquery', 'cfgs', 'API',
     var exportModule = {
       config: cfgs,
       api: api,
-      base64: base64,
       generator: generator,
       layout: layout,
       util: util,

@@ -54,7 +54,6 @@ define(['QDP'], (QDP) => {
 
       if (sourceData && sourceData[column.name]) {
         var url = sourceData[column.name];
-        url = QDP.base64.decode(url);
         $('#' + id + '_img').attr('src', url);
         $('#' + id).val(url);
         eventArgs = { "url": url };

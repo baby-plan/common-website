@@ -20,13 +20,13 @@ define(["QDP"], function (QDP) {
           { name: "province_code", text: "省份", dict: "province", filter: true, filterindex: 1 },
           { name: "city_code", text: "地市", dict: "city", filter: true, filterindex: 2 },
           { name: "county_code", text: "区县", dict: "county", filter: true, filterindex: 3 },
-          { name: "storeCode", text: "商户编号", base64: true, filter: true, filterindex: 7 },
-          { name: "poi", text: "POIID", base64: true, filter: true, filterindex: 6 },
-          { name: "storeName", text: "商户名称", base64: true, filter: true, filterindex: 8 },
-          { name: "addr", text: "商户地址", base64: true },
-          { name: "point", text: "商户评分", base64: true },
+          { name: "storeCode", text: "商户编号", filter: true, filterindex: 7 },
+          { name: "poi", text: "POIID", filter: true, filterindex: 6 },
+          { name: "storeName", text: "商户名称", filter: true, filterindex: 8 },
+          { name: "addr", text: "商户地址", },
+          { name: "point", text: "商户评分", },
           { name: "telphone", text: "用户手机号" },
-          { name: "code", text: "洗车券码", base64: true },
+          { name: "code", text: "洗车券码", },
           { name: "codestate", text: "洗车券状态", dict: "codestate" },
           { name: "codetype", text: "券码类型", dict: "codetype", filter: true },
           { name: "codetype2", text: "券码类别", dict: "codetype2", filter: true },
@@ -44,11 +44,11 @@ define(["QDP"], function (QDP) {
           { name: "orderauditstate", text: "订单审核状态" },
           { name: "orderamount", text: "订单金额" },
           { name: "payamount", text: "实付金额" },
-          { name: "vipamount", text: "折扣券会员价", base64: true },
-          { name: "aboutamount", text: "折扣券签约价", base64: true },
-          { name: "amount", text: "店铺门市价", base64: true },
-          { name: "freeamount", text: "免费券结算价", base64: true },
-          { name: "realamount", text: "应结算金额", base64: true }
+          { name: "vipamount", text: "折扣券会员价", },
+          { name: "aboutamount", text: "折扣券签约价", },
+          { name: "amount", text: "店铺门市价", },
+          { name: "freeamount", text: "免费券结算价", },
+          { name: "realamount", text: "应结算金额", }
         ]
       };
       QDP.generator.build(options);

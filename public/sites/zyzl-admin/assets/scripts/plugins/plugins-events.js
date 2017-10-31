@@ -95,8 +95,8 @@ define(['jquery', 'QDP'], function ($, QDP) {
           return;
         }
         var options = {
-          u: QDP.base64.encode(username),
-          p: QDP.base64.encode(password)
+          u: username,
+          p: password
         };
 
         QDP.post(QDP.api.login.loginapi, options, function (json) {
@@ -156,12 +156,11 @@ define(['jquery', 'QDP'], function ($, QDP) {
 
     // 修改密码功能
     $('body').on("click", '.sys-chgpwd', function () {
-
       QDP.form.openWidow({
         'title': "修改密码",
         'width': '400px',
-        'height': '230px',
-        'url': "views/master/changepwd.html",
+        'height': '360px',
+        'url': "views/business/change-password.html",
         'onshow': function (parent) {
 
           $('form', parent).bootstrapValidator({
@@ -188,10 +187,10 @@ define(['jquery', 'QDP'], function ($, QDP) {
                     max: 30,
                     message: '密码长度必须在6到30之间'
                   },
-                  identical: {//相同
-                    field: 'newpwd2', //需要进行比较的input name值
-                    message: '两次密码不一致'
-                  },
+                  // identical: {//相同
+                  //   field: 'newpwd2', //需要进行比较的input name值
+                  //   message: '两次密码不一致'
+                  // },
                   // different: {//不能和用户名相同
                   //   field: 'username',//需要进行比较的input name值
                   //   message: '不能和用户名相同'
@@ -223,6 +222,7 @@ define(['jquery', 'QDP'], function ($, QDP) {
               }
             }
           });
+          
           // 处理确定按钮事件
           $(".btn-save").on("click", function (e) {
             e.preventDefault();
@@ -241,16 +241,15 @@ define(['jquery', 'QDP'], function ($, QDP) {
           });
         }
       });
-
     });
 
     // 修改个人信息
-    $('body').on("click", 'aside>header', function () {
+    $('body').on("click", 'aside>header,.sys-changeinfo', function () {
       QDP.form.openWidow({
         'title': "修改个人信息",
         'width': '400px',
         'height': '260px',
-        'url': "views/master/changeinfo.html",
+        'url': "views/business/change-userinfo.html",
         'onshow': function (parent) {
 
           $('form', parent).bootstrapValidator({
@@ -265,11 +264,11 @@ define(['jquery', 'QDP'], function ($, QDP) {
                   notEmpty: {
                     message: '昵称不能为空'
                   },
-                  stringLength: {
-                    min: 6,
-                    max: 30,
-                    message: '昵称长度必须在6到30之间'
-                  }
+                  // stringLength: {
+                  //   min: 6,
+                  //   max: 30,
+                  //   message: '昵称长度必须在6到30之间'
+                  // }
                 }
               },
               phone: {
@@ -300,6 +299,11 @@ define(['jquery', 'QDP'], function ($, QDP) {
               }
             }
           });
+
+          var INFO = QDP.config.INFO;
+          $('#nickname', parent).val(INFO.nickname);
+          $('#phone', parent).val(INFO.phone);
+          $('#email', parent).val(INFO.email);
 
           // 处理确定按钮事件
           $(".btn-save").on("click", function (e) {
@@ -400,12 +404,49 @@ define(['jquery', 'QDP'], function ($, QDP) {
       // console.log(e);
     });
 
-    /* 注册按钮事件 */
+    /* 安全退出按钮点击事件处理函数 */
     $('body').on('click', '.sys-logout', function () {
       QDP.post(QDP.api.login.logoutapi, {}, function () {
         gotoLogin();
       });
     });
+
+    $('body').on('keyup', '.password', function () {
+      var strongRegex = new RegExp("^(?=.{8,})(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9])(?=.*\\W).*$", "g");
+      var mediumRegex = new RegExp("^(?=.{7,})(((?=.*[A-Z])(?=.*[a-z]))|((?=.*[A-Z])(?=.*[0-9]))|((?=.*[a-z])(?=.*[0-9]))).*$", "g");
+      var enoughRegex = new RegExp("(?=.{6,}).*", "g");
+
+      if (false == enoughRegex.test($(this).val())) {
+        $('.pw-strength').removeClass('pw-weak');
+        $('.pw-strength').removeClass('pw-medium');
+        $('.pw-strength').removeClass('pw-strong');
+        $('.pw-strength').addClass('pw-defule');
+        //密码小于六位的时候，密码强度图片都为灰色 
+      }
+      else if (strongRegex.test($(this).val())) {
+        $('.pw-strength').removeClass('pw-weak');
+        $('.pw-strength').removeClass('pw-medium');
+        $('.pw-strength').removeClass('pw-strong');
+        $('.pw-strength').addClass('pw-strong');
+        //密码为八位及以上并且字母数字特殊字符三项都包括,强度最强 
+      }
+      else if (mediumRegex.test($(this).val())) {
+        $('.pw-strength').removeClass('pw-weak');
+        $('.pw-strength').removeClass('pw-medium');
+        $('.pw-strength').removeClass('pw-strong');
+        $('.pw-strength').addClass('pw-medium');
+        //密码为七位及以上并且字母、数字、特殊字符三项中有两项，强度是中等 
+      }
+      else {
+        $('.pw-strength').removeClass('pw-weak');
+        $('.pw-strength').removeClass('pw-medium');
+        $('.pw-strength').removeClass('pw-strong');
+        $('.pw-strength').addClass('pw-weak');
+        //如果密码为6为及以下，就算字母、数字、特殊字符三项都包括，强度也是弱的 
+      }
+      return true;
+    });
+
 
     var refreshButtonStatus = function () {
       var selector = $('table>tbody>tr[class*="selected"]');

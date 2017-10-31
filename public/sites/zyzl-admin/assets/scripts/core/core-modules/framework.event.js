@@ -19,7 +19,9 @@ define([], function () {
         if (typeof eventStore[eventname] === "undefined") {
           eventStore[eventname] = [fn];
         } else {
-          eventStore[eventname].push(fn);
+          if (eventStore[eventname].toString() != fn.toString()) {
+            eventStore[eventname].push(fn);
+          }
         }
       }
     },

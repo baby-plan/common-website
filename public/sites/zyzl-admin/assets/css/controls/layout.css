@@ -226,3 +226,27 @@ body>section {
   margin-left: 300px;
   transition: all 0.25s;
 }
+
+
+/* .control-label~.form-control, .control-label~.input-group, .control-label~.select2 {
+  margin-top: 8px;
+} */
+
+.control-label {
+  margin-bottom: 8px !important;
+}
+
+.form-group {
+  margin-bottom: 15px;
+}
+
+[readonly]+.input-group-addon {
+  background-color: #eee;
+}
+
+
+/* div[class*='col']> */
+
+[class*='col'].form-group {
+  margin-bottom: 0px;
+}

@@ -33,7 +33,7 @@
   /** 公共列表页面地址 */
   cfgs.chartpage = "views/common/chart.html";
   /** 公共详情页面地址 */
-  cfgs.detailpage = "views/common/detail.html";
+  cfgs.detailpage = "views/common/preview.html";
   /** 模式对话框页面地址 */
   cfgs.modalpage = "views/common/dialog.html";
   /** 导航栏页面地址 */
@@ -61,7 +61,7 @@
 
   /** 各项内容模板设置 */
   cfgs.templates = {
-    cell: "<td class='center'/>"
+    "cell": "<td class='center'/>",
   };
 
   /** 各项数据默认值设置 */

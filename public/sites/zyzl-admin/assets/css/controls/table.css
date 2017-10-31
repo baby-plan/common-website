@@ -9,8 +9,7 @@ table {
   margin-top: 20px;
 }
 
-.table th,
-.table td {
+.table th, .table td {
   padding: 8px;
   line-height: 1.428571429;
   vertical-align: top;
@@ -18,24 +17,21 @@ table {
 
 .table th {
   text-align: center;
-  vertical-align:middle !important;
+  vertical-align: middle !important;
 }
 
-.table > thead:first-child > tr:first-child > th,
-.table > thead:first-child > tr:first-child > td {
+.table > thead:first-child > tr:first-child > th, .table > thead:first-child > tr:first-child > td {
   border-top: 0;
 }
-td>img{
-  margin:-8px 0;
+
+td>img {
+  margin: -8px 0;
 }
-.table-condensed > thead > tr > th,
-.table-condensed > tbody > tr > th,
-.table-condensed > tfoot > tr > th,
-.table-condensed > thead > tr > td,
-.table-condensed > tbody > tr > td,
-.table-condensed > tfoot > tr > td {
+
+.table-condensed > thead > tr > th, .table-condensed > tbody > tr > th, .table-condensed > tfoot > tr > th, .table-condensed > thead > tr > td, .table-condensed > tbody > tr > td, .table-condensed > tfoot > tr > td {
   padding: 5px;
 }
+
 
 /*Table Scrollable*/
 
@@ -49,39 +45,19 @@ td>img{
   border: 0 none;
 }
 
-.table-scrollable > .table-bordered > thead > tr:last-child > th,
-.table-scrollable > .table-bordered > tbody > tr:last-child > th,
-.table-scrollable > .table-bordered > tfoot > tr:last-child > th,
-.table-scrollable > .table-bordered > thead > tr:last-child > td,
-.table-scrollable > .table-bordered > tbody > tr:last-child > td,
-.table-scrollable > .table-bordered > tfoot > tr:last-child > td {
+.table-scrollable > .table-bordered > thead > tr:last-child > th, .table-scrollable > .table-bordered > tbody > tr:last-child > th, .table-scrollable > .table-bordered > tfoot > tr:last-child > th, .table-scrollable > .table-bordered > thead > tr:last-child > td, .table-scrollable > .table-bordered > tbody > tr:last-child > td, .table-scrollable > .table-bordered > tfoot > tr:last-child > td {
   border-bottom: 0 none;
 }
 
-.table-scrollable > .table-bordered > thead > tr > th:first-child,
-.table-scrollable > .table-bordered > tbody > tr > th:first-child,
-.table-scrollable > .table-bordered > tfoot > tr > th:first-child,
-.table-scrollable > .table-bordered > thead > tr > td:first-child,
-.table-scrollable > .table-bordered > tbody > tr > td:first-child,
-.table-scrollable > .table-bordered > tfoot > tr > td:first-child {
+.table-scrollable > .table-bordered > thead > tr > th:first-child, .table-scrollable > .table-bordered > tbody > tr > th:first-child, .table-scrollable > .table-bordered > tfoot > tr > th:first-child, .table-scrollable > .table-bordered > thead > tr > td:first-child, .table-scrollable > .table-bordered > tbody > tr > td:first-child, .table-scrollable > .table-bordered > tfoot > tr > td:first-child {
   border-left: 0 none;
 }
 
-.table-scrollable > .table-bordered > thead > tr > th:last-child,
-.table-scrollable > .table-bordered > tbody > tr > th:last-child,
-.table-scrollable > .table-bordered > tfoot > tr > th:last-child,
-.table-scrollable > .table-bordered > thead > tr > td:last-child,
-.table-scrollable > .table-bordered > tbody > tr > td:last-child,
-.table-scrollable > .table-bordered > tfoot > tr > td:last-child {
+.table-scrollable > .table-bordered > thead > tr > th:last-child, .table-scrollable > .table-bordered > tbody > tr > th:last-child, .table-scrollable > .table-bordered > tfoot > tr > th:last-child, .table-scrollable > .table-bordered > thead > tr > td:last-child, .table-scrollable > .table-bordered > tbody > tr > td:last-child, .table-scrollable > .table-bordered > tfoot > tr > td:last-child {
   border-right: 0 none;
 }
 
-.table > caption + thead > tr:first-child > td,
-.table > caption + thead > tr:first-child > th,
-.table > colgroup + thead > tr:first-child > td,
-.table > colgroup + thead > tr:first-child > th,
-.table > thead:first-child > tr:first-child > td,
-.table > thead:first-child > tr:first-child > th {
+.table > caption + thead > tr:first-child > td, .table > caption + thead > tr:first-child > th, .table > colgroup + thead > tr:first-child > td, .table > colgroup + thead > tr:first-child > th, .table > thead:first-child > tr:first-child > td, .table > thead:first-child > tr:first-child > th {
   border-top: 0 none;
 }
 
@@ -91,18 +67,15 @@ td>img{
   width: 100% !important;
 }
 
-.table-scrollable th,
-.table-scrollable td {
+.table-scrollable th, .table-scrollable td {
   white-space: nowrap;
 }
+
 
 /* 分页控件样式 */
 
 .pagination {
-  display: inline-block;
-  padding-left: 0;
   margin: 0;
-  border-radius: 4px;
 }
 
 .sub-menu-text .badge {
@@ -118,5 +91,14 @@ td>img{
 
 .pageinfo {
   float: left;
-  margin: 10px 10px;
+  margin: 8px 0 0 0;
+}
+
+.pagination>li:first-child>a {
+  border-top-left-radius: 0px;
+  border-bottom-left-radius: 0px;
+}
+.pagination>li:last-child>a {
+  border-top-right-radius: 0px;
+  border-bottom-right-radius: 0px;
 }

@@ -15,7 +15,7 @@ define(["QDP"], function (QDP) {
       "api": QDP.api.role.alldatasapi,
       "target": $("#" + filter.name),
       "valuefn": function (index, item) { return item.id; },
-      "textfn": function (index, item) { return QDP.base64.decode(item.name); },
+      "textfn": function (index, item) { return item.name; },
       "done": function () { $("#" + filter.name).attr("data-value", value); }
     });
   }
@@ -36,12 +36,11 @@ define(["QDP"], function (QDP) {
           "delete": QDP.api.admin.remove
         },
         "detailor": {
-          "mode": 'modal',
+          "viewmode": 'modal',
           "width": '400px',
           "height": '200px'
         },
         "texts": { "insert": "新增用户", "update": "用户编辑" },
-        "headers": { "edit": { "text": "用户信息" }, "table": { "text": "用户列表" } },
         "actions": { "insert": true, "update": true, "delete": true, "preview": false },
         "columns": [
           { "name": "_index", "text": "序号" },
@@ -49,11 +48,11 @@ define(["QDP"], function (QDP) {
           {
             "name": "account", "text": "登录名",
             "validtype": 'phone', "message": '商户登录名必须为手机号码',
-            "base64": true, "edit": true, "filter": true
+            "edit": true, "filter": true
           },
-          { "name": "name", "text": "姓名", "base64": true, "edit": true, "filter": true },
+          { "name": "name", "text": "姓名", "edit": true, "filter": true },
           { "name": "roleid", "text": "角色", "edit": true, "custom": initRole, "display": false, "filter": true },
-          { "name": "rolename", "text": "角色名称", "base64": true },
+          { "name": "rolename", "text": "角色名称" },
           { "name": "password", "text": "密码", "display": false, "edit": true },
         ]
       };

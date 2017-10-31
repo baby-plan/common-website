@@ -1,8 +1,5 @@
-define(['jquery', 'cfgs', 'API',
-  'core/core-modules/framework.base64',
-  'core/core-modules/framework.util',
-  'jquery.cookie'],
-  function ($, cfgs, API, base64, util) {
+define(['jquery', 'cfgs', 'API', 'jquery.cookie'],
+  function ($, cfgs, API) {
 
     class Cookie {
       /** 将登录信息JSON内容保存至COOKIE.
@@ -15,11 +12,6 @@ define(['jquery', 'cfgs', 'API',
           console.debug("清除COOKIE " + API.login.token_cookie);
         } else {
           cfgs.INFO = json.data;
-          cfgs.INFO.name = base64.decode(cfgs.INFO.name);
-          cfgs.INFO.rolename = base64.decode(cfgs.INFO.rolename);
-          cfgs.INFO.nickname = base64.decode(cfgs.INFO.nickname);
-          cfgs.INFO.account = base64.decode(cfgs.INFO.account);
-          cfgs.INFO.email = base64.decode(cfgs.INFO.email);
           $.cookie(API.login.token_cookie, JSON.stringify(cfgs.INFO));
           console.debug("保存COOKIE " + API.login.token_cookie + " = " + JSON.stringify(cfgs.INFO));
         }

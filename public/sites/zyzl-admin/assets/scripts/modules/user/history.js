@@ -18,7 +18,7 @@ define(["QDP"], function (QDP) {
           { name: "province_code", text: "省份", dict: "province", filter: true, filterindex: 1 },
           { name: "city_code", text: "地市", dict: "city", filter: true, filterindex: 2 },
           { name: "telphone", text: "手机号码", filter: true, filterindex: 7 },
-          { name: "code", text: "洗车券码", base64: true, filter: true, filterindex: 8 },
+          { name: "code", text: "洗车券码", filter: true, filterindex: 8 },
           { name: "codestate", text: "券码状态", dict: "codestate", filter: true, filterindex: 12 },
           { name: "codetype", text: "券码类型", dict: "codetype", filter: true, filterindex: 13 },
           { name: "codetype2", text: "券码类别", dict: "codetype2", filter: true, filterindex: 11 },
@@ -34,12 +34,12 @@ define(["QDP"], function (QDP) {
           { name: "carbrand", text: "车辆品牌" },
           { name: "cartype", text: "车辆类型", dict: 'cartype', filter: true, filterindex: 10 },
           { name: "carplate", text: "车牌号码", filter: true, filterindex: 9 },
-          { name: "storeCode", text: "商户编号", base64: true },
-          { name: "poi", text: "POIID", base64: true },
-          { name: "storeName", text: "商户名称", base64: true },
-          { name: "addr", text: "商户地址", base64: true },
-          { name: "point", text: "商户评分", base64: true },
-          { name: "ordercode", text: "订单编号", base64: true },
+          { name: "storeCode", text: "商户编号", },
+          { name: "poi", text: "POIID", },
+          { name: "storeName", text: "商户名称", },
+          { name: "addr", text: "商户地址", },
+          { name: "point", text: "商户评分", },
+          { name: "ordercode", text: "订单编号", },
           { name: "orderdate", text: "订单时间", type: "date" },
 
           { name: "begin_date", text: "订单开始时间", type: "date", filter: true, filterindex: 3, display: false },
@@ -48,11 +48,11 @@ define(["QDP"], function (QDP) {
           { name: "orderauditstate", text: "订单审核状态" },
           { name: "orderamount", text: "订单金额" },
           { name: "payamount", text: "实付金额" },
-          { name: "vipamount", text: "折扣券会员价", base64: true },
-          { name: "aboutamount", text: "折扣券签约价", base64: true },
-          { name: "amount", text: "店铺门市价", base64: true },
-          { name: "freeamount", text: "免费券结算价", base64: true },
-          { name: "realamount", text: "应结算金额", base64: true }
+          { name: "vipamount", text: "折扣券会员价", },
+          { name: "aboutamount", text: "折扣券签约价", },
+          { name: "amount", text: "店铺门市价", },
+          { name: "freeamount", text: "免费券结算价", },
+          { name: "realamount", text: "应结算金额", }
         ]
       };
       QDP.generator.build(options);

@@ -213,7 +213,7 @@ define(["cfgs"], function (cfgs) {
 
     "SYS_MONITOR": {
       "name": "系统监控", "icon": "fa fa-tachometer",
-      "url": "views/summary/serverstatus.html",
+      "url": "views/business/serverstatus.html",
       "module": "common-server",
       "actions": [
       ]

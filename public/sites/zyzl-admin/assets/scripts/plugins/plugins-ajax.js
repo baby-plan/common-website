@@ -3,17 +3,17 @@ define(['jquery', 'QDP'], function ($, QDP) {
 
   /**
    * 处理服务端返回的业务逻辑错误
-   * @param {object} json 服务端返回的结果 json={"ret":"code","msg":"base64code"}
+   * @param {object} json 服务端返回的结果 json={"ret":"code","msg":"codemsg"}
    * @returns
    */
   var onServerError = function (json) {
     if (json.ret == "1") {
-      QDP.alert(QDP.base64.decode(json.msg));
+      QDP.alert(json.msg);
     } else if (json.ret == "101") {
       // EVENT-RAISE:login.timeout 登录超时
       QDP.raise("login.timeout");
     } else if (json.msg) {
-      QDP.alert("其他未知错误<BR/>错误代码:" + json.ret + "<BR/>" + QDP.base64.decode(json.msg));
+      QDP.alert("其他未知错误<BR/>错误代码:" + json.ret + "<BR/>" + json.msg);
     } else {
       QDP.alert("其他未知错误<BR/>错误代码:" + json.ret);
     }

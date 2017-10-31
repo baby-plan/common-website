@@ -1,0 +1,101 @@
+<style>
+  #province-container label {
+    padding: 5px;
+    cursor: pointer;
+    /* border: solid 1px transparent; */
+  }
+
+  #province-container label.selected {
+    background-color: #00a1ff;
+    color: #fff;
+  }
+</style>
+
+<div class="col-sm-12 col-lg-6">
+  <div class="panel panel-default border">
+    <div class="panel-heading">
+      <h4 class="panel-title">
+        <i class="fa fa-table"></i> 合作方基本信息</h4>
+    </div>
+    <div class="panel-body">
+      <form method="post" class="core-form form-horizontal">
+        <div class="form-group">
+          <label class="col-sm-3 col-lg-3 control-label">
+            <span style='color:red'>*</span> 合作方名称</label>
+          <div class="col-sm-5 col-lg-9">
+            <input id="name" name="name" placeholder="输入合作方名称..." type="text" class="form-control" />
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="col-sm-3 col-lg-3 control-label">
+            <span style='color:red'>*</span> 合作方地址</label>
+          <div class="col-sm-5 col-lg-9">
+            <input id="partner_addr" name="partner_addr" placeholder="输入合作方地址..." type="text" class="form-control" />
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="col-sm-3 col-lg-3 control-label">负责人</label>
+          <div class="col-sm-5 col-lg-9">
+            <input id="link_man" name="link_man" placeholder="输入负责人姓名..." type="text" class="form-control" />
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="col-sm-3 col-lg-3 control-label">
+            <span style='color:red'>*</span> 联系电话</label>
+          <div class="col-sm-5 col-lg-9">
+            <input id="partner_phone" name="partner_phone" placeholder="输入联系电话..." type="text" class="form-control" />
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="col-sm-3 col-lg-3 control-label">
+            <span style='color:red'>*</span> 生效时间</label>
+          <div class="col-sm-5 col-lg-9">
+            <input id="start_time" name="start_time" placeholder="请选择生效时间..." type="text" class="form-control form-date" />
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="col-sm-3 col-lg-3 control-label">
+            <span style='color:red'>*</span> 有效时间</label>
+          <div class="col-sm-5 col-lg-9">
+            <input id="end_time" name="end_time" placeholder="请选择有效时间..." type="text" class="form-control form-date" />
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="col-sm-3 col-lg-3 control-label">描述</label>
+          <div class="col-sm-5 col-lg-9">
+            <textarea id="link_man" name="link_man" rows="8" placeholder="请输入合作方描述，字数在100以内..." class="form-control" />
+          </div>
+        </div>
+      </form>
+
+    </div>
+  </div>
+</div>
+<div class="col-sm-12 col-lg-6">
+  <div class="panel panel-default border">
+    <div class="panel-heading">
+      <h4 class="panel-title">
+        <i class="fa fa-sitemap"></i> 负责的省份</h4>
+    </div>
+    <div class="panel-body">
+      <form method="post" class="core-form form-horizontal">
+        <blockquote>
+          <p>该合作方负责的省份.</p>
+          <small>点击选择.</small>
+          <small>支持多选.</small>
+        </blockquote>
+        <div class="form-group" id="province-container"></div>
+      </form>
+    </div>
+  </div>
+</div>
+<tools>
+  <button class="btn-back"></button>
+  <button class="btn-save"></button>
+</tools>

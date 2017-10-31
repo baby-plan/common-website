@@ -26,7 +26,7 @@
     "**/public/sites/zyzl-admin-*": true,
     // "**/views/": true,
     // "views/":true,
-    "package-lock.json": true
+    "package-lock.json": true,
     // "**/views": true
   },
   // 一个制表符等于的空格数。该设置在 `editor.detectIndentation` 启用时根据文件内容进行重写。

@@ -44,7 +44,7 @@ define(["QDP"], function (QDP) {
     /* 请求角色详情 */
     if (data) {
       $("input").parent().removeClass("checked");
-      $("#rolename").val(QDP.base64.decode(data.name));
+      $("#rolename").val(data.name);
       $.each(data.funcids.split(","), function (index, item) {
         $.uniform.update($("#" + item).attr("checked", true));
       });
@@ -74,7 +74,6 @@ define(["QDP"], function (QDP) {
         QDP.alert("角色名称不能为空!");
         return;
       }
-      args.name = QDP.base64.encode(args.name);
       var powers = [];
       $("#role-container .checkall span[class='checked']>input").each(function () {
         var module = $(this);
@@ -141,7 +140,7 @@ define(["QDP"], function (QDP) {
         "columns": [
           { "name": "_index", "text": "序号" },
           { "name": "id", "primary": true },
-          { "name": "name", "text": "角色名称", "base64": true, "filter": true }
+          { "name": "name", "text": "角色名称", "filter": true }
         ]
       };
       QDP.generator.build(options);

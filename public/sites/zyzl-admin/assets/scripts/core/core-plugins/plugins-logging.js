@@ -12,7 +12,7 @@ define(['core/core-modules/framework.util'], function (util) {
     'debug': console.debug,
     'error': console.error,
     'warn': console.warn,
-    'log': console.log,
+    // 'log': console.log,
   };
 
   const textformat = "%c%s [%s] ";

@@ -84,6 +84,12 @@ define([
       ctrl.attr('multiple', true);
     }
     valueContainer.append(ctrl);
+    form.initDict(
+      column.dict,
+      ctrl,
+      null,
+      column.multiple
+    );
   };
 
   /** 处理 设置内容
@@ -94,12 +100,15 @@ define([
    * @returns
    */
   module.setValue = (column, value, entity, parent) => {
-    form.initDict(
-      column.dict,
-      $("#" + column.name,parent),
-      value,
-      column.multiple
-    );
+    let ctrl = $('#' + column.name, parent)
+    if (ctrl.length == 0) {
+      return;
+    }
+    if (ctrl.eq(0)[0].tagName == "SELECT") {
+      ctrl.val(value).trigger("change");
+    } else {
+      ctrl.val(dict.getText(column.dict, value));
+    }
   };
 
   /** 处理 数据有效性验证 */

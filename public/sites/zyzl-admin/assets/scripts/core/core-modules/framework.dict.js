@@ -10,10 +10,9 @@ define(
     "cfgs",
     "API",
     "core/core-modules/framework.ajax",
-    "core/core-modules/framework.event",
-    "core/core-modules/framework.base64"
+    "core/core-modules/framework.event"
   ],
-  function ($, cfgs, API, ajax, event, base64) {
+  function ($, cfgs, API, ajax, event) {
 
 
     var get = function (dictkey, func) {
@@ -22,7 +21,7 @@ define(
         ajax.get(url, {}, function (json) {
           cfgs.dict[dictkey] = {};
           $.each(json.data.list, function (index, item) {
-            cfgs.dict[dictkey][item.itemkey] = base64.decode(item.itemvalue);
+            cfgs.dict[dictkey][item.itemkey] = item.itemvalue;
             func(cfgs.dict[dictkey]);
           });
         });
@@ -118,7 +117,7 @@ define(
               if (cfgs.dict[item.dictkey] == undefined) {
                 cfgs.dict[item.dictkey] = {};
               }
-              cfgs.dict[item.dictkey][item.itemkey] = base64.decode(item.itemvalue);
+              cfgs.dict[item.dictkey][item.itemkey] = item.itemvalue;
             });
           });
         });

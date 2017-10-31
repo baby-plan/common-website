@@ -1,7 +1,4 @@
-define([
-  'core/core-modules/framework.form',
-  'core/core-modules/framework.base64'
-], function (form, base64) {
+define(['core/core-modules/framework.form'], function (form) {
   let module = {
     "define": {
       "name": "input-text"
@@ -17,10 +14,6 @@ define([
   module.grid = (column, tr, value, totalindex, index) => {
     var text;
     var sourceText;
-
-    if (column.base64) {
-      value = base64.decode(value);
-    }
 
     if (column.name == '_index') {
       sourceText = text = totalindex;
@@ -70,10 +63,6 @@ define([
   module.preview = (column, value, labelContainer, valueContainer) => {
     labelContainer.append(column.text);
     let text = value;
-    if (column.base64) {
-      text = base64.decode(value);
-    }
-
     if (column.label) {
       text += ' ' + column.label;
     }
@@ -87,10 +76,6 @@ define([
   /** 处理 获取筛选结果 */
   module.getFilter = (column) => {
     var value = $("#" + column.name).val();
-
-    if (value && column.base64) {
-      value = base64.encode(value);
-    }
     return value;
   };
 

@@ -96,11 +96,11 @@
   .tabbable {
     margin-right: -15px;
     margin-left: -15px;
-    margin-top: -20px;
+    margin-top: -15px;
   }
   
   .nav-tabs {
-    margin-bottom: 20px;
+    /* margin-bottom: 20px; */
     padding-left: 41px;
   }
   
@@ -112,3 +112,20 @@
   .nav-tabs>li.active>a, .nav-tabs>li.active>a:hover, .nav-tabs>li.active>a:focus {
     border-top-color: transparent;
   }
+  
+  .tab-content {
+    padding-top: 10px;
+  }
+
+   /*密码强度*/
+   .pw-strength {clear: both;margin-top: 8px;text-align: center; overflow: hidden;border:solid 1px #ccc; height:20px;}
+   /* .pw-bar{height: 20px;overflow: hidden;border: solid 1px #ccc;} */
+   .pw-bar-on{width:0px; height:18px;transition: width .5s ease-in;-moz-transition: width .5s ease-in;-webkit-transition: width .5s ease-in;-o-transition: width .5s ease-in;}
+   .pw-weak .pw-defule{ width:0%;}
+   .pw-weak .pw-bar-on {width: 33.33%;background-color: #ed5565}
+   .pw-medium .pw-bar-on {width: 66.66%; background-color:#f8ac59}
+   .pw-strong .pw-bar-on {width: 100%; background-color: #468847}
+   .pw-txt {overflow: hidden;margin-top: -16px;width:100%;}
+   .pw-txt span {color: #ccc;float: left;font-size: 12px;text-align: center;width: 33.33%;}
+   .pw-strength i{color:yellow;}
+   .pw-strength~small{margin-top:5px;}
