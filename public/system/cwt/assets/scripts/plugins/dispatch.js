@@ -7,7 +7,7 @@
  * ======================================================================== */
 (function (app) {
   var parentView;
-  
+
   // 填充表格数据
   var initTableRow = function (tr, index, totalindex, item) {
     App.row.addText(tr, totalindex);// 序号
@@ -135,6 +135,8 @@
       });
 
       reset_click();
+
+      search_click();
     }
   };
   // 新增用车申请
@@ -167,7 +169,7 @@
         if (useCarSim != "") {
           options.useCarSim = useCarSim;
         } else {
-          App.alert("请输入用车电话!");
+          App.alert("请输入用车人电话!");
           return;
         }
         var useCarPeopleCount = $("#usercount", parentView).val();
@@ -181,21 +183,21 @@
         if (useCarRange != "") {
           options.useCarRange = useCarRange;
         } else {
-          App.alert("请输入用车范围!");
+          App.alert("请选择用车范围!");
           return;
         }
         var carType = $("#cartype", parentView).val();
-        if (cartype != "") {
+        if (carType != "") {
           options.cartype = carType;
         } else {
-          App.alert("请输入车辆类型!");
+          App.alert("请车辆类型!");
           return;
         }
         var aboardAddr = $("#startaddr", parentView).val();
         if (aboardAddr != "") {
           options.aboardAddr = App.base64.encode(aboardAddr);
         } else {
-          App.alert("请输入起始地点!");
+          App.alert("请输入上车地点!");
           return;
         }
         var dest = $("#stopaddr", parentView).val();
@@ -254,7 +256,7 @@
         } else {
           options.remark = "";
         }
-        var callback = function (json) {
+        var callback = function () {
           settings.hideModel();
           search_click();
         };
@@ -263,7 +265,7 @@
       // 新增窗口保存按钮
       $("#btn_save", parentView).on("click", _save);
     };
-    App.dialog.load({ "url": bus_cfgs.dispatch.requesteditpage, "done": ondone });
+    App.dialog.load({ "args": { "width": "600px" }, "url": bus_cfgs.dispatch.requesteditpage, "done": ondone });
   }
   // 打开详情页面
   // @param id            申请单编号
@@ -327,7 +329,7 @@
   // 打开调度详情页面
   // @param data          调度详情数据对象
   app.plugins.dispatch.dispatchDetails = function (data) {
-    if (!data) { App.alert("获取调度详情失败，请刷新浏览器后重试！"); return;}
+    if (!data) { App.alert("获取调度详情失败，请刷新浏览器后重试！"); return; }
     var flownumber = data.flowNumber;
     var default_list_count = "99";
     var pcdList = [];// 派车单缓存列表
@@ -365,14 +367,14 @@
         });
         if (canpush == 0) {
           pcdList.push({
-              "driver_id": driverargs[0]
+            "driver_id": driverargs[0]
             , "driver_name": driverargs[1]
             , "driver_sim": driverargs[2]
             , "car_id": carargs[0]
             , "platenum": carargs[1]
             , "useCarStartTime": $("#starttime", parentView).val()
             , "useCarEndTime": $("#stoptime", parentView).val()
-            });
+          });
           refresh_pcd_list();
         } else if (canpush == 1) {
           App.alert("该车辆已存在派车单，请更换其他车辆！");
@@ -388,7 +390,7 @@
           "flowNumber": flownumber
           , "data": App.util.jsonToString(data)
         };
-        var callback = function (json) {
+        var callback = function () {
           settings.hideModel();
           App.plugins.dispatch.dispatch.search();
         };
@@ -542,7 +544,7 @@
         var realChuCarTime = $("#realChuCarTime", parentView).val();
         if (realChuCarTime) {
           options.realChuCarTime = realChuCarTime;
-        }else{
+        } else {
           App.alert("请选择出车时间!");
           return;
         }
@@ -623,7 +625,7 @@
       });
     }
     // 加载二级窗口 url：页面路径，done：加载完成后回调函数
-    var args = { "width": "700px","height":"570px" };
+    var args = { "width": "700px", "height": "570px" };
     var url = bus_cfgs.dispatch.rejoinpage;
     if (App.isTouchDevice) { args = {}; }
     App.dialog.load({ "args": args, "url": url, "done": ondone });
@@ -635,7 +637,7 @@
       var COLUMNS = ["审批人用户名", "审批人姓名", "审批人手机号码", "Email", "备注", "操作"];
       app.table.render($("#table", parentView), COLUMNS);
 
-      App.form.initDict("DDSF", $("#dispatchtype", parentView),true);
+      App.form.initDict("DDSF", $("#dispatchtype", parentView), true);
       var _initTableRow = function (tr, index, totalindex, item) {
         App.row.addBase64Text(tr, item.login_name);// 审批人用户名
         App.row.addBase64Text(tr, item.name);// 审批人姓名
@@ -676,7 +678,7 @@
         var args = $(this).attr("data-args").split(",");
         App.confirm("该操作不可逆", "确定要递交给选中的人员审批？", "", function (isOK) {
           if (isOK) {
-            var callback = function (json) {
+            var callback = function () {
               settings.hideModel();
               _search();
             };
@@ -778,7 +780,7 @@
       });
     }
     // 加载二级窗口 url：页面路径，done：加载完成后回调函数
-    var args = { "width": "500px","height":"600px" };
+    var args = { "width": "500px", "height": "600px" };
     var url = bus_cfgs.dispatch.rejectpage;
     if (App.isTouchDevice) { args = {}; }
     App.dialog.load({ "args": args, "url": url, "done": ondone });
@@ -820,7 +822,7 @@
   };
 
   var feedback_click = function () {
-    App.plugins.dispatch.reject($(this).data("args"),"approval");
+    App.plugins.dispatch.reject($(this).data("args"), "approval");
   };
 
   var reset_click = function () {
@@ -877,13 +879,14 @@
       });
 
       reset_click();
+      search_click();
     }
   };
 })(App);
 //公务车管理插件-车辆调度模块：
 //app.plugins.dispatch.dispatch
 (function (app) {
-  var parentView,listbuffer = [];
+  var parentView, listbuffer = [];
   var initTableRow = function (tr, index, totalindex, item) {
     if (index == 0) {
       listbuffer = [];
@@ -921,7 +924,7 @@
   };
   // 无单调度按钮
   var _nodispatch = function () {
-    
+
   };
   // 调度完结按钮
   var _dispatchfinish = function () {
@@ -1014,10 +1017,10 @@
     var args = $(this).data("args").split(",");
     App.plugins.dispatch.orderCancel(args[0], args[1]);
   };
-  var reset_click = function(){
-    $("#flownumber",parentView).val("");
-    $("#registname",parentView).val("");
-    $("#dispatchstate",parentView).select2("val","");
+  var reset_click = function () {
+    $("#flownumber", parentView).val("");
+    $("#registname", parentView).val("");
+    $("#dispatchstate", parentView).select2("val", "");
     $("#starttime", parentView).val(App.util.monthFirst());
     $("#endtime", parentView).val(App.util.monthLast());
   };
@@ -1095,7 +1098,7 @@
 //公务车管理插件-车辆归队模块：
 //app.plugins.dispatch.rejoin
 (function (app) {
-  var parentView,listbuffer = [];
+  var parentView, listbuffer = [];
 
   var edit_click = function () {
     var index = $(this).data("args");
@@ -1118,7 +1121,7 @@
     $("#toend", parentView).val(App.util.monthLast());
     $("#fromstate", parentView).select2("val", "");
   };
-  
+
   var search_click = function () {
     var url = bus_cfgs.dispatch.rejoinlistapi;
     var options = {};

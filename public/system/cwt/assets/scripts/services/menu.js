@@ -19,7 +19,7 @@
     var parentID = "";
     $.each(cfgs.modules, function (index, item) {
       if (item.parent == "000") { // 跟节点
-        var parent = $("<li/>").addClass("mega-menu-dropdown mega-menu-full").appendTo(container);
+        var parent = $("<li/>").addClass("mega-menu-dropdown").appendTo(container);
         parent.attr("data-id", index);
         parentID = index;
         var menu = $("<a/>")
@@ -45,22 +45,38 @@
         if (parentItem.length == 0) { return; }
 
         var tile = $("<a/>").appendTo(parentItem).addClass("tile");
-        if (item.url == "#") {
-          tile.addClass("bg-grey");
-        } else {
-          if (item.theme) {
-            tile.addClass(item.theme);
-          } else {
-            tile.addClass("bg-blue");
-          }
-        }
         var tile_body = $("<div/>").addClass("tile-body").appendTo(tile);
         var tile_object = $("<div/>").addClass("tile-object").appendTo(tile);
-        if (item.icon) {
+
+        var css = {
+          backgroundColor: item.theme,
+          borderColor: '#3598dc !important',
+          backgroundImage: 'none !important',
+          color: '#FFFFFF !important'
+        };
+
+        if (item.iconImage) {
+          css.backgroundImage = "url('assets/media/apps/" + item.iconImage + "')";
+          css.backgroundRepeat = "no-repeat";
+          css.backgroundPosition = "center center";
+        } else if (item.icon) {
           tile_body.append($("<i/>").addClass(item.icon));
         } else {
           tile_body.append($("<i/>").addClass("icon-crop"));
         }
+
+
+        if (item.url == "#") {
+          css.backgroundColor = '#ccc'
+        } else {
+          if (item.theme) {
+            css.backgroundColor = item.theme;
+          } else {
+            css.backgroundColor = '#3598dc';
+          }
+        }
+        tile.css(css);
+
         tile_object.append($("<div/>").addClass("name").append(item.name));
 
         if (item.url == "#") {

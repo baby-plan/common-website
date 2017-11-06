@@ -9,48 +9,48 @@
   /* 系统模块定义 */
   , "parts": {
     /*车辆列表*/
-    "tree": { "parent": "#treeContainer", "url": "views/parts/tree.html" }
+    "tree": { "parent": "#treeContainer", "url": "views/parts/tree.html" },
     /*通知栏*/
-    , "notify": { "parent": ".nav-bar-plugins", "url": "views/parts/inbox.html", "complated": "App.notify.init()" }
-    , "setting-menu": { "parent": "#setting-menu", "url": "views/parts/settings.html", "complated": "App.theme.init()" }
+    "notify": { "parent": ".nav-bar-plugins", "url": "views/parts/inbox.html", "complated": "App.notify.init()" },
+    "setting-menu": { "parent": "#setting-menu", "url": "views/parts/settings.html", "complated": "App.theme.init()" }
   }
   , "modules": {
     "1": { "parent": "-", "name": "基本功能" }
-    , "100": { "parent": "000", "icon": "icon-speedometer", "name": "监控中心" }
-    , "102": { "theme": "bg-green", "name": "多窗口监控", "url": "#", "complated": "" }
+    // , "100": { "parent": "000", "icon": "icon-speedometer", "name": "监控中心" }
+    // , "102": { "theme": "bg-green", "name": "多窗口监控", "url": "#", "complated": "" }
     , "300": { "parent": "000", "icon": "icon-bar-chart", "name": "统计中心" }
-    , "301": { "theme": "bg-blue", "icon": "icon-bar-chart", "name": "定位统计", "url": "views/common-statistic.html", "complated": "App.plugins.statistics.location" }
-    , "302": { "theme": "bg-red", "icon": "fa fa-bar-chart-o", "name": "停车统计", "url": "views/common-statistic.html", "complated": "App.plugins.statistics.park" }
-    , "303": { "theme": "bg-yellow", "icon": "fa fa-bar-chart-o", "name": "里程统计", "url": "views/common-statistic.html", "complated": "App.plugins.statistics.mileage" }
-    , "304": { "theme": "bg-purple", "icon": "fa fa-bar-chart-o", "name": "油耗统计", "url": "views/common-statistic.html", "complated": "App.plugins.statistics.fuelquery" }
-    , "305": { "theme": "bg-green", "icon": "fa fa-bar-chart-o", "name": "告警统计", "url": "views/statistics/report-statistic.html", "complated": "App.plugins.statistics.alarm" }
-    , "306": { "theme": "bg-blue", "icon": "fa fa-bar-chart-o", "name": "终端查询", "url": "views/statistics/terminal-search.html", "complated": "App.plugins.statistics.terminalquery" }
-    , "307": { "theme": "bg-red", "icon": "fa fa-bar-chart-o", "name": "轨迹查询", "url": "views/common-statistic.html", "complated": "App.plugins.statistics.trajectoryquery" }
-    // , "308": { "name": "照片查询", "url": "views/statistics/photoquery.html", "complated": "App.plugins.statistics.photoquery.init" }
-    // , "309": { "name": "指令查询", "url": "views/statistics/orderquery.html", "complated": "App.plugins.statistics.orderquery.init" }
-    , "310": { "theme": "bg-yellow", "icon": "fa fa-bar-chart-o", "name": "日志查询", "url": "views/statistics/log-search.html", "complated": "App.plugins.statistics.logquery" }
+    , "301": { "theme": "#ECA877", "icon": "icon-bar-chart", "name": "定位统计", "url": "views/common-statistic.html", "complated": "App.plugins.statistics.location" }
+    , "302": { "theme": "#F1AC08", "icon": "fa fa-bar-chart-o", "name": "里程统计", "url": "views/common-statistic.html", "complated": "App.plugins.statistics.mileage" }
+    , "303": { "theme": "#8455DB", "icon": "fa fa-pie-chart", "name": "油耗统计", "url": "views/common-statistic.html", "complated": "App.plugins.statistics.fuelquery" }
+    , "304": { "theme": "#7FC822", "icon": "fa fa-area-chart", "name": "告警统计", "url": "views/statistics/report-statistic.html", "complated": "App.plugins.statistics.alarm" }
+    , "305": { "theme": "#ECA877", "icon": "fa fa-line-chart", "name": "离线统计", "url": "views/common-statistic.html", "complated": "App.plugins.statistics.offline" }
+    , "306": { "theme": "#38B2F1", "icon": "fa fa-bar-chart-o", "name": "告警查询", "url": "views/statistics/report-statistic.html", "complated": "App.plugins.searchs.alarm" }
+    , "307": { "theme": "#7FC822", "icon": "fa fa-bar-chart-o", "name": "停车查询", "url": "views/common-statistic.html", "complated": "App.plugins.statistics.park" }
+    , "308": { "theme": "#F2B588", "icon": "fa fa-bar-chart-o", "name": "终端查询", "url": "views/statistics/terminal-search.html", "complated": "App.plugins.statistics.terminalquery" }
+    , "309": { "theme": "#DD64B1", "icon": "fa fa-bar-chart-o", "name": "轨迹查询", "url": "views/common-statistic.html", "complated": "App.plugins.statistics.trajectoryquery" }
+    , "310": { "theme": "#139B79", "iconImage":"指令查询.png", "name": "指令查询", "url": "views/searchs/command-search.html", "complated": "App.plugins.searchs.command" }
+    , "311": { "theme": "#3A3FB2", "name": "日志查询", "url": "views/statistics/log-search.html", "complated": "App.plugins.statistics.logquery", "icon": "fa fa-bar-chart-o" }
+
     , "400": { "parent": "000", "icon": "icon-settings", "name": "设置中心" }
-    , "401": { "icon": "fa fa-bar-chart-o", "name": "兴趣图形", "url": "views/setup/graphical.html", "complated": "" }
-    , "402": { "icon": "fa fa-bell", "name": "电子围栏", "url": "#", "complated": "" }
-    , "403": { "icon": "fa fa-bell", "name": "偏航告警", "url": "#", "complated": "" }
-    , "404": { "icon": "fa fa-bell", "name": "超速告警", "url": "#", "complated": "" }
-    , "406": { "icon": "fa fa-bell", "name": "离线告警", "url": "#", "complated": "" }
-    , "408": { "icon": "icon-pointer", "name": "定位设置", "url": "views/setup/location.html", "complated": "setuplocation" }
-    , "409": { "icon": "icon-settings", "name": "轨迹设置", "url": "views/setup/locus.html", "complated": "" }
-    , "410": { "icon": "icon-users", "name": "分组管理", "url": "views/manager/group-list.html", "complated": "App.plugins.manager.groupmanager" }
-    , "415": { "icon": "icon-users", "name": "角色管理", "complated": "App.plugins.manager.rolemanager" }
-    , "414": { "icon": "icon-user", "name": "操作员管理", "complated": "App.plugins.manager.operatormanager" }
-    , "417": { "icon": "icon-user", "name": "操作员设置", "url": "views/setup/operator.html", "complated": "App.plugins.setup.operator.init" }
-    , "411": { "icon": "fa fa-automobile", "name": "车辆管理", "complated": "App.plugins.manager.carmanager" }
-    , "412": { "icon": "icon-user", "name": "人员管理", "url": "#", "complated": "" }
-    , "413": { "icon": "icon-user", "name": "驾驶员管理", "url": "#", "complated": "" }
-    // , "416": { "icon": "fa fa-automobile", "name": "车辆信息设置", "url": "views/setup/vehicleinfo.html", "complated": "App.plugins.setup.setvehicleinfo.init" }
+    , "401": { "theme": "#F2B588", "icon": "icon-pointer", "name": "定位设置", "url": "views/setup/location.html", "complated": "setuplocation" }
+    , "402": { "theme": "#F7DB53", "icon": "fa fa-bell", "name": "电子围栏", "url": "#", "complated": "" }
+    , "403": { "theme": "#7FC822", "icon": "fa fa-bell", "name": "偏航告警", "url": "#", "complated": "" }
+    , "404": { "theme": "#3D43A9", "icon": "fa fa-bell", "name": "超速告警", "url": "#", "complated": "" }
+    , "405": { "theme": "#018FE9", "icon": "fa fa-bar-chart-o", "name": "兴趣图形", "url": "views/setup/graphical.html", "complated": "" }
+    , "406": { "theme": "#F2B588", "icon": "fa fa-bell", "name": "离线告警", "url": "#", "complated": "" }
+    , "407": { "theme": "#018FE9", "icon": "icon-users", "name": "分组管理", "url": "views/manager/group-list.html", "complated": "App.plugins.manager.groupmanager" }
+    , "408": { "theme": "#DD123D", "icon": "icon-users", "name": "角色管理", "complated": "App.plugins.manager.rolemanager" }
+    , "409": { "theme": "#DD123D", "icon": "icon-user", "name": "操作员管理", "complated": "App.plugins.manager.operatormanager" }
+    , "417": { "theme": "#ECA877", "icon": "icon-user", "name": "操作员设置", "url": "views/setup/operator.html", "complated": "App.plugins.setup.operator.init" }
+    , "411": { "theme": "#F1AC08", "icon": "fa fa-automobile", "name": "车辆管理", "complated": "App.plugins.manager.carmanager" }
+    , "412": { "theme": "#3A3FB2", "icon": "icon-user", "name": "人员管理", "url": "#", "complated": "" }
+    , "413": { "theme": "#7FC822", "icon": "icon-user", "name": "驾驶员管理", "url": "#", "complated": "" }
     , "800": { "parent": "000", "icon": "fa fa-cab", "name": "调度中心" }
-    , "801": { "icon": "fa fa-cab", "name": "用车申请", "url": "views/dispatch/01.request.html", "complated": "App.plugins.dispatch.request.init" }
-    , "802": { "icon": "fa fa-cab", "name": "用车审批", "url": "views/dispatch/02.approval.html", "complated": "App.plugins.dispatch.approval.init" }
-    , "803": { "icon": "fa fa-cab", "name": "车辆调度", "url": "views/dispatch/03.dispatch.html", "complated": "App.plugins.dispatch.dispatch.init" }
-    , "804": { "icon": "fa fa-cab", "name": "派车单管理", "url": "views/dispatch/04.order.html", "complated": "App.plugins.dispatch.order.init" }
-    , "805": { "icon": "fa fa-cab", "name": "车辆归队", "url": "views/dispatch/05.rejoin.html", "complated": "App.plugins.dispatch.rejoin.init" }
+    , "801": { "theme": '#F19B13', "icon": "fa fa-cab", "name": "用车申请", "url": "views/dispatch/01.request.html", "complated": "App.plugins.dispatch.request.init" }
+    , "802": { "theme": '#ee9B79', "icon": "fa fa-cab", "name": "用车审批", "url": "views/dispatch/02.approval.html", "complated": "App.plugins.dispatch.approval.init" }
+    , "803": { "theme": '#ab0569', "icon": "fa fa-cab", "name": "车辆调度", "url": "views/dispatch/03.dispatch.html", "complated": "App.plugins.dispatch.dispatch.init" }
+    , "804": { "theme": '#D50569', "icon": "fa fa-cab", "name": "派车单管理", "url": "views/dispatch/04.order.html", "complated": "App.plugins.dispatch.order.init" }
+    , "805": { "theme": '#703F93', "icon": "fa fa-cab", "name": "车辆归队", "url": "views/dispatch/05.rejoin.html", "complated": "App.plugins.dispatch.rejoin.init" }
   }
 };
 var server = "http://cwt.jsadc.com/CWTCSServer/";
@@ -168,8 +168,11 @@ var bus_cfgs = {
     /*轨迹查询*/
     , "trackStatapi": server + "trackStat"
     /*停车查询*/
-    , "parkStatapi": server + "parkStat"
+    , "parkStatapi": server + "parkStat",
+    /** 告警查询 */
+    "reportStatapi": server + "reportStat",
   }
+
   /*设置中心-车辆管理模块*/
   , "carmanager": {
     /*API：车辆分页列表*/
@@ -236,6 +239,18 @@ bus_cfgs.dict = {
   , "DDSF": { "": "全部", "1": "申请人", "2": "审核员", "3": "调度员" }
   //驾驶员状态
   , "JSTZT": { "0": "正常在岗", "1": "离岗", "2": "其他" }
+  /** 指令类型 */
+  , "ZLLX": {
+    "": "全部", "GC.TC.CALL": "点名动作",
+    "GC.TST.MILE": "里程设置动作",
+    "GC.TST.CALL_NO_LIST": "呼入呼出下发",
+    "GC.TC.DOOR": "开关门动作",
+    "GC.TC.OIL": "油路开关动作",
+    "GC.EC.TAKE_PHOTO": "拍照动作",
+    "GC.RTST.REGION_ENTER": "进区域告警下发",
+    "GC.RTST.REGION_OUT": "出区域告警下发",
+    "GC.RTST.SPEED": "速度告警下发",
+  }
 };
 /*异常字典定义*/
 bus_cfgs.dict.errorCode = {

@@ -76,19 +76,6 @@ Page Header
   background: #e4e4e4;
 }
 
-.page-header.navbar .top-menu .navbar-nav > li.dropdown-inbox > .dropdown-toggle > .circle {
-  background-color: #31c7b2;
-  color: #ffffff;
-}
-
-.page-header.navbar .top-menu .navbar-nav > li.dropdown-inbox > .dropdown-toggle > .corner {
-  border-color: transparent transparent transparent #31c7b2;
-}
-
-.page-header.navbar .top-menu .navbar-nav > li.dropdown-inbox .dropdown-menu .dropdown-menu-list .subject .from {
-  color: #5b9bd1;
-}
-
 .page-header.navbar .top-menu .navbar-nav > li.dropdown-tasks .dropdown-menu .dropdown-menu-list .progress {
   background-color: #dfe2e9;
 }
@@ -107,39 +94,6 @@ Page Header
 
 .page-header.navbar .top-menu .navbar-nav > li.dropdown-language > .dropdown-toggle > .langname {
   color: #d6dae0;
-}
-
-.page-header.navbar .search-form {
-  background: #46505c;
-}
-
-.page-header.navbar .search-form:hover {
-  background: #657384;
-}
-
-.page-header.navbar .search-form .input-group .form-control {
-  color: #c4c9d0;
-}
-
-.page-header.navbar .search-form .input-group .form-control::-moz-placeholder {
-  color: #c1c6ce;
-  opacity: 1;
-}
-
-.page-header.navbar .search-form .input-group .form-control:-ms-input-placeholder {
-  color: #c1c6ce;
-}
-
-.page-header.navbar .search-form .input-group .form-control::-webkit-input-placeholder {
-  color: #c1c6ce;
-}
-
-.page-header.navbar .search-form .input-group .input-group-btn .btn.submit > i {
-  color: #c4c9d0;
-}
-
-.page-header.navbar .search-form.open {
-  background: #657384;
 }
 
 .page-header.navbar .hor-menu .navbar-nav > li.mega-menu-dropdown > .dropdown-menu {

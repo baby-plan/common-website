@@ -1,0 +1,63 @@
+<tools>
+  <button class="btn-approval" />
+  <button class="btn-reject" />
+  <button data-dismiss="modal" class="btn-close" />
+</tools>
+<style>
+  .modal-container {
+    position: absolute;
+    max-height: 90%;
+    overflow-y: auto;
+    top: 66px;
+    right: 10px;
+    width: 280px;
+  }
+
+  .form-group .form-group {
+    margin-left: 0;
+    margin-right: 0;
+  }
+</style>
+
+<div class="tabbable header-tabs">
+  <ul class="nav nav-tabs">
+    <li class="active">
+      <a href="#tab_info" data-toggle="tab">
+        <span class="hidden-inline-mobile">基本信息</span>
+      </a>
+    </li>
+    <li>
+      <a href="#tab_audit_info" data-toggle="tab">
+        <span class="hidden-inline-mobile">审核信息</span>
+      </a>
+    </li>
+    <li>
+      <a href="#tab_audit_record" data-toggle="tab">
+        <span class="hidden-inline-mobile">审核记录</span>
+      </a>
+    </li>
+  </ul>
+  <div class="tab-content">
+
+    <div class="tab-pane fade in active" id="tab_info">
+      <div class="tab-item-body">
+        <form method="post" class="core-form form-horizontal">
+
+        </form>
+      </div>
+    </div>
+
+    <div class="tab-pane fade" id="tab_audit_info">
+      <div class="tab-item-body">
+
+      </div>
+    </div>
+
+    <div class="tab-pane fade" id="tab_audit_record">
+      <div class="tab-item-body">
+
+      </div>
+    </div>
+
+  </div>
+</div>

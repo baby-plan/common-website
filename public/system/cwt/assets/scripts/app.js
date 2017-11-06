@@ -1,4 +1,5 @@
-﻿var App = function () {
+﻿
+var App = function () {
   "use strict";
   // IE mode
   var _isRTL = false;
@@ -7,20 +8,6 @@
   var _isIE10 = false;
 
   var resizeHandlers = [];
-
-  var getResponsiveBreakpoint = function (size) {
-    // bootstrap responsive breakpoints
-    var sizes = {
-      "xs": 480,     // extra small
-      "sm": 768,     // small
-      "md": 992,     // medium
-      "lg": 1200     // large
-    };
-
-    return sizes[size] ? sizes[size] : 0;
-  }
-
-  var resBreakpointMd = getResponsiveBreakpoint('md');
 
   var _getViewPort = function () {
     var e = window, a = "inner";
@@ -47,32 +34,6 @@
       new_link.find("a:first").append('<span class="selected"></span>');
     });
 
-    // handle search box expand/collapse        
-    $('.page-header').on('click', '.search-form', function (e) {
-      $(this).addClass("open");
-      $(this).find('.form-control').focus();
-
-      $('.page-header .search-form .form-control').on('blur', function (e) {
-        $(this).closest('.search-form').removeClass("open");
-        $(this).unbind("blur");
-      });
-    });
-
-    // handle hor menu search form on enter press
-    $('.page-header').on('keypress', '.hor-menu .search-form .form-control', function (e) {
-      if (e.which == 13) {
-        $(this).closest('.search-form').submit();
-        return false;
-      }
-    });
-
-    // handle header search button click
-    $('.page-header').on('mousedown', '.search-form.open .submit', function (e) {
-      e.preventDefault();
-      e.stopPropagation();
-      $(this).closest('.search-form').submit();
-    });
-
     // handle hover dropdown menu for desktop devices only
     $('[data-hover="megamenu-dropdown"]').not('.hover-initialized').each(function () {
       $(this).dropdownHover();
@@ -81,14 +42,6 @@
 
     $(document).on('click', '.mega-menu-dropdown .dropdown-menu', function (e) {
       e.stopPropagation();
-    });
-  };
-
-  // Handles Bootstrap Tabs.
-  var handleTabs = function () {
-    // fix content height on tab click
-    $('body').on('shown.bs.tab', 'a[data-toggle="tab"]', function () {
-      handleSidebarAndContentHeight();
     });
   };
 
@@ -271,7 +224,7 @@
 
     // close last displayed popover
 
-    $(document).on('click.bs.popover.data-api', function (e) {
+    $(document).on('click.bs.popover.data-api', function () {
       if (lastPopedPopover) {
         lastPopedPopover.popover('hide');
       }
@@ -546,13 +499,8 @@
     }
   });
   return AppObject;
-} ();
-/* ========================================================================
- * App.ajax v1.0
- * AJAX请求组件
- * ========================================================================
- * Copyright 2015-2025 WangXin nvlbs,Inc.
- * ======================================================================== */
+}();
+/* App.ajax v1.0 AJAX请求组件*/
 (function (app) {
   //发起AJAX请求.
   var _ajax_request = function (api, options, callback) {
@@ -606,7 +554,7 @@
     /* 处理调试模式 */
     var options = defaults;/*公网部署请求参数*/
     /* 请求成功后的回调函数。 */
-    var onSuccess = function (json, textStatus, jqXHR) {
+    var onSuccess = function (json) {
       if (block) { App.block.close(); } // 关闭
       App.logger.debug(this.url);
       App.logger.debug(App.util.jsonToString(json));
@@ -625,7 +573,7 @@
           App.alert({
             "title": "登录超时!"
             , "text": "错误代码:" + json.c
-            , "callback": function (isok) {
+            , "callback": function () {
               App.gotoLogin();
             }
           });
@@ -782,14 +730,7 @@
     }
   }
 })(App);
-/* ========================================================================
- * App.saveCookie v1.0
- * App.readCookie v1.0
- * App.cookie v1.0
- * COOKIE操作组件
- * ========================================================================
- * Copyright 2015-2025 WangXin nvlbs,Inc.
- * ======================================================================== */
+/* App.saveCookie v1.0 App.readCookie v1.0 App.cookie v1.0 COOKIE操作组件 */
 (function (app) {
 
   var getCookie = function (key) {
@@ -842,12 +783,7 @@
     }
   };
 })(App);
-/* ========================================================================
- * App.logger v1.0
- * 日志记录插件
- * ========================================================================
- * Copyright 2015-2025 WangXin nvlbs,Inc.
- * ======================================================================== */
+/* App.logger v1.0 日志记录插件*/
 (function (app) {
   //输出内容
   //@param level 日志级别：INFO,ERROR,WARN,DEBUG
@@ -916,12 +852,7 @@
     }
   }
 })(App);
-/* ========================================================================
- * App.util v1.0
- * 公共数据类型转换插件
- * ========================================================================
- * Copyright 2015-2025 WangXin nvlbs,Inc.
- * ======================================================================== */
+/** App.util v1.0 公共数据类型转换插件 **/
 (function (app) {
   app.util = {
     //解析URL返回URL中各部件。例如：文件名、地址、域名、请求、端口、协议等
@@ -1084,8 +1015,9 @@
       var date = new Date();
       var year = date.getFullYear();
       var month = date.getMonth() + 1;
-      var day = date.getDate();
-      return "" + year + "-" + (month < 10 ? "0" + month : month) + "-" + (day < 10 ? "0" + day : day) + " 00:00:00";
+      // var day = date.getDate();
+      return "" + year + "-" + (month < 10 ? "0" + month : month) + "-01 00:00:00";
+      //      return "" + year + "-" + (month < 10 ? "0" + month : month) + "-" + (day < 10 ? "0" + day : day) + " 00:00:00";
     }
     , "monthLast": function () {
       var date = new Date();
@@ -1112,13 +1044,7 @@
     }
   }
 })(App);
-/* ========================================================================
- * App.util.wgs84togcj02 v1.0
- * App.util.gcj02towgs84 v1.0
- * 坐标转换插件
- * ========================================================================
- * Copyright 2015-2025 WangXin nvlbs,Inc.
- * ======================================================================== */
+/* App.util.wgs84togcj02 v1.0 App.util.gcj02towgs84 v1.0 坐标转换插件*/
 (function (app) {
   /**
    * 提供了百度坐标（BD09）、国测局坐标（火星坐标，GCJ02）、和WGS84坐标系之间的转换
@@ -1245,12 +1171,7 @@
     return gcj02towgs84(lon, lat);
   }
 })(App);
-/* ========================================================================
- * App.base64 v1.0
- * base64转换插件 
- * ========================================================================
- * Copyright 2015-2025 WangXin nvlbs,Inc.
- * ======================================================================== */
+/* App.base64 v1.0 base64转换插件*/
 (function (app) {
   var base64EncodeChars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/";
   var base64DecodeChars = new Array(
@@ -1458,12 +1379,7 @@
     }
   };
 })(App);
-/* ========================================================================
- * App.theme v1.0
- * 主题插件 
- * ========================================================================
- * Copyright 2015-2025 WangXin nvlbs,Inc.
- * ======================================================================== */
+/* App.theme v1.0 主题插件 */
 (function (app) {
   // Handle Theme Settings
   var handleTheme = function () {
@@ -1488,13 +1404,7 @@
     }
   };
 })(App);
-/* ========================================================================
- * App.confirm v1.0
- * App.alert v1.0
- * 提示框组件（ALERT ： sweetalert） 
- * ========================================================================
- * Copyright 2015-2025 WangXin nvlbs,Inc.
- * ======================================================================== */
+/* App.confirm v1.0 App.alert v1.0 提示框组件（ALERT ： sweetalert） */
 (function (app) {
   app.confirm = function (text, title, type, callback) {
     var options = {
@@ -1544,12 +1454,7 @@
     }
   };
 })(App);
-/* ========================================================================
- * App.block v1.0
- * 遮罩组件（BLOCKUI） 
- * ========================================================================
- * Copyright 2015-2025 WangXin nvlbs,Inc.
- * ======================================================================== */
+/* App.block v1.0 遮罩组件（BLOCKUI）*/
 (function (app) {
   var blockUI = function (options) {
     options = $.extend(true, { "message": "LOADING..." }, options);
@@ -1612,12 +1517,7 @@
     }
   };
 })(App);
-/* ========================================================================
- * App.dialog v1.0
- * 模式窗口对话框组件
- * ========================================================================
- * Copyright 2015-2025 WangXin nvlbs,Inc.
- * ======================================================================== */
+/* App.dialog v1.0 模式窗口对话框组件*/
 (function (app) {
   // 以模式窗口方式打开功能界面
   var modals = { "modal1": 0, "modal2": 0, "modal3": 0 }; // 当前对话框容器
@@ -1671,15 +1571,14 @@
   /*  对话框组件.
   /*-----------------------------------------------------------------------------------*/
   app.dialog = {
-    /*-----------------------------------------------------------------------------------*/
-    /*  加载内容的对话框.
-    /*@params options   参数设置.
-    /*[可选结构]
-    /*  url       : 包含对话框内容的文件地址;
-    /*  callback  : 操作完成反馈 function().
-    /*  args      : 
-    /*  done      : 加载完成处理函数 function(options);
-    /*-----------------------------------------------------------------------------------*/
+    /** 加载内容的对话框.
+     * @param {JSON} options   参数设置.
+     *[可选结构]
+     *  url       : 包含对话框内容的文件地址;
+     *  callback  : 操作完成反馈 function().
+     *  args      : 
+     *  done      : 加载完成处理函数 function(options);
+     **/
     "load": function (options) {
       var defaults = { "url": "", "callback": "", "done": function (options) { } };
       var options = $.extend(defaults, options);
@@ -1694,11 +1593,10 @@
       $('body').modalmanager('loading');
       // 加载完成回调函数
       var _load_callback = function () {
-        var m;
         if (options.args) {
-          m = modal.modal(options.args);
+          modal.modal(options.args);
         } else {
-          m = modal.modal();
+          modal.modal();
         }
 
         var footer = $(".modal-footer", modal);
@@ -1737,19 +1635,12 @@
 
       modal.load(options.url, '', _load_callback);
     }
-    ,"isload":function(){
-      return  (modals.modal1 != 0);
+    , "isload": function () {
+      return (modals.modal1 != 0);
     }
   };
 })(App);
-/* ========================================================================
- * App.table v1.0
- * App.cell v1.0
- * App.row v1.0
- * 表格处理插件
- * ========================================================================
- * Copyright 2015-2025 WangXin nvlbs,Inc.
- * ======================================================================== */
+/* App.table v1.0 App.cell v1.0 App.row v1.0 表格处理插件 */
 (function (app) {
   //分页相关设置:从configs/cfgs.js中读取
   var cfgs_page = bus_cfgs.options.page;
@@ -1989,12 +1880,7 @@
     , "exportCSV": function (target) { this.export("csv", target); }
   };
 })(App);
-/* ========================================================================
- * App.form v1.0
- * 表单处理插件
- * ========================================================================
- * Copyright 2015-2025 WangXin nvlbs,Inc.
- * ======================================================================== */
+/* App.form v1.0 表单处理插件*/
 (function (app) {
   var readStyle = function (keyword) {
     if (bus_cfgs.options.styles[keyword]) {
@@ -2053,7 +1939,7 @@
       $("select", parent).select2(bus_cfgs.options.select2);
       $(":checkbox,:radio", parent).uniform();
       // 初始化日期时间控件
-      $(".form_date,.form_datetime", parent).each(function (index, item) {
+      $(".form_date,.form_datetime", parent).each(function () {
         var wrapper = $("<div></div>").addClass("input-group date");
         var span = $("<span></span>").addClass("input-group-btn");
         var button = $("<a></a>").addClass("btn btn-default date-set");
@@ -2096,15 +1982,9 @@
     }
   };
 })(App);
-/* ========================================================================
- * App.notify v1.0
- * 应用程序通知插件
- * ========================================================================
- * Copyright 2015-2025 WangXin nvlbs,Inc.
- * ======================================================================== */
+/* App.notify v1.0 应用程序通知插件*/
 (function (app) {
   var notifies = []; // 通知列表
-  var inboxes = []; // 消息列表
   //添加消息
   var _addnotify = function (options) {
     var defaults = {
@@ -2149,26 +2029,10 @@
     });
   }
 
-  //刷新消息内容
-  //=======================================================================
-  var randerInbox = function () {
-    var container = $(".dropdown-inbox");
-    var msgcontainer = $(".dropdown-menu-list", container);
-    msgcontainer.empty();
-    $("a span", container).remove();
-    if (inboxes.length > 0) {
-      $(".dropdown-menu .external h3", container).html("有 " + inboxes.length + " 条 未读消息");
-      $("<span/>").addClass("badge badge-default").text(inboxes.length).appendTo($("a", container));
-    } else {
-      $(".dropdown-menu .external h3", container).html("没有未读的消息！");
-    }
-  }
-
   //刷新通知及消息内容
   //=======================================================================
   var randerAll = function () {
     randerNotification();
-    randerInbox();
   }
 
   app.notify = {
@@ -2179,9 +2043,6 @@
       //style="height: 275px;" data-handle-color="#637283"
       $(".dropdown-notification .dropdown-menu-list").css("height", "250px")
       App.initSlimScroll(".dropdown-notification .dropdown-menu-list");
-
-      $(".dropdown-inbox .dropdown-menu-list").css("height", "275px")
-      App.initSlimScroll(".dropdown-inbox .dropdown-menu-list");
 
       // _addnotify( { "icon": "fa fa-plus", "text": "你有新的消息，请注意查收", "date": "刚刚", "type": "label-success" } );
 
@@ -2199,20 +2060,9 @@
     }
   };
 })(App);
-/* ========================================================================
- * App.services v1.0
- * APP组件
- * ========================================================================
- * Copyright 2015-2025 WangXin nvlbs,Inc.
- * 
- * ======================================================================== */
+/* App.services v1.0 APP组件*/
 (function (app) { app.services = {}; })(App);
-/* ========================================================================
- * App.plugins v1.0
- * APP插件
- * ========================================================================
- * Copyright 2015-2025 WangXin nvlbs,Inc.
- * ======================================================================== */
+/* App.plugins v1.0 APP插件 */
 (function (app) {
   app.plugins = {
     "statistics": {}      // 统计插件

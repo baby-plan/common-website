@@ -238,46 +238,6 @@
   padding: 1px 5px;
 }
 
-.page-header.navbar .top-menu .navbar-nav > li.dropdown-inbox > .dropdown-menu .dropdown-menu-list > li .photo {
-  float: left;
-  margin: 0 6px 6px 0;
-}
-
-.page-header.navbar .top-menu .navbar-nav > li.dropdown-inbox > .dropdown-menu .dropdown-menu-list > li .photo img {
-  height: 40px;
-  width: 40px;
-  -webkit-border-radius: 50% !important;
-  -moz-border-radius: 50% !important;
-  -ms-border-radius: 50% !important;
-  -o-border-radius: 50% !important;
-  border-radius: 50% !important;
-}
-
-.page-header.navbar .top-menu .navbar-nav > li.dropdown-inbox > .dropdown-menu .dropdown-menu-list > li .subject {
-  display: block;
-  margin-left: 46px;
-}
-
-.page-header.navbar .top-menu .navbar-nav > li.dropdown-inbox > .dropdown-menu .dropdown-menu-list > li .subject .from {
-  font-size: 13px;
-  font-weight: 600;
-}
-
-.page-header.navbar .top-menu .navbar-nav > li.dropdown-inbox > .dropdown-menu .dropdown-menu-list > li .subject .time {
-  font-size: 12px;
-  font-weight: 400;
-  opacity: 0.5;
-  filter: alpha(opacity=50);
-  float: right;
-}
-
-.page-header.navbar .top-menu .navbar-nav > li.dropdown-inbox > .dropdown-menu .dropdown-menu-list > li .message {
-  display: block !important;
-  font-size: 12px;
-  line-height: 1.3;
-  margin-left: 46px;
-}
-
 .page-header.navbar .top-menu .navbar-nav > li.dropdown-tasks .dropdown-menu .dropdown-menu-list > li .task {
   margin-bottom: 5px;
 }
@@ -399,9 +359,9 @@
   position: static;
 }
 
-.page-header.navbar .hor-menu .navbar-nav > li.mega-menu-dropdown > .dropdown-menu {
+.mega-menu-dropdown > .dropdown-menu {
   left: auto;
-  width: auto;
+  right: auto;
 }
 
 .page-header.navbar .hor-menu .navbar-nav > li.mega-menu-dropdown > .dropdown-menu .mega-menu-content {
@@ -459,9 +419,14 @@
   margin-left: 5px;
 }
 
-.page-header.navbar .hor-menu .navbar-nav > li.mega-menu-dropdown.mega-menu-full .dropdown-menu {
+.mega-menu-dropdown .dropdown-menu {
+  width: 582px;
+}
+
+.mega-menu-full .dropdown-menu {
   left: 20px;
   right: 20px;
+  width: auto;
 }
 
 .page-header.navbar .hor-menu .navbar-nav > li.menu-dropdown .dropdown-menu:after, .page-header.navbar .hor-menu .navbar-nav > li.menu-dropdown .dropdown-menu:before {
@@ -1216,6 +1181,7 @@ Page content
 #treeview {
   color: #000;
   margin: 1px;
+  border-left: solid 1px #ccc;
 }
 
 .BMapLabel {

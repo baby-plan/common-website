@@ -241,6 +241,56 @@
   };
 })(App);
 /* ========================================================================
+ * App.plugins.statistics.offline v1.0
+ * 统计中心-离线统计插件
+ * ========================================================================
+ * Copyright 2015-2025 WangXin nvlbs,Inc.
+ * ======================================================================== */
+(function (app) {
+  var TABLE_COLUMNS = ["序号", "分组名称","目标名称", "SIM卡号", "离线天数"];
+  //条件查询根据ID找到对应的数据
+  app.plugins.statistics.offline = function (parent) {
+    $(".modal-title").html("离线统计");
+    App.services.car.fill($("#treeview"));
+    app.table.render($("#table"), TABLE_COLUMNS);
+    //导出按钮
+    App.plugins.statistics.registExport();
+    //重置按钮
+    App.plugins.statistics.registReset();
+    //查询按钮
+    $("#doSearch").on("click", function () {
+      var options = App.plugins.statistics.getOptions();
+      if (!options) {
+        return;
+      } else {
+        options.times = 1800;
+      }
+      app.table.load({
+        "api": bus_cfgs.reportStatistics.parkStatapi
+        , "args": options
+        , "target": $("#table")
+        , "parsefn": function (tr, index, totalindex, item) {
+          App.row.addText(tr, totalindex)// 序号
+          App.row.addBase64Text(tr, item.targetName);// 车辆名称
+          App.row.addText(tr, item.sim)// SIM卡号
+          App.row.addText(tr, item.startTime)// 开始停留时间
+
+          if (item.endTime) {
+            App.row.addText(tr, item.endTime);// 结束停留时间
+          } else {
+            App.row.addText(tr, item.endtime);// 结束停留时间
+          }
+          App.row.addText(tr, item.parkTime);// 停留
+          App.row.addText(tr, "");// 位置描述
+          App.row.addText(tr, item.lon);// 经度
+          App.row.addText(tr, item.lat);// 纬度
+        }
+      });
+    });//$("#doSearch").on("click", function () {
+    $("#doReset").click();
+  };
+})(App);
+/* ========================================================================
  * App.plugins.statistics.terminalquery v1.0
  * 统计中心-终端查询插件
  * ========================================================================
