@@ -58,7 +58,7 @@
         if (item.iconImage) {
           css.backgroundImage = "url('assets/media/apps/" + item.iconImage + "')";
           css.backgroundRepeat = "no-repeat";
-          css.backgroundPosition = "center center";
+          css.backgroundPosition = "center 0px";
         } else if (item.icon) {
           tile_body.append($("<i/>").addClass(item.icon));
         } else {
@@ -66,15 +66,15 @@
         }
 
 
-        if (item.url == "#") {
-          css.backgroundColor = '#ccc'
-        } else {
+        // if (item.url == "#") {
+        //   css.backgroundColor = '#ccc'
+        // } else {
           if (item.theme) {
             css.backgroundColor = item.theme;
           } else {
             css.backgroundColor = '#3598dc';
           }
-        }
+        // }
         tile.css(css);
 
         tile_object.append($("<div/>").addClass("name").append(item.name));

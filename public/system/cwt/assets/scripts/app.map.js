@@ -66,20 +66,20 @@
       "data": point
       , "open": function (poi, poi_data, form) {
         var contentHtml = "<div style='width:370px;background-color:#fff;font-size:12px;'>";
-        contentHtml += "<div style='margin-top:5px;color:skyblue;width:60px;float:left;'>GPS时间:</div>";
-        contentHtml += "<div style='margin-top:5px;color:#333;width:180px;float:left;'>" + poi_data.time + "</div>";
-        contentHtml += "<div style='margin-top:5px;color:skyblue;width:40px;float:left;'>速度:</div>";
-        contentHtml += "<div style='margin-top:5px;color:#333;width:90px;float:left;'>" + poi_data.speed + "</div>";
-        contentHtml += "<div style='margin-top:5px;color:skyblue;width:60px;float:left;'>车辆状态:</div>";
-        contentHtml += "<div style='margin-top:5px;color:#333;width:180px;float:left;'>" + poi_data.carStatus + "</div>";
-        contentHtml += "<div style='margin-top:5px;color:skyblue;width:40px;float:left;'>经度:</div>";
-        contentHtml += "<div style='margin-top:5px;color:#333;width:90px;float:left;'>" + poi_data.lon.toFixed(2) + "</div>";
-        contentHtml += "<div style='margin-top:5px;color:skyblue;width:60px;float:left;'>报警信息:</div>";
+        contentHtml += "<div style='height:20px;margin-top:5px;color:skyblue;width:60px;float:left;'>GPS时间:</div>";
+        contentHtml += "<div style='height:20px;margin-top:5px;color:#333;width:180px;float:left;'>" + poi_data.time + "</div>";
+        contentHtml += "<div style='height:20px;margin-top:5px;color:skyblue;width:40px;float:left;'>速度:</div>";
+        contentHtml += "<div style='height:20px;margin-top:5px;color:#333;width:90px;float:left;'>" + poi_data.speed + "</div>";
+        contentHtml += "<div style='height:20px;margin-top:5px;color:skyblue;width:60px;float:left;'>车辆状态:</div>";
+        contentHtml += "<div style='height:20px;margin-top:5px;color:#333;width:180px;float:left;'>" + poi_data.carStatus + "</div>";
+        contentHtml += "<div style='height:20px;margin-top:5px;color:skyblue;width:40px;float:left;'>经度:</div>";
+        contentHtml += "<div style='height:20px;margin-top:5px;color:#333;width:90px;float:left;'>" + poi_data.lon.toFixed(2) + "</div>";
+        contentHtml += "<div style='height:20px;margin-top:5px;color:skyblue;width:60px;float:left;'>报警信息:</div>";
 
-        contentHtml += "<div style='margin-top:5px;color:#333;width:180px;float:left;'>" + poi_data.alarmStatus + "</div>";
-        contentHtml += "<div style='margin-top:5px;color:skyblue;width:40px;float:left;'>纬度:</div>";
-        contentHtml += "<div style='margin-top:5px;color:#333;width:90px;float:left;'>" + poi_data.lat.toFixed(2) + "</div>";
-        contentHtml += "<div style='margin-top:5px;color:skyblue;width:60px;float:left;'>地址:</div>";
+        contentHtml += "<div style='height:20px;margin-top:5px;color:#333;width:180px;float:left;'>" + poi_data.alarmStatus + "</div>";
+        contentHtml += "<div style='height:20px;margin-top:5px;color:skyblue;width:40px;float:left;'>纬度:</div>";
+        contentHtml += "<div style='height:20px;margin-top:5px;color:#333;width:90px;float:left;'>" + poi_data.lat.toFixed(2) + "</div>";
+        contentHtml += "<div style='height:20px;margin-top:5px;color:skyblue;width:60px;float:left;'>地址:</div>";
         var addr = $("#" + poi_data.sim + " .media-heading-sub").html();
         contentHtml += "<div id='div_addr_" + poi_data.sim + "' style='height:40px;margin-top:5px;color:#333;width:290px;float:left;'>" + addr + "</div>";
         contentHtml += "</div>";
@@ -95,10 +95,10 @@
     //车牌
     var caption = new cwt.Caption(point.text);
     // 当报警信息不为空时,设置当前车辆状态为报警.
-    if( point.alarmStatus != "无"){
+    if (point.alarmStatus != "无") {
       point.state = "alarm";
     }
-    caption.setOptions({"color":point.color,"dir":angel.dir,"state":point.state});
+    caption.setOptions({ "color": point.color, "dir": angel.dir, "state": point.state });
     var popup = buildCarPopup(point);
     var lonlat = new cwt.LonLat(parseFloat(point.lon), parseFloat(point.lat));
     return new cwt.POI(point.sim, lonlat, icon, caption, popup);
@@ -119,6 +119,27 @@
     }
   }
 
+
+  var initMap = function (map) {
+
+
+    var stCtrl = new BMap.PanoramaControl(); //构造全景控件
+    stCtrl.setOffset(new BMap.Size(20, 20));
+    map.addControl(stCtrl);//添加全景控件
+
+    // var mapType1 = new BMap.MapTypeControl({ mapTypes: [BMAP_NORMAL_MAP, BMAP_HYBRID_MAP] });
+    var mapType2 = new BMap.MapTypeControl({ anchor: BMAP_ANCHOR_TOP_LEFT,mapTypes: [BMAP_NORMAL_MAP, BMAP_HYBRID_MAP]  });
+
+    var overView = new BMap.OverviewMapControl();
+    var overViewOpen = new BMap.OverviewMapControl({ isOpen: true, anchor: BMAP_ANCHOR_BOTTOM_RIGHT });
+
+    // map.addControl(mapType1);          //2D图，卫星图
+    map.addControl(mapType2);          //左上角，默认地图控件
+    map.setCurrentCity("北京");        //由于有3D图，需要设置城市哦
+    map.addControl(overView);          //添加默认缩略地图控件
+    map.addControl(overViewOpen);      //右下角，打开
+
+  }
   app.map = {
     "init": function (target) {
       map = new cwt.BaiduMap(document.getElementById(target), {
@@ -128,6 +149,7 @@
         plugins: ["draw", "tool", "cluster"]
       });
       map.enableWheelZoom(); //允许鼠标滚轮缩放
+      initMap(map.map);
       App.services.car.init();
     }
     , "feedback": function (key, options) {
@@ -174,21 +196,21 @@
           textColor: '#ffffff',
           textSize: 10
         }, {
-            url: 'assets/img/clusterer/m1.png',
-            size: new BMap.Size(56, 55),
-            textColor: '#ffffff',
-            textSize: 12
-          }, {
-            url: 'assets/img/clusterer/m2.png',
-            size: new BMap.Size(66, 65),
-            textColor: '#ffffff',
-            textSize: 14
-          }, {
-            url: 'assets/img/clusterer/m3.png',
-            size: new BMap.Size(78, 77),
-            textColor: '#ffffff',
-            textSize: 16
-          }]
+          url: 'assets/img/clusterer/m1.png',
+          size: new BMap.Size(56, 55),
+          textColor: '#ffffff',
+          textSize: 12
+        }, {
+          url: 'assets/img/clusterer/m2.png',
+          size: new BMap.Size(66, 65),
+          textColor: '#ffffff',
+          textSize: 14
+        }, {
+          url: 'assets/img/clusterer/m3.png',
+          size: new BMap.Size(78, 77),
+          textColor: '#ffffff',
+          textSize: 16
+        }]
       };
       map.createMarkerClusterer(cluslist, options);
       clusterFlag = true;
@@ -207,8 +229,8 @@
       map.centerAndZoom({ "lon": lon, "lat": lat });
     }
     // 路书
-    , "drawLineGPS": function (points, callback, width, color, styleType) {
-      map.customLushu(points/*, callback, width, color, styleType*/);
+    , "drawLineGPS": function (points) {
+      map.customLushu(points);
     }
   };
 })(App);

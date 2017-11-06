@@ -5761,8 +5761,8 @@ clear: both;
 display: block;
 letter-spacing: 0.02em;
 float: left;
-height: 100px;
-width: 100px !important;
+height: 75px;
+width: 75px !important;
 cursor: pointer;
 text-decoration: none;
 color: #ffffff;
@@ -5774,6 +5774,7 @@ line-height: 20px;
 overflow: hidden;
 border: 4px solid transparent;
 margin: 0 10px 10px 0;
+border-radius: 5px !important;
 }
 
 .tiles .tile:after, .tiles .tile:before {
@@ -5946,14 +5947,16 @@ clear: both;
 }
 
 .tiles .tile .tile-object > .name {
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    margin-left: 5px;
-    margin-right: 5px;
-    font-weight: 400;
-    font-size: 13px;
-    color: #ffffff;
+  width: 100%;
+  text-align: center;
+  position: absolute;
+  bottom: -3px;
+  /* left: 0; */
+  /* margin-left: 5px; */
+  margin-right: 5px;
+  font-weight: 400;
+  font-size: 13px;
+  color: #ffffff;
 }
 
 .tiles .tile .tile-object > .name > i {

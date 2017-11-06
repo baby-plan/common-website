@@ -19,38 +19,37 @@
     // , "100": { "parent": "000", "icon": "icon-speedometer", "name": "监控中心" }
     // , "102": { "theme": "bg-green", "name": "多窗口监控", "url": "#", "complated": "" }
     , "300": { "parent": "000", "icon": "icon-bar-chart", "name": "统计中心" }
-    , "301": { "theme": "#ECA877", "icon": "icon-bar-chart", "name": "定位统计", "url": "views/common-statistic.html", "complated": "App.plugins.statistics.location" }
-    , "302": { "theme": "#F1AC08", "icon": "fa fa-bar-chart-o", "name": "里程统计", "url": "views/common-statistic.html", "complated": "App.plugins.statistics.mileage" }
-    , "303": { "theme": "#8455DB", "icon": "fa fa-pie-chart", "name": "油耗统计", "url": "views/common-statistic.html", "complated": "App.plugins.statistics.fuelquery" }
-    , "304": { "theme": "#7FC822", "icon": "fa fa-area-chart", "name": "告警统计", "url": "views/statistics/report-statistic.html", "complated": "App.plugins.statistics.alarm" }
-    , "305": { "theme": "#ECA877", "icon": "fa fa-line-chart", "name": "离线统计", "url": "views/common-statistic.html", "complated": "App.plugins.statistics.offline" }
-    , "306": { "theme": "#38B2F1", "icon": "fa fa-bar-chart-o", "name": "告警查询", "url": "views/statistics/report-statistic.html", "complated": "App.plugins.searchs.alarm" }
-    , "307": { "theme": "#7FC822", "icon": "fa fa-bar-chart-o", "name": "停车查询", "url": "views/common-statistic.html", "complated": "App.plugins.statistics.park" }
-    , "308": { "theme": "#F2B588", "icon": "fa fa-bar-chart-o", "name": "终端查询", "url": "views/statistics/terminal-search.html", "complated": "App.plugins.statistics.terminalquery" }
-    , "309": { "theme": "#DD64B1", "icon": "fa fa-bar-chart-o", "name": "轨迹查询", "url": "views/common-statistic.html", "complated": "App.plugins.statistics.trajectoryquery" }
-    , "310": { "theme": "#139B79", "iconImage":"指令查询.png", "name": "指令查询", "url": "views/searchs/command-search.html", "complated": "App.plugins.searchs.command" }
-    , "311": { "theme": "#3A3FB2", "name": "日志查询", "url": "views/statistics/log-search.html", "complated": "App.plugins.statistics.logquery", "icon": "fa fa-bar-chart-o" }
+    , "301": { "theme": "#ECA877", "iconImage": "定位统计.png", "name": "定位统计", "url": "views/common-statistic.html", "complated": "App.plugins.statistics.location" }
+    , "302": { "theme": "#F1AC08", "iconImage": "里程统计.png", "name": "里程统计", "url": "views/common-statistic.html", "complated": "App.plugins.statistics.mileage" }
+    , "303": { "theme": "#8455DB", "iconImage": "油耗统计.png", "name": "油耗统计", "url": "views/common-statistic.html", "complated": "App.plugins.statistics.fuelquery" }
+    , "304": { "theme": "#7FC822", "iconImage": "告警统计.png", "name": "告警统计", "url": "views/statistics/report-statistic.html", "complated": "App.plugins.statistics.alarm" }
+    , "305": { "theme": "#ECA877", "iconImage": "离线统计.png", "name": "离线统计", "url": "views/common-statistic.html", "complated": "App.plugins.statistics.offline" }
+    , "306": { "theme": "#38B2F1", "iconImage": "告警查询.png", "name": "告警查询", "url": "views/statistics/report-statistic.html", "complated": "App.plugins.searchs.alarm" }
+    , "307": { "theme": "#7FC822", "iconImage": "停车统计.png", "name": "停车查询", "url": "views/common-statistic.html", "complated": "App.plugins.statistics.park" }
+    , "308": { "theme": "#F2B588", "iconImage": "终端查询.png", "name": "终端查询", "url": "views/statistics/terminal-search.html", "complated": "App.plugins.statistics.terminalquery" }
+    , "309": { "theme": "#DD64B1", "iconImage": "轨迹查询.png", "name": "轨迹查询", "url": "views/common-statistic.html", "complated": "App.plugins.statistics.trajectoryquery" }
+    , "310": { "theme": "#139B79", "iconImage": "指令查询.png", "name": "指令查询", "url": "views/searchs/command-search.html", "complated": "App.plugins.searchs.command" }
+    , "311": { "theme": "#3A3FB2", "iconImage": "日志查询.png", "name": "日志查询", "url": "views/statistics/log-search.html", "complated": "App.plugins.statistics.logquery", "icon": "fa fa-bar-chart-o" }
 
     , "400": { "parent": "000", "icon": "icon-settings", "name": "设置中心" }
-    , "401": { "theme": "#F2B588", "icon": "icon-pointer", "name": "定位设置", "url": "views/setup/location.html", "complated": "setuplocation" }
-    , "402": { "theme": "#F7DB53", "icon": "fa fa-bell", "name": "电子围栏", "url": "#", "complated": "" }
-    , "403": { "theme": "#7FC822", "icon": "fa fa-bell", "name": "偏航告警", "url": "#", "complated": "" }
-    , "404": { "theme": "#3D43A9", "icon": "fa fa-bell", "name": "超速告警", "url": "#", "complated": "" }
-    , "405": { "theme": "#018FE9", "icon": "fa fa-bar-chart-o", "name": "兴趣图形", "url": "views/setup/graphical.html", "complated": "" }
-    , "406": { "theme": "#F2B588", "icon": "fa fa-bell", "name": "离线告警", "url": "#", "complated": "" }
-    , "407": { "theme": "#018FE9", "icon": "icon-users", "name": "分组管理", "url": "views/manager/group-list.html", "complated": "App.plugins.manager.groupmanager" }
-    , "408": { "theme": "#DD123D", "icon": "icon-users", "name": "角色管理", "complated": "App.plugins.manager.rolemanager" }
-    , "409": { "theme": "#DD123D", "icon": "icon-user", "name": "操作员管理", "complated": "App.plugins.manager.operatormanager" }
-    , "417": { "theme": "#ECA877", "icon": "icon-user", "name": "操作员设置", "url": "views/setup/operator.html", "complated": "App.plugins.setup.operator.init" }
-    , "411": { "theme": "#F1AC08", "icon": "fa fa-automobile", "name": "车辆管理", "complated": "App.plugins.manager.carmanager" }
-    , "412": { "theme": "#3A3FB2", "icon": "icon-user", "name": "人员管理", "url": "#", "complated": "" }
-    , "413": { "theme": "#7FC822", "icon": "icon-user", "name": "驾驶员管理", "url": "#", "complated": "" }
+    , "401": { "theme": "#F2B588", "iconImage": "定位设置.png", "name": "定位设置", "url": "views/setup/location.html", "complated": "setuplocation" }
+    , "402": { "theme": "#F7DB53", "iconImage": "电子围栏.png", "name": "电子围栏", "url": "#", "complated": "" }
+    , "403": { "theme": "#7FC822", "iconImage": "偏航告警.png", "name": "偏航告警", "url": "#", "complated": "" }
+    , "404": { "theme": "#3D43A9", "iconImage": "超速告警.png", "name": "超速告警", "url": "#", "complated": "" }
+    , "405": { "theme": "#018FE9", "iconImage": "兴趣图形.png", "name": "兴趣图形", "url": "views/setup/graphical.html", "complated": "" }
+    , "406": { "theme": "#F2B588", "iconImage": "告警设置.png", "name": "离线告警", "url": "#", "complated": "" }
+    , "407": { "theme": "#018FE9", "iconImage": "分组管理.png", "name": "分组管理", "url": "views/manager/group-list.html", "complated": "App.plugins.manager.groupmanager" }
+    , "408": { "theme": "#DD123D", "iconImage": "角色管理.png", "name": "角色管理", "complated": "App.plugins.manager.rolemanager" }
+    , "409": { "theme": "#DD123D", "iconImage": "操作员管理.png", "name": "操作员管理", "complated": "App.plugins.manager.operatormanager" }
+    , "411": { "theme": "#F1AC08", "iconImage": "车辆管理.png", "name": "车辆管理", "complated": "App.plugins.manager.carmanager" }
+    , "412": { "theme": "#3A3FB2", "iconImage": "人员管理.png", "name": "人员管理", "url": "#", "complated": "" }
+    , "413": { "theme": "#7FC822", "iconImage": "驾驶员管理.png", "name": "驾驶员管理", "url": "#", "complated": "" }
     , "800": { "parent": "000", "icon": "fa fa-cab", "name": "调度中心" }
-    , "801": { "theme": '#F19B13', "icon": "fa fa-cab", "name": "用车申请", "url": "views/dispatch/01.request.html", "complated": "App.plugins.dispatch.request.init" }
-    , "802": { "theme": '#ee9B79', "icon": "fa fa-cab", "name": "用车审批", "url": "views/dispatch/02.approval.html", "complated": "App.plugins.dispatch.approval.init" }
-    , "803": { "theme": '#ab0569', "icon": "fa fa-cab", "name": "车辆调度", "url": "views/dispatch/03.dispatch.html", "complated": "App.plugins.dispatch.dispatch.init" }
-    , "804": { "theme": '#D50569', "icon": "fa fa-cab", "name": "派车单管理", "url": "views/dispatch/04.order.html", "complated": "App.plugins.dispatch.order.init" }
-    , "805": { "theme": '#703F93', "icon": "fa fa-cab", "name": "车辆归队", "url": "views/dispatch/05.rejoin.html", "complated": "App.plugins.dispatch.rejoin.init" }
+    , "801": { "theme": '#F19B13', "iconImage": "新-用车申请.png", "name": "用车申请", "url": "views/dispatch/01.request.html", "complated": "App.plugins.dispatch.request.init" }
+    , "802": { "theme": '#ee9B79', "iconImage": "新-用车审批.png", "name": "用车审批", "url": "views/dispatch/02.approval.html", "complated": "App.plugins.dispatch.approval.init" }
+    , "803": { "theme": '#ab0569', "iconImage": "新-车辆调度.png", "name": "车辆调度", "url": "views/dispatch/03.dispatch.html", "complated": "App.plugins.dispatch.dispatch.init" }
+    , "804": { "theme": '#D50569', "iconImage": "新-派车单管理.png", "name": "派车单管理", "url": "views/dispatch/04.order.html", "complated": "App.plugins.dispatch.order.init" }
+    , "805": { "theme": '#703F93', "iconImage": "新-车辆归队.png", "name": "车辆归队", "url": "views/dispatch/05.rejoin.html", "complated": "App.plugins.dispatch.rejoin.init" }
   }
 };
 var server = "http://cwt.jsadc.com/CWTCSServer/";

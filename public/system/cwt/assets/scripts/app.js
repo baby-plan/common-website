@@ -267,6 +267,7 @@ var App = function () {
       App.gotoLogin();
     });
   }
+
   // 加载主界面部件:菜单栏,车辆列表等等
   var initView = function () {
     $.each(cfgs.parts, function (index, item) {
@@ -276,6 +277,7 @@ var App = function () {
       load_content({ "parent": item.parent, "url": item.url, "callback": callback });
     });
   }
+  
   // 计算地图区域尺寸
   var handleViewport = function () {
     var height = _getViewPort().height;

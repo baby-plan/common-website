@@ -20,12 +20,18 @@
 .page-header.navbar .page-logo {
   float: left;
   display: block;
-  width: 235px;
+  /* width: 235px; */
   height: 46px;
   padding-left: 20px;
   padding-right: 20px;
 }
-
+.page-logo span{
+      font-size: 18px;
+  color: #fff;
+  margin-top: 15px;
+  float: right;
+  line-height: 18px;
+}
 .page-header.navbar .page-logo > .logo-image, .page-header.navbar .page-logo > a {
   display: inline-block;
   float: left;
@@ -347,7 +353,6 @@
 
 .page-header.navbar .hor-menu .navbar-nav {
   position: static;
-  padding-left: 100px;
 }
 
 .page-header.navbar .hor-menu .navbar-nav.navbar-right .dropdown-menu {
@@ -365,7 +370,7 @@
 }
 
 .page-header.navbar .hor-menu .navbar-nav > li.mega-menu-dropdown > .dropdown-menu .mega-menu-content {
-  padding: 15px;
+  padding: 8px;
   margin: 0;
 }
 
@@ -420,7 +425,7 @@
 }
 
 .mega-menu-dropdown .dropdown-menu {
-  width: 582px;
+  width: 358px;
 }
 
 .mega-menu-full .dropdown-menu {
@@ -1163,7 +1168,7 @@ Page content
 }
 
 .theme-colors > ul > li.color-light {
-  background: #F9FAFD;
+  background: #00A2FF;
 }
 
 .theme-colors > ul > li.color-light2 {
@@ -1216,7 +1221,7 @@ Page content
   border: 10px transparent solid;
   border-top-color: #fff;
   position: absolute;
-  top: 25px;
+  top: 28px;
   left: 10px;
   content: ""
 }
@@ -1227,7 +1232,7 @@ Page content
   border: 6px transparent solid;
   border-top-color: green;
   position: absolute;
-  top: 25px;
+  top: 28px;
   left: 14px;
   content: ""
 }

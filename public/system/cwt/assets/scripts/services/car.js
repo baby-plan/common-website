@@ -280,7 +280,7 @@
         "caption": point.text
         , "id": point.sim
         , "icon": point.iconpath + "360.png"
-        , "actions": ["talk", "info", "route", "location"]
+        , "actions": ["talk", /*"info",*/ "route", "location"]
         //, "notify": {
         //  "type": "badge"
         //  , "state": "success"
