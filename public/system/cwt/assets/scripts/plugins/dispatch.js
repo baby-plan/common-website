@@ -1209,6 +1209,7 @@
         search_click();
       });
       reset_click();
+      search_click();
     }
     , "search": function () {
       search_click();
