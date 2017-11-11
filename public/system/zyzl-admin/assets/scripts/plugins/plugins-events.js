@@ -158,8 +158,8 @@ define(['jquery', 'QDP'], function ($, QDP) {
     $('body').on("click", '.sys-chgpwd', function () {
       QDP.form.openWidow({
         'title': "修改密码",
-        'width': '400px',
-        'height': '360px',
+        'width': '450px',
+        'height': '400px',
         'url': "views/business/change-password.html",
         'onshow': function (parent) {
 
@@ -183,9 +183,9 @@ define(['jquery', 'QDP'], function ($, QDP) {
                     message: '新密码不能为空'
                   },
                   stringLength: {
-                    min: 6,
-                    max: 30,
-                    message: '密码长度必须在6到30之间'
+                    min: 8,
+                    // max: 30,
+                    message: '密码长度不应小于8个字符'
                   },
                   // identical: {//相同
                   //   field: 'newpwd2', //需要进行比较的input name值

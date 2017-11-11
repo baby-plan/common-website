@@ -197,7 +197,8 @@ define(["cfgs", "core/core-modules/framework.event"], function (cfgs, event) {
             "MCH_MANAGEMENT_AUDIT",
             "MCH_MANAGEMENT_PUBLISH",
             "MCH_MANAGEMENT_UNPUBLISH",
-            "MCH_MANAGEMENT_RESETPASSWORD"
+            "MCH_MANAGEMENT_RESETPASSWORD",
+            "MCH_MANAGEMENT_POISEARCH"
           ]
         },
         {
@@ -235,6 +236,10 @@ define(["cfgs", "core/core-modules/framework.event"], function (cfgs, event) {
           "actions": [
             "SETTLE_REPORT_EXPORT"
           ]
+        },
+        {
+          "id": "SETTLE_REPORT_TOTAL",
+          "actions": ["SETTLE_REPORT_TOTAL_EXPORT"]
         },
         {
           "id": "TICKET_SEARCH",

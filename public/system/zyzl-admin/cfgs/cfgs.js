@@ -100,6 +100,7 @@
     'btn-insert': '<i class="fa fa-plus"></i> 新增',
     'btn-edit': '<i class="fa fa-pencil"></i> 编辑',
     'btn-update': '<i class="fa fa-pencil"></i> 编辑',
+    'btn-poisearch':'<i class="fa fa-search"></i> POI查询',
     'btn-search': '<i class="fa fa-search"></i> 查询',
     'btn-reset': '<i class="fa fa-spinner"></i> 重置',
     'btn-remove': '<i class="fa fa-trash-o"></i> 删除',
@@ -211,6 +212,11 @@
       , "折扣券应结算金额 = 折扣券签约价 - 用户实际支付"
       , "免费券应结算金额 = 免费券结算价 - 用户实际支付"
       , "举例说明：A省支撑方承诺的洗车折扣率为5折，门市价为30元，折扣券签约价为20元，免费券结算价为25元。用户使用免费券去洗车无需支付洗车费用，但支撑方需向商户支付免费洗车费用为25元；用户使用折扣券洗车，由用户支付洗车费用为15元，但是支撑方给商户的折扣券补贴费用为20-15=5元。"
+    ],
+    passowrd:[
+      "密码长度不应小于8个字符；",
+      "至少包含以下4种类别中的2种：大写字母、小写字母、数字、特殊符号",
+      "应避免设置与其他业务相同的密码"
     ]
   }
 

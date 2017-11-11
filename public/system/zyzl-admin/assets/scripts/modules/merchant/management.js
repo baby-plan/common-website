@@ -80,9 +80,9 @@ define(["QDP",
   // 执行重置密码操作
   var resetpassword_click = function () {
     QDP.form.openWidow({
-      'title': '修改商户密码',
-      'width': '380px',
-      'height': '150px',
+      'title': '重置商户密码',
+      'width': '450px',
+      'height': '400px',
       'url': 'views/business/reset-password.html',
       // 'onshow': function (parent) {
       //   // parent
@@ -252,9 +252,10 @@ define(["QDP",
          * controller {function} 判断功能权限是否可用 function(data){return boolean;} 返回结果为true时按钮可用，否则为禁用状态
          */
         "powers": [
+          { "name": "poisearch", "class": "btn-poisearch", "action": () => { }, "controller": () => { return true; } },
           { "name": "submit", "class": "btn-submit", "action": submit_click },
           { "name": "audit", "class": "btn-audit", "action": audit_click, "controller": action_status_controller },
-          { "name": "chgpwd", "class": "btn-chgpwd", "action": resetpassword_click },
+          { "name": "resetpassword", "class": "btn-chgpwd", "action": resetpassword_click },
           { "name": "publish", "class": "btn-publish", "action": publish_click, "controller": action_publish_controller },
           { "name": "unpublish", "class": "btn-unpublish", "action": unpublish_click, "controller": action_unpublish_controller },
         ],

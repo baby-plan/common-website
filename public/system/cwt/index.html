@@ -47,7 +47,8 @@
         <ul class="nav navbar-nav pull-right">
           <li class="dropdown dropdown-user">
             <a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
-              <span class="username"> Nick </span> <i class="fa fa-angle-down"></i>
+              <span class="username"> Nick </span>
+              <i class="fa fa-angle-down"></i>
             </a>
             <ul class="dropdown-menu dropdown-menu-default">
               <li>
@@ -121,6 +122,7 @@
   <script src="assets/scripts/plugins/setup/location.js"></script>
   <script src="assets/scripts/plugins/setup/vehicleinfo.js"></script>
   <script src="assets/scripts/plugins/setup/operator.js"></script>
+  <script src="assets/scripts/plugins/setup/electric-fence.js"></script>
   <!--/公务车管理组件-->
   <script src="assets/scripts/plugins/setup/setvehicleinfo.js"></script>
 
@@ -160,13 +162,13 @@
   <script src="assets/scripts/map/cwt.map.baidu.js"></script>
   <!---->
   <script>
-    jQuery( document ).ready( function () {
+    jQuery(document).ready(function () {
       App.onReady();  //初始化应用
       App.services.menu.init();
       //App.notify.init();//初始化通知模块
       App.runResizeHandlers();
-      App.map.init( "Map" );
-    } );
+      App.map.init("Map");
+    });
   </script>
 </body>
 

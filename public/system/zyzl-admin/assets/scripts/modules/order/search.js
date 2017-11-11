@@ -59,6 +59,7 @@ define(["QDP"], function (QDP) {
           { "name": "payamount", "text": "实付金额" },
           { "name": "vipamount", "text": "折扣券会员价" },
           { "name": "aboutamount", "text": "折扣券签约价" },
+          { "name": "aboutamount", "text": "折扣率" },
           { "name": "amount", "text": "店铺门市价" },
           { "name": "freeamount", "text": "免费券结算价" },
           { "name": "realamount", "text": "应结算金额" },

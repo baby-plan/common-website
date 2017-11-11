@@ -33,7 +33,7 @@
 
     , "400": { "parent": "000", "icon": "icon-settings", "name": "设置中心" }
     , "401": { "theme": "#F2B588", "iconImage": "定位设置.png", "name": "定位设置", "url": "views/setup/location.html", "complated": "setuplocation" }
-    , "402": { "theme": "#F7DB53", "iconImage": "电子围栏.png", "name": "电子围栏", "url": "#", "complated": "" }
+    , "402": { "theme": "#F7DB53", "iconImage": "电子围栏.png", "name": "电子围栏", "url": "views/setup/electric-fence.html", "complated": "App.plugins.setup.electricFence" }
     , "403": { "theme": "#7FC822", "iconImage": "偏航告警.png", "name": "偏航告警", "url": "#", "complated": "" }
     , "404": { "theme": "#3D43A9", "iconImage": "超速告警.png", "name": "超速告警", "url": "#", "complated": "" }
     , "405": { "theme": "#018FE9", "iconImage": "兴趣图形.png", "name": "兴趣图形", "url": "views/setup/graphical.html", "complated": "" }

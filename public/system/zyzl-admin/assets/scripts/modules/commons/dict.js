@@ -54,8 +54,8 @@ define(['QDP'], function (QDP) {
           { "name": "level", "text": "级别", "edit": true },
           { "name": "parent_id", "text": "上级编码", "filter": true, "edit": true },
           { "name": "status", "text": "状态", "edit": true, "filter": true },
-          { "name": "lng", "text": "地理经度", "edit": true },
-          { "name": "lat", "text": "地理纬度", "edit": true },
+          // { "name": "lng", "text": "地理经度", "edit": true },
+          // { "name": "lat", "text": "地理纬度", "edit": true },
           { "name": "simplename", "text": "名称首拼", "edit": true }
         ]
       };
@@ -80,11 +80,11 @@ define(['QDP'], function (QDP) {
           { "name": "postcode", "text": "电话区号", "edit": true },
           { "name": "provinceid", "text": "省", "filter": true, "edit": true },
           { "name": "cityid", "text": "市", "filter": true, "edit": true },
-          { "name": "postcode", "text": "邮编", "filter": true },
-          { "name": "codename", "text": "运营商", "edit": true, "edit": true },
-          { "name": "carddescripe", "text": "卡类型描述" },
-          { "name": "province_code", "text": "所属省份编码" },
-          { "name": "city_code", "text": "所属城市编码" },
+          { "name": "postcode", "text": "邮编", "filter": true, "edit": true },
+          { "name": "codename", "text": "运营商", "edit": true },
+          { "name": "carddescripe", "text": "卡类型描述", "edit": true },
+          { "name": "province_code", "text": "所属省份编码", "edit": true },
+          { "name": "city_code", "text": "所属城市编码", "edit": true },
           { "name": "state", "text": "状态", "filter": true }
         ]
       };

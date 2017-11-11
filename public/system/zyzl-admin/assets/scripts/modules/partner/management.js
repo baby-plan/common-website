@@ -86,6 +86,18 @@ define(["QDP"], function (QDP) {
 
   }
 
+  // 执行重置密码操作
+  var resetpassword_click = function () {
+    QDP.form.openWidow({
+      'title': '重置合作方密码',
+      'width': '450px',
+      'height': '400px',
+      'url': 'views/business/reset-password.html',
+      // 'onshow': function (parent) {
+      //   // parent
+      // }
+    });
+  }
   return {
     "define": {
       "name": "合作方基本信息管理",
@@ -103,6 +115,12 @@ define(["QDP"], function (QDP) {
         },
         "texts": { "insert": "新增合作方信息", "update": "合作方信息编辑" },
         "actions": { "insert": true, "update": true, "delete": true },
+        "helps": {
+          "list": QDP.config.tooltip.password
+        },
+        // "powers": [
+        //   { "name": "resetpassword", "class": "btn-chgpwd", "action": resetpassword_click }
+        // ],
         "views": {
           "edit": {
             "page": "views/business/partner-edit.html",

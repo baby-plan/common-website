@@ -42,6 +42,7 @@ require.config({
 
     'module-order-search': 'modules/order/search',
     'module-order-report': 'modules/order/report',
+    'module-order-report-total': 'modules/order/report-total',
 
     //系统公共引用
     'jquery': '/assets/plugins/jquery.min',

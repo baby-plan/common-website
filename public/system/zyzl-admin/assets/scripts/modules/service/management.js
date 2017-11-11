@@ -109,7 +109,8 @@ define(["QDP"], function (QDP) {
             "name": "status", "text": "服务状态", "dict": 'servicestate',
             "filter": true, "filterindex": 5
           },
-          { "name": "publish_status", "text": "发布状态", "dict": "publish_status" },
+          { "name": "publish_status", "text": "审核状态", "dict": "audit_status" },
+          { "name": "creator", "text": "创建人" },
           { "name": "create_time", "text": "创建时间", "type": "datetime" },
           {
             "name": "begin_date", "text": "开始时间", "type": "date",

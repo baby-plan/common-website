@@ -21,6 +21,7 @@ define(["cfgs"], function (cfgs) {
       "module": "module-merchant",
       "actions": [
         { "id": "MCH_MANAGEMENT_INSERT", "name": "新增", "action": "insert" },
+        { "id": "MCH_MANAGEMENT_POISEARCH", "name": "POI查询", "action": "poisearch" },
         { "id": "MCH_MANAGEMENT_UPDATE", "name": "编辑", "action": "update" },
         { "id": "MCH_MANAGEMENT_DELETE", "name": "删除", "action": "delete" },
         { "id": "MCH_MANAGEMENT_EXPORT", "name": "导出", "action": "export" },
@@ -77,7 +78,15 @@ define(["cfgs"], function (cfgs) {
         { "id": "SETTLE_REPORT_EXPORT", "name": "导出", "action": "export" }
       ]
     },
-
+    
+    "SETTLE_REPORT_TOTAL": {
+      "name": "结算报表统计", "icon": "fa fa-line-chart",
+      "module": "module-order-report-total",
+      "actions": [
+        { "id": "SETTLE_REPORT_TOTAL_EXPORT", "name": "导出", "action": "export" }
+      ]
+    },
+    
     "TICKET_SEARCH": {
       "name": "领券情况查询", "icon": "fa fa-pie-chart",
       "module": "module-user-ticket",
