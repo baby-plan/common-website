@@ -12,7 +12,7 @@
       "type": "node",
       "request": "launch",
       "name": "启动 Server",
-      "program": "${workspaceRoot}/bin/www",
+      "program": "${workspaceRoot}/app/www",
       "args": [
         "--color"
       ],
